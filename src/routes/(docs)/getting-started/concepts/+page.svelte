@@ -21,39 +21,49 @@ SDK</pre>
 		You configure an <strong>Experience</strong>. Each launch receives a <strong>Session
 		Manifest</strong>. The <strong>SDK</strong> runs the session.
 	</p>
-	<p>You do not integrate at the token, HTTP route, or player level.</p>
+	<p>You integrate at the Experience level — not at tokens, HTTP routes, or player endpoints.</p>
 
 	<h2>Experience</h2>
 	<p>
-		An Experience is the main product unit — a reusable configuration identified by
-		<code>exp_…</code>. It composes:
+		An Experience is your reusable product configuration, identified by <code>exp_…</code>. It
+		defines who appears, how they behave, and what they can do.
 	</p>
 	<ul>
 		<li><strong>Characters</strong> — who appears (agent + avatar + voice)</li>
-		<li><strong>World</strong> — rules and context</li>
+		<li><strong>World</strong> — rules and context for the session</li>
 		<li><strong>Location</strong> — where the scene takes place</li>
 		<li><strong>State</strong> — structured facts that update during the session</li>
-		<li><strong>Tools</strong> — controlled external capabilities for the character</li>
+		<li><strong>Tools</strong> — controlled capabilities the character can invoke</li>
 	</ul>
-	<p>
-		A language tutor is an experience. A multi-character adventure game is also an experience.
-	</p>
 
 	<h2>Session</h2>
 	<p>
-		A Session is one live runtime instance of an experience — one user launch, one conversation, one
+		A Session is one live runtime instance — one user opening your experience, one conversation, one
 		playthrough. Sessions are short-lived and scoped.
 	</p>
 
 	<h2>Session Manifest</h2>
 	<p>
-		When a session starts, the API returns a <strong>Session Manifest</strong>: a JSON document that
-		tells the SDK everything it needs for this launch — characters, transport, assets, integration
-		rules, and a session token.
+		When a session starts, the API returns a <strong>Session Manifest</strong>: JSON that tells the
+		SDK how to run this launch — characters, transport, assets, integration rules, and a session
+		token.
 	</p>
 	<p>
-		Most developers never inspect the manifest. Advanced users and server-side integrations can.
-		See <a href="/avatar-experiences/session-manifests">Session Manifests</a>.
+		Most developers never inspect the manifest. The SDK consumes it automatically. See
+		<a href="/avatar-experiences/session-manifests">Session Manifests</a>.
+	</p>
+
+	<h2>Character</h2>
+	<p>
+		A Character is an entity inside an experience — the combination of conversational agent, visual
+		avatar, and voice. A simple tutor has one character; richer experiences can have several.
+	</p>
+
+	<h2>Transport</h2>
+	<p>
+		Transport is how the SDK connects to the Liforma runtime. It is declared in the manifest and
+		<strong>hidden from integrators</strong>. You never configure HTTP routes, WebSockets, or
+		LiveKit rooms.
 	</p>
 
 	<h2>Public vs authenticated</h2>
@@ -67,23 +77,31 @@ SDK</pre>
 		</thead>
 		<tbody>
 			<tr>
-				<td><a href="/avatar-experiences/public">Public</a></td>
+				<td><a href="/avatar-experiences/public">Public experience</a></td>
 				<td>Embeds on allowlisted origins</td>
 				<td>No</td>
 			</tr>
 			<tr>
-				<td><a href="/avatar-experiences/authenticated">Authenticated</a></td>
-				<td>Private apps, user-specific sessions</td>
+				<td><a href="/avatar-experiences/authenticated">Authenticated experience</a></td>
+				<td>Private apps, per-user sessions, API-key billing</td>
 				<td>Yes — your server mints the manifest</td>
 			</tr>
 		</tbody>
 	</table>
 
-	<h2>Transport</h2>
+	<h2>Tool</h2>
 	<p>
-		Transport is <strong>hidden</strong>. The manifest declares how the SDK connects to the runtime
-		(HTTP streaming today; WebRTC and LiveKit in future). You never configure connection types,
-		WebSockets, or LiveKit rooms.
+		A Tool is a controlled external capability — look up a score, advance a quest, fetch account data.
+		Tools are declared on the experience and invoked by the character. Your app observes results via
+		<a href="/avatar-experiences/events">events</a> and state updates, not by calling tool HTTP
+		endpoints directly.
+	</p>
+
+	<h2>Event</h2>
+	<p>
+		Events are the SDK's way of reporting what happened — new messages, mode changes (listening /
+		speaking), state updates, and character lifecycle. Subscribe with <code>experience.on(…)</code>.
+		See <a href="/guides/events">Listen to Events</a>.
 	</p>
 
 	<h2>IDs are public</h2>

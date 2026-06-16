@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { externalLinks } from '$lib/navigation';
@@ -11,68 +10,89 @@
 	description="Add an intelligent animated avatar to your app in minutes."
 	next={[
 		{ title: 'Concepts', href: '/getting-started/concepts' },
-		{ title: 'Public Experiences', href: '/avatar-experiences/public' },
-		{ title: 'Embed an Experience', href: '/guides/embed' }
+		{ title: 'Listen to Events', href: '/guides/events' },
+		{ title: 'Authenticated Experiences', href: '/avatar-experiences/authenticated' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>
-			The CDN SDK (<code>@liforma/client</code>) is rolling out. Public embeds work today on
-			allowlisted origins. See <a href="/sdk-reference/javascript">JavaScript SDK</a> for current
-			availability.
-		</p>
-	</Callout>
-
 	<h2>What you'll build</h2>
 	<p>
-		A live avatar that listens to the user, thinks, speaks, and animates — inside your app, with a
-		single component. No backend required for public experiences.
+		A live avatar that listens, thinks, speaks, and animates inside your app — with a single
+		component. No backend required for public experiences.
 	</p>
 
-	<h2>1. Add the SDK</h2>
+	<h2>1. Install</h2>
 	<p>Choose Svelte or the framework-agnostic web component.</p>
 
 	<h3>Svelte</h3>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 
-	<h3>Web Component (any framework)</h3>
+	<h3>Any framework (CDN)</h3>
 	<CodeBlock code={snippets.cdnScriptTag} lang="html" />
 
-	<h2>2. Embed your experience</h2>
+	<h2>2. Embed</h2>
 	<p>This is the entire integration for a public experience:</p>
 
 	<h3>Svelte</h3>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" filename="App.svelte" />
 
-	<h3>Web Component</h3>
+	<h3>Web component</h3>
 	<CodeBlock code={snippets.webComponentHelloWorld} lang="html" filename="index.html" />
 
-	<h2>What happens under the hood</h2>
-	<p>When your component mounts, Liforma automatically:</p>
-	<ol>
-		<li><strong>Mints a session</strong> — the SDK calls <code>POST /v1/public-sessions</code> with your <code>experienceId</code></li>
-		<li><strong>Receives a Session Manifest</strong> — runtime configuration for this launch</li>
-		<li><strong>Selects transport</strong> — HTTP, WebRTC, or LiveKit, hidden from you</li>
-		<li><strong>Starts the runtime</strong> — microphone, speech recognition, turn loop</li>
+	<h2>3. Run</h2>
+	<p>
+		Open your app. The SDK mints a session, fetches a Session Manifest, and starts the runtime.
+		Allowlist your production origin in the
+		<a href={externalLinks.www}>Liforma dashboard</a> so public embeds work on your domain.
+	</p>
+	<p>
+		Try a live demo:
+		<a href={externalLinks.meet} target="_blank" rel="noopener noreferrer">www.liforma.ai/meet</a>.
+	</p>
+
+	<h2>What Liforma handles for you</h2>
+	<p>You do not wire transport, tokens, or media pipelines. Liforma automatically:</p>
+	<ul>
+		<li><strong>Creates the session</strong> — <code>POST /v1/public-sessions</code> with your <code>experienceId</code></li>
+		<li><strong>Fetches the Session Manifest</strong> — runtime configuration for this launch</li>
+		<li><strong>Selects transport</strong> — connection strategy is declared in the manifest, hidden from you</li>
+		<li><strong>Requests microphone access</strong> — when speech input is enabled</li>
+		<li><strong>Runs speech recognition</strong> — browser STT in the client</li>
+		<li><strong>Runs the AI response loop</strong> — language model, tools, and state updates</li>
+		<li><strong>Synthesises speech</strong> — natural TTS with viseme timing</li>
 		<li><strong>Renders the avatar</strong> — lip-sync, expressions, and animation</li>
-	</ol>
-	<p>You never handle tokens, STT, TTS, or avatar rendering directly.</p>
+		<li><strong>Manages lifecycle</strong> — listening, speaking, close, and teardown</li>
+	</ul>
 
-	<h2>3. Allowlist your origin</h2>
+	<h2>4. Listen to events</h2>
+	<p>Subscribe to conversation and mode changes when you need UI hooks:</p>
+	<CodeBlock
+		code={`import { Experience } from '@liforma/client';
+
+const experience = await Experience.startSession({
+  experienceId: '${snippets.experienceId}'
+});
+
+experience.on('message', ({ role, text, final }) => {
+  console.log(role, text, final);
+});
+
+experience.on('modeChange', ({ mode }) => {
+  console.log('mode:', mode); // listening | speaking | thinking
+});
+
+await experience.attach({ container: '#avatar' });`}
+		lang="javascript"
+	/>
+	<p>See <a href="/guides/events">Listen to Events</a> for the full event model.</p>
+
+	<h2>5. Authenticated sessions (when you need them)</h2>
 	<p>
-		Public experiences require your site's origin to be allowlisted. Configure this in the
-		<a href={externalLinks.www}>Liforma dashboard</a> (coming soon) or contact us for early access.
+		Public embeds are the default hello world. For private experiences, billing control, or
+		user-specific sessions, your backend mints a manifest with an API key:
 	</p>
-	<p>Local development origins (<code>localhost</code>) are supported automatically in dev.</p>
-
-	<h2>4. Try it live</h2>
+	<CodeBlock code={snippets.authenticatedSvelte} lang="svelte" />
 	<p>
-		See a working demo at <a href={externalLinks.meet} target="_blank" rel="noopener noreferrer">www.liforma.ai/meet</a>.
-	</p>
-
-	<h2>Next: authenticated experiences</h2>
-	<p>
-		Need private experiences or user-specific sessions? Your backend mints a manifest with an API key.
-		See <a href="/avatar-experiences/authenticated">Authenticated Experiences</a>.
+		See <a href="/avatar-experiences/authenticated">Authenticated Experiences</a> and
+		<a href="/guides/authenticated-experience">the authenticated guide</a>.
 	</p>
 </DocPage>

@@ -16,11 +16,11 @@
 
 <nav class="sidebar" class:open={open} aria-label="Documentation">
 	<div class="sidebar-inner">
-		{#each docsNavigation as section}
+		{#each docsNavigation as section (section.title)}
 			<div class="section">
 				<p class="section-title">{section.title}</p>
 				<ul>
-					{#each section.items as item}
+					{#each section.items as item (item.href)}
 						<li>
 							<a
 								href={item.href}

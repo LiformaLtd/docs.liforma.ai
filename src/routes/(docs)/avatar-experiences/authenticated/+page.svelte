@@ -49,7 +49,7 @@ Your frontend  ←  manifest or sessionEndpoint  ←  SDK</pre>
 
 	<h2>API key</h2>
 	<p>
-		Obtain a developer API key from the Liforma dashboard (coming soon). Store it in server
+		Obtain a developer API key from the <a href="https://www.liforma.ai">Liforma dashboard</a>. Store it in server
 		environment variables only.
 	</p>
 </DocPage>

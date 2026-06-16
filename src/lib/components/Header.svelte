@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DocsSearch from '$lib/components/DocsSearch.svelte';
 	import { externalLinks } from '$lib/navigation';
 	import { toggleTheme } from '$lib/theme';
 
@@ -21,6 +22,9 @@
 				<span class="brand-name">liforma</span>
 				<span class="brand-docs">docs</span>
 			</a>
+		</div>
+		<div class="center">
+			<DocsSearch />
 		</div>
 		<nav class="header-nav" aria-label="Header">
 			<a href="/getting-started/quick-start">Quick Start</a>
@@ -51,9 +55,10 @@
 	}
 
 	.header-inner {
-		display: flex;
+		display: grid;
+		grid-template-columns: auto 1fr auto auto;
 		align-items: center;
-		justify-content: space-between;
+		gap: 1rem;
 		height: 100%;
 		padding: 0 1.25rem;
 		max-width: 1440px;
@@ -64,6 +69,12 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+	}
+
+	.center {
+		display: flex;
+		justify-content: center;
+		min-width: 0;
 	}
 
 	.brand {
@@ -101,6 +112,7 @@
 		color: var(--text-muted);
 		text-decoration: none;
 		font-weight: 500;
+		white-space: nowrap;
 	}
 
 	.header-nav a:hover {
@@ -133,12 +145,32 @@
 	}
 
 	@media (max-width: 900px) {
+		.header-inner {
+			grid-template-columns: auto 1fr auto;
+		}
+
 		.menu-btn {
 			display: inline-flex;
 		}
 
 		.header-nav {
 			display: none;
+		}
+
+		.center {
+			grid-column: 1 / -1;
+			grid-row: 2;
+			justify-content: stretch;
+		}
+
+		.header {
+			height: auto;
+			padding-bottom: 0.65rem;
+		}
+
+		.header-inner {
+			height: auto;
+			padding-top: 0.65rem;
 		}
 	}
 </style>

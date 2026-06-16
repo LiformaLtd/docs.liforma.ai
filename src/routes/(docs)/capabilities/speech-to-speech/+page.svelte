@@ -1,45 +1,37 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 </script>
 
 <DocPage
 	title="Speech-to-Speech"
-	description="Voice conversation without avatar animation."
+	description="Voice conversation without visual rendering."
 	next={[
 		{ title: 'Avatar Experiences', href: '/avatar-experiences/overview' },
-		{ title: 'Text-to-Speech', href: '/capabilities/text-to-speech' }
+		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<Callout variant="beta" title="Coming soon">
-		<p>
-			Standalone Speech-to-Speech API is on the roadmap. Use
-			<a href="/avatar-experiences/overview">Avatar Experiences</a> with rendering disabled for
-			voice-only today.
-		</p>
-	</Callout>
-
 	<h2>What is it?</h2>
 	<p>
-		The user speaks. The AI listens, thinks, and responds with speech. No animated avatar on screen.
+		A real-time voice conversation with an AI character — listen, think, speak — without on-screen
+		avatar rendering. Useful for voice-only products and telephony-style flows.
 	</p>
 
-	<h2>When to use</h2>
+	<h2>When to use it</h2>
 	<ul>
-		<li>Voice agents in mobile or audio-first apps</li>
-		<li>Phone-style assistants</li>
-		<li>Background voice companions</li>
-		<li>When visual avatar is unnecessary or handled separately</li>
+		<li>Voice assistants and phone integrations</li>
+		<li>Products where audio is the entire interface</li>
+		<li>Low-bandwidth or audio-only environments</li>
+		<li>When you do not need lip-sync or facial animation</li>
 	</ul>
 
-	<h2>Planned API shape</h2>
+	<h2>API</h2>
 	<CodeBlock
 		code={`import { Experience } from '@liforma/client';
 
 const experience = await Experience.startSession({
   experienceId: 'exp_…',
-  render: false  // voice-only mode
+  render: false
 });
 
 experience.on('message', ({ role, text }) => {
@@ -50,9 +42,10 @@ await experience.attach({ container: null });`}
 		lang="javascript"
 	/>
 
-	<h2>vs Avatar Experiences</h2>
+	<h2>When to use Avatar Experiences instead</h2>
 	<p>
-		Speech-to-Speech is a subset of what Avatar Experiences provide. If you later want animation,
-		state, or tools — upgrade to the full experience without changing your integration pattern.
+		Use a full <a href="/avatar-experiences/overview">Avatar Experience</a> when the character should
+		appear on screen with real-time animation. Speech-to-Speech is the voice layer without visuals;
+		Avatar Experiences combine voice, intelligence, and animation in one integration.
 	</p>
 </DocPage>

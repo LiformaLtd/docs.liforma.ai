@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
@@ -14,10 +13,6 @@
 		{ title: 'JavaScript SDK', href: '/sdk-reference/javascript' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>Event handlers and lifecycle methods are rolling out. Core <code>startSession</code> and <code>attach</code> are available.</p>
-	</Callout>
-
 	<h2>Overview</h2>
 	<p>
 		<code>Experience</code> is the primary JavaScript API. Use it when you need programmatic control

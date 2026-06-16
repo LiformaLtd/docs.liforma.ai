@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
@@ -13,13 +12,6 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>
-			Package publishing to <code>cdn.liforma.ai</code> is rolling out. Install via npm or load from
-			CDN when available.
-		</p>
-	</Callout>
-
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 

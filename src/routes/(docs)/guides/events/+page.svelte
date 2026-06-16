@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 </script>
@@ -12,10 +11,6 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>Full event emission is rolling out. The API shape below is stable.</p>
-	</Callout>
-
 	<h2>Basic pattern</h2>
 	<CodeBlock
 		code={`import { Experience } from '@liforma/client';

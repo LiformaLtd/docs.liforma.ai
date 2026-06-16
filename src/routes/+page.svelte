@@ -1,18 +1,27 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
-	import Header from '$lib/components/Header.svelte';
+	import DocsSearch from '$lib/components/DocsSearch.svelte';
 	import { DEMO_EXPERIENCE_ID, externalLinks } from '$lib/navigation';
+	import { canonicalUrl, DEFAULT_DESCRIPTION, ogImageUrl, pageTitle } from '$lib/seo';
 	import { toggleTheme } from '$lib/theme';
 
 	const helloWorld = `<LiformaExperience experienceId="${DEMO_EXPERIENCE_ID}" />`;
+	const title = pageTitle('Avatar Experiences for developers');
 </script>
 
 <svelte:head>
-	<title>Liforma Docs — Avatar Experiences for developers</title>
-	<meta
-		name="description"
-		content="Add intelligent animated avatars to your app in minutes. Real-time AI characters that listen, think, speak, and animate."
-	/>
+	<title>{title}</title>
+	<meta name="description" content={DEFAULT_DESCRIPTION} />
+	<link rel="canonical" href={canonicalUrl('/')} />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Liforma Docs" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={DEFAULT_DESCRIPTION} />
+	<meta property="og:url" content={canonicalUrl('/')} />
+	<meta property="og:image" content={ogImageUrl()} />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={DEFAULT_DESCRIPTION} />
 </svelte:head>
 
 <div class="landing">
@@ -24,9 +33,12 @@
 			</a>
 			<nav class="landing-nav">
 				<a href="/getting-started/quick-start">Quick Start</a>
-				<a href="/api-reference/sessions">API</a>
+				<a href="/api-reference/sessions">API Reference</a>
 				<a href={externalLinks.pricing} target="_blank" rel="noopener noreferrer">Pricing</a>
 			</nav>
+			<div class="landing-search">
+				<DocsSearch />
+			</div>
 			<button type="button" class="icon-btn" aria-label="Toggle theme" onclick={toggleTheme}>
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 					<circle cx="12" cy="12" r="4" />
@@ -41,12 +53,12 @@
 			<p class="eyebrow">Developer documentation</p>
 			<h1>Avatar Experiences for your app</h1>
 			<p class="hero-lead">
-				Real-time AI characters that can listen, think, speak, animate, and interact inside your
-				app. One component. No transport wiring. No token plumbing.
+				Add intelligent animated avatars with one component. Real-time AI characters that listen,
+				think, speak, animate, and interact inside your product.
 			</p>
 			<div class="hero-actions">
 				<a class="btn primary" href="/getting-started/quick-start">Quick Start</a>
-				<a class="btn secondary" href="/getting-started/introduction">Read the docs</a>
+				<a class="btn secondary" href="/api-reference/sessions">View API Reference</a>
 			</div>
 
 			<div class="hero-code">
@@ -79,7 +91,7 @@
 			</a>
 			<a class="card" href="/guides/migrate-elevenlabs">
 				<h2>ElevenLabs migration</h2>
-				<p>Drop-in compatibility for existing voice agent integrations.</p>
+				<p>Move from voice agents to animated avatar experiences.</p>
 				<span class="card-link">Migrate →</span>
 			</a>
 		</div>
@@ -142,10 +154,16 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 0.75rem;
 		max-width: 1080px;
 		margin: 0 auto;
 		padding: 0 1.5rem;
-		height: var(--header-height);
+		min-height: var(--header-height);
+	}
+
+	.landing-search {
+		width: min(100%, 220px);
 	}
 
 	.brand {
@@ -412,6 +430,11 @@
 	@media (max-width: 640px) {
 		.landing-nav {
 			display: none;
+		}
+
+		.landing-search {
+			order: 3;
+			width: 100%;
 		}
 
 		.hero {

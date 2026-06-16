@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 </script>
@@ -12,10 +11,6 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>The unified event API is defined and documented. Full event emission is rolling out in the SDK.</p>
-	</Callout>
-
 	<h2>Overview</h2>
 	<p>
 		Register handlers on an <code>Experience</code> instance to observe conversation, avatar, and

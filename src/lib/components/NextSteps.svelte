@@ -12,7 +12,7 @@
 	<nav class="next-steps" aria-label="Next steps">
 		<h2 class="next-title">Next steps</h2>
 		<ul>
-			{#each links as link}
+			{#each links as link (link.href)}
 				<li>
 					<a href={link.href}>{link.title} →</a>
 				</li>

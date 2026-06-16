@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
@@ -13,10 +12,6 @@
 		{ title: 'Avatar Experiences', href: '/avatar-experiences/overview' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>Tool calling in Avatar Experiences is on the roadmap. The manifest schema reserves a <code>tools</code> array.</p>
-	</Callout>
-
 	<h2>What are tools?</h2>
 	<p>
 		Tools are controlled external capabilities an agent can invoke during a session — query a
@@ -31,7 +26,7 @@
 		<li>Results update <code>state</code> and may trigger <code>stateUpdate</code> events</li>
 	</ol>
 
-	<h2>Example (planned)</h2>
+	<h2>Example</h2>
 	<CodeBlock code={snippets.toolsManifestSnippet} lang="json" />
 
 	<p>Tool schemas follow a structured format editable by creators and understandable by LLMs.</p>

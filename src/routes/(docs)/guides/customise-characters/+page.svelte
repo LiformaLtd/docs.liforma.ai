@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
@@ -13,10 +12,6 @@
 		{ title: 'Avatar Experiences', href: '/avatar-experiences/overview' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>Self-service character editing in the creator dashboard is coming soon. Contact us for early access.</p>
-	</Callout>
-
 	<h2>Character model</h2>
 	<p>Each character in an experience combines:</p>
 	<ul>
@@ -30,7 +25,7 @@
 	<p>Characters appear in the Session Manifest:</p>
 	<CodeBlock code={snippets.characterManifestSnippet} lang="json" />
 
-	<h2>Multi-character (future)</h2>
+	<h2>Multi-character experiences</h2>
 	<p>
 		Richer experiences support multiple characters with <code>focusCharacter()</code> and
 		<code>characterEnter</code> / <code>characterExit</code> events.

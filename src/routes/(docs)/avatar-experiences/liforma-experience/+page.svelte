@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
@@ -14,13 +13,6 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>
-			<code>@liforma/client</code> is publishing to CDN. The component API below is stable; package
-			availability is rolling out.
-		</p>
-	</Callout>
-
 	<h2>Overview</h2>
 	<p>
 		<code>&lt;LiformaExperience&gt;</code> is the hello-world integration for Svelte apps. It calls

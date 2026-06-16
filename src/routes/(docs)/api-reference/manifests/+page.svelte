@@ -93,11 +93,11 @@
 			</tr>
 			<tr>
 				<td><code>livekit</code></td>
-				<td>Planned</td>
+				<td>Future transport option</td>
 			</tr>
 			<tr>
 				<td><code>webrtc</code></td>
-				<td>Planned</td>
+				<td>Future transport option</td>
 			</tr>
 		</tbody>
 	</table>

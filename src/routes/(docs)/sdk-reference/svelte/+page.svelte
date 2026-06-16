@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
@@ -13,10 +12,6 @@
 		{ title: 'LiformaExperience', href: '/avatar-experiences/liforma-experience' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>Import from <code>@liforma/client/svelte</code> when the package is published.</p>
-	</Callout>
-
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 

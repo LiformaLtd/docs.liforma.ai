@@ -35,7 +35,7 @@
 			</tr>
 			<tr>
 				<td>Hosted player</td>
-				<td>Link or iframe to <code>player.liforma.ai</code> (coming soon)</td>
+				<td>Link or iframe to <code>player.liforma.ai</code></td>
 			</tr>
 		</tbody>
 	</table>

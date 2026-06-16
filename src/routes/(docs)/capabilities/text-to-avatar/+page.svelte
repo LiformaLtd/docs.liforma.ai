@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 </script>
@@ -12,35 +11,21 @@
 		{ title: 'Text-to-Speech', href: '/capabilities/text-to-speech' }
 	]}
 >
-	<Callout variant="beta" title="Coming soon">
-		<p>
-			Text-to-Avatar as a standalone API is on the roadmap. Today, animate avatars through a full
-			<a href="/avatar-experiences/overview">Avatar Experience</a> session.
-		</p>
-	</Callout>
-
 	<h2>What is it?</h2>
 	<p>
 		Send text. Liforma returns a speaking, animated avatar — lip-synced audio and facial animation
-		without a full conversational loop.
+		for known script, without a full conversational loop.
 	</p>
 
-	<h2>When to use</h2>
+	<h2>When to use it</h2>
 	<ul>
-		<li>Scripted avatar videos or announcements</li>
+		<li>Scripted avatar announcements or lesson intros</li>
 		<li>Onboarding walkthroughs with a character guide</li>
-		<li>Pre-recorded-style content with dynamic text</li>
-		<li>When you don't need user input or AI reasoning</li>
+		<li>Dynamic text you already have — no user speech input required</li>
+		<li>When you do not need the character to listen, reason, or update state</li>
 	</ul>
 
-	<h2>When to use Avatar Experiences instead</h2>
-	<p>
-		If the character needs to listen, think, respond dynamically, or update state — use an
-		<a href="/avatar-experiences/overview">Avatar Experience</a>. Text-to-Avatar is a focused
-		capability; Avatar Experiences are the full platform.
-	</p>
-
-	<h2>Planned API shape</h2>
+	<h2>API</h2>
 	<CodeBlock
 		code={`import { Liforma } from '@liforma/client';
 
@@ -51,10 +36,20 @@ const result = await Liforma.textToAvatar({
 });
 
 // result.audio — speech audio
-// result.visemes — lip-sync timing
+// result.visemes — lip-sync timing for your own renderer
 // result.stream — optional streaming chunks`}
 		lang="javascript"
 	/>
 
-	<p>API design is subject to change. Join early access for updates.</p>
+	<h2>When to use Avatar Experiences instead</h2>
+	<p>
+		Use an <a href="/avatar-experiences/overview">Avatar Experience</a> when the character should
+		<strong>listen</strong>, <strong>think</strong>, respond dynamically, use tools, or maintain
+		session state. Text-to-Avatar is a focused building block; Avatar Experiences are the full
+		intelligent character platform.
+	</p>
+	<p>
+		Today, animated conversation is delivered through Avatar Experiences. Text-to-Avatar is for
+		developers who only need scripted animation output.
+	</p>
 </DocPage>

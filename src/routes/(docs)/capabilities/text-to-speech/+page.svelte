@@ -1,52 +1,48 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 </script>
 
 <DocPage
 	title="Text-to-Speech"
-	description="Convert text to natural speech audio."
+	description="Natural speech synthesis from text."
 	next={[
-		{ title: 'Text-to-Avatar', href: '/capabilities/text-to-avatar' },
-		{ title: 'Speech-to-Speech', href: '/capabilities/speech-to-speech' }
+		{ title: 'Avatar Experiences', href: '/avatar-experiences/overview' },
+		{ title: 'Text-to-Avatar', href: '/capabilities/text-to-avatar' }
 	]}
 >
-	<Callout variant="beta" title="Coming soon">
-		<p>
-			Standalone Text-to-Speech API is on the roadmap. Avatar Experiences include TTS as part of the
-			runtime today.
-		</p>
-	</Callout>
-
 	<h2>What is it?</h2>
-	<p>Send text. Get speech audio. No avatar rendering required.</p>
+	<p>
+		Convert text to natural speech with Liforma's voice pipeline. No avatar rendering, no
+		conversation loop — audio only.
+	</p>
 
-	<h2>When to use</h2>
+	<h2>When to use it</h2>
 	<ul>
-		<li>Voice-only assistants or IVR-style flows</li>
-		<li>Audio narration without visual character</li>
-		<li>Accessibility features (read aloud)</li>
-		<li>When animation adds no value</li>
+		<li>Voice prompts, IVR, or accessibility narration</li>
+		<li>Apps that already have visuals and only need speech</li>
+		<li>Batch or server-side audio generation</li>
+		<li>When lip-sync and character animation are not required</li>
 	</ul>
 
-	<h2>Planned API shape</h2>
+	<h2>API</h2>
 	<CodeBlock
 		code={`import { Liforma } from '@liforma/client';
 
 const audio = await Liforma.textToSpeech({
-  text: 'Your order has been confirmed.',
+  text: 'Your table is ready.',
   voiceId: 'en-GB-SoniaNeural'
 });
 
-// audio.buffer — PCM or encoded audio
-// audio.stream — optional streaming`}
+// audio.buffer — playable audio
+// audio.visemes — optional timing data`}
 		lang="javascript"
 	/>
 
-	<h2>Inside Avatar Experiences</h2>
+	<h2>When to use Avatar Experiences instead</h2>
 	<p>
-		Full <a href="/avatar-experiences/overview">Avatar Experiences</a> use TTS internally as part of
-		the turn loop. You don't call TTS directly — the runtime handles it.
+		Use an <a href="/avatar-experiences/overview">Avatar Experience</a> when speech should come
+		from a visible character in a live, interactive session. TTS is included in every experience —
+		this standalone API is for audio-only integrations.
 	</p>
 </DocPage>

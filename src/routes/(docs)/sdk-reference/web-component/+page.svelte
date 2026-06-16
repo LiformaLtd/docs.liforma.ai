@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
+
+	const compatElementExample = '<liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>';
 </script>
 
 <DocPage
@@ -13,10 +14,6 @@
 		{ title: 'Embed an Experience', href: '/guides/embed' }
 	]}
 >
-	<Callout variant="beta" title="Preview">
-		<p>CDN bundle at <code>cdn.liforma.ai/sdk/v1/client.js</code> is rolling out.</p>
-	</Callout>
-
 	<h2>Overview</h2>
 	<p>
 		The <code>&lt;liforma-experience&gt;</code> web component works in React, Vue, Angular, plain
@@ -61,9 +58,6 @@
 
 	<h2>ElevenLabs compat element</h2>
 	<p>For migrations, a compat element is also available:</p>
-	<CodeBlock
-		code={`<liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>`}
-		lang="html"
-	/>
+	<CodeBlock code={compatElementExample} lang="html" />
 	<p>See <a href="/guides/migrate-elevenlabs">Migrate from ElevenLabs</a>.</p>
 </DocPage>

@@ -38,7 +38,7 @@ Content-Type: application/json
 		<li><code>Origin</code> header required</li>
 		<li>Experience must exist and be public</li>
 		<li>Origin must be on the experience allowlist</li>
-		<li>Quota and rate limits apply (enforcement rolling out)</li>
+		<li>Quota and rate limits apply</li>
 	</ul>
 
 	<h3>CORS</h3>
