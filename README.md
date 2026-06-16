@@ -1,42 +1,31 @@
-# sv
+# docs.liforma.ai
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Developer documentation for the Liforma Avatar Experience Platform.
 
-## Creating a project
+## Local development
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.16.1 create --template minimal --types ts --install npm docs.liforma.ai
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Runs on **http://localhost:3005** (`strictPort`).
 
-To create a production version of your app:
+## Scripts
 
-```sh
-npm run build
-```
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build (Vercel adapter) |
+| `npm run check` | TypeScript and Svelte checks |
+| `npm run preview` | Preview production build |
 
-You can preview the production build with `npm run preview`.
+## Structure
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- `src/routes/` — documentation pages
+- `src/routes/(docs)/` — pages with sidebar layout
+- `src/lib/components/` — shared UI (CodeBlock, Sidebar, DocPage, …)
+- `src/lib/navigation.ts` — sidebar navigation config
+- `src/lib/snippets.ts` — canonical code examples
+
+Content is aligned with `docs/architecture/api_architecture.md` in the meta `liforma` repo.
