@@ -70,8 +70,11 @@ export const docsNavigation: readonly NavSection[] = [
 
 export const externalLinks = {
 	www: 'https://www.liforma.ai',
+	app: 'https://app.liforma.ai',
 	pricing: 'https://www.liforma.ai/pricing',
 	meet: 'https://www.liforma.ai/meet',
+	player: 'https://player.liforma.ai',
+	examples: 'https://spanish-tutor.examples.liforma.ai',
 	github: 'https://github.com/liforma'
 } as const;
 

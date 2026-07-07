@@ -42,12 +42,32 @@
 	<p>
 		Open your app. The SDK mints a session, fetches a Session Manifest, and starts the runtime.
 		Allowlist your production origin in the
-		<a href={externalLinks.www}>Liforma dashboard</a> so public embeds work on your domain.
+		<a href={externalLinks.app} target="_blank" rel="noopener noreferrer">developer portal</a>
+		(<code>app.liforma.ai</code> → your project → Origins) so public embeds work on your domain.
 	</p>
 	<p>
 		Try a live demo:
-		<a href={externalLinks.meet} target="_blank" rel="noopener noreferrer">www.liforma.ai/meet</a>.
+		<a href={externalLinks.meet} target="_blank" rel="noopener noreferrer">www.liforma.ai/meet</a>
+		or the
+		<a href={externalLinks.player} target="_blank" rel="noopener noreferrer">hosted player</a>.
+		See the
+		<a href={externalLinks.examples} target="_blank" rel="noopener noreferrer">Spanish Tutor example</a>
+		for a multi-lesson app.
 	</p>
+
+	<h2>Developer portal (create your own experience)</h2>
+	<p>
+		To ship your own <code>exp_…</code> id instead of a demo experience:
+	</p>
+	<ol>
+		<li>
+			Sign in at <a href={externalLinks.app} target="_blank" rel="noopener noreferrer">app.liforma.ai</a>
+		</li>
+		<li>Create or open a project → Experience Studio → publish</li>
+		<li>Add your site origin under <strong>Origins</strong></li>
+		<li>Copy the experience id from the <strong>Integrate</strong> tab</li>
+		<li>Paste the id into your embed (same code as step 2 above)</li>
+	</ol>
 
 	<h2>What Liforma handles for you</h2>
 	<p>You do not wire transport, tokens, or media pipelines. Liforma automatically:</p>
