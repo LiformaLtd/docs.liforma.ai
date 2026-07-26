@@ -8,6 +8,7 @@
 	title="Sessions"
 	description="Authenticated session minting for private experiences."
 	next={[
+		{ title: 'Experience Catalog', href: '/api-reference/experience-catalog' },
 		{ title: 'Public Sessions', href: '/api-reference/public-sessions' },
 		{ title: 'Manifests', href: '/api-reference/manifests' },
 		{ title: 'Errors', href: '/api-reference/errors' }

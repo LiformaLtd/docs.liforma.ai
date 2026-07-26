@@ -50,6 +50,75 @@ export async function POST({ request }) {
   return json(await res.json());
 }`,
 
+	projectCatalogServer: `// src/lib/server/liformaCatalog.ts
+import { env } from '$env/dynamic/private';
+
+const API_BASE_URL = env.LIFORMA_API_URL?.replace(/\\/$/, '') ?? 'https://api.liforma.ai';
+const PROJECT_ID = env.LIFORMA_PROJECT_ID;
+
+export async function fetchProjectCatalog(fetchFn: typeof fetch) {
+  const apiKey = env.LIFORMA_API_KEY?.trim();
+  if (!apiKey || !PROJECT_ID) {
+    throw new Error('LIFORMA_API_KEY and LIFORMA_PROJECT_ID are required.');
+  }
+
+  const response = await fetchFn(
+    \`\${API_BASE_URL}/v1/projects/\${encodeURIComponent(PROJECT_ID)}/experiences\`,
+    {
+      headers: { Authorization: \`Bearer \${apiKey}\` }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Could not load project catalog.');
+  }
+
+  const payload: { experiences: Array<{ experienceId: string; slug: string; title: string }> } =
+    await response.json();
+  return payload.experiences;
+}
+
+export async function fetchProjectExperienceBySlug(fetchFn: typeof fetch, slug: string) {
+  const apiKey = env.LIFORMA_API_KEY?.trim();
+  if (!apiKey || !PROJECT_ID) {
+    throw new Error('LIFORMA_API_KEY and LIFORMA_PROJECT_ID are required.');
+  }
+
+  const response = await fetchFn(
+    \`\${API_BASE_URL}/v1/projects/\${encodeURIComponent(PROJECT_ID)}/experiences/\${encodeURIComponent(slug)}\`,
+    {
+      headers: { Authorization: \`Bearer \${apiKey}\` }
+    }
+  );
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error('Could not load project catalog experience.');
+  }
+
+  const payload: { experience: { experienceId: string; slug: string; title: string } } =
+    await response.json();
+  return payload.experience;
+}`,
+
+	projectCatalogPage: `<!-- src/routes/experiences/+page.svelte -->
+{#each data.experiences as experience (experience.slug)}
+  <a href="/experiences/{experience.slug}">{experience.title}</a>
+{/each}`,
+
+	projectCatalogDetailServer: `// src/routes/experiences/[slug]/+page.server.ts
+import { error } from '@sveltejs/kit';
+import { fetchProjectExperienceBySlug } from '$lib/server/liformaCatalog';
+
+export async function load({ params, fetch }) {
+  const experience = await fetchProjectExperienceBySlug(fetch, params.slug);
+  if (!experience) error(404, 'Experience not found');
+  return { experience };
+}`,
+
 	publicSessionsCurl: `curl -X POST https://api.liforma.ai/v1/public-sessions \\
   -H "Origin: https://your-app.com" \\
   -H "Content-Type: application/json" \\

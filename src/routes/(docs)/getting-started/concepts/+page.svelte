@@ -66,6 +66,17 @@ SDK</pre>
 		LiveKit rooms.
 	</p>
 
+	<h2>Catalog vs session mint</h2>
+	<p>
+		Creators manage human-friendly <code>slug</code> values and gallery ordering in Studio. Your app
+		fetches the project catalog server-side, links by slug, and still mints sessions with
+		<code>experienceId</code>.
+	</p>
+	<p>
+		See <a href="/guides/dynamic-experience-gallery">Build a Dynamic Experience Gallery</a> and
+		<a href="/api-reference/experience-catalog">Experience Catalog API</a>.
+	</p>
+
 	<h2>Public vs authenticated</h2>
 	<table>
 		<thead>

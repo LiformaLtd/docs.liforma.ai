@@ -43,6 +43,7 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'Embed an Experience', href: '/guides/embed' },
 			{ title: 'Public Experience', href: '/guides/public-experience' },
 			{ title: 'Authenticated Experience', href: '/guides/authenticated-experience' },
+			{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
 			{ title: 'Listen to Events', href: '/guides/events' },
 			{ title: 'Customise Characters', href: '/guides/customise-characters' },
 			{ title: 'Add Tools', href: '/guides/tools' },
@@ -53,6 +54,7 @@ export const docsNavigation: readonly NavSection[] = [
 		title: 'API Reference',
 		items: [
 			{ title: 'Sessions', href: '/api-reference/sessions' },
+			{ title: 'Experience Catalog', href: '/api-reference/experience-catalog' },
 			{ title: 'Public Sessions', href: '/api-reference/public-sessions' },
 			{ title: 'Manifests', href: '/api-reference/manifests' },
 			{ title: 'Errors', href: '/api-reference/errors' }
