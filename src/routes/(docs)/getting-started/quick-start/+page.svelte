@@ -100,7 +100,7 @@ npm install
 		<li><strong>Requests microphone access</strong> — when speech input is enabled</li>
 		<li><strong>Runs speech recognition</strong> — browser STT in the client</li>
 		<li><strong>Runs the AI response loop</strong> — language model, tools, and state updates</li>
-		<li><strong>Synthesises speech</strong> — natural TTS with viseme timing</li>
+		<li><strong>Synthesises speech</strong> — natural TTS</li>
 		<li><strong>Renders the avatar</strong> — lip-sync, expressions, and animation</li>
 		<li><strong>Manages lifecycle</strong> — listening, speaking, close, and teardown</li>
 	</ul>

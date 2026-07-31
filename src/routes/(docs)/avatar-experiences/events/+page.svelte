@@ -92,13 +92,12 @@ experience.on('audio', (event) => {
 		lang="javascript"
 	/>
 
-	<h2>Avatar</h2>
-	<CodeBlock
-		code={`experience.on('viseme', (event) => { /* lip-sync timing */ });
-experience.on('expression', (event) => { /* facial expression */ });
-experience.on('gesture', (event) => { /* body gesture */ });`}
-		lang="javascript"
-	/>
+	<p>
+		Lip-sync, expressions, and body animation run inside the hosted player. Integrators do
+		<strong>not</strong> receive viseme or animation keyframe events — use
+		<code>characterSpeechStarted</code> / <code>characterSpeechEnded</code> when you need to sync
+		your UI with speech.
+	</p>
 
 	<h2>World</h2>
 	<CodeBlock
@@ -164,11 +163,6 @@ experience.on('close', ({ reason, returnUrl }) => { });`}
 				<td><code>modeChange</code></td>
 				<td><code>{`{ mode }`}</code></td>
 				<td><code>listening</code> or <code>speaking</code></td>
-			</tr>
-			<tr>
-				<td><code>viseme</code></td>
-				<td>Viseme timing data</td>
-				<td>Lip-sync keyframe for avatar animation</td>
 			</tr>
 			<tr>
 				<td><code>stateUpdate</code></td>

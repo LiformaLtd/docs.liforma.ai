@@ -60,10 +60,14 @@ const result = await Liforma.textToAvatar({
 });
 
 // result.audio — speech audio
-// result.visemes — lip-sync timing for your own renderer
 // result.stream — optional streaming chunks`}
 		lang="javascript"
 	/>
+
+	<p class="muted">
+		Animation is rendered by the hosted player — this standalone helper returns audio (and optional
+		streaming chunks), not viseme or blendshape data for custom renderers.
+	</p>
 
 	<h2>When to use Avatar Experiences instead</h2>
 	<p>

@@ -34,10 +34,11 @@ const audio = await Liforma.textToSpeech({
   voiceId: 'en-GB-SoniaNeural'
 });
 
-// audio.buffer — playable audio
-// audio.visemes — optional timing data`}
+// audio.buffer — playable audio`}
 		lang="javascript"
 	/>
+
+	<p class="muted">Audio only — no lip-sync or animation timing data.</p>
 
 	<h2>When to use Avatar Experiences instead</h2>
 	<p>
