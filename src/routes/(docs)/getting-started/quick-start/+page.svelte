@@ -51,9 +51,31 @@
 		or the
 		<a href={externalLinks.player} target="_blank" rel="noopener noreferrer">hosted player</a>.
 		See the
-		<a href={externalLinks.examples} target="_blank" rel="noopener noreferrer">Spanish Tutor example</a>
-		for a multi-lesson app.
+		<a href={externalLinks.examples} target="_blank" rel="noopener noreferrer">examples gallery</a>
+		and
+		<a href="https://spanish-tutor.examples.liforma.ai" target="_blank" rel="noopener noreferrer"
+			>Spanish Tutor live demo</a>
+		for full sample apps.
 	</p>
+
+	<h2>Run examples locally</h2>
+	<p>
+		Clone the
+		<a href={externalLinks.examplesGithub} target="_blank" rel="noopener noreferrer"
+			>examples.liforma.ai</a>
+		repository to explore runnable integrations:
+	</p>
+	<CodeBlock
+		code={`git clone https://github.com/charlesatliforma/examples.liforma.ai.git
+cd examples.liforma.ai
+npm install
+./start`}
+		lang="bash"
+	/>
+	<p>That opens the gallery on <code>http://localhost:4000</code> and runnable demos on
+		<code>4001</code> (Spanish Tutor) and <code>4002</code> (guided practice). Use
+		<code>./start sveltekit</code> for SvelteKit variants. Examples call production Liforma APIs — no
+		local API or player required.</p>
 
 	<h2>Developer portal (create your own experience)</h2>
 	<p>

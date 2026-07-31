@@ -17,6 +17,35 @@
 		world activity.
 	</p>
 
+	<h2>Startup</h2>
+	<p>
+		<code>ready</code> reports that the player visuals are mounted and ready. <code>started</code>
+		reports that the player-owned startup button was clicked and audio and session startup completed.
+	</p>
+	<CodeBlock
+		code={`const experience = await Experience.startSession({
+  experienceId: 'exp_…'
+});
+
+experience.on('ready', ({ manifest }) => {
+  console.log('Player visuals ready', manifest.experience.mode);
+});
+
+experience.on('started', ({ mode }) => {
+  console.log('Audio and session started in', mode, 'mode');
+});
+
+await experience.attach({ container });
+`}
+		lang="javascript"
+	/>
+	<p>
+		<code>ready</code> includes the resolved manifest. <code>started</code> includes the experience
+		mode. Both replay asynchronously for handlers registered after the event. The
+		<code>onStart</code> option on
+		<code>Experience.startSession()</code> is a convenience callback for startup completion.
+	</p>
+
 	<h2>Conversation</h2>
 	<CodeBlock
 		code={`experience.on('message', ({ role, text, final }) => {
@@ -61,6 +90,16 @@ experience.on('close', ({ reason, returnUrl }) => { });`}
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td><code>ready</code></td>
+				<td><code>{`{ manifest }`}</code></td>
+				<td>Player visuals are mounted and ready</td>
+			</tr>
+			<tr>
+				<td><code>started</code></td>
+				<td><code>{`{ mode }`}</code></td>
+				<td>Player startup click, audio unlock, and session startup completed</td>
+			</tr>
 			<tr>
 				<td><code>message</code></td>
 				<td><code>{`{ role, text, final }`}</code></td>

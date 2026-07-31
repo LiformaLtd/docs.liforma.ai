@@ -76,7 +76,8 @@ export const externalLinks = {
 	pricing: 'https://www.liforma.ai/pricing',
 	meet: 'https://www.liforma.ai/meet',
 	player: 'https://player.liforma.ai',
-	examples: 'https://spanish-tutor.examples.liforma.ai',
+	examples: 'https://examples.liforma.ai',
+	examplesGithub: 'https://github.com/charlesatliforma/examples.liforma.ai',
 	github: 'https://github.com/liforma'
 } as const;
 
