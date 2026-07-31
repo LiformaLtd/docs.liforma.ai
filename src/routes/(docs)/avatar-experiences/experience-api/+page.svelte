@@ -132,8 +132,10 @@ await experience.attach({
 	/>
 	<p>
 		<code>started</code> fires after the player button is clicked and audio is unlocked. In presenter
-		mode, it is the safe point for host code to call <code>speak()</code>. Button appearance is
-		limited to the documented tokens; arbitrary CSS is not supported across the player frame.
+		mode, it is the safe point for host code to call <code>speak()</code>. Calling
+		<code>speak()</code>, <code>startListening()</code>, or <code>stopListening()</code> before
+		<code>started</code> throws a clear error. Button appearance is limited to the documented tokens;
+		arbitrary CSS is not supported across the player frame.
 	</p>
 
 	<h2>Rendering is separate</h2>
