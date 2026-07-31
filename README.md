@@ -29,3 +29,5 @@ Runs on **http://localhost:3005** (`strictPort`).
 - `src/lib/snippets.ts` — canonical code examples
 
 Content is aligned with `docs/architecture/api_architecture.md` in the meta `liforma` repo.
+
+<!-- deploy verify: git reconnect probe, 2026-07-31 -->
