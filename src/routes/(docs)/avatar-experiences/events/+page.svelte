@@ -46,7 +46,37 @@ await experience.attach({ container });
 		<code>Experience.startSession()</code> is a convenience callback for startup completion.
 	</p>
 
-	<h2>Conversation</h2>
+	<h2>Speech and transcripts (presenter / speak API)</h2>
+	<p>
+		These events are emitted during scripted <code>speak()</code> sessions and manual or automatic
+		listening. Partial transcript revisions are planned for a later release; Phase A emits final user
+		transcripts only.
+	</p>
+	<CodeBlock
+		code={`experience.on('userTranscript', (update) => {
+  if (!update.isFinal) return;
+  console.log(update.utteranceId, update.text);
+});
+
+experience.on('characterSpeechStarted', (event) => {
+  console.log('Speaking', event.characterId, event.text, event.source);
+});
+
+experience.on('characterSpeechEnded', (event) => {
+  console.log('Speech ended', event.reason, event.durationMs);
+});
+
+experience.on('conversationUpdate', (conversation) => {
+  console.log('History length', conversation.length);
+});
+
+experience.on('listeningState', (listening) => {
+  console.log('Mic gate', listening);
+});`}
+		lang="javascript"
+	/>
+
+	<h2>Conversation (managed mode)</h2>
 	<CodeBlock
 		code={`experience.on('message', ({ role, text, final }) => {
   console.log(role, text, final);
@@ -99,6 +129,31 @@ experience.on('close', ({ reason, returnUrl }) => { });`}
 				<td><code>started</code></td>
 				<td><code>{`{ mode }`}</code></td>
 				<td>Player startup click, audio unlock, and session startup completed</td>
+			</tr>
+			<tr>
+				<td><code>userTranscript</code></td>
+				<td><code>{`{ utteranceId, text, revision, isFinal }`}</code></td>
+				<td>Final user transcript in manual mode (partial revisions planned)</td>
+			</tr>
+			<tr>
+				<td><code>characterSpeechStarted</code></td>
+				<td><code>{`{ speechId, turnId, characterId, text, source }`}</code></td>
+				<td>Character began speaking (<code>speak</code>, <code>opening</code>, or <code>llm</code>)</td>
+			</tr>
+			<tr>
+				<td><code>characterSpeechEnded</code></td>
+				<td><code>{`{ speechId, turnId, characterId, text, source, durationMs?, reason }`}</code></td>
+				<td>Character speech finished or was interrupted</td>
+			</tr>
+			<tr>
+				<td><code>conversationUpdate</code></td>
+				<td><code>ConversationMessage[]</code></td>
+				<td>Immutable snapshot of in-session conversation history</td>
+			</tr>
+			<tr>
+				<td><code>listeningState</code></td>
+				<td><code>boolean</code></td>
+				<td>Manual listening gate opened (<code>true</code>) or closed (<code>false</code>)</td>
 			</tr>
 			<tr>
 				<td><code>message</code></td>

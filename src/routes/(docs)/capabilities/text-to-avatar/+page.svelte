@@ -26,6 +26,30 @@
 	</ul>
 
 	<h2>API</h2>
+	<p>
+		For animated speech inside a live session, use <code>Experience.speak()</code> in presenter mode
+		(or managed conversation). The standalone <code>Liforma.textToAvatar()</code> helper described
+		below is aspirational — shipped today via the Experience speak path.
+	</p>
+	<CodeBlock
+		code={`const experience = await Experience.startSession({
+  experienceId: 'exp_…',
+  mode: 'presenter'
+});
+
+experience.on('started', async () => {
+  await experience.speak({ text: 'Hello! Welcome to the lesson.' });
+});
+
+await experience.attach({ container: '#avatar' });`}
+		lang="javascript"
+	/>
+	<p class="muted">
+		See <a href="/avatar-experiences/experience-api">Experience API</a> for
+		<code>startButton</code>, manual listening, and speech lifecycle events.
+	</p>
+
+	<h2>Standalone animation (planned)</h2>
 	<CodeBlock
 		code={`import { Liforma } from '@liforma/client';
 
