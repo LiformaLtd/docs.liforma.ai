@@ -47,8 +47,13 @@
 		Scripted assistant lines and finalized user utterances appear in
 		<code>getConversation()</code>. Feedback objects are application state unless you store them
 		separately. Listen for <code>characterSpeechStarted</code> / <code>characterSpeechEnded</code>,
-		<code>userTranscript</code> (final only in this release), and
+		<code>userTranscript</code>, <code>userSpeechStarted</code> / <code>userSpeechEnded</code>, and
 		<code>listeningState</code> — see <a href="/avatar-experiences/events">Events</a>.
+	</p>
+	<p>
+		For automatic capture without Start/Stop buttons, see
+		<a href="/guides/listen-once-capture">Listen Once Capture</a>. For browser-owned replies after each
+		utterance, see <a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
 	</p>
 
 	<h2>Runnable examples</h2>

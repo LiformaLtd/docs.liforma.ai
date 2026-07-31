@@ -15,9 +15,10 @@ const descriptions: Record<string, string> = {
 	'/avatar-experiences/overview': 'Real-time AI characters that listen, think, speak, and animate.',
 	'/avatar-experiences/liforma-experience': 'The LiformaExperience component and embed options.',
 	'/avatar-experiences/experience-api':
-		'Experience.startSession, speak(), listening APIs, getters, and lifecycle.',
+		'Experience.startSession, speak(), listenOnce(), conversationProcessor, and getters.',
 	'/avatar-experiences/session-manifests': 'Per-launch runtime configuration returned by the API.',
-	'/avatar-experiences/events': 'Conversation, mode, state, and character events.',
+	'/avatar-experiences/events':
+		'Partial transcripts, speech boundaries, processor errors, and mode events.',
 	'/avatar-experiences/public': 'Public embeds with origin allowlists — no backend required.',
 	'/avatar-experiences/authenticated': 'Server-minted sessions with API keys.',
 	'/capabilities/text-to-avatar': 'Animate an avatar speaking known text.',
@@ -30,6 +31,10 @@ const descriptions: Record<string, string> = {
 	'/guides/events': 'Listen to messages, mode changes, and state updates.',
 	'/guides/guided-scripted-practice':
 		'Scripted tutor lines with manual listening and host-side feedback.',
+	'/guides/custom-conversation-processor':
+		'Browser conversationProcessor to replace the managed LLM.',
+	'/guides/listen-once-capture':
+		'listenOnce() for automatic end-of-speech capture in host-owned turns.',
 	'/guides/customise-characters': 'Avatars, voices, and character configuration.',
 	'/guides/tools': 'Give characters controlled external capabilities.',
 	'/guides/migrate-elevenlabs': 'Move from voice agents to animated avatar experiences.',
@@ -38,7 +43,8 @@ const descriptions: Record<string, string> = {
 	'/api-reference/public-sessions': 'POST /v1/public-sessions — browser embed minting.',
 	'/api-reference/manifests': 'Session Manifest schema and fields.',
 	'/api-reference/errors': 'HTTP error shapes and troubleshooting.',
-	'/sdk-reference/javascript': '@liforma/client — speak(), listening, getters, and lifecycle.',
+	'/sdk-reference/javascript':
+		'@liforma/client — speak(), listenOnce(), conversationProcessor, and events.',
 	'/sdk-reference/svelte': 'LiformaExperience Svelte component.',
 	'/sdk-reference/web-component': 'liforma-experience web component for any framework.'
 };

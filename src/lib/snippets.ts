@@ -72,6 +72,72 @@ async function finishPracticeTurn(line) {
   // Host Next button calls runPracticeTurn(nextLine).
 }`,
 
+	jsListenOnce: `const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}',
+  mode: 'presenter',
+  speechInputMode: 'auto'
+});
+
+experience.on('started', async () => {
+  await experience.speak({ text: 'What is your party size?' });
+  const answer = await experience.listenOnce({ timeoutMs: 15_000 });
+  console.log(answer.utteranceId, answer.text);
+});
+
+await experience.attach({ container: '#avatar' });`,
+
+	jsPartialTranscript: `experience.on('userTranscript', (update) => {
+  if (!update.isFinal) {
+    liveCaptionEl.textContent = update.text;
+    return;
+  }
+  liveCaptionEl.textContent = update.text;
+  commitUtterance(update.utteranceId, update.text);
+});
+
+experience.on('userSpeechStarted', () => micIndicator.classList.add('active'));
+experience.on('userSpeechEnded', () => micIndicator.classList.remove('active'));`,
+
+	jsConversationProcessor: `const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}',
+  mode: 'conversation',
+  speechInputMode: 'auto',
+  conversationProcessor: async ({ text, conversation, signal }) => {
+    if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
+    if (text.toLowerCase().includes('checkout')) {
+      return 'Checkout is at 11am. Need a late checkout?';
+    }
+    if (text.toLowerCase().includes('breakfast')) {
+      return 'Breakfast is served until 10 in the lounge.';
+    }
+    return 'I can help with checkout, breakfast, or directions.';
+  }
+});
+
+experience.on('conversationProcessorError', ({ utteranceId, message }) => {
+  console.error('Processor failed', utteranceId, message);
+});
+
+await experience.attach({ container: '#avatar' });`,
+
+	jsConversationProcessorStream: `conversationProcessor: async function* ({ text, signal }) {
+  const chunks = buildStoryChunks(text);
+  for (const chunk of chunks) {
+    if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
+    yield chunk;
+  }
+}`,
+
+	quizCoachTurnLoop: `async function runQuizQuestion(question, expectedKeyword) {
+  await experience.speak({ text: question });
+  const answer = await experience.listenOnce({ timeoutMs: 20_000 });
+  const correct = answer.text.toLowerCase().includes(expectedKeyword);
+  await experience.speak({
+    text: correct ? 'Correct!' : 'Not quite — try the next one.',
+    behavior: 'interrupt'
+  });
+}`,
+
 	authenticatedSvelte: `<LiformaExperience
   experienceId="${DEMO_EXPERIENCE_ID}"
   sessionEndpoint="/api/liforma-session"

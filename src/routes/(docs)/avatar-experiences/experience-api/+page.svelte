@@ -9,14 +9,16 @@
 	description="Programmatic control over Avatar Experience sessions."
 	next={[
 		{ title: 'Events', href: '/avatar-experiences/events' },
-		{ title: 'Guided Scripted Practice', href: '/guides/guided-scripted-practice' },
+		{ title: 'Custom Conversation Processor', href: '/guides/custom-conversation-processor' },
+		{ title: 'Listen Once Capture', href: '/guides/listen-once-capture' },
 		{ title: 'JavaScript SDK', href: '/sdk-reference/javascript' }
 	]}
 >
 	<h2>Overview</h2>
 	<p>
 		<code>Experience</code> is the primary JavaScript API. Use it when you need programmatic control
-		beyond the component — custom containers, event handling, or presenter sequencing.
+		beyond the component — custom containers, event handling, presenter sequencing, or browser-owned
+		conversation logic.
 	</p>
 
 	<h2>Start a session</h2>
@@ -71,6 +73,23 @@
 				<td>Automatic turn detection, explicit listening boundaries, or no microphone.</td>
 			</tr>
 			<tr>
+				<td><code>conversationProcessor</code></td>
+				<td>Browser function</td>
+				<td>
+					Replace the managed LLM with your own logic. The SDK mints
+					<code>responseMode: 'custom'</code> and never serializes the function. See
+					<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
+				</td>
+			</tr>
+			<tr>
+				<td><code>onUserTranscript</code></td>
+				<td>Callback</td>
+				<td>
+					Observe partial and final STT updates. Observation only — returned values do not become
+					speech automatically.
+				</td>
+			</tr>
+			<tr>
 				<td><code>startButton</code></td>
 				<td>Button label, accessibility, placement, variant, and appearance tokens</td>
 				<td>Customizes the player-owned startup control.</td>
@@ -78,13 +97,14 @@
 		</tbody>
 	</table>
 	<p>
-		Conversation sessions default to <code>conversation</code>, managed responses,
-		and <code>auto</code> input. Presenter sessions default to <code>presenter</code>, manual
-		responses, and <code>manual</code> input.
+		Conversation sessions default to <code>conversation</code>, managed responses, and
+		<code>auto</code> input. Presenter sessions default to <code>presenter</code>, manual responses,
+		and <code>manual</code> input.
 	</p>
 	<p>
-		<code>responseMode</code> is an internal advanced option and is deprecated as normal public
-		configuration. Choose <code>mode</code> instead.
+		Do not pass <code>responseMode</code> directly for browser processors — supply
+		<code>conversationProcessor</code> instead. Registered server processors (opaque
+		<code>processorId</code>) are a separate upcoming capability.
 	</p>
 
 	<h2>Player-owned startup</h2>
@@ -133,25 +153,23 @@ await experience.attach({
 	<p>
 		<code>started</code> fires after the player button is clicked and audio is unlocked. In presenter
 		mode, it is the safe point for host code to call <code>speak()</code>. Calling
-		<code>speak()</code>, <code>startListening()</code>, or <code>stopListening()</code> before
-		<code>started</code> throws a clear error. Button appearance is limited to the documented tokens;
-		arbitrary CSS is not supported across the player frame.
+		<code>speak()</code>, <code>startListening()</code>, <code>stopListening()</code>, or
+		<code>listenOnce()</code> before <code>started</code> throws a clear error. Button appearance is
+		limited to the documented tokens; arbitrary CSS is not supported across the player frame.
 	</p>
 
 	<h2>Speech API</h2>
 	<p>
-		Presenter sessions and manual listening use the speech API on <code>Experience</code>. Call
-		<code>attach()</code> first, wait for <code>started</code>, then use the methods below. See
+		Call <code>attach()</code> first, wait for <code>started</code>, then use the methods below. See
 		<a href="/avatar-experiences/events">Events</a> for <code>characterSpeechStarted</code>,
-		<code>userTranscript</code>, <code>listeningState</code>, and related handlers.
+		<code>userTranscript</code>, <code>userSpeechStarted</code>, and related handlers.
 	</p>
 
 	<h3>Prerequisites</h3>
 	<p>
-		<code>speak()</code>, <code>startListening()</code>, and <code>stopListening()</code> throw if
-		the session has not started. Register <code>experience.on('started', …)</code> (or the
-		<code>onStart</code> option on <code>startSession</code>) and only call speech methods after the
-		player-owned start button unlocks audio.
+		Speech methods throw if the session has not started. Register <code>experience.on('started', …)</code>
+		(or the <code>onStart</code> option on <code>startSession</code>) and only call speech methods after
+		the player-owned start button unlocks audio.
 	</p>
 
 	<h3><code>speak()</code></h3>
@@ -207,9 +225,61 @@ await experience.attach({
 		utterance still triggers the configured processor. In presenter mode, the host decides what to do
 		with the text.
 	</p>
+
+	<h3><code>listenOnce()</code></h3>
 	<p>
-		Automatic end-of-speech capture (<code>listenOnce()</code>) is planned for a later release.
-		Presenter and manual sessions use explicit Start/Stop boundaries today.
+		Convenience for automatic end-of-speech capture. Requires <code>speechInputMode: 'auto'</code>.
+		Opens one listening gate, waits for VAD to finalize a single utterance, then resolves with
+		<code>UtteranceResult</code>. Use for quiz answers, voice forms, or presenter flows where the host
+		owns the turn loop but does not want Start/Stop buttons.
+	</p>
+	<CodeBlock code={snippets.jsListenOnce} lang="javascript" />
+	<table>
+		<thead>
+			<tr>
+				<th>Option</th>
+				<th>Type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>timeoutMs</code></td>
+				<td><code>number</code> (optional)</td>
+				<td>Reject if no finalized utterance within this window (default 30s).</td>
+			</tr>
+			<tr>
+				<td><code>signal</code></td>
+				<td><code>AbortSignal</code> (optional)</td>
+				<td>Abort the wait; rejects with <code>AbortError</code>.</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		Only one <code>listenOnce()</code> may be active at a time. Timeout, abort, and permission failures
+		reject without adding a final user message to conversation history. See
+		<a href="/guides/listen-once-capture">Listen Once Capture</a>.
+	</p>
+
+	<h3><code>conversationProcessor</code></h3>
+	<p>
+		Supply a browser function on <code>Experience.startSession()</code> to replace Liforma's managed
+		LLM for that session. The player still orchestrates turns in <code>conversation</code> mode with
+		<code>speechInputMode: 'auto'</code>; your function decides what the character should say next.
+	</p>
+	<CodeBlock code={snippets.jsConversationProcessor} lang="javascript" />
+	<p>
+		The processor receives an immutable <code>conversation</code> snapshot, the finalized user
+		<code>text</code>, <code>utteranceId</code>, and an <code>AbortSignal</code> cancelled when
+		<code>speak(&#123; behavior: 'interrupt' &#125;)</code> or <code>destroy()</code> aborts in-flight work.
+		Return a string, an object with <code>text</code> (and optional <code>characterId</code>,
+		<code>behavior</code>), or an <code>AsyncIterable&lt;string&gt;</code> for streamed replies.
+	</p>
+	<CodeBlock code={snippets.jsConversationProcessorStream} lang="javascript" />
+	<p>
+		Processor failures emit <code>conversationProcessorError</code> and do not fall back to the managed
+		LLM. Full walkthrough:
+		<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
 	</p>
 
 	<h3><code>getConversation()</code> and <code>getLastTurn()</code></h3>
@@ -227,7 +297,7 @@ await experience.attach({
 		<code>conversationUpdate</code> for push updates when history changes.
 	</p>
 	<p>
-		For a full scripted-lesson walkthrough, see
+		For scripted lessons with manual Start/Stop, see
 		<a href="/guides/guided-scripted-practice">Guided Scripted Practice</a> and the
 		<a href="https://examples.liforma.ai/examples/guided-practice/vanilla/">guided-practice example</a>
 		on <code>examples.liforma.ai</code>.

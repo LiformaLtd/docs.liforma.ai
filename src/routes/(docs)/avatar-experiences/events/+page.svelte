@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
+	import { snippets } from '$lib/snippets';
 </script>
 
 <DocPage
@@ -8,7 +9,8 @@
 	description="Listen to conversation, avatar, and world events from an Experience."
 	next={[
 		{ title: 'Listen to Events', href: '/guides/events' },
-		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
+		{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
+		{ title: 'Custom Conversation Processor', href: '/guides/custom-conversation-processor' }
 	]}
 >
 	<h2>Overview</h2>
@@ -46,19 +48,16 @@ await experience.attach({ container });
 		<code>Experience.startSession()</code> is a convenience callback for startup completion.
 	</p>
 
-	<h2>Speech and transcripts (presenter / speak API)</h2>
+	<h2>Speech and transcripts</h2>
 	<p>
-		These events are emitted during scripted <code>speak()</code> sessions and manual or automatic
-		listening. Partial transcript revisions are planned for a later release; Phase A emits final user
-		transcripts only.
+		Emitted during <code>speak()</code> sessions, manual or automatic listening, and custom processor
+		conversation. Partial transcript revisions include monotonic <code>revision</code> and optional
+		<code>delta</code>. Only updates with <code>isFinal: true</code> commit a user message to
+		conversation history.
 	</p>
+	<CodeBlock code={snippets.jsPartialTranscript} lang="javascript" />
 	<CodeBlock
-		code={`experience.on('userTranscript', (update) => {
-  if (!update.isFinal) return;
-  console.log(update.utteranceId, update.text);
-});
-
-experience.on('characterSpeechStarted', (event) => {
+		code={`experience.on('characterSpeechStarted', (event) => {
   console.log('Speaking', event.characterId, event.text, event.source);
 });
 
@@ -76,18 +75,29 @@ experience.on('listeningState', (listening) => {
 		lang="javascript"
 	/>
 
-	<h2>Conversation (managed mode)</h2>
+	<h2>Custom conversation processor</h2>
+	<p>
+		When you supply <code>conversationProcessor</code> on <code>startSession()</code>, processor
+		failures surface as <code>conversationProcessorError</code>. The managed LLM is not used as a
+		fallback.
+	</p>
 	<CodeBlock
-		code={`experience.on('message', ({ role, text, final }) => {
-  console.log(role, text, final);
+		code={`experience.on('conversationProcessorError', ({ utteranceId, message }) => {
+  console.error('Processor failed for', utteranceId, message);
+  // Retry, speak a fallback line, or show host UI.
+});`}
+		lang="javascript"
+	/>
+
+	<h2>Conversation (managed and custom mode)</h2>
+	<CodeBlock
+		code={`experience.on('message', (message) => {
+  console.log(message.role, message.text, message.source);
 });
 
-experience.on('modeChange', ({ mode }) => {
-  // 'listening' | 'speaking'
-});
-
-experience.on('audio', (event) => {
-  // optional low-level audio hooks
+experience.on('modeChange', (mode) => {
+  // 'listening' | 'speaking' | 'thinking'
+  console.log('Session mode', mode);
 });`}
 		lang="javascript"
 	/>
@@ -131,8 +141,22 @@ experience.on('close', ({ reason, returnUrl }) => { });`}
 			</tr>
 			<tr>
 				<td><code>userTranscript</code></td>
-				<td><code>{`{ utteranceId, text, revision, isFinal }`}</code></td>
-				<td>Final user transcript in manual mode (partial revisions planned)</td>
+				<td>
+					<code>{`{ utteranceId, text, revision, isFinal, delta? }`}</code>
+				</td>
+				<td>
+					Partial and final STT updates. Ephemeral until <code>isFinal: true</code>.
+				</td>
+			</tr>
+			<tr>
+				<td><code>userSpeechStarted</code></td>
+				<td><code>{`{ utteranceId? }`}</code></td>
+				<td>VAD detected speech activity (auto mode telemetry)</td>
+			</tr>
+			<tr>
+				<td><code>userSpeechEnded</code></td>
+				<td><code>{`{ utteranceId? }`}</code></td>
+				<td>VAD detected end of speech; final text may arrive after this event</td>
 			</tr>
 			<tr>
 				<td><code>characterSpeechStarted</code></td>
@@ -156,13 +180,18 @@ experience.on('close', ({ reason, returnUrl }) => { });`}
 			</tr>
 			<tr>
 				<td><code>message</code></td>
-				<td><code>{`{ role, text, final }`}</code></td>
-				<td>User or assistant message. <code>final</code> indicates end of utterance.</td>
+				<td><code>ConversationMessage</code></td>
+				<td>Durable user or assistant message committed to session history</td>
 			</tr>
 			<tr>
 				<td><code>modeChange</code></td>
-				<td><code>{`{ mode }`}</code></td>
-				<td><code>listening</code> or <code>speaking</code></td>
+				<td><code>listening</code> | <code>speaking</code> | <code>thinking</code></td>
+				<td>Session activity mode for UI sync</td>
+			</tr>
+			<tr>
+				<td><code>conversationProcessorError</code></td>
+				<td><code>{`{ utteranceId, message }`}</code></td>
+				<td>Browser <code>conversationProcessor</code> threw or rejected</td>
 			</tr>
 			<tr>
 				<td><code>stateUpdate</code></td>

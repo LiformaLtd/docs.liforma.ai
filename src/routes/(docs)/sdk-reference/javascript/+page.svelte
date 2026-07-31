@@ -58,8 +58,8 @@ await experience.end();`}
 
 	<h2>Speech API</h2>
 	<p>
-		Presenter sessions and manual listening. Requires <code>attach()</code> and the
-		<code>started</code> event. Full reference:
+		Presenter sessions, manual listening, automatic capture, and custom processors. Requires
+		<code>attach()</code> and the <code>started</code> event. Full reference:
 		<a href="/avatar-experiences/experience-api">Experience API</a>.
 	</p>
 	<table>
@@ -79,12 +79,17 @@ await experience.end();`}
 			<tr>
 				<td><code>startListening()</code></td>
 				<td><code>Promise&lt;void&gt;</code></td>
-				<td>Open manual listening gate</td>
+				<td>Open manual listening gate (<code>speechInputMode: 'manual'</code>)</td>
 			</tr>
 			<tr>
 				<td><code>stopListening()</code></td>
 				<td><code>Promise&lt;UtteranceResult&gt;</code></td>
 				<td>Close gate and finalize utterance</td>
+			</tr>
+			<tr>
+				<td><code>listenOnce(options?)</code></td>
+				<td><code>Promise&lt;UtteranceResult&gt;</code></td>
+				<td>One automatic end-of-speech capture (<code>speechInputMode: 'auto'</code>)</td>
 			</tr>
 			<tr>
 				<td><code>getConversation()</code></td>
@@ -99,6 +104,13 @@ await experience.end();`}
 		</tbody>
 	</table>
 
+	<h3>Session options</h3>
+	<p>
+		Pass <code>conversationProcessor</code> and <code>onUserTranscript</code> on
+		<code>Experience.startSession()</code>. See
+		<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
+	</p>
+
 	<h3>Presenter + manual listening</h3>
 	<CodeBlock code={snippets.jsPresenterSession} lang="javascript" />
 
@@ -108,6 +120,9 @@ await experience.end();`}
 	<h3>Manual listening</h3>
 	<CodeBlock code={snippets.jsManualListening} lang="javascript" />
 
+	<h3><code>listenOnce()</code></h3>
+	<CodeBlock code={snippets.jsListenOnce} lang="javascript" />
+
 	<h3>Conversation getters</h3>
 	<CodeBlock code={snippets.jsConversationGetters} lang="javascript" />
 
@@ -115,11 +130,15 @@ await experience.end();`}
 	<p>
 		Register handlers with <code>experience.on(event, handler)</code>. Speech-related events include
 		<code>ready</code>, <code>started</code>, <code>userTranscript</code>,
+		<code>userSpeechStarted</code>, <code>userSpeechEnded</code>,
 		<code>characterSpeechStarted</code>, <code>characterSpeechEnded</code>,
-		<code>conversationUpdate</code>, and <code>listeningState</code>. See the full list on
+		<code>conversationUpdate</code>, <code>conversationProcessorError</code>, and
+		<code>listeningState</code>. See the full list on
 		<a href="/avatar-experiences/events">Events</a>.
 	</p>
 	<p>
-		Scripted lesson pattern: <a href="/guides/guided-scripted-practice">Guided Scripted Practice</a>.
+		Patterns: <a href="/guides/guided-scripted-practice">Guided Scripted Practice</a>,
+		<a href="/guides/listen-once-capture">Listen Once Capture</a>,
+		<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
 	</p>
 </DocPage>
