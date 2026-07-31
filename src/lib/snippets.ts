@@ -15,6 +15,8 @@ export const snippets = {
 
 	cdnScriptTag: '<script src="https://cdn.liforma.ai/sdk/v1/client.js"><\\/script>',
 
+	cdnScriptTagV2: '<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>',
+
 	jsStartSession: `import { Experience } from '@liforma/client';
 
 const experience = await Experience.startSession({
@@ -22,6 +24,53 @@ const experience = await Experience.startSession({
 });
 
 await experience.attach({ container: '#avatar' });`,
+
+	jsPresenterSession: `const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}',
+  mode: 'presenter',
+  speechInputMode: 'manual'
+});
+
+experience.on('started', async () => {
+  await experience.speak({ text: 'Welcome to the lesson.' });
+});
+
+await experience.attach({ container: '#avatar' });`,
+
+	jsSpeak: `const result = await experience.speak({
+  text: 'Repeat after me: Buenos días.',
+  characterId: 'char_…', // optional — defaults to activeCharacterId
+  behavior: 'enqueue' // optional — enqueue (default) or interrupt
+});
+
+console.log(result.turnId, result.durationMs);`,
+
+	jsManualListening: `await experience.startListening();
+// Learner speaks; pauses do not end the utterance in manual mode.
+const utterance = await experience.stopListening();
+console.log(utterance.utteranceId, utterance.text);`,
+
+	jsConversationGetters: `const history = experience.getConversation();
+const lastTurn = experience.getLastTurn();
+
+experience.on('conversationUpdate', (conversation) => {
+  console.log('History length', conversation.length);
+});`,
+
+	guidedPracticeTurnLoop: `async function runPracticeTurn(line) {
+  await experience.speak({ text: line });
+  await experience.startListening();
+}
+
+async function finishPracticeTurn(line) {
+  const utterance = await experience.stopListening();
+  const feedback = await getReadingFeedback({
+    expectedText: line,
+    spokenText: utterance.text
+  });
+  showFeedback(feedback);
+  // Host Next button calls runPracticeTurn(nextLine).
+}`,
 
 	authenticatedSvelte: `<LiformaExperience
   experienceId="${DEMO_EXPERIENCE_ID}"

@@ -8,15 +8,16 @@
 	title="JavaScript SDK"
 	description="@liforma/client — the integrator-facing JavaScript API."
 	next={[
-		{ title: 'Svelte Component', href: '/sdk-reference/svelte' },
-		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
+		{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
+		{ title: 'Events', href: '/avatar-experiences/events' },
+		{ title: 'Svelte Component', href: '/sdk-reference/svelte' }
 	]}
 >
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 
-	<p>Or load from CDN:</p>
-	<CodeBlock code={snippets.cdnScriptTag} lang="html" />
+	<p>Or load from CDN (v2 speak API):</p>
+	<CodeBlock code={snippets.cdnScriptTagV2} lang="html" />
 
 	<h2>Primary API</h2>
 	<CodeBlock code={snippets.jsStartSession} lang="javascript" />
@@ -32,7 +33,7 @@
 		<tbody>
 			<tr>
 				<td><code>Experience</code></td>
-				<td>Session lifecycle and events</td>
+				<td>Session lifecycle, speech API, events, and conversation getters</td>
 			</tr>
 			<tr>
 				<td><code>LiformaExperience</code></td>
@@ -49,7 +50,76 @@ experience.resume();
 await experience.end();`}
 		lang="javascript"
 	/>
+	<p>
+		<code>attach()</code> mounts the player iframe. <code>ready</code> fires when visuals are mounted;
+		<code>started</code> fires after the player start button unlocks audio — required before speech
+		APIs. See <a href="/avatar-experiences/events">Events</a>.
+	</p>
+
+	<h2>Speech API</h2>
+	<p>
+		Presenter sessions and manual listening. Requires <code>attach()</code> and the
+		<code>started</code> event. Full reference:
+		<a href="/avatar-experiences/experience-api">Experience API</a>.
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Method</th>
+				<th>Returns</th>
+				<th>Purpose</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>speak(options)</code></td>
+				<td><code>Promise&lt;SpeechResult&gt;</code></td>
+				<td>Animated character speech (<code>text</code>, optional <code>characterId</code>, <code>behavior</code>)</td>
+			</tr>
+			<tr>
+				<td><code>startListening()</code></td>
+				<td><code>Promise&lt;void&gt;</code></td>
+				<td>Open manual listening gate</td>
+			</tr>
+			<tr>
+				<td><code>stopListening()</code></td>
+				<td><code>Promise&lt;UtteranceResult&gt;</code></td>
+				<td>Close gate and finalize utterance</td>
+			</tr>
+			<tr>
+				<td><code>getConversation()</code></td>
+				<td><code>readonly ConversationMessage[]</code></td>
+				<td>Flat ordered session history snapshot</td>
+			</tr>
+			<tr>
+				<td><code>getLastTurn()</code></td>
+				<td><code>readonly ConversationMessage[]</code></td>
+				<td>Messages in the latest turn</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>Presenter + manual listening</h3>
+	<CodeBlock code={snippets.jsPresenterSession} lang="javascript" />
+
+	<h3><code>speak()</code></h3>
+	<CodeBlock code={snippets.jsSpeak} lang="javascript" />
+
+	<h3>Manual listening</h3>
+	<CodeBlock code={snippets.jsManualListening} lang="javascript" />
+
+	<h3>Conversation getters</h3>
+	<CodeBlock code={snippets.jsConversationGetters} lang="javascript" />
 
 	<h2>Events</h2>
-	<p>See <a href="/avatar-experiences/events">Events</a> for the full list.</p>
+	<p>
+		Register handlers with <code>experience.on(event, handler)</code>. Speech-related events include
+		<code>ready</code>, <code>started</code>, <code>userTranscript</code>,
+		<code>characterSpeechStarted</code>, <code>characterSpeechEnded</code>,
+		<code>conversationUpdate</code>, and <code>listeningState</code>. See the full list on
+		<a href="/avatar-experiences/events">Events</a>.
+	</p>
+	<p>
+		Scripted lesson pattern: <a href="/guides/guided-scripted-practice">Guided Scripted Practice</a>.
+	</p>
 </DocPage>

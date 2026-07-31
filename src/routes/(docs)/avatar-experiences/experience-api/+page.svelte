@@ -9,7 +9,7 @@
 	description="Programmatic control over Avatar Experience sessions."
 	next={[
 		{ title: 'Events', href: '/avatar-experiences/events' },
-		{ title: 'LiformaExperience', href: '/avatar-experiences/liforma-experience' },
+		{ title: 'Guided Scripted Practice', href: '/guides/guided-scripted-practice' },
 		{ title: 'JavaScript SDK', href: '/sdk-reference/javascript' }
 	]}
 >
@@ -136,6 +136,101 @@ await experience.attach({
 		<code>speak()</code>, <code>startListening()</code>, or <code>stopListening()</code> before
 		<code>started</code> throws a clear error. Button appearance is limited to the documented tokens;
 		arbitrary CSS is not supported across the player frame.
+	</p>
+
+	<h2>Speech API</h2>
+	<p>
+		Presenter sessions and manual listening use the speech API on <code>Experience</code>. Call
+		<code>attach()</code> first, wait for <code>started</code>, then use the methods below. See
+		<a href="/avatar-experiences/events">Events</a> for <code>characterSpeechStarted</code>,
+		<code>userTranscript</code>, <code>listeningState</code>, and related handlers.
+	</p>
+
+	<h3>Prerequisites</h3>
+	<p>
+		<code>speak()</code>, <code>startListening()</code>, and <code>stopListening()</code> throw if
+		the session has not started. Register <code>experience.on('started', …)</code> (or the
+		<code>onStart</code> option on <code>startSession</code>) and only call speech methods after the
+		player-owned start button unlocks audio.
+	</p>
+
+	<h3><code>speak()</code></h3>
+	<p>
+		Queue animated character speech without invoking the managed LLM. Resolves when playback
+		completes. An interrupted active or queued call rejects with <code>AbortError</code>.
+	</p>
+	<CodeBlock code={snippets.jsSpeak} lang="javascript" />
+	<table>
+		<thead>
+			<tr>
+				<th>Option</th>
+				<th>Type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>text</code></td>
+				<td><code>string</code></td>
+				<td>Line for the character to speak.</td>
+			</tr>
+			<tr>
+				<td><code>characterId</code></td>
+				<td><code>string</code> (optional)</td>
+				<td>Defaults to <code>activeCharacterId</code> from the manifest.</td>
+			</tr>
+			<tr>
+				<td><code>behavior</code></td>
+				<td><code>enqueue</code> | <code>interrupt</code></td>
+				<td>
+					<code>enqueue</code> waits for current speech (default). <code>interrupt</code> stops
+					active playback and clears the queue before speaking.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		Returns <code>SpeechResult</code>: <code>speechId</code>, <code>turnId</code>,
+		<code>characterId</code>, <code>text</code>, and <code>durationMs</code>.
+	</p>
+
+	<h3><code>startListening()</code> and <code>stopListening()</code></h3>
+	<p>
+		Open and close a logical microphone gate. The player acquires the physical microphone once during
+		startup; <code>stopListening()</code> finalizes the utterance without stopping the media track.
+		Use with <code>speechInputMode: 'manual'</code> so learner pauses do not end the utterance.
+	</p>
+	<CodeBlock code={snippets.jsManualListening} lang="javascript" />
+	<p>
+		<code>stopListening()</code> returns <code>UtteranceResult</code> with
+		<code>utteranceId</code> and <code>text</code>. In managed conversation mode, a finalized manual
+		utterance still triggers the configured processor. In presenter mode, the host decides what to do
+		with the text.
+	</p>
+	<p>
+		Automatic end-of-speech capture (<code>listenOnce()</code>) is planned for a later release.
+		Presenter and manual sessions use explicit Start/Stop boundaries today.
+	</p>
+
+	<h3><code>getConversation()</code> and <code>getLastTurn()</code></h3>
+	<p>
+		Read the flat in-session history as an ordered <code>ConversationMessage[]</code>. Each message
+		has <code>messageId</code>, <code>turnId</code>, <code>role</code> (<code>user</code> or
+		<code>assistant</code>), <code>text</code>, <code>source</code> (<code>user</code>,
+		<code>llm</code>, <code>speak</code>, or <code>opening</code>), <code>status</code>,
+		<code>timestamp</code>, and optional <code>characterId</code> for assistant lines.
+	</p>
+	<CodeBlock code={snippets.jsConversationGetters} lang="javascript" />
+	<p>
+		<code>getConversation()</code> returns the current snapshot. <code>getLastTurn()</code> returns
+		messages sharing the latest <code>turnId</code>. Subscribe to
+		<code>conversationUpdate</code> for push updates when history changes.
+	</p>
+	<p>
+		For a full scripted-lesson walkthrough, see
+		<a href="/guides/guided-scripted-practice">Guided Scripted Practice</a> and the
+		<a href="https://examples.liforma.ai/examples/guided-practice/vanilla/">guided-practice example</a>
+		on <code>examples.liforma.ai</code>.
 	</p>
 
 	<h2>Rendering is separate</h2>

@@ -45,6 +45,7 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'Authenticated Experience', href: '/guides/authenticated-experience' },
 			{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
 			{ title: 'Listen to Events', href: '/guides/events' },
+			{ title: 'Guided Scripted Practice', href: '/guides/guided-scripted-practice' },
 			{ title: 'Customise Characters', href: '/guides/customise-characters' },
 			{ title: 'Add Tools', href: '/guides/tools' },
 			{ title: 'Migrate from ElevenLabs', href: '/guides/migrate-elevenlabs' }
