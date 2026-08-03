@@ -21,8 +21,10 @@ const descriptions: Record<string, string> = {
 	'/avatar-experiences/session-manifests': 'Per-launch runtime configuration returned by the API.',
 	'/avatar-experiences/events':
 		'Partial transcripts, speech boundaries, processor errors, and mode events.',
-	'/avatar-experiences/public': 'Public embeds with origin allowlists — no backend required.',
-	'/avatar-experiences/authenticated': 'Server-minted sessions with API keys.',
+	'/avatar-experiences/browser-embeds':
+		'Client-side session minting protected by an origin allowlist.',
+	'/avatar-experiences/server-sessions':
+		'Preferred server minting with API keys — key never reaches the browser.',
 	'/capabilities/text-to-avatar':
 		'Scripted avatar speech via Experience presenter mode and speak().',
 	'/capabilities/text-to-speech':
@@ -30,8 +32,8 @@ const descriptions: Record<string, string> = {
 	'/capabilities/speech-to-speech':
 		'Voice conversation with speechOnly on Experience in conversation mode.',
 	'/guides/embed': 'Embed patterns for any web app or framework.',
-	'/guides/public-experience': 'Configure and ship a public experience.',
-	'/guides/authenticated-experience': 'Private experiences with server-side session minting.',
+	'/guides/browser-embed': 'Client-side embed with origin allowlist.',
+	'/guides/server-session': 'Server-side session minting with API keys.',
 	'/guides/dynamic-experience-gallery': 'Fetch a creator-managed project catalog and route by slug.',
 	'/guides/events': 'Listen to messages, mode changes, and state updates.',
 	'/guides/guided-scripted-practice':
@@ -43,15 +45,19 @@ const descriptions: Record<string, string> = {
 	'/guides/customise-characters': 'Avatars, voices, and character configuration.',
 	'/guides/tools': 'Give characters controlled external capabilities.',
 	'/guides/migrate-elevenlabs': 'Move from voice agents to animated avatar experiences.',
-	'/api-reference/sessions': 'POST /v1/sessions — authenticated manifest minting.',
+	'/api-reference/sessions': 'POST /v1/sessions — server-side API-key manifest minting.',
 	'/api-reference/experience-catalog': 'GET /v1/projects/{projectId}/experiences — published catalog.',
-	'/api-reference/public-sessions': 'POST /v1/public-sessions — browser embed minting.',
+	'/api-reference/public-sessions':
+		'POST /v1/public-sessions — browser embed minting (path name historical).',
 	'/api-reference/manifests': 'Session Manifest schema and fields.',
 	'/api-reference/errors': 'HTTP error shapes and troubleshooting.',
 	'/sdk-reference/javascript':
 		'@liforma/client — speak(), listenOnce(), conversationProcessor, and events.',
 	'/sdk-reference/svelte': 'Experience Svelte component.',
-	'/sdk-reference/web-component': 'liforma-experience web component for any framework.'
+	'/sdk-reference/web-component': 'liforma-experience web component for any framework.',
+	'/llms.txt': 'Agent-oriented documentation index for Liforma.',
+	'/llms-full.txt': 'Full docs page index for coding agents.',
+	'/openapi/sessions.json': 'OpenAPI for POST /v1/sessions and /v1/public-sessions.'
 };
 
 export function allDocPages(): DocPageEntry[] {

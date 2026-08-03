@@ -1,0 +1,58 @@
+# Liforma Docs
+
+> Liforma is an Avatar Experience platform: embed real-time AI characters that listen, think, speak, and animate in web apps via Session Manifests and `@liforma/client`.
+
+This file helps coding agents find canonical documentation. Prefer these URLs over inventing APIs.
+
+## Start here
+
+- [Quick Start](https://docs.liforma.ai/getting-started/quick-start): install `@liforma/client`, embed with Svelte / React / web component
+- [Concepts](https://docs.liforma.ai/getting-started/concepts): Experience, Session Manifest, SDK
+- [Introduction](https://docs.liforma.ai/getting-started/introduction)
+
+## Avatar Experiences (primary product)
+
+- [Overview](https://docs.liforma.ai/avatar-experiences/overview)
+- [Experience (Svelte)](https://docs.liforma.ai/avatar-experiences/svelte) — `@liforma/client/svelte`
+- [Experience (React)](https://docs.liforma.ai/avatar-experiences/react) — `@liforma/client/react`
+- [Experience (Next.js)](https://docs.liforma.ai/avatar-experiences/nextjs) — `createLiformaSessionRouteHandler`
+- [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors
+- [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only
+- [Session Manifests](https://docs.liforma.ai/avatar-experiences/session-manifests)
+- [Browser embeds](https://docs.liforma.ai/avatar-experiences/browser-embeds) — origin allowlist mint
+- [Server sessions](https://docs.liforma.ai/avatar-experiences/server-sessions) — preferred API-key mint
+
+## Capability recipes (Experience modes, not separate APIs)
+
+- [Text-to-Avatar](https://docs.liforma.ai/capabilities/text-to-avatar) — presenter + `speak()`
+- [Text-to-Speech](https://docs.liforma.ai/capabilities/text-to-speech) — `speechOnly` + presenter
+- [Speech-to-Speech](https://docs.liforma.ai/capabilities/speech-to-speech) — `speechOnly` + conversation
+
+## HTTP API
+
+- [POST /v1/sessions](https://docs.liforma.ai/api-reference/sessions) — server mint with API key (preferred when you have a backend)
+- [POST /v1/public-sessions](https://docs.liforma.ai/api-reference/public-sessions) — browser mint with Origin allowlist (name is historical)
+- [Experience Catalog](https://docs.liforma.ai/api-reference/experience-catalog)
+- [Manifests](https://docs.liforma.ai/api-reference/manifests)
+- [Errors](https://docs.liforma.ai/api-reference/errors)
+- [OpenAPI (sessions)](https://docs.liforma.ai/openapi/sessions.json)
+
+## SDK
+
+- [JavaScript SDK](https://docs.liforma.ai/sdk-reference/javascript) — CDN `https://cdn.liforma.ai/sdk/v2/client.js`
+- [Web Component](https://docs.liforma.ai/sdk-reference/web-component) — `<liforma-experience>`
+
+## Agent notes
+
+- Mint auth ≠ visibility: public/private in Studio is separate from browser-origin mint vs API-key mint.
+- Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
+- `modeChange` payload is a bare string: `'listening' | 'speaking' | 'thinking'`.
+- `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
+- Player `close` and embed `onStateUpdate` come from `attach()` / component props, not `experience.on()`.
+- CDN script is **v2** (`/sdk/v2/client.js`).
+- Examples: https://examples.liforma.ai · https://github.com/LiformaLtd/examples.liforma.ai
+- Developer portal (API keys, origins): https://app.liforma.ai
+
+## Optional full index
+
+- [llms-full.txt](https://docs.liforma.ai/llms-full.txt) — nav + short descriptions for every docs page

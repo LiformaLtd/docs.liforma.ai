@@ -35,7 +35,7 @@
 		<tbody>
 			<tr>
 				<td><code>{`{ experienceId }`}</code></td>
-				<td>Public embed — SDK calls <code>/v1/public-sessions</code></td>
+				<td>Browser embed — SDK calls <code>/v1/public-sessions</code></td>
 			</tr>
 			<tr>
 				<td><code>{`{ manifest }`}</code></td>
@@ -43,15 +43,15 @@
 			</tr>
 			<tr>
 				<td><code>{`{ experienceId, sessionEndpoint }`}</code></td>
-				<td>Authenticated — SDK POSTs to your same-origin route</td>
+				<td>Server session — SDK POSTs to your same-origin route</td>
 			</tr>
 		</tbody>
 	</table>
 
-	<h2>Public configuration</h2>
+	<h2>Browser mint configuration</h2>
 	<p>
 		Pass these options to <code>Experience.startSession()</code>. They are forwarded when the SDK
-		mints a public session.
+		mints via the browser endpoint.
 	</p>
 	<table>
 		<thead>

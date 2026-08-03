@@ -33,7 +33,7 @@
 		<li>You think in <strong>Experiences</strong>, not agents — characters, worlds, and state are first-class</li>
 		<li>Sessions are minted via a <strong>Session Manifest</strong>, not a thin conversation token</li>
 		<li>Transport and runtime details are hidden inside the SDK</li>
-		<li>Public embeds use <code>experienceId</code> + origin allowlists — no signed URL required</li>
+		<li>Browser embeds use <code>experienceId</code> + origin allowlists — no signed URL required</li>
 	</ul>
 
 	<h2>What Liforma adds</h2>

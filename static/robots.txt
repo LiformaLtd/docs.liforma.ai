@@ -2,3 +2,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://docs.liforma.ai/sitemap.xml
+# Agent-oriented docs index
+# https://docs.liforma.ai/llms.txt
+# https://docs.liforma.ai/llms-full.txt
+# https://docs.liforma.ai/openapi/sessions.json

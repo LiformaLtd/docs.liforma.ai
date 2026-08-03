@@ -23,7 +23,7 @@
 	<h2>Basic usage</h2>
 	<p>
 		Import the component in a client boundary and pass <code>experienceId</code> (or
-		<code>manifest</code> / <code>sessionEndpoint</code> for authenticated flows).
+		<code>manifest</code> / <code>sessionEndpoint</code> for server-session flows).
 	</p>
 	<CodeBlock code={snippets.reactHelloWorld} lang="tsx" filename="Demo.tsx" />
 

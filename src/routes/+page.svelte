@@ -5,7 +5,11 @@
 	import { canonicalUrl, DEFAULT_DESCRIPTION, ogImageUrl, pageTitle } from '$lib/seo';
 	import { toggleTheme } from '$lib/theme';
 
-	const helloWorld = `<Experience experienceId="${DEMO_EXPERIENCE_ID}" />`;
+	const helloWorld = `import { Experience } from '@liforma/client/react';
+
+export function Demo() {
+  return <Experience experienceId="${DEMO_EXPERIENCE_ID}" />;
+}`;
 	const title = pageTitle('Avatar Experiences for developers');
 </script>
 
@@ -62,12 +66,14 @@
 			</div>
 
 			<div class="hero-code">
-				<CodeBlock code={helloWorld} lang="svelte" filename="App.svelte" />
+				<CodeBlock code={helloWorld} lang="tsx" filename="Demo.tsx" />
 			</div>
 
 			<p class="hero-note">
-				That's it. Liforma starts a session, fetches a Session Manifest, connects to the runtime,
-				and renders your avatar — audio, speech, animation, and lifecycle included.
+				Same component surface in Svelte, React, and Next.js. Liforma starts a session, fetches a
+				Session Manifest, connects to the runtime, and renders your avatar — audio, speech,
+				animation, and lifecycle included. Coding agents: start at
+				<a href="/llms.txt">llms.txt</a>.
 			</p>
 		</div>
 	</main>
@@ -130,6 +136,10 @@
 			<a href={externalLinks.pricing}>Pricing</a>
 			·
 			<a href={externalLinks.meet}>Try a demo</a>
+			·
+			<a href="/llms.txt">llms.txt</a>
+			·
+			<a href="/openapi/sessions.json">OpenAPI</a>
 		</p>
 	</footer>
 </div>

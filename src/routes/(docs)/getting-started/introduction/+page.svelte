@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Callout from '$lib/components/Callout.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { externalLinks } from '$lib/navigation';
 </script>
@@ -11,6 +12,14 @@
 		{ title: 'Concepts', href: '/getting-started/concepts' }
 	]}
 >
+	<Callout title="For coding agents">
+		<p>
+			Start with <a href="/llms.txt">llms.txt</a> (curated index), then
+			<a href="/llms-full.txt">llms-full.txt</a> or
+			<a href="/openapi/sessions.json">sessions OpenAPI</a> — prefer these over inventing APIs.
+		</p>
+	</Callout>
+
 	<h2>What is Liforma?</h2>
 	<p>
 		Liforma is a platform for building <strong>Avatar Experiences</strong> — real-time AI characters
@@ -35,6 +44,24 @@
 		<li><strong>Hidden complexity</strong> — transport, STT, TTS, and avatar rendering stay inside the SDK</li>
 		<li><strong>Avatar-native</strong> — animation is first-class, not a bolt-on to voice</li>
 	</ul>
+
+	<h2>Visibility vs how you mint sessions</h2>
+	<p>These are independent:</p>
+	<ul>
+		<li>
+			<strong>Visibility</strong> — an experience can be public or private in Studio
+		</li>
+		<li>
+			<strong>Mint auth</strong> —
+			<a href="/avatar-experiences/server-sessions">API key on your server</a> (preferred when you
+			have a backend) or
+			<a href="/avatar-experiences/browser-embeds">allowed origins</a> for client-only embeds
+		</li>
+	</ul>
+	<p>
+		Allowed origins stop third parties embedding your paid experience on sites you did not approve.
+		They do not mean “this experience is public.”
+	</p>
 
 	<h2>Capabilities</h2>
 	<p>Although Avatar Experiences are the strategic product, Liforma also supports focused capabilities:</p>

@@ -52,7 +52,7 @@
 
 	<h2>JavaScript</h2>
 	<p>Same pattern with the framework-neutral <code>Experience</code> class:</p>
-	<CodeBlock code={snippets.jsPresenterSpeechOnly} lang="javascript" />
+	<CodeBlock code={snippets.jsPresenterAvatar} lang="javascript" />
 
 	<p class="muted">
 		Call <code>speak()</code> only after <code>started</code> (or from an <code>on('started')</code>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Callout from '$lib/components/Callout.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 </script>
 
@@ -7,8 +8,8 @@
 	description="Core ideas behind the Liforma platform."
 	next={[
 		{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
-		{ title: 'Public Experiences', href: '/avatar-experiences/public' },
-		{ title: 'Avatar Experiences Overview', href: '/avatar-experiences/overview' }
+		{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
+		{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
 	]}
 >
 	<h2>The mental model</h2>
@@ -53,6 +54,50 @@ SDK</pre>
 		<a href="/avatar-experiences/session-manifests">Session Manifests</a>.
 	</p>
 
+	<h2>How sessions are authorized (mint auth)</h2>
+	<p>
+		There are two ways to start a session. This is separate from whether an experience is marked
+		public or private in Studio.
+	</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Mint path</th>
+				<th>How it works</th>
+				<th>When</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href="/avatar-experiences/server-sessions">Server sessions (API key)</a></td>
+				<td>Your backend calls <code>POST /v1/sessions</code>; key never hits the browser</td>
+				<td>
+					<strong>Preferred</strong> when you have a server — per-user context, tighter control
+				</td>
+			</tr>
+			<tr>
+				<td><a href="/avatar-experiences/browser-embeds">Browser embeds (origins)</a></td>
+				<td>
+					SDK calls the browser mint endpoint; Liforma checks the page
+					<code>Origin</code> against your allowlist
+				</td>
+				<td>Client-only apps with no backend</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		<strong>Allowed origins</strong> stop third parties from embedding your experience on websites
+		you did not approve — so they cannot burn your paid minutes. Origins are not the same as making
+		an experience “public.”
+	</p>
+
+	<h2>Public vs private (visibility)</h2>
+	<p>
+		An experience can be public or private in Studio whether you mint with an API key or with
+		allowed origins. Visibility controls discoverability and access policy in the product; mint auth
+		controls how a Session Manifest is obtained for a launch.
+	</p>
+
 	<h2>Character</h2>
 	<p>
 		A Character is an entity inside an experience — the combination of conversational agent, visual
@@ -77,29 +122,6 @@ SDK</pre>
 		<a href="/api-reference/experience-catalog">Experience Catalog API</a>.
 	</p>
 
-	<h2>Public vs authenticated</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Mode</th>
-				<th>When</th>
-				<th>Backend required?</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><a href="/avatar-experiences/public">Public experience</a></td>
-				<td>Embeds on allowlisted origins</td>
-				<td>No</td>
-			</tr>
-			<tr>
-				<td><a href="/avatar-experiences/authenticated">Authenticated experience</a></td>
-				<td>Private apps, per-user sessions, API-key billing</td>
-				<td>Yes — your server mints the manifest</td>
-			</tr>
-		</tbody>
-	</table>
-
 	<h2>Tool</h2>
 	<p>
 		A Tool is a controlled external capability — look up a score, advance a quest, fetch account data.
@@ -111,15 +133,23 @@ SDK</pre>
 	<h2>Event</h2>
 	<p>
 		Events are the SDK's way of reporting what happened — new messages, mode changes (listening /
-		speaking), state updates, and character lifecycle. Subscribe with <code>experience.on(…)</code>.
+		speaking), and speech boundaries. Subscribe with <code>experience.on(…)</code>.
 		See <a href="/guides/events">Listen to Events</a>.
 	</p>
 
-	<h2>IDs are public</h2>
+	<h2>IDs are not secret</h2>
 	<p>
 		Experience IDs (<code>exp_…</code>) are public identifiers, like YouTube video IDs. Security
 		comes from origin allowlists, session tokens, quotas, and API keys — not ID secrecy.
 	</p>
+
+	<Callout title="Endpoint name note">
+		<p>
+			The browser mint HTTP path is still named <code>POST /v1/public-sessions</code>. That name is
+			historical. Prefer the product terms <em>browser embed</em> and <em>allowed origins</em> when
+			reasoning about the integration.
+		</p>
+	</Callout>
 </DocPage>
 
 <style>

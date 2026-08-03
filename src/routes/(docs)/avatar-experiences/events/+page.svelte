@@ -6,7 +6,7 @@
 
 <DocPage
 	title="Events"
-	description="Listen to conversation, avatar, and world events from an Experience."
+	description="Listen to conversation and speech events from an Experience."
 	next={[
 		{ title: 'Listen to Events', href: '/guides/events' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
@@ -15,14 +15,15 @@
 >
 	<h2>Overview</h2>
 	<p>
-		Register handlers on an <code>Experience</code> instance to observe conversation, avatar, and
-		world activity.
+		Register handlers with <code>experience.on(event, handler)</code> after
+		<code>Experience.startSession()</code>. Component integrations use the matching callback props
+		(<code>onMessage</code>, <code>onModeChange</code>, …).
 	</p>
 
 	<h2>Startup</h2>
 	<p>
-		<code>ready</code> reports that the player visuals are mounted and ready. <code>started</code>
-		reports that the player-owned startup button was clicked and audio and session startup completed.
+		<code>ready</code> means the player visuals are mounted. <code>started</code> means the
+		player-owned start button was used and audio is unlocked.
 	</p>
 	<CodeBlock
 		code={`const experience = await Experience.startSession({
@@ -44,16 +45,15 @@ await experience.attach({ container });
 	<p>
 		<code>ready</code> includes the resolved manifest. <code>started</code> includes the experience
 		mode. Both replay asynchronously for handlers registered after the event. The
-		<code>onStart</code> option on
-		<code>Experience.startSession()</code> is a convenience callback for startup completion.
+		<code>onStart</code> option on <code>Experience.startSession()</code> is a convenience callback
+		for startup completion.
 	</p>
 
 	<h2>Speech and transcripts</h2>
 	<p>
-		Emitted during <code>speak()</code> sessions, manual or automatic listening, and custom processor
-		conversation. Partial transcript revisions include monotonic <code>revision</code> and optional
-		<code>delta</code>. Only updates with <code>isFinal: true</code> commit a user message to
-		conversation history.
+		Emitted during <code>speak()</code>, listening, and custom processor conversation. Partial
+		transcript revisions include monotonic <code>revision</code> and optional <code>delta</code>.
+		Only updates with <code>isFinal: true</code> commit a user message to conversation history.
 	</p>
 	<CodeBlock code={snippets.jsPartialTranscript} lang="javascript" />
 	<CodeBlock
@@ -84,38 +84,48 @@ experience.on('listeningState', (listening) => {
 	<CodeBlock
 		code={`experience.on('conversationProcessorError', ({ utteranceId, message }) => {
   console.error('Processor failed for', utteranceId, message);
-  // Retry, speak a fallback line, or show host UI.
 });`}
 		lang="javascript"
 	/>
 
-	<h2>Conversation (managed and custom mode)</h2>
+	<h2>Conversation</h2>
 	<CodeBlock
 		code={`experience.on('message', (message) => {
-  console.log(message.role, message.text, message.source);
+  // message.status is always 'final' for committed history messages
+  console.log(message.role, message.text, message.source, message.status);
 });
 
 experience.on('modeChange', (mode) => {
-  // 'listening' | 'speaking' | 'thinking'
+  // bare string: 'listening' | 'speaking' | 'thinking'
   console.log('Session mode', mode);
 });`}
 		lang="javascript"
 	/>
 
 	<p>
-		Lip-sync, expressions, and body animation run inside the hosted player. Integrators do
+		Lip-sync and facial animation run inside the hosted player. Integrators do
 		<strong>not</strong> receive viseme or animation keyframe events — use
-		<code>characterSpeechStarted</code> / <code>characterSpeechEnded</code> when you need to sync
-		your UI with speech.
+		<code>characterSpeechStarted</code> / <code>characterSpeechEnded</code> to sync host UI with
+		speech.
 	</p>
 
-	<h2>World</h2>
+	<h2>Player attach callbacks</h2>
+	<p>
+		Embed lifecycle is on the object returned from <code>attach()</code> (and on component props),
+		not on <code>experience.on()</code>:
+	</p>
 	<CodeBlock
-		code={`experience.on('stateUpdate', (patch) => { /* structured state change */ });
-experience.on('locationChange', ({ locationId }) => { });
-experience.on('characterEnter', ({ characterId }) => { });
-experience.on('characterExit', ({ characterId }) => { });
-experience.on('close', ({ reason, returnUrl }) => { });`}
+		code={`const player = await experience.attach({
+  container,
+  onStateUpdate: (state) => {
+    // EmbedState string from the hosted player (e.g. loading, ready, error)
+    console.log(state);
+  }
+});
+
+player.on('close', ({ reason, returnUrl }) => {
+  console.log('Player closed', reason, returnUrl);
+});`}
 		lang="javascript"
 	/>
 
@@ -181,27 +191,46 @@ experience.on('close', ({ reason, returnUrl }) => { });`}
 			<tr>
 				<td><code>message</code></td>
 				<td><code>ConversationMessage</code></td>
-				<td>Durable user or assistant message committed to session history</td>
+				<td>
+					Durable user or assistant message (<code>status: 'final'</code>, plus
+					<code>source</code>, <code>role</code>, <code>text</code>, ids)
+				</td>
 			</tr>
 			<tr>
 				<td><code>modeChange</code></td>
-				<td><code>listening</code> | <code>speaking</code> | <code>thinking</code></td>
-				<td>Session activity mode for UI sync</td>
+				<td><code>'listening' | 'speaking' | 'thinking'</code></td>
+				<td>Session activity mode for UI sync (bare string, not an object)</td>
 			</tr>
 			<tr>
 				<td><code>conversationProcessorError</code></td>
 				<td><code>{`{ utteranceId, message }`}</code></td>
 				<td>Browser <code>conversationProcessor</code> threw or rejected</td>
 			</tr>
+		</tbody>
+	</table>
+
+	<h3>Not on <code>experience.on()</code></h3>
+	<table>
+		<thead>
 			<tr>
-				<td><code>stateUpdate</code></td>
-				<td>State patch</td>
-				<td>Structured world state change from server</td>
+				<th>Signal</th>
+				<th>How to listen</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Player embed state</td>
+				<td>
+					<code>attach(&#123; onStateUpdate &#125;)</code> or component
+					<code>onStateUpdate</code>
+				</td>
 			</tr>
 			<tr>
-				<td><code>close</code></td>
-				<td><code>{`{ reason, returnUrl? }`}</code></td>
-				<td>Session ended by user or programmatically</td>
+				<td>Player close</td>
+				<td>
+					<code>player.on('close', …)</code> after <code>attach()</code>, or component
+					<code>onClose</code>
+				</td>
 			</tr>
 		</tbody>
 	</table>

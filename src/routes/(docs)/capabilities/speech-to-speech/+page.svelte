@@ -58,11 +58,11 @@
 		is configured on the project and experience at authoring time.
 	</p>
 
-	<h2>Authenticated sessions</h2>
+	<h2>Server sessions</h2>
 	<p>
 		When using <code>sessionEndpoint</code>, forward <code>speechOnly: true</code> in your BFF POST
 		body to <code>POST /v1/sessions</code> so the minted session matches the client flag. See
-		<a href="/avatar-experiences/authenticated">Authenticated experiences</a>.
+		<a href="/avatar-experiences/server-sessions">Server sessions</a>.
 	</p>
 
 	<h2>When to add a visible character</h2>

@@ -25,9 +25,18 @@
 	<p>Characters appear in the Session Manifest:</p>
 	<CodeBlock code={snippets.characterManifestSnippet} lang="json" />
 
+	<h2>Authoring</h2>
+	<p>
+		Create and edit characters in Experience Studio on
+		<a href="https://app.liforma.ai">app.liforma.ai</a>. Published experiences expose character
+		fields on the Session Manifest consumed by <code>@liforma/client</code>.
+	</p>
+
 	<h2>Multi-character experiences</h2>
 	<p>
-		Richer experiences support multiple characters with <code>focusCharacter()</code> and
-		<code>characterEnter</code> / <code>characterExit</code> events.
+		Experiences may define multiple characters in the manifest. Host apps select which character
+		speaks via <code>speak(&#123; text, characterId &#125;)</code> when needed. Dedicated
+		focus/enter/exit controller APIs are not part of the public SDK yet — author multi-character
+		layout and presence in Studio / the experience definition.
 	</p>
 </DocPage>

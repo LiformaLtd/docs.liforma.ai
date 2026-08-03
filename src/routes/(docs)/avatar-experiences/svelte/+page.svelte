@@ -9,7 +9,7 @@
 	description="The canonical Svelte component for embedding Avatar Experiences."
 	next={[
 		{ title: 'Web Component', href: '/sdk-reference/web-component' },
-		{ title: 'Public Experiences', href: '/avatar-experiences/public' },
+		{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
@@ -111,7 +111,7 @@
 			<tr>
 				<td><code>experienceId</code></td>
 				<td><code>string</code></td>
-				<td>Public experience ID. SDK mints session via <code>/v1/public-sessions</code>.</td>
+				<td>Experience ID. SDK mints via <code>/v1/public-sessions</code> (browser mint).</td>
 			</tr>
 			<tr>
 				<td><code>manifest</code></td>
@@ -121,7 +121,7 @@
 			<tr>
 				<td><code>sessionEndpoint</code></td>
 				<td><code>string</code></td>
-				<td>Same-origin route that mints a manifest. For authenticated embeds.</td>
+				<td>Same-origin route that mints a manifest. For server-session embeds.</td>
 			</tr>
 			<tr>
 				<td><code>acceptCredentialExposure</code></td>
@@ -302,7 +302,7 @@
 		<code>conversationProcessor</code> function reference does restart.
 	</p>
 
-	<h2>Authenticated embed</h2>
+	<h2>Server-session embed</h2>
 	<CodeBlock code={snippets.authenticatedSvelte} lang="svelte" />
 
 	<h2>Container sizing</h2>
@@ -321,7 +321,7 @@
 	<p>
 		<strong>Do not</strong> pass credential-bearing manifests through server load functions into page
 		data. The <code>sessionToken</code> would be embedded in HTML. Prefer <code>experienceId</code>
-		for public embeds or a same-origin <code>sessionEndpoint</code>.
+		for browser embeds or a same-origin <code>sessionEndpoint</code>.
 	</p>
 
 	<h2>Close behavior</h2>

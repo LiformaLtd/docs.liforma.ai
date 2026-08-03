@@ -1,0 +1,139 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "Liforma Session Mint API",
+		"version": "1.0.0",
+		"description": "Server (API key) and browser (Origin allowlist) Session Manifest mint endpoints used by @liforma/client."
+	},
+	"servers": [{ "url": "https://api.liforma.ai" }],
+	"paths": {
+		"/v1/sessions": {
+			"post": {
+				"summary": "Mint a Session Manifest with an API key (server-to-server)",
+				"operationId": "createSession",
+				"security": [{ "bearerAuth": [] }],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/AuthenticatedSessionRequest" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Session Manifest",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/SessionManifest" }
+							}
+						}
+					},
+					"400": { "description": "Invalid body" },
+					"401": { "description": "Invalid API key" },
+					"403": { "description": "API key cannot access experience" },
+					"404": { "description": "Unknown experience" }
+				}
+			}
+		},
+		"/v1/public-sessions": {
+			"post": {
+				"summary": "Mint a Session Manifest from the browser (Origin allowlist; path name is historical)",
+				"operationId": "createPublicSession",
+				"parameters": [
+					{
+						"name": "Origin",
+						"in": "header",
+						"required": true,
+						"schema": { "type": "string" },
+						"description": "Browser origin; must be allowlisted for the experience."
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/PublicSessionRequest" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Session Manifest",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/SessionManifest" }
+							}
+						}
+					},
+					"400": { "description": "Invalid body" },
+					"403": { "description": "Missing Origin, browser embeds disabled, or origin not allowlisted" },
+					"404": { "description": "Unknown experience" }
+				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"description": "Developer API key from app.liforma.ai"
+			}
+		},
+		"schemas": {
+			"ExperienceMode": {
+				"type": "string",
+				"enum": ["conversation", "presenter"]
+			},
+			"SpeechInputMode": {
+				"type": "string",
+				"enum": ["auto", "manual", "off"]
+			},
+			"PublicSessionRequest": {
+				"type": "object",
+				"required": ["experienceId"],
+				"properties": {
+					"experienceId": { "type": "string", "pattern": "^exp_" },
+					"language": { "type": "string", "enum": ["en", "es"] },
+					"mode": { "$ref": "#/components/schemas/ExperienceMode" },
+					"speechInputMode": { "$ref": "#/components/schemas/SpeechInputMode" },
+					"speechOnly": {
+						"type": "boolean",
+						"description": "When true, mint a voice-only session without avatar/location assets."
+					},
+					"startButton": { "type": "object", "additionalProperties": true }
+				}
+			},
+			"AuthenticatedSessionRequest": {
+				"allOf": [
+					{ "$ref": "#/components/schemas/PublicSessionRequest" },
+					{
+						"type": "object",
+						"properties": {
+							"processorId": { "type": "string" },
+							"integration": {
+								"type": "object",
+								"properties": {
+									"returnUrl": { "type": "string" }
+								}
+							},
+							"closeButton": { "type": "object", "additionalProperties": true }
+						}
+					}
+				]
+			},
+			"SessionManifest": {
+				"type": "object",
+				"description": "Runtime configuration returned to @liforma/client. Includes sessionId, sessionToken, experience, characters, transport, and related fields.",
+				"additionalProperties": true,
+				"properties": {
+					"schemaVersion": { "type": "integer" },
+					"sessionId": { "type": "string" },
+					"sessionToken": { "type": "string" },
+					"experience": { "type": "object", "additionalProperties": true }
+				}
+			}
+		}
+	}
+}

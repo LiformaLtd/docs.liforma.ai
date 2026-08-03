@@ -20,14 +20,18 @@
 
 	<h2>How they work</h2>
 	<ol>
-		<li>Tools are defined on the experience configuration</li>
+		<li>Tools are defined on the experience configuration in Studio</li>
 		<li>They appear in the Session Manifest <code>tools</code> array</li>
 		<li>The agent decides when to call a tool during conversation</li>
-		<li>Results update <code>state</code> and may trigger <code>stateUpdate</code> events</li>
+		<li>Results may update structured experience state in the runtime</li>
 	</ol>
 
 	<h2>Example</h2>
 	<CodeBlock code={snippets.toolsManifestSnippet} lang="json" />
 
-	<p>Tool schemas follow a structured format editable by creators and understandable by LLMs.</p>
+	<p>
+		Tool schemas follow a structured format editable by creators and understandable by LLMs. Host
+		apps do not register tools through the browser SDK today — configure them on the experience, then
+		observe conversation via <code>message</code> / <code>conversationUpdate</code> events.
+	</p>
 </DocPage>

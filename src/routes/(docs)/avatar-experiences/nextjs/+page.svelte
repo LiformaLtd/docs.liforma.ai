@@ -8,7 +8,7 @@
 	title="Experience (Next.js)"
 	description="React embed component plus an optional App Router session mint helper."
 	next={[
-		{ title: 'Authenticated Experiences', href: '/avatar-experiences/authenticated' },
+		{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' },
 		{ title: 'Experience (React)', href: '/avatar-experiences/react' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
@@ -16,9 +16,10 @@
 	<h2>Overview</h2>
 	<p>
 		Next.js apps use the same <a href="/avatar-experiences/react">React Experience component</a> inside
-		a client boundary. For authenticated experiences, add a same-origin API route that mints Session
-		Manifests with your server API key — the SDK helper returns a standard <code>Response</code> (no
-		<code>next</code> package peer dependency).
+		a client boundary. For
+		<a href="/avatar-experiences/server-sessions">server sessions</a>, add a same-origin API route that
+		mints Session Manifests with your server API key — the SDK helper returns a standard
+		<code>Response</code> (no <code>next</code> package peer dependency).
 	</p>
 
 	<h2>Client embed</h2>
@@ -27,7 +28,7 @@
 		In the App Router, mark the file <code>'use client'</code> or import it from a client component.
 	</p>
 
-	<h2>Authenticated session route</h2>
+	<h2>Server session route</h2>
 	<p>
 		<code>createLiformaSessionRouteHandler()</code> reads <code>LIFORMA_API_KEY</code> and
 		<code>LIFORMA_API_URL</code> from the environment by default. Override with
@@ -53,7 +54,7 @@
 	<p>
 		See
 		<a href="https://github.com/LiformaLtd/examples.liforma.ai/tree/main/examples/guided-practice/nextjs">guided-practice Next.js</a>
-		(public embed by default; optional <code>app/api/liforma-session/route.ts</code> for auth
-		demos).
+		(browser embed by default; optional <code>app/api/liforma-session/route.ts</code> for server
+		session demos).
 	</p>
 </DocPage>

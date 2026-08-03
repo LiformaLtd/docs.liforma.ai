@@ -55,19 +55,20 @@
 	</table>
 
 	<h2>How you integrate</h2>
-	<p>One line for public experiences:</p>
+	<p>One line for a browser embed:</p>
 	<pre class="diagram">&lt;Experience experienceId="exp_…" /&gt;</pre>
 	<p>
 		The SDK handles session minting, transport, audio, turns, avatar rendering, and lifecycle. See
 		<a href="/getting-started/quick-start">Quick Start</a>.
 	</p>
 
-	<h2>vs standalone capabilities</h2>
+	<h2>vs focused capabilities</h2>
 	<p>
-		Liforma also offers <a href="/capabilities/text-to-avatar">Text-to-Avatar</a>,
+		<a href="/capabilities/text-to-avatar">Text-to-Avatar</a>,
 		<a href="/capabilities/text-to-speech">Text-to-Speech</a>, and
-		<a href="/capabilities/speech-to-speech">Speech-to-Speech</a> as focused APIs. Avatar Experiences
-		combine these into a complete character platform with state, tools, and worlds.
+		<a href="/capabilities/speech-to-speech">Speech-to-Speech</a> are not separate product APIs —
+		they are Experience modes (and optional <code>speechOnly</code>) documented as capability recipes.
+		Avatar Experiences remain the full character platform with state, tools, and worlds.
 	</p>
 </DocPage>
 

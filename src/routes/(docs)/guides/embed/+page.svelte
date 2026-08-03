@@ -8,8 +8,9 @@
 	title="Embed an Avatar Experience"
 	description="Add a Liforma avatar to your web app."
 	next={[
-		{ title: 'Public Experience', href: '/guides/public-experience' },
-		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' }
+		{ title: 'Browser embed', href: '/guides/browser-embed' },
+		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
+		{ title: 'Experience (React)', href: '/avatar-experiences/react' }
 	]}
 >
 	<h2>Choose your integration</h2>
@@ -22,12 +23,20 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><a href="/sdk-reference/svelte">Svelte component</a></td>
+				<td><a href="/avatar-experiences/svelte">Svelte component</a></td>
 				<td>Svelte / SvelteKit apps</td>
 			</tr>
 			<tr>
+				<td><a href="/avatar-experiences/react">React component</a></td>
+				<td>React (Vite) and Next.js client components</td>
+			</tr>
+			<tr>
+				<td><a href="/avatar-experiences/nextjs">Next.js session helper</a></td>
+				<td>App Router server-session mint routes</td>
+			</tr>
+			<tr>
 				<td><a href="/sdk-reference/web-component">Web component</a></td>
-				<td>React, Vue, plain HTML, no-code tools</td>
+				<td>Vue, Angular, plain HTML, no-code tools</td>
 			</tr>
 			<tr>
 				<td><a href="/sdk-reference/javascript">JavaScript SDK</a></td>
@@ -42,6 +51,13 @@
 
 	<h2>Svelte embed</h2>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" />
+
+	<h2>React embed</h2>
+	<p>
+		In Next.js App Router, put this in a client component (<code>'use client'</code>). See
+		<a href="/avatar-experiences/nextjs">Experience (Next.js)</a> for server-session routes.
+	</p>
+	<CodeBlock code={snippets.reactHelloWorld} lang="tsx" filename="Demo.tsx" />
 
 	<h2>Web component embed</h2>
 	<CodeBlock code={snippets.webComponentHelloWorld} lang="html" />

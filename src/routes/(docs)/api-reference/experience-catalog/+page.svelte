@@ -9,7 +9,7 @@
 	next={[
 		{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
 		{ title: 'Sessions', href: '/api-reference/sessions' },
-		{ title: 'Authenticated Experience', href: '/guides/authenticated-experience' }
+		{ title: 'Server session', href: '/guides/server-session' }
 	]}
 >
 	<h2>Overview</h2>

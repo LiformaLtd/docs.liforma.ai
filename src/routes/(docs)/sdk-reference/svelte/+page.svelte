@@ -52,7 +52,7 @@
 
 	<h2>SvelteKit</h2>
 	<p>
-		For public embeds, pass <code>experienceId</code> only — let the client mint the session. Do not
+		For browser embeds, pass <code>experienceId</code> only — let the client mint the session. Do not
 		load credential-bearing manifests in <code>+page.server.ts</code>.
 	</p>
 	<CodeBlock

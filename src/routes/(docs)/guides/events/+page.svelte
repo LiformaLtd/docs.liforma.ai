@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
+	import { snippets } from '$lib/snippets';
 </script>
 
 <DocPage
@@ -12,56 +13,45 @@
 	]}
 >
 	<h2>Basic pattern</h2>
-	<CodeBlock
-		code={`import { Experience } from '@liforma/client';
-
-const experience = await Experience.startSession({
-  experienceId: 'exp_…'
-});
-
-experience.on('message', ({ role, text, final }) => {
-  if (role === 'assistant' && final) {
-    appendToChatLog(text);
-  }
-});
-
-experience.on('modeChange', ({ mode }) => {
-  setMicIndicator(mode === 'listening');
-});
-
-experience.on('close', ({ reason }) => {
-  navigateAway(reason);
-});
-
-await experience.attach({ container: '#avatar' });`}
-		lang="javascript"
-	/>
+	<CodeBlock code={snippets.jsListenToEvents} lang="javascript" />
 
 	<h2>Common use cases</h2>
 	<table>
 		<thead>
 			<tr>
 				<th>Goal</th>
-				<th>Event</th>
+				<th>API</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td>Show transcript</td>
-				<td><code>message</code></td>
+				<td>Show transcript / chat log</td>
+				<td><code>message</code> (check <code>status === 'final'</code>)</td>
 			</tr>
 			<tr>
-				<td>Mic/speaker indicator</td>
-				<td><code>modeChange</code></td>
+				<td>Mic / speaker indicator</td>
+				<td><code>modeChange</code> (bare <code>'listening' | 'speaking' | 'thinking'</code>)</td>
 			</tr>
 			<tr>
-				<td>Sync UI with world state</td>
-				<td><code>stateUpdate</code></td>
+				<td>Partial live captions</td>
+				<td><code>userTranscript</code></td>
 			</tr>
 			<tr>
-				<td>Handle user closing avatar</td>
-				<td><code>close</code></td>
+				<td>Sync UI with speech</td>
+				<td><code>characterSpeechStarted</code> / <code>characterSpeechEnded</code></td>
+			</tr>
+			<tr>
+				<td>Player embed lifecycle</td>
+				<td><code>attach(&#123; onStateUpdate &#125;)</code></td>
+			</tr>
+			<tr>
+				<td>Handle user closing the player</td>
+				<td><code>player.on('close')</code> or component <code>onClose</code></td>
 			</tr>
 		</tbody>
 	</table>
+
+	<p>
+		Full payload shapes: <a href="/avatar-experiences/events">Events reference</a>.
+	</p>
 </DocPage>

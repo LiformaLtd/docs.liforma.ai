@@ -27,8 +27,8 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
 			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },
-			{ title: 'Public Experiences', href: '/avatar-experiences/public' },
-			{ title: 'Authenticated Experiences', href: '/avatar-experiences/authenticated' }
+			{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
+			{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
 		]
 	},
 	{
@@ -43,8 +43,8 @@ export const docsNavigation: readonly NavSection[] = [
 		title: 'Guides',
 		items: [
 			{ title: 'Embed an Experience', href: '/guides/embed' },
-			{ title: 'Public Experience', href: '/guides/public-experience' },
-			{ title: 'Authenticated Experience', href: '/guides/authenticated-experience' },
+			{ title: 'Browser embed', href: '/guides/browser-embed' },
+			{ title: 'Server session', href: '/guides/server-session' },
 			{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
 			{ title: 'Listen to Events', href: '/guides/events' },
 			{ title: 'Guided Scripted Practice', href: '/guides/guided-scripted-practice' },
@@ -83,8 +83,8 @@ export const externalLinks = {
 	meet: 'https://www.liforma.ai/meet',
 	player: 'https://player.liforma.ai',
 	examples: 'https://examples.liforma.ai',
-	examplesGithub: 'https://github.com/charlesatliforma/examples.liforma.ai',
-	github: 'https://github.com/liforma'
+	examplesGithub: 'https://github.com/LiformaLtd/examples.liforma.ai',
+	github: 'https://github.com/LiformaLtd'
 } as const;
 
 /** Canonical demo experience ID for docs examples. */

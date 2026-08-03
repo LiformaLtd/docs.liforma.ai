@@ -51,6 +51,16 @@
 		{@render children()}
 	</div>
 	<NextSteps links={next} />
+	<footer class="doc-agent-links">
+		<p>
+			<strong>For coding agents:</strong>
+			<a href="/llms.txt">llms.txt</a>
+			·
+			<a href="/llms-full.txt">llms-full.txt</a>
+			·
+			<a href="/openapi/sessions.json">sessions OpenAPI</a>
+		</p>
+	</footer>
 </article>
 
 <style>
@@ -70,5 +80,26 @@
 		line-height: 1.6;
 		color: var(--text-muted);
 		max-width: 42rem;
+	}
+
+	.doc-agent-links {
+		margin-top: 2.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--border);
+	}
+
+	.doc-agent-links p {
+		margin: 0;
+		font-size: 0.875rem;
+		color: var(--text-muted);
+	}
+
+	.doc-agent-links a {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.doc-agent-links a:hover {
+		text-decoration: underline;
 	}
 </style>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Callout from '$lib/components/Callout.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { externalLinks } from '$lib/navigation';
@@ -11,13 +12,24 @@
 	next={[
 		{ title: 'Concepts', href: '/getting-started/concepts' },
 		{ title: 'Listen to Events', href: '/guides/events' },
-		{ title: 'Authenticated Experiences', href: '/avatar-experiences/authenticated' }
+		{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
 	]}
 >
+	<Callout title="For coding agents">
+		<p>
+			Read <a href="/llms.txt">llms.txt</a> before generating integration code. Full page index:
+			<a href="/llms-full.txt">llms-full.txt</a>. Session mint schema:
+			<a href="/openapi/sessions.json">openapi/sessions.json</a>.
+		</p>
+	</Callout>
+
 	<h2>What you'll build</h2>
 	<p>
 		A live avatar that listens, thinks, speaks, and animates inside your app — with a single
-		component. No backend required for public experiences.
+		component. This hello world uses a
+		<a href="/avatar-experiences/browser-embeds">browser embed</a> (origin allowlist); no backend
+		required. If you have a server, prefer
+		<a href="/avatar-experiences/server-sessions">API-key minting</a>.
 	</p>
 
 	<h2>1. Install</h2>
@@ -33,7 +45,7 @@
 	<CodeBlock code={snippets.cdnScriptTag} lang="html" />
 
 	<h2>2. Embed</h2>
-	<p>This is the entire integration for a public experience:</p>
+	<p>This is the entire client-side integration (browser mint via allowed origins):</p>
 
 	<h3>Svelte</h3>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" filename="App.svelte" />
@@ -60,7 +72,7 @@
 		Open your app. The SDK mints a session, fetches a Session Manifest, and starts the runtime.
 		Allowlist your production origin in the
 		<a href={externalLinks.app} target="_blank" rel="noopener noreferrer">developer portal</a>
-		(<code>app.liforma.ai</code> → your project → Origins) so public embeds work on your domain.
+		(<code>app.liforma.ai</code> → your project → Origins) so browser embeds work on your domain.
 	</p>
 	<p>
 		Try a live demo:
@@ -83,7 +95,7 @@
 		repository to explore runnable integrations:
 	</p>
 	<CodeBlock
-		code={`git clone https://github.com/charlesatliforma/examples.liforma.ai.git
+		code={`git clone https://github.com/LiformaLtd/examples.liforma.ai.git
 cd examples.liforma.ai
 npm install
 ./start`}
@@ -118,7 +130,11 @@ npm install
 	<h2>What Liforma handles for you</h2>
 	<p>You do not wire transport, tokens, or media pipelines. Liforma automatically:</p>
 	<ul>
-		<li><strong>Creates the session</strong> — <code>POST /v1/public-sessions</code> with your <code>experienceId</code></li>
+		<li>
+			<strong>Creates the session</strong> — browser mint via
+			<code>POST /v1/public-sessions</code> with your <code>experienceId</code> (endpoint name is
+			historical)
+		</li>
 		<li><strong>Fetches the Session Manifest</strong> — runtime configuration for this launch</li>
 		<li><strong>Selects transport</strong> — connection strategy is declared in the manifest, hidden from you</li>
 		<li><strong>Requests microphone access</strong> — when speech input is enabled</li>
@@ -131,30 +147,14 @@ npm install
 
 	<h2>4. Listen to events</h2>
 	<p>Subscribe to conversation and mode changes when you need UI hooks:</p>
-	<CodeBlock
-		code={`import { Experience } from '@liforma/client';
-
-const experience = await Experience.startSession({
-  experienceId: '${snippets.experienceId}'
-});
-
-experience.on('message', ({ role, text, final }) => {
-  console.log(role, text, final);
-});
-
-experience.on('modeChange', ({ mode }) => {
-  console.log('mode:', mode); // listening | speaking | thinking
-});
-
-await experience.attach({ container: '#avatar' });`}
-		lang="javascript"
-	/>
+	<CodeBlock code={snippets.jsListenToEvents} lang="javascript" />
 	<p>See <a href="/guides/events">Listen to Events</a> for the full event model.</p>
 
-	<h2>5. Authenticated sessions (when you need them)</h2>
+	<h2>5. Server sessions (preferred when you have a backend)</h2>
 	<p>
-		Public embeds are the default hello world. For private experiences, billing control, or
-		user-specific sessions, your backend mints a manifest with an API key:
+		Browser embeds are the simplest hello world. When you have a server, mint with an API key so the
+		key never reaches the browser — and so you can pass per-user context. This is independent of
+		whether the experience is public or private in Studio.
 	</p>
 	<h3>Svelte</h3>
 	<CodeBlock code={snippets.authenticatedSvelte} lang="svelte" />
@@ -165,7 +165,7 @@ await experience.attach({ container: '#avatar' });`}
 		<code>createLiformaSessionRouteHandler()</code> from <code>@liforma/client/next</code> on
 		<code>app/api/liforma-session/route.ts</code>. See
 		<a href="/avatar-experiences/nextjs">Experience (Next.js)</a>,
-		<a href="/avatar-experiences/authenticated">Authenticated Experiences</a>, and
-		<a href="/guides/authenticated-experience">the authenticated guide</a>.
+		<a href="/avatar-experiences/server-sessions">Server sessions</a>, and
+		<a href="/guides/server-session">the server-session guide</a>.
 	</p>
 </DocPage>

@@ -10,7 +10,7 @@
 	next={[
 		{ title: 'Public Sessions API', href: '/api-reference/public-sessions' },
 		{ title: 'Manifests API', href: '/api-reference/manifests' },
-		{ title: 'Authenticated Experiences', href: '/avatar-experiences/authenticated' }
+		{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
 	]}
 >
 	<h2>What is a Session Manifest?</h2>
@@ -90,7 +90,7 @@
 		<tbody>
 			<tr>
 				<td><code>POST /v1/public-sessions</code></td>
-				<td>Origin allowlist + public experience flag</td>
+				<td>Origin allowlist + browser embeds enabled</td>
 			</tr>
 			<tr>
 				<td><code>POST /v1/sessions</code></td>

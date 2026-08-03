@@ -187,6 +187,20 @@ experience.on('started', async () => {
 
 await experience.attach({ container: '#voice-shell' });`,
 
+	jsPresenterAvatar: `import { Experience } from '@liforma/client';
+
+const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}',
+  mode: 'presenter',
+  speechInputMode: 'off'
+});
+
+experience.on('started', async () => {
+  await experience.speak({ text: 'Hello! Welcome to the lesson.' });
+});
+
+await experience.attach({ container: '#avatar' });`,
+
 	jsVoiceOnlyConversation: `import { Experience } from '@liforma/client';
 
 const experience = await Experience.startSession({
@@ -197,14 +211,39 @@ const experience = await Experience.startSession({
 });
 
 experience.on('message', (message) => {
-  console.log(message.role, message.text);
+  console.log(message.role, message.text, message.status);
 });
 
 await experience.attach({ container: '#voice-shell' });`,
 
-	cdnScriptTag: '<script src="https://cdn.liforma.ai/sdk/v1/client.js"><\\/script>',
+	cdnScriptTag: '<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>',
 
 	cdnScriptTagV2: '<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>',
+
+	jsListenToEvents: `import { Experience } from '@liforma/client';
+
+const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}'
+});
+
+experience.on('message', (message) => {
+  // ConversationMessage: role, text, status ('final'), source, …
+  console.log(message.role, message.text, message.status);
+});
+
+experience.on('modeChange', (mode) => {
+  // 'listening' | 'speaking' | 'thinking'
+  console.log('mode:', mode);
+});
+
+const player = await experience.attach({
+  container: '#avatar',
+  onStateUpdate: (state) => console.log('Player embed state', state)
+});
+
+player.on('close', ({ reason }) => {
+  console.log('Player closed', reason);
+});`,
 
 	jsStartSession: `import { Experience } from '@liforma/client';
 
@@ -382,11 +421,11 @@ export function PrivateLesson() {
   );
 }`,
 
-	sessionEndpointServer: `// app/api/liforma-session/+server.ts
+	sessionEndpointServer: `// src/routes/api/liforma-session/+server.ts (SvelteKit)
 import { json } from '@sveltejs/kit';
 
 export async function POST({ request }) {
-  const { experienceId, userId } = await request.json();
+  const { experienceId, language, mode, speechInputMode, speechOnly } = await request.json();
 
   const res = await fetch('https://api.liforma.ai/v1/sessions', {
     method: 'POST',
@@ -394,15 +433,28 @@ export async function POST({ request }) {
       Authorization: \`Bearer \${process.env.LIFORMA_API_KEY}\`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ experienceId, userId })
+    body: JSON.stringify({
+      experienceId,
+      ...(language ? { language } : {}),
+      ...(mode ? { mode } : {}),
+      ...(speechInputMode ? { speechInputMode } : {}),
+      ...(speechOnly === true ? { speechOnly: true } : {})
+    })
   });
 
   if (!res.ok) {
     return json({ message: 'Failed to mint session' }, { status: res.status });
   }
 
-  return json(await res.json());
+  return json(await res.json(), {
+    headers: { 'Cache-Control': 'no-store, private' }
+  });
 }`,
+
+	sessionEndpointNext: `// app/api/liforma-session/route.ts (Next.js App Router)
+import { createLiformaSessionRouteHandler } from '@liforma/client/next';
+
+export const POST = createLiformaSessionRouteHandler();`,
 
 	projectCatalogServer: `// src/lib/server/liformaCatalog.ts
 import { env } from '$env/dynamic/private';
@@ -493,7 +545,7 @@ await conversation.attach({ container: '#avatar' });`,
 
 	webComponentCompat: '<liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>',
 
-	elevenLabsWebComponent: `<script src="https://cdn.liforma.ai/sdk/v1/client.js"><\\/script>
+	elevenLabsWebComponent: `<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
 <liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>`,
 
 	errorResponse: '{ "message": "Human-readable description" }',

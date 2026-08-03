@@ -9,7 +9,7 @@
 	description="Let creators manage experiences in Studio while your app updates automatically."
 	next={[
 		{ title: 'Experience Catalog API', href: '/api-reference/experience-catalog' },
-		{ title: 'Authenticated Experience', href: '/guides/authenticated-experience' },
+		{ title: 'Server session', href: '/guides/server-session' },
 		{ title: 'Embed an Experience', href: '/guides/embed' }
 	]}
 >
