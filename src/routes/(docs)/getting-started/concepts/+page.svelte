@@ -55,10 +55,7 @@ SDK</pre>
 	</p>
 
 	<h2>How sessions are authorized (mint auth)</h2>
-	<p>
-		There are two ways to start a session. This is separate from whether an experience is marked
-		public or private in Studio.
-	</p>
+	<p>There are two ways to start a session:</p>
 	<table>
 		<thead>
 			<tr>
@@ -87,15 +84,7 @@ SDK</pre>
 	</table>
 	<p>
 		<strong>Allowed origins</strong> stop third parties from embedding your experience on websites
-		you did not approve — so they cannot burn your paid minutes. Origins are not the same as making
-		an experience “public.”
-	</p>
-
-	<h2>Public vs private (visibility)</h2>
-	<p>
-		An experience can be public or private in Studio whether you mint with an API key or with
-		allowed origins. Visibility controls discoverability and access policy in the product; mint auth
-		controls how a Session Manifest is obtained for a launch.
+		you did not approve — so they cannot burn your paid minutes.
 	</p>
 
 	<h2>Character</h2>

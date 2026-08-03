@@ -22,9 +22,8 @@
 
 	<Callout title="Name is historical">
 		<p>
-			Despite the path name, this endpoint is the <strong>browser mint</strong> path. It is not the
-			same as making an experience “public” in Studio. Prefer product terms
-			<em>browser embed</em> and <em>allowed origins</em>.
+			Despite the path name, this endpoint is the <strong>browser mint</strong> path (Origin
+			allowlist). Prefer product terms <em>browser embed</em> and <em>allowed origins</em>.
 		</p>
 	</Callout>
 

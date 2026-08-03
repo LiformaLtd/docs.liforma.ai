@@ -153,8 +153,7 @@ npm install
 	<h2>5. Server sessions (preferred when you have a backend)</h2>
 	<p>
 		Browser embeds are the simplest hello world. When you have a server, mint with an API key so the
-		key never reaches the browser — and so you can pass per-user context. This is independent of
-		whether the experience is public or private in Studio.
+		key never reaches the browser — and so you can pass per-user context.
 	</p>
 	<h3>Svelte</h3>
 	<CodeBlock code={snippets.authenticatedSvelte} lang="svelte" />

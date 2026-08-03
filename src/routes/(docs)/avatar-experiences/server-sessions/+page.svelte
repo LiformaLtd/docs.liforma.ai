@@ -33,13 +33,6 @@
 		<a href="/avatar-experiences/browser-embeds">browser embeds with allowed origins</a> instead.
 	</p>
 
-	<h2>Visibility is separate</h2>
-	<p>
-		API-key minting works for both <strong>public</strong> and <strong>private</strong> experiences.
-		Public vs private is configured on the experience; it is not the same as choosing API keys vs
-		origins.
-	</p>
-
 	<h2>Flow</h2>
 	<pre class="diagram">Your backend  →  POST /v1/sessions  →  Session Manifest
                                               ↓

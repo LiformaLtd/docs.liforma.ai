@@ -21,8 +21,9 @@
 		<strong>allowed origins</strong> list. No API key runs in the browser.
 	</p>
 	<p>
-		Allowed origins are not the same as making an experience “public.” Origins stop someone from
-		embedding <em>your</em> experience (which you pay to run) on a site you did not approve.
+		Allowed origins authorize which websites may start a session from the browser. They exist so
+		third parties cannot embed <em>your</em> experience (which you pay to run) on a site you did not
+		approve.
 	</p>
 
 	<h2>When to use</h2>
@@ -35,13 +36,6 @@
 		If you have a backend, prefer
 		<a href="/avatar-experiences/server-sessions">server sessions with an API key</a> — stronger
 		control, per-user context, and the key never leaves your server.
-	</p>
-
-	<h2>Visibility is separate</h2>
-	<p>
-		An experience can be <strong>public</strong> or <strong>private</strong> in Studio regardless of
-		whether you mint with origins or an API key. Origins authorize <em>which websites</em> may start
-		a session from the browser; they do not define the experience’s visibility.
 	</p>
 
 	<h2>Integration</h2>

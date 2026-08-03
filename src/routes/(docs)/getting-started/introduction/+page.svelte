@@ -45,22 +45,22 @@
 		<li><strong>Avatar-native</strong> — animation is first-class, not a bolt-on to voice</li>
 	</ul>
 
-	<h2>Visibility vs how you mint sessions</h2>
-	<p>These are independent:</p>
+	<h2>How you mint sessions</h2>
+	<p>
+		Choose how your app obtains a Session Manifest — with an API key on your server, or with
+		allowed origins from the browser:
+	</p>
 	<ul>
 		<li>
-			<strong>Visibility</strong> — an experience can be public or private in Studio
+			<a href="/avatar-experiences/server-sessions">API key on your server</a> — preferred when you
+			have a backend
 		</li>
 		<li>
-			<strong>Mint auth</strong> —
-			<a href="/avatar-experiences/server-sessions">API key on your server</a> (preferred when you
-			have a backend) or
-			<a href="/avatar-experiences/browser-embeds">allowed origins</a> for client-only embeds
+			<a href="/avatar-experiences/browser-embeds">Allowed origins</a> — for client-only embeds
 		</li>
 	</ul>
 	<p>
 		Allowed origins stop third parties embedding your paid experience on sites you did not approve.
-		They do not mean “this experience is public.”
 	</p>
 
 	<h2>Capabilities</h2>
