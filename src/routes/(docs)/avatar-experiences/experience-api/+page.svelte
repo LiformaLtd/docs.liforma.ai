@@ -90,6 +90,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td><code>speechOnly</code></td>
+				<td><code>boolean</code></td>
+				<td>
+					Run STT, TTS, and conversation without loading the avatar renderer or location scene
+					assets. Same <code>experienceId</code> as a full embed. With
+					<code>sessionEndpoint</code>, forward <code>speechOnly: true</code> in your BFF POST body.
+					Default <code>false</code>.
+				</td>
+			</tr>
+			<tr>
 				<td><code>startButton</code></td>
 				<td>Button label, accessibility, placement, variant, and appearance tokens</td>
 				<td>Customizes the player-owned startup control.</td>
