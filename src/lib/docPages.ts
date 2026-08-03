@@ -21,9 +21,12 @@ const descriptions: Record<string, string> = {
 		'Partial transcripts, speech boundaries, processor errors, and mode events.',
 	'/avatar-experiences/public': 'Public embeds with origin allowlists — no backend required.',
 	'/avatar-experiences/authenticated': 'Server-minted sessions with API keys.',
-	'/capabilities/text-to-avatar': 'Animate an avatar speaking known text.',
-	'/capabilities/text-to-speech': 'Natural speech synthesis without visual rendering.',
-	'/capabilities/speech-to-speech': 'Voice conversation without an on-screen avatar.',
+	'/capabilities/text-to-avatar':
+		'Scripted avatar speech via Experience presenter mode and speak().',
+	'/capabilities/text-to-speech':
+		'Audio-only speech with speechOnly on Experience and speak().',
+	'/capabilities/speech-to-speech':
+		'Voice conversation with speechOnly on Experience in conversation mode.',
 	'/guides/embed': 'Embed patterns for any web app or framework.',
 	'/guides/public-experience': 'Configure and ship a public experience.',
 	'/guides/authenticated-experience': 'Private experiences with server-side session minting.',

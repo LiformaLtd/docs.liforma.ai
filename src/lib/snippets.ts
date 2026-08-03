@@ -15,36 +15,39 @@ export const snippets = {
     type ExperienceHandle
   } from '@liforma/client/svelte';
 
-  let avatar: ExperienceHandle | undefined = $state();
+  // Controller from bind:this — undefined until the component mounts.
+  let experience: ExperienceHandle | undefined = $state();
   let audioUnlocked = $state(false);
 
+  // Safe point to speak: player start button has unlocked audio.
   async function handleStarted() {
     audioUnlocked = true;
-    await avatar?.speak({ text: 'Welcome to the lesson.' });
+    await experience?.speak({ text: 'Welcome to the lesson.' });
   }
 
+  // Host-owned Start/Stop — manual speech capture for the learner.
   async function startAnswer() {
-    if (!avatar) return;
-    await avatar.startListening();
+    if (!experience) return;
+    await experience.startListening();
   }
 
   async function finishAnswer() {
-    if (!avatar) return;
-    const utterance = await avatar.stopListening();
+    if (!experience) return;
+    const utterance = await experience.stopListening();
     console.log(utterance.text);
   }
 <\\/script>
 
 <Experience
-  bind:this={avatar}
+  bind:this={experience}
   experienceId="${DEMO_EXPERIENCE_ID}"
   mode="presenter"
   speechInputMode="manual"
   onStarted={handleStarted}
 />
 
-<button disabled={!audioUnlocked || !avatar} onclick={startAnswer}>Start answer</button>
-<button disabled={!audioUnlocked || !avatar} onclick={finishAnswer}>Stop answer</button>`,
+<button disabled={!audioUnlocked || !experience} onclick={startAnswer}>Start answer</button>
+<button disabled={!audioUnlocked || !experience} onclick={finishAnswer}>Stop answer</button>`,
 
 	svelteCallbacks: `<script lang="ts">
   import { Experience } from '@liforma/client/svelte';
@@ -67,6 +70,87 @@ export const snippets = {
 	webComponentHelloWorld: `<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
 
 <liforma-experience experience-id="${DEMO_EXPERIENCE_ID}"></liforma-experience>`,
+
+	sveltePresenterSpeech: `<script lang="ts">
+  import {
+    Experience,
+    type ExperienceHandle
+  } from '@liforma/client/svelte';
+
+  let experience: ExperienceHandle | undefined = $state();
+
+  async function speakIntro() {
+    await experience?.speak({ text: 'Hello! Welcome to the lesson.' });
+  }
+<\\/script>
+
+<Experience
+  bind:this={experience}
+  experienceId="${DEMO_EXPERIENCE_ID}"
+  mode="presenter"
+  speechInputMode="off"
+  onStarted={speakIntro}
+/>`,
+
+	svelteSpeechOnlyTts: `<script lang="ts">
+  import {
+    Experience,
+    type ExperienceHandle
+  } from '@liforma/client/svelte';
+
+  let experience: ExperienceHandle | undefined = $state();
+
+  async function speakPrompt() {
+    await experience?.speak({ text: 'Your table is ready.' });
+  }
+<\\/script>
+
+<Experience
+  bind:this={experience}
+  experienceId="${DEMO_EXPERIENCE_ID}"
+  speechOnly
+  mode="presenter"
+  speechInputMode="off"
+  onStarted={speakPrompt}
+/>`,
+
+	svelteSpeechOnlyConversation: `<Experience
+  experienceId="${DEMO_EXPERIENCE_ID}"
+  speechOnly
+  mode="conversation"
+  speechInputMode="auto"
+  onMessage={(message) => console.log(message.role, message.text)}
+/>`,
+
+	jsPresenterSpeechOnly: `import { Experience } from '@liforma/client';
+
+const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}',
+  speechOnly: true,
+  mode: 'presenter',
+  speechInputMode: 'off'
+});
+
+experience.on('started', async () => {
+  await experience.speak({ text: 'Your table is ready.' });
+});
+
+await experience.attach({ container: '#voice-shell' });`,
+
+	jsVoiceOnlyConversation: `import { Experience } from '@liforma/client';
+
+const experience = await Experience.startSession({
+  experienceId: '${DEMO_EXPERIENCE_ID}',
+  speechOnly: true,
+  mode: 'conversation',
+  speechInputMode: 'auto'
+});
+
+experience.on('message', (message) => {
+  console.log(message.role, message.text);
+});
+
+await experience.attach({ container: '#voice-shell' });`,
 
 	cdnScriptTag: '<script src="https://cdn.liforma.ai/sdk/v1/client.js"><\\/script>',
 
@@ -133,37 +217,37 @@ async function finishPracticeTurn(line) {
     type ExperienceHandle
   } from '@liforma/client/svelte';
 
-  let avatar: ExperienceHandle | undefined = $state();
+  let experience: ExperienceHandle | undefined = $state();
   let feedback = $state('');
   let audioUnlocked = $state(false);
 
   async function playTutorLine() {
     audioUnlocked = true;
-    await avatar?.speak({ text: 'Read this sentence aloud.' });
+    await experience?.speak({ text: 'Read this sentence aloud.' });
   }
 
   async function startAnswer() {
-    if (!avatar) return;
-    await avatar.startListening();
+    if (!experience) return;
+    await experience.startListening();
   }
 
   async function finishAnswer() {
-    if (!avatar) return;
-    const utterance = await avatar.stopListening();
+    if (!experience) return;
+    const utterance = await experience.stopListening();
     feedback = \`You said: \${utterance.text}\`;
   }
 <\\/script>
 
 <Experience
-  bind:this={avatar}
+  bind:this={experience}
   experienceId="${DEMO_EXPERIENCE_ID}"
   mode="presenter"
   speechInputMode="manual"
   onStarted={playTutorLine}
 />
 
-<button disabled={!audioUnlocked || !avatar} onclick={startAnswer}>Start</button>
-<button disabled={!audioUnlocked || !avatar} onclick={finishAnswer}>Stop</button>
+<button disabled={!audioUnlocked || !experience} onclick={startAnswer}>Start</button>
+<button disabled={!audioUnlocked || !experience} onclick={finishAnswer}>Stop</button>
 <p>{feedback}</p>`,
 
 	jsListenOnce: `const experience = await Experience.startSession({

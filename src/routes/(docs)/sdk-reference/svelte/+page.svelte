@@ -16,12 +16,22 @@
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 
 	<h2>Usage</h2>
+	<p>
+		Pass <code>experienceId</code> for a self-contained embed. The component handles session mint,
+		attachment, and cleanup.
+	</p>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" filename="App.svelte" />
 
-	<h2>Advanced Svelte control</h2>
+	<h2>Host-controlled speech and listening</h2>
 	<p>
-		Use <code>bind:this</code> when the host app controls scripted speech or listening. Type the
-		binding as <code>ExperienceHandle | undefined</code> because it is undefined before mount.
+		When your app must call <code>speak()</code>, <code>startListening()</code>, or
+		<code>stopListening()</code> from its own buttons or lesson logic, bind the component with
+		<code>bind:this</code> and type the variable as <code>ExperienceHandle | undefined</code>.
+	</p>
+	<p>
+		The example uses <code>onStarted</code> to speak after the player unlocks audio, then wires
+		host Start/Stop buttons to manual listening. See
+		<a href="/avatar-experiences/svelte">Experience (Svelte)</a> for the full walkthrough.
 	</p>
 	<CodeBlock code={snippets.svelteAdvancedControl} lang="svelte" filename="Lesson.svelte" />
 	<p>
@@ -29,7 +39,7 @@
 		<code>started()</code> means the player-owned user gesture has unlocked audio. Speech and
 		listening methods do not silently wait for that gesture: they preserve the root API's state
 		validation and reject if called before <code>started</code>. Use <code>onStarted</code> or await
-		<code>avatar.started()</code> before calling them.
+		<code>experience.started()</code> before calling them.
 	</p>
 
 	<h2>Callbacks</h2>

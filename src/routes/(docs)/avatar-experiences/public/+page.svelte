@@ -27,10 +27,32 @@
 	</ul>
 
 	<h2>Integration</h2>
+	<p>
+		In Svelte or SvelteKit, use the <code>&lt;Experience&gt;</code> component from
+		<code>@liforma/client/svelte</code>:
+	</p>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" />
 
-	<p>Or with the web component:</p>
+	<p>
+		In plain HTML, React, Vue, or other frameworks without the Svelte component, load the CDN script
+		and use the <code>&lt;liforma-experience&gt;</code> web component:
+	</p>
 	<CodeBlock code={snippets.webComponentHelloWorld} lang="html" />
+
+	<h3>Why not <code>&lt;Experience&gt;</code> in HTML?</h3>
+	<p>
+		These are different integration surfaces for the same product concept. Svelte apps import a
+		component named <code>Experience</code>. HTML embeds use a <strong>custom element</strong>, and
+		browser rules require custom tag names to include a <strong>hyphen</strong> (for example
+		<code>liforma-experience</code>) so they do not collide with native tags like
+		<code>video</code> or future HTML elements. A bare <code>&lt;experience&gt;</code> tag is not a
+		valid custom element name.
+	</p>
+	<p>
+		The <code>liforma-</code> prefix also keeps the global tag unique on pages that may already use
+		“experience” in their own markup. See <a href="/sdk-reference/web-component">Web Component</a>
+		for attributes and framework examples.
+	</p>
 
 	<h2>Requirements</h2>
 	<ol>

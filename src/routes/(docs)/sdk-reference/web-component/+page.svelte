@@ -17,7 +17,23 @@
 	<h2>Overview</h2>
 	<p>
 		The <code>&lt;liforma-experience&gt;</code> web component works in React, Vue, Angular, plain
-		HTML, and no-code tools that support custom elements.
+		HTML, and no-code tools that support custom elements. It is the copy-paste embed path when you
+		are not using the Svelte <code>&lt;Experience&gt;</code> component from
+		<code>@liforma/client/svelte</code>.
+	</p>
+
+	<h2>Why <code>liforma-experience</code>?</h2>
+	<p>
+		Web components are registered as global HTML tags. The Custom Elements specification requires
+		tag names to contain a <strong>hyphen</strong>, so plain <code>&lt;experience&gt;</code> is not
+		valid. Tag names are also lowercase in HTML — <code>Experience</code> is the Svelte component and
+		JavaScript class name, not an HTML tag.
+	</p>
+	<p>
+		<code>liforma-experience</code> follows the usual vendor-prefix pattern (similar to
+		<code>elevenlabs-convai</code> or <code>stripe-buy-button</code>): short, hyphenated, and
+		unlikely to clash with other libraries or your app’s own elements. Svelte integrations should use
+		<a href="/avatar-experiences/svelte">Experience (Svelte)</a> instead of this tag.
 	</p>
 
 	<h2>Basic usage</h2>

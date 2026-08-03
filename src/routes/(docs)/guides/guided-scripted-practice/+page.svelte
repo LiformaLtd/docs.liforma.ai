@@ -41,10 +41,10 @@
 	<p>Typical sequence for each scripted line:</p>
 	<ol>
 		<li>
-			<code>await avatar.speak(&#123; text: line &#125;)</code> — avatar delivers the tutor line
+			<code>await experience.speak(&#123; text: line &#125;)</code> — character delivers the tutor line
 		</li>
-		<li><code>await avatar.startListening()</code> — learner taps Start</li>
-		<li><code>await avatar.stopListening()</code> — learner taps Stop; pauses do not finalize</li>
+		<li><code>await experience.startListening()</code> — learner taps Start</li>
+		<li><code>await experience.stopListening()</code> — learner taps Stop; pauses do not finalize</li>
 		<li>Run host-side feedback (pronunciation, rubric, etc.) on <code>utterance.text</code></li>
 		<li>Wait for your Next control, then repeat with the next line</li>
 	</ol>

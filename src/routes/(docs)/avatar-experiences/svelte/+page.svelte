@@ -21,13 +21,60 @@
 	</p>
 
 	<h2>Basic usage</h2>
+	<p>
+		For a standard embed, pass <code>experienceId</code> (and optional session options). The component
+		mints the session, attaches the player, and runs the experience according to
+		<code>mode</code> and <code>speechInputMode</code>. You do not need
+		<code>bind:this</code> unless your app must drive speech or listening from its own UI.
+	</p>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" filename="App.svelte" />
 
-	<h2>Advanced control</h2>
+	<h2>Host-controlled speech and listening</h2>
 	<p>
-		Bind the component with <code>bind:this</code> to call its typed controller methods. The binding
-		is undefined before mount, so type it as <code>ExperienceHandle | undefined</code> and check it
-		before use.
+		<strong>“Advanced”</strong> here does not mean a separate API — it means your <strong>host app
+		controls when the character speaks and when the microphone listens</strong>, instead of leaving
+		that entirely to automatic conversation mode.
+	</p>
+	<p>Typical cases:</p>
+	<ul>
+		<li>
+			<strong>Scripted lessons</strong> — you call <code>speak()</code> with predetermined tutor
+			lines.
+		</li>
+		<li>
+			<strong>Manual capture</strong> — your Start/Stop buttons call
+			<code>startListening()</code> and <code>stopListening()</code>.
+		</li>
+		<li>
+			<strong>Custom lesson flow</strong> — turn state, feedback, and “Next” live in your page;
+			the component still owns session lifecycle.
+		</li>
+	</ul>
+	<p>
+		You still use <code>&lt;Experience&gt;</code>. Add <code>bind:this</code> to hold an
+		<code>ExperienceHandle</code> — the typed controller for <code>speak()</code>,
+		<code>startListening()</code>, and related methods. Type it as
+		<code>ExperienceHandle | undefined</code> because the binding is undefined before mount.
+	</p>
+	<p><strong>What the example below does:</strong></p>
+	<ol>
+		<li>
+			Embeds the experience in <strong>presenter</strong> mode with <strong>manual</strong> speech
+			input — the SDK does not auto-capture the learner.
+		</li>
+		<li>
+			When the user taps the <strong>player-owned start button</strong>, <code>onStarted</code>
+			fires (audio unlocked) and the app speaks a welcome line via <code>experience.speak()</code>.
+		</li>
+		<li>
+			Host <strong>Start answer</strong> / <strong>Stop answer</strong> buttons call listening
+			methods on the handle; they stay disabled until startup completes.
+		</li>
+	</ol>
+	<p>
+		For a full lesson loop (speak → Start → Stop → feedback → Next), see
+		<a href="/guides/guided-scripted-practice">Guided Scripted Practice</a> and the
+		<a href="https://github.com/LiformaLtd/examples.liforma.ai/tree/main/examples/guided-practice/sveltekit">guided-practice SvelteKit example</a>.
 	</p>
 	<CodeBlock code={snippets.svelteAdvancedControl} lang="svelte" filename="Lesson.svelte" />
 
@@ -47,7 +94,7 @@
 		<code>listenOnce()</code> preserve the root Experience API's state validation. They wait for
 		component session creation if necessary, but they do not silently queue until audio is unlocked.
 		A call made before <code>started</code> rejects. Call speech methods from
-		<code>onStarted</code>, await <code>avatar.started()</code>, or keep controls disabled until
+		<code>onStarted</code>, await <code>experience.started()</code>, or keep controls disabled until
 		startup completes.
 	</p>
 
