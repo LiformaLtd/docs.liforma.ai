@@ -39,10 +39,16 @@
 	<h2>Capabilities</h2>
 	<p>Although Avatar Experiences are the strategic product, Liforma also supports focused capabilities:</p>
 	<ul>
+		<li>
+			<a href="/avatar-experiences/overview">Avatar Experiences</a> — the full intelligent character
+			platform
+		</li>
 		<li><a href="/capabilities/text-to-avatar">Text-to-Avatar</a> — animate an avatar speaking your text</li>
 		<li><a href="/capabilities/text-to-speech">Text-to-Speech</a> — speech audio without an avatar</li>
-		<li><a href="/capabilities/speech-to-speech">Speech-to-Speech</a> — voice conversation without animation</li>
-		<li><a href="/avatar-experiences/overview">Avatar Experiences</a> — the full intelligent character platform</li>
+		<li>
+			<a href="/capabilities/speech-to-speech">Speech-to-Speech</a> — voice conversation without
+			animation
+		</li>
 	</ul>
 
 	<h2>Pricing</h2>

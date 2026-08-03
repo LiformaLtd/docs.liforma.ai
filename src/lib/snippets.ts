@@ -9,6 +9,56 @@ export const snippets = {
 
 <Experience experienceId="${DEMO_EXPERIENCE_ID}" />`,
 
+	reactHelloWorld: `import { Experience } from '@liforma/client/react';
+
+export function Demo() {
+  return <Experience experienceId="${DEMO_EXPERIENCE_ID}" />;
+}`,
+
+	nextjsSessionRoute: `import { createLiformaSessionRouteHandler } from '@liforma/client/next';
+
+export const POST = createLiformaSessionRouteHandler();`,
+
+	reactAdvancedControl: `import { useRef, useState } from 'react';
+import {
+  Experience,
+  type ExperienceHandle
+} from '@liforma/client/react';
+
+export function Lesson() {
+  const experienceRef = useRef<ExperienceHandle>(null);
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
+
+  async function handleStarted() {
+    setAudioUnlocked(true);
+    await experienceRef.current?.speak({ text: 'Welcome to the lesson.' });
+  }
+
+  return (
+    <>
+      <Experience
+        ref={experienceRef}
+        experienceId="${DEMO_EXPERIENCE_ID}"
+        mode="presenter"
+        speechInputMode="manual"
+        onStarted={handleStarted}
+      />
+      <button
+        disabled={!audioUnlocked}
+        onClick={() => experienceRef.current?.startListening()}
+      >
+        Start answer
+      </button>
+      <button
+        disabled={!audioUnlocked}
+        onClick={() => experienceRef.current?.stopListening()}
+      >
+        Stop answer
+      </button>
+    </>
+  );
+}`,
+
 	svelteAdvancedControl: `<script lang="ts">
   import {
     Experience,
@@ -320,6 +370,17 @@ await experience.attach({ container: '#avatar' });`,
   experienceId="${DEMO_EXPERIENCE_ID}"
   sessionEndpoint="/api/liforma-session"
 />`,
+
+	authenticatedReact: `import { Experience } from '@liforma/client/react';
+
+export function PrivateLesson() {
+  return (
+    <Experience
+      experienceId="${DEMO_EXPERIENCE_ID}"
+      sessionEndpoint="/api/liforma-session"
+    />
+  );
+}`,
 
 	sessionEndpointServer: `// app/api/liforma-session/+server.ts
 import { json } from '@sveltejs/kit';

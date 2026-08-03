@@ -22,6 +22,8 @@ export const docsNavigation: readonly NavSection[] = [
 		items: [
 			{ title: 'Overview', href: '/avatar-experiences/overview' },
 			{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
+			{ title: 'Experience (React)', href: '/avatar-experiences/react' },
+			{ title: 'Experience (Next.js)', href: '/avatar-experiences/nextjs' },
 			{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
 			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },
@@ -68,6 +70,7 @@ export const docsNavigation: readonly NavSection[] = [
 		items: [
 			{ title: 'JavaScript SDK', href: '/sdk-reference/javascript' },
 			{ title: 'Svelte Component', href: '/sdk-reference/svelte' },
+			{ title: 'React Component', href: '/avatar-experiences/react' },
 			{ title: 'Web Component', href: '/sdk-reference/web-component' }
 		]
 	}

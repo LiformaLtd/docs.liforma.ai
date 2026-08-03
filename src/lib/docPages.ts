@@ -14,6 +14,8 @@ const descriptions: Record<string, string> = {
 	'/getting-started/concepts': 'Experience, Session Manifest, SDK, and core platform ideas.',
 	'/avatar-experiences/overview': 'Real-time AI characters that listen, think, speak, and animate.',
 	'/avatar-experiences/svelte': 'The Experience Svelte component and embed options.',
+	'/avatar-experiences/react': 'Experience React component with ref-based control.',
+	'/avatar-experiences/nextjs': 'Next.js embed plus App Router session mint helper.',
 	'/avatar-experiences/experience-api':
 		'Experience.startSession, speak(), listenOnce(), conversationProcessor, and getters.',
 	'/avatar-experiences/session-manifests': 'Per-launch runtime configuration returned by the API.',

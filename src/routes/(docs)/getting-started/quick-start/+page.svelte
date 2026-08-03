@@ -21,9 +21,12 @@
 	</p>
 
 	<h2>1. Install</h2>
-	<p>Choose Svelte or the framework-agnostic web component.</p>
+	<p>
+		Install the SDK once, then import the entry for your framework. The CDN script works in any
+		framework.
+	</p>
 
-	<h3>Svelte</h3>
+	<h3>npm</h3>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 
 	<h3>Any framework (CDN)</h3>
@@ -35,8 +38,22 @@
 	<h3>Svelte</h3>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" filename="App.svelte" />
 
+	<h3>React</h3>
+	<p>
+		Use <code>@liforma/client/react</code>. In Next.js App Router, put this in a client component
+		(<code>'use client'</code>).
+	</p>
+	<CodeBlock code={snippets.reactHelloWorld} lang="tsx" filename="Demo.tsx" />
+
 	<h3>Web component</h3>
 	<CodeBlock code={snippets.webComponentHelloWorld} lang="html" filename="index.html" />
+
+	<p>
+		Full walkthroughs:
+		<a href="/avatar-experiences/svelte">Svelte</a>,
+		<a href="/avatar-experiences/react">React</a>,
+		<a href="/avatar-experiences/nextjs">Next.js</a>.
+	</p>
 
 	<h2>3. Run</h2>
 	<p>
@@ -72,10 +89,17 @@ npm install
 ./start`}
 		lang="bash"
 	/>
-	<p>That opens the gallery on <code>http://localhost:4000</code> and runnable demos on
-		<code>4001</code> (Spanish Tutor) and <code>4002</code> (guided practice). Use
-		<code>./start sveltekit</code> for SvelteKit variants. Examples call production Liforma APIs — no
-		local API or player required.</p>
+	<p>
+		That opens the gallery on <code>http://localhost:4000</code> and runnable demos on
+		<code>4001</code>–<code>4003</code>. Framework modes share those ports:
+	</p>
+	<ul>
+		<li><code>./start</code> or <code>./start vanilla</code> — HTML examples</li>
+		<li><code>./start sveltekit</code> — SvelteKit variants</li>
+		<li><code>./start nextjs</code> — guided-practice Next.js on <code>:4002</code></li>
+		<li><code>./start react-vite</code> — guided-practice React (Vite) on <code>:4002</code></li>
+	</ul>
+	<p>Examples call production Liforma APIs — no local API or player required.</p>
 
 	<h2>Developer portal (create your own experience)</h2>
 	<p>
@@ -132,9 +156,16 @@ await experience.attach({ container: '#avatar' });`}
 		Public embeds are the default hello world. For private experiences, billing control, or
 		user-specific sessions, your backend mints a manifest with an API key:
 	</p>
+	<h3>Svelte</h3>
 	<CodeBlock code={snippets.authenticatedSvelte} lang="svelte" />
+	<h3>React / Next.js</h3>
+	<CodeBlock code={snippets.authenticatedReact} lang="tsx" filename="PrivateLesson.tsx" />
 	<p>
-		See <a href="/avatar-experiences/authenticated">Authenticated Experiences</a> and
+		In Next.js, pair that with
+		<code>createLiformaSessionRouteHandler()</code> from <code>@liforma/client/next</code> on
+		<code>app/api/liforma-session/route.ts</code>. See
+		<a href="/avatar-experiences/nextjs">Experience (Next.js)</a>,
+		<a href="/avatar-experiences/authenticated">Authenticated Experiences</a>, and
 		<a href="/guides/authenticated-experience">the authenticated guide</a>.
 	</p>
 </DocPage>

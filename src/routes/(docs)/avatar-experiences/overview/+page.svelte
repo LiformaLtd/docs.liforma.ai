@@ -8,6 +8,8 @@
 	next={[
 		{ title: 'Quick Start', href: '/getting-started/quick-start' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
+		{ title: 'Experience (React)', href: '/avatar-experiences/react' },
+		{ title: 'Experience (Next.js)', href: '/avatar-experiences/nextjs' },
 		{ title: 'Events', href: '/avatar-experiences/events' }
 	]}
 >
