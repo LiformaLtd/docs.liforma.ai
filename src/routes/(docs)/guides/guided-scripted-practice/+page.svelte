@@ -24,31 +24,51 @@
 
 	<h2>Session setup</h2>
 	<p>
-		Mint or start a <strong>presenter</strong> session with <strong>manual</strong> speech input. The
-		player-owned start button unlocks audio and requests the microphone once.
+		In Svelte, use the lifecycle-owning <code>&lt;Experience&gt;</code> component with
+		<strong>presenter</strong> mode and <strong>manual</strong> speech input. Bind its typed handle for
+		scripted speech and explicit Start/Stop controls. The player-owned start button unlocks audio and
+		requests the microphone once.
 	</p>
-	<CodeBlock code={snippets.jsPresenterSession} lang="javascript" />
+	<CodeBlock code={snippets.svelteGuidedPractice} lang="svelte" filename="+page.svelte" />
+	<p>
+		<code>onStarted</code> is the safe point to speak because audio is unlocked. The earlier
+		<code>onReady</code> callback only means the manifest is resolved and the player is attached.
+		Calls to <code>speak()</code>, <code>startListening()</code>, <code>stopListening()</code>, and
+		<code>listenOnce()</code> preserve the root API's state checks and do not queue until startup.
+	</p>
 
 	<h2>Turn loop</h2>
 	<p>Typical sequence for each scripted line:</p>
 	<ol>
 		<li>
-			<code>await experience.speak(&#123; text: line &#125;)</code> — avatar delivers the tutor line
+			<code>await avatar.speak(&#123; text: line &#125;)</code> — avatar delivers the tutor line
 		</li>
-		<li><code>await experience.startListening()</code> — learner taps Start</li>
-		<li><code>await experience.stopListening()</code> — learner taps Stop; pauses do not finalize</li>
+		<li><code>await avatar.startListening()</code> — learner taps Start</li>
+		<li><code>await avatar.stopListening()</code> — learner taps Stop; pauses do not finalize</li>
 		<li>Run host-side feedback (pronunciation, rubric, etc.) on <code>utterance.text</code></li>
 		<li>Wait for your Next control, then repeat with the next line</li>
 	</ol>
+	<p>
+		The component owns session creation, attachment, callback subscriptions, restart, and cleanup.
+		Keep lesson turn state, transcript display, and feedback in the page.
+	</p>
+
+	<h2>Vanilla JavaScript</h2>
+	<p>
+		For framework-neutral integrations, use the imperative class and subscribe to its events
+		directly.
+	</p>
+	<CodeBlock code={snippets.jsPresenterSession} lang="javascript" />
 	<CodeBlock code={snippets.guidedPracticeTurnLoop} lang="javascript" />
 
 	<h2>History and events</h2>
 	<p>
 		Scripted assistant lines and finalized user utterances appear in
 		<code>getConversation()</code>. Feedback objects are application state unless you store them
-		separately. Listen for <code>characterSpeechStarted</code> / <code>characterSpeechEnded</code>,
-		<code>userTranscript</code>, <code>userSpeechStarted</code> / <code>userSpeechEnded</code>, and
-		<code>listeningState</code> — see <a href="/avatar-experiences/events">Events</a>.
+		separately. In Svelte, use callback props such as <code>onCharacterSpeechStarted</code>,
+		<code>onCharacterSpeechEnded</code>, <code>onUserTranscript</code>,
+		<code>onUserSpeechStarted</code>, <code>onUserSpeechEnded</code>, and
+		<code>onListeningState</code>. See <a href="/avatar-experiences/events">Events</a>.
 	</p>
 	<p>
 		For automatic capture without Start/Stop buttons, see

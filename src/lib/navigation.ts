@@ -21,7 +21,7 @@ export const docsNavigation: readonly NavSection[] = [
 		title: 'Avatar Experiences',
 		items: [
 			{ title: 'Overview', href: '/avatar-experiences/overview' },
-			{ title: 'LiformaExperience', href: '/avatar-experiences/liforma-experience' },
+			{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 			{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
 			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },

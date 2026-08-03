@@ -13,7 +13,7 @@ const descriptions: Record<string, string> = {
 	'/getting-started/quick-start': 'Embed your first intelligent animated avatar in minutes.',
 	'/getting-started/concepts': 'Experience, Session Manifest, SDK, and core platform ideas.',
 	'/avatar-experiences/overview': 'Real-time AI characters that listen, think, speak, and animate.',
-	'/avatar-experiences/liforma-experience': 'The LiformaExperience component and embed options.',
+	'/avatar-experiences/svelte': 'The Experience Svelte component and embed options.',
 	'/avatar-experiences/experience-api':
 		'Experience.startSession, speak(), listenOnce(), conversationProcessor, and getters.',
 	'/avatar-experiences/session-manifests': 'Per-launch runtime configuration returned by the API.',
@@ -45,7 +45,7 @@ const descriptions: Record<string, string> = {
 	'/api-reference/errors': 'HTTP error shapes and troubleshooting.',
 	'/sdk-reference/javascript':
 		'@liforma/client — speak(), listenOnce(), conversationProcessor, and events.',
-	'/sdk-reference/svelte': 'LiformaExperience Svelte component.',
+	'/sdk-reference/svelte': 'Experience Svelte component.',
 	'/sdk-reference/web-component': 'liforma-experience web component for any framework.'
 };
 

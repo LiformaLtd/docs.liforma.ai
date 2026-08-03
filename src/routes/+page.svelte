@@ -5,7 +5,7 @@
 	import { canonicalUrl, DEFAULT_DESCRIPTION, ogImageUrl, pageTitle } from '$lib/seo';
 	import { toggleTheme } from '$lib/theme';
 
-	const helloWorld = `<LiformaExperience experienceId="${DEMO_EXPERIENCE_ID}" />`;
+	const helloWorld = `<Experience experienceId="${DEMO_EXPERIENCE_ID}" />`;
 	const title = pageTitle('Avatar Experiences for developers');
 </script>
 

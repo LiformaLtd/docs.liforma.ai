@@ -19,7 +19,7 @@
 	<ol>
 		<li>Store <code>LIFORMA_API_KEY</code> in server environment variables</li>
 		<li>Create a same-origin API route that calls <code>POST /v1/sessions</code></li>
-		<li>Pass <code>sessionEndpoint</code> to <code>&lt;LiformaExperience&gt;</code></li>
+		<li>Pass <code>sessionEndpoint</code> to <code>&lt;Experience&gt;</code></li>
 		<li>SDK POSTs to your route, receives manifest, starts session</li>
 	</ol>
 

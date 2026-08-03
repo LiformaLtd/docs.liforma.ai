@@ -9,7 +9,7 @@
 	description="Add a Liforma avatar to your web app."
 	next={[
 		{ title: 'Public Experience', href: '/guides/public-experience' },
-		{ title: 'LiformaExperience', href: '/avatar-experiences/liforma-experience' }
+		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' }
 	]}
 >
 	<h2>Choose your integration</h2>
@@ -50,7 +50,7 @@
 	<p>The avatar fills its container. Set dimensions on the parent element:</p>
 	<CodeBlock
 		code={`<div class="avatar-stage">
-  <LiformaExperience experienceId="${snippets.experienceId}" />
+  <Experience experienceId="${snippets.experienceId}" />
 </div>
 
 <style>
@@ -69,7 +69,7 @@
 	<p>For immersive experiences, let the component fill the viewport:</p>
 	<CodeBlock
 		code={`<main style="width: 100vw; height: 100dvh;">
-  <LiformaExperience experienceId="${snippets.experienceId}" />
+  <Experience experienceId="${snippets.experienceId}" />
 </main>`}
 		lang="svelte"
 	/>

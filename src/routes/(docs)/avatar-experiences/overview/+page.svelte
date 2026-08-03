@@ -7,7 +7,7 @@
 	description="The full Liforma platform — intelligent characters that listen, think, speak, and animate."
 	next={[
 		{ title: 'Quick Start', href: '/getting-started/quick-start' },
-		{ title: 'LiformaExperience', href: '/avatar-experiences/liforma-experience' },
+		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 		{ title: 'Events', href: '/avatar-experiences/events' }
 	]}
 >
@@ -54,7 +54,7 @@
 
 	<h2>How you integrate</h2>
 	<p>One line for public experiences:</p>
-	<pre class="diagram">&lt;LiformaExperience experienceId="exp_…" /&gt;</pre>
+	<pre class="diagram">&lt;Experience experienceId="exp_…" /&gt;</pre>
 	<p>
 		The SDK handles session minting, transport, audio, turns, avatar rendering, and lifecycle. See
 		<a href="/getting-started/quick-start">Quick Start</a>.

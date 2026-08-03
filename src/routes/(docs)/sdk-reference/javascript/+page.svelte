@@ -36,11 +36,16 @@
 				<td>Session lifecycle, speech API, events, and conversation getters</td>
 			</tr>
 			<tr>
-				<td><code>LiformaExperience</code></td>
-				<td>Svelte component (from <code>@liforma/client/svelte</code>)</td>
+				<td><code>ExperienceSession</code></td>
+				<td>Type alias for the live session returned by <code>Experience.startSession()</code></td>
 			</tr>
 		</tbody>
 	</table>
+
+	<p>
+		The Svelte component is also named <code>Experience</code> — import it from
+		<code>@liforma/client/svelte</code>. See <a href="/sdk-reference/svelte">Svelte Component</a>.
+	</p>
 
 	<h2>Lifecycle</h2>
 	<CodeBlock
