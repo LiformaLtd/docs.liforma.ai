@@ -9,6 +9,7 @@
 	description="Add a Liforma avatar to your web app."
 	next={[
 		{ title: 'Browser embed', href: '/guides/browser-embed' },
+		{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 		{ title: 'Experience (React)', href: '/avatar-experiences/react' }
 	]}
@@ -22,6 +23,10 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<td><a href="/avatar-experiences/html">HTML / CDN</a></td>
+				<td>Plain HTML, WordPress, Webflow, Squarespace, and other CMS embeds</td>
+			</tr>
 			<tr>
 				<td><a href="/avatar-experiences/svelte">Svelte component</a></td>
 				<td>Svelte / SvelteKit apps</td>
@@ -39,8 +44,8 @@
 				<td>Gallery cards / layered CDN previews (all frameworks)</td>
 			</tr>
 			<tr>
-				<td><a href="/sdk-reference/web-component">Web component</a></td>
-				<td>Vue, Angular, plain HTML, no-code tools</td>
+				<td><a href="/sdk-reference/web-component">Web component attributes</a></td>
+				<td>Attribute reference for <code>&lt;liforma-experience&gt;</code></td>
 			</tr>
 			<tr>
 				<td><a href="/sdk-reference/javascript">JavaScript SDK</a></td>
@@ -53,6 +58,9 @@
 		</tbody>
 	</table>
 
+	<h2>HTML embed</h2>
+	<CodeBlock code={snippets.htmlExperienceHelloWorld} lang="html" filename="index.html" />
+
 	<h2>Svelte embed</h2>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" />
 
@@ -62,9 +70,6 @@
 		<a href="/avatar-experiences/nextjs">Experience (Next.js)</a> for server-session routes.
 	</p>
 	<CodeBlock code={snippets.reactHelloWorld} lang="tsx" filename="Demo.tsx" />
-
-	<h2>Web component embed</h2>
-	<CodeBlock code={snippets.webComponentHelloWorld} lang="html" />
 
 	<h2>Sizing</h2>
 	<p>The avatar fills its container. Set dimensions on the parent element:</p>

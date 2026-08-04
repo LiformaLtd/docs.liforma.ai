@@ -8,6 +8,7 @@
 	title="Experience (React)"
 	description="React component for embedding Avatar Experiences with ref-based control."
 	next={[
+		{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 		{ title: 'Experience (Next.js)', href: '/avatar-experiences/nextjs' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }

@@ -21,6 +21,7 @@ export const docsNavigation: readonly NavSection[] = [
 		title: 'Avatar Experiences',
 		items: [
 			{ title: 'Overview', href: '/avatar-experiences/overview' },
+			{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 			{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 			{ title: 'Experience (React)', href: '/avatar-experiences/react' },
 			{ title: 'Experience (Next.js)', href: '/avatar-experiences/nextjs' },

@@ -9,6 +9,7 @@
 	description="The canonical Svelte component for embedding Avatar Experiences."
 	next={[
 		{ title: 'Web Component', href: '/sdk-reference/web-component' },
+		{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 		{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}

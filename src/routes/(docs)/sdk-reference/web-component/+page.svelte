@@ -10,15 +10,16 @@
 	title="Web Component"
 	description="Embed Liforma in any framework with a single HTML tag."
 	next={[
-		{ title: 'Quick Start', href: '/getting-started/quick-start' },
+		{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 		{ title: 'Experience (React)', href: '/avatar-experiences/react' },
 		{ title: 'Embed an Experience', href: '/guides/embed' }
 	]}
 >
 	<h2>Overview</h2>
 	<p>
-		The <code>&lt;liforma-experience&gt;</code> web component works in Vue, Angular, plain HTML, and
-		no-code tools that support custom elements. Prefer
+		The <code>&lt;liforma-experience&gt;</code> web component is the HTML custom-element surface for
+		Liforma. For the CDN hello-world, CMS paste path (WordPress, Webflow, and similar), and sizing
+		notes, start with <a href="/avatar-experiences/html">Experience (HTML)</a>. Prefer
 		<a href="/avatar-experiences/react">@liforma/client/react</a> or
 		<a href="/avatar-experiences/svelte">@liforma/client/svelte</a> when you are in those frameworks —
 		they expose typed props and imperative handles.

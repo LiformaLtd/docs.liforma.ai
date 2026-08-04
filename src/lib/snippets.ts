@@ -125,6 +125,13 @@ export function Lesson() {
 
 <liforma-experience experience-id="${DEMO_EXPERIENCE_ID}"></liforma-experience>`,
 
+	htmlExperienceHelloWorld: `<!-- Liforma SDK: registers <liforma-experience> and window.Liforma -->
+<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
+
+<div style="width: 100%; min-height: 480px;">
+  <liforma-experience experience-id="${DEMO_EXPERIENCE_ID}"></liforma-experience>
+</div>`,
+
 	sveltePresenterSpeech: `<script lang="ts">
   import {
     Experience,

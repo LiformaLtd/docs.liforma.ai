@@ -7,6 +7,7 @@
 	description="The full Liforma platform — intelligent characters that listen, think, speak, and animate."
 	next={[
 		{ title: 'Quick Start', href: '/getting-started/quick-start' },
+		{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 		{ title: 'Experience (React)', href: '/avatar-experiences/react' },
 		{ title: 'Experience (Next.js)', href: '/avatar-experiences/nextjs' },
