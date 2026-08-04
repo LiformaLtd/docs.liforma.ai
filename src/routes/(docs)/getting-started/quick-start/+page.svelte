@@ -103,13 +103,14 @@ npm install
 	/>
 	<p>
 		That opens the gallery on <code>http://localhost:4000</code> and runnable demos on
-		<code>4001</code>–<code>4003</code>. Framework modes share those ports:
+		<code>4001</code>–<code>4004</code> (basic embed, Spanish Tutor, guided practice, speak
+		playground). Framework modes share those ports:
 	</p>
 	<ul>
 		<li><code>./start</code> or <code>./start vanilla</code> — HTML examples</li>
 		<li><code>./start sveltekit</code> — SvelteKit variants</li>
-		<li><code>./start nextjs</code> — guided-practice Next.js on <code>:4002</code></li>
-		<li><code>./start react-vite</code> — guided-practice React (Vite) on <code>:4002</code></li>
+		<li><code>./start nextjs</code> — guided-practice Next.js on <code>:4003</code></li>
+		<li><code>./start react-vite</code> — guided-practice React (Vite) on <code>:4003</code></li>
 	</ul>
 	<p>Examples call production Liforma APIs — no local API or player required.</p>
 

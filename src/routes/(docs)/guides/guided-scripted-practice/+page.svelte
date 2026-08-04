@@ -84,12 +84,12 @@
 	<ul>
 		<li>
 			<a href="https://examples.liforma.ai/examples/guided-practice/vanilla/">Vanilla JavaScript</a>
-			— port <code>4002</code> with <code>./start guided-practice</code>
+			— port <code>4003</code> with <code>./start</code>
 		</li>
 		<li>
 			<a href="https://examples.liforma.ai/examples/guided-practice/sveltekit/">SvelteKit</a> —
-			<code>./start sveltekit</code> (Spanish Tutor on <code>4001</code>, guided practice on
-			<code>4002</code>)
+			<code>./start sveltekit</code> (basic embed on <code>4001</code>, Spanish Tutor on
+			<code>4002</code>, guided practice on <code>4003</code>)
 		</li>
 	</ul>
 	<p>
