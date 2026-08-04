@@ -618,46 +618,38 @@ export function GalleryCard({ experience }) {
 	htmlExperienceWidget: `<!-- Liforma SDK: registers <liforma-experience-widget> and window.Liforma -->
 <script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
 
-<style>
-  .liforma-widget-host {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    width: 224px;
-    height: 224px;
-    z-index: 9999;
-  }
-</style>
+<!-- WordPress / CMS friendly: corner placement without host CSS -->
+<liforma-experience-widget
+  experience-id="${DEMO_EXPERIENCE_ID}"
+  alt="Talk to our barista"
+  position="bottom-right"
+  offset="16"
+></liforma-experience-widget>
 
-<div class="liforma-widget-host">
-  <liforma-experience-widget
-    experience-id="${DEMO_EXPERIENCE_ID}"
-    alt="Talk to our barista"
-  ></liforma-experience-widget>
-</div>`,
+<!-- Or position="static" (default) and wrap with your own fixed host CSS -->`,
 
 	svelteExperienceWidget: `<script>
   import { ExperienceWidget } from '@liforma/client/svelte';
 </script>
 
-<div class="liforma-widget-host">
-  <ExperienceWidget
-    experienceId="${DEMO_EXPERIENCE_ID}"
-    alt="Talk to our barista"
-  />
-</div>`,
+<ExperienceWidget
+  experienceId="${DEMO_EXPERIENCE_ID}"
+  alt="Talk to our barista"
+  position="bottom-right"
+  offset={16}
+/>`,
 
 	reactExperienceWidget: `import { ExperienceWidget } from '@liforma/client/react';
 // Next.js: import { ExperienceWidget } from '@liforma/client/next';
 
 export function SiteWidget() {
   return (
-    <div className="liforma-widget-host">
-      <ExperienceWidget
-        experienceId="${DEMO_EXPERIENCE_ID}"
-        alt="Talk to our barista"
-      />
-    </div>
+    <ExperienceWidget
+      experienceId="${DEMO_EXPERIENCE_ID}"
+      alt="Talk to our barista"
+      position="bottom-right"
+      offset={16}
+    />
   );
 }`,
 

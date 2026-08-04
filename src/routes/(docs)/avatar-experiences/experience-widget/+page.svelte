@@ -59,8 +59,10 @@
 
 	<h2>Hello world (HTML)</h2>
 	<p>
-		Host CSS owns corner placement and collapsed size. The widget fills its containing block. Preview
-		images load without an allowlist; add your site origin in
+		Use <code>position="bottom-right"</code> or <code>bottom-left</code> (optional
+		<code>offset</code>, default <code>16</code>) for a paste-and-go corner FAB — ideal for CMS /
+		WordPress. Default <code>position="static"</code> fills the host so you can place size and
+		offsets with your own CSS. Preview images load without an allowlist; add your site origin in
 		<a href="https://app.liforma.ai">app.liforma.ai</a> before users expand (session mint).
 	</p>
 	<CodeBlock code={snippets.htmlExperienceWidget} lang="html" filename="index.html" />
@@ -91,7 +93,9 @@
 			</tr>
 			<tr>
 				<td><code>prefetch="idle"</code> / <code>eager</code></td>
-				<td>Reserved for warm iframe (not shipped yet)</td>
+				<td>
+					Warms a transparent player iframe after idle / immediately so one click unlocks + expands
+				</td>
 			</tr>
 		</tbody>
 	</table>
