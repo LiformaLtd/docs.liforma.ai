@@ -100,6 +100,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td><code>fit</code></td>
+				<td><code>full</code> | <code>face</code></td>
+				<td>
+					Scene framing in the host container. Default <code>full</code> height-fits the whole
+					avatar and location. <code>face</code> cover-zooms the composed scene onto the mesh face
+					oval (location background zooms too) — for inset / PIP layouts. Session-start only; not
+					related to location video-call presentation.
+				</td>
+			</tr>
+			<tr>
 				<td><code>startButton</code></td>
 				<td>Button label, accessibility, placement, variant, and appearance tokens</td>
 				<td>Customizes the player-owned startup control.</td>

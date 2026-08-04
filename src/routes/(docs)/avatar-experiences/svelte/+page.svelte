@@ -168,6 +168,17 @@
 				</td>
 			</tr>
 			<tr>
+				<td><code>fit</code></td>
+				<td><code>'full' | 'face'</code></td>
+				<td>
+					Scene framing in the host container. Default <code>'full'</code> height-fits the whole
+					avatar and location. <code>'face'</code> cover-zooms the composed scene onto the mesh face
+					oval (location background zooms with the face) — useful for small inset / PIP layouts.
+					Session-start only; changing it restarts the session. Orthogonal to location video-call
+					presentation (<code>hasZoomVariant</code>).
+				</td>
+			</tr>
+			<tr>
 				<td><code>avatarId</code>, <code>locationId</code></td>
 				<td><code>string</code></td>
 				<td>Public-session avatar or location overrides.</td>
@@ -292,8 +303,9 @@
 		<code>sessionEndpoint</code>, <code>manifest</code>, <code>acceptCredentialExposure</code>,
 		<code>language</code>, <code>mode</code>, <code>responseMode</code>,
 		<code>speechInputMode</code>, <code>startButton</code>, <code>conversationProcessor</code>,
-		<code>speechOnly</code>, <code>avatarId</code>, <code>locationId</code>, <code>embedBaseUrl</code>, or
-		<code>debug</code>. You do not need a <code>{`{#key ...}`}</code> block.
+		<code>speechOnly</code>, <code>fit</code>, <code>avatarId</code>, <code>locationId</code>,
+		<code>embedBaseUrl</code>, or <code>debug</code>. You do not need a
+		<code>{`{#key ...}`}</code> block.
 	</p>
 	<p>
 		Callback-only changes do not restart the session; the component calls the latest callback.
@@ -314,6 +326,27 @@
 		code={`<div style="width: 400px; height: 600px;">
   <Experience experienceId="${snippets.experienceId}" />
 </div>`}
+		lang="svelte"
+	/>
+	<p>
+		For a face-sized inset (for example bottom-right PIP), size the host div and set
+		<code>fit="face"</code> so the runtime zooms onto the mesh face oval instead of fitting the full
+		body:
+	</p>
+	<CodeBlock
+		code={`<div class="avatar-inset">
+  <Experience experienceId="${snippets.experienceId}" fit="face" />
+</div>
+
+<style>
+  .avatar-inset {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 280px;
+    height: 280px;
+  }
+</style>`}
 		lang="svelte"
 	/>
 

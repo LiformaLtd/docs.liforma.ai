@@ -62,6 +62,21 @@
 					Set to <code>"true"</code> for voice-only sessions (no avatar renderer / location scene)
 				</td>
 			</tr>
+			<tr>
+				<td><code>fit</code></td>
+				<td>
+					Optional <code>full</code> (default) or <code>face</code>. <code>face</code> cover-zooms
+					the scene onto the mesh face oval for inset / PIP layouts
+				</td>
+			</tr>
+			<tr>
+				<td><code>mode</code></td>
+				<td>Optional <code>conversation</code> or <code>presenter</code></td>
+			</tr>
+			<tr>
+				<td><code>speech-input-mode</code></td>
+				<td>Optional <code>auto</code>, <code>manual</code>, or <code>off</code></td>
+			</tr>
 		</tbody>
 	</table>
 

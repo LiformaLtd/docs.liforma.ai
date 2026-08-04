@@ -40,7 +40,7 @@
 	<p>
 		Props match <a href="/avatar-experiences/svelte#experienceprops">Experience (Svelte)</a>
 		<code>ExperienceProps</code> — same names and semantics, including
-		<code>speechOnly</code>.
+		<code>speechOnly</code> and <code>fit</code>.
 	</p>
 
 	<h2>Callback props</h2>
