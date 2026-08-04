@@ -8,6 +8,7 @@
 	title="ExperienceThumbnail"
 	description="Layered CDN gallery previews with optional parallax and hosted-player launch — available in Svelte, React, Next.js, and vanilla."
 	next={[
+		{ title: 'ExperienceWidget', href: '/avatar-experiences/experience-widget' },
 		{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
 		{ title: 'Experience Catalog API', href: '/api-reference/experience-catalog' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' }

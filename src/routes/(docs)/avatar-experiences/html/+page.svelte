@@ -23,7 +23,9 @@
 		<strong>Wix</strong>, and <strong>Ghost</strong> — whenever you can paste custom HTML. Prefer
 		<a href="/avatar-experiences/svelte">Experience (Svelte)</a> or
 		<a href="/avatar-experiences/react">Experience (React)</a> when you are already in those
-		frameworks and want typed props and imperative handles.
+		frameworks and want typed props and imperative handles. For a corner site launcher that stays
+		light until click, see
+		<a href="/avatar-experiences/experience-widget">ExperienceWidget</a>.
 	</p>
 
 	<h2>Basic usage</h2>
