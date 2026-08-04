@@ -17,7 +17,11 @@ export function Demo() {
 
 	nextjsSessionRoute: `import { createLiformaSessionRouteHandler } from '@liforma/client/next';
 
-export const POST = createLiformaSessionRouteHandler();`,
+export const POST = createLiformaSessionRouteHandler({
+  // Production: supply authorize() that checks your app session.
+  // Demos only:
+  allowUnauthenticated: true
+});`,
 
 	reactAdvancedControl: `import { useRef, useState } from 'react';
 import {
@@ -454,13 +458,31 @@ export async function POST({ request }) {
 	sessionEndpointNext: `// app/api/liforma-session/route.ts (Next.js App Router)
 import { createLiformaSessionRouteHandler } from '@liforma/client/next';
 
-export const POST = createLiformaSessionRouteHandler();`,
+export const POST = createLiformaSessionRouteHandler({
+  // Production: supply authorize() that checks your app session.
+  // Demos only:
+  allowUnauthenticated: true
+});`,
 
 	projectCatalogServer: `// src/lib/server/liformaCatalog.ts
 import { env } from '$env/dynamic/private';
 
 const API_BASE_URL = env.LIFORMA_API_URL?.replace(/\\/$/, '') ?? 'https://api.liforma.ai';
 const PROJECT_ID = env.LIFORMA_PROJECT_ID;
+
+type GalleryThumb = {
+  avatarImage: string;
+  backgroundImage?: string;
+  foregroundImage?: string;
+};
+
+export type CatalogExperience = {
+  experienceId: string;
+  slug: string;
+  title: string;
+  catalogReady?: boolean;
+  galleryThumb?: GalleryThumb;
+};
 
 export async function fetchProjectCatalog(fetchFn: typeof fetch) {
   const apiKey = env.LIFORMA_API_KEY?.trim();
@@ -479,8 +501,7 @@ export async function fetchProjectCatalog(fetchFn: typeof fetch) {
     throw new Error('Could not load project catalog.');
   }
 
-  const payload: { experiences: Array<{ experienceId: string; slug: string; title: string }> } =
-    await response.json();
+  const payload: { experiences: CatalogExperience[] } = await response.json();
   return payload.experiences;
 }
 
@@ -505,15 +526,87 @@ export async function fetchProjectExperienceBySlug(fetchFn: typeof fetch, slug: 
     throw new Error('Could not load project catalog experience.');
   }
 
-  const payload: { experience: { experienceId: string; slug: string; title: string } } =
-    await response.json();
+  const payload: { experience: CatalogExperience } = await response.json();
   return payload.experience;
 }`,
 
 	projectCatalogPage: `<!-- src/routes/experiences/+page.svelte -->
-{#each data.experiences as experience (experience.slug)}
-  <a href="/experiences/{experience.slug}">{experience.title}</a>
-{/each}`,
+<script>
+  import { ExperienceThumbnail } from '@liforma/client/svelte';
+
+  let { data } = $props();
+<\\/script>
+
+<div class="gallery">
+  {#each data.experiences as experience (experience.slug)}
+    {#if experience.galleryThumb}
+      <a class="card" href="/experiences/{experience.slug}" aria-label={experience.title}>
+        <div class="thumb">
+          <ExperienceThumbnail galleryThumb={experience.galleryThumb} alt="" />
+        </div>
+        <span>{experience.title}</span>
+      </a>
+    {/if}
+  {/each}
+</div>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 1rem;
+  }
+  .thumb {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+</style>`,
+
+	svelteThumbnailHosted: `<script>
+  import { ExperienceThumbnail } from '@liforma/client/svelte';
+<\\/script>
+
+<ExperienceThumbnail
+  experienceId={experience.experienceId}
+  galleryThumb={experience.galleryThumb}
+  alt={experience.title}
+/>`,
+
+	svelteThumbnailHref: `<script>
+  import { ExperienceThumbnail } from '@liforma/client/svelte';
+<\\/script>
+
+<ExperienceThumbnail
+  galleryThumb={experience.galleryThumb}
+  alt={experience.title}
+  href={\`/experiences/\${experience.slug}\`}
+/>`,
+
+	svelteThumbnailPresentational: `<a href="/experiences/{experience.slug}" aria-label={experience.title}>
+  <ExperienceThumbnail galleryThumb={experience.galleryThumb} alt="" />
+</a>`,
+
+	reactThumbnailHosted: `import { ExperienceThumbnail } from '@liforma/client/react';
+// Next.js App Router client files can also use:
+// import { ExperienceThumbnail } from '@liforma/client/next';
+
+export function GalleryCard({ experience }) {
+  return (
+    <ExperienceThumbnail
+      experienceId={experience.experienceId}
+      galleryThumb={experience.galleryThumb}
+      alt={experience.title}
+    />
+  );
+}`,
+
+	webComponentThumbnail: `<script type="module" src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
+
+<liforma-experience-thumbnail
+  experience-id="${DEMO_EXPERIENCE_ID}"
+  alt="Spanish Cafe"
+  gallery-thumb='{"avatarImage":"https://cdn.liforma.ai/avatars/05a87620/256/05a87620_neutral.webp"}'
+></liforma-experience-thumbnail>`,
 
 	projectCatalogDetailServer: `// src/routes/experiences/[slug]/+page.server.ts
 import { error } from '@sveltejs/kit';

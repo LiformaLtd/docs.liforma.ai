@@ -24,6 +24,7 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
 			{ title: 'Experience (React)', href: '/avatar-experiences/react' },
 			{ title: 'Experience (Next.js)', href: '/avatar-experiences/nextjs' },
+			{ title: 'ExperienceThumbnail', href: '/avatar-experiences/experience-thumbnail' },
 			{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
 			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },
@@ -88,4 +89,4 @@ export const externalLinks = {
 } as const;
 
 /** Canonical demo experience ID for docs examples. */
-export const DEMO_EXPERIENCE_ID = 'exp_01DEMO1SPANISHCAFE';
+export const DEMO_EXPERIENCE_ID = 'exp_01EXAMPLES_COFFEE_BARISTA';

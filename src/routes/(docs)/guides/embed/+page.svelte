@@ -35,6 +35,10 @@
 				<td>App Router server-session mint routes</td>
 			</tr>
 			<tr>
+				<td><a href="/avatar-experiences/experience-thumbnail">ExperienceThumbnail</a></td>
+				<td>Gallery cards / layered CDN previews (all frameworks)</td>
+			</tr>
+			<tr>
 				<td><a href="/sdk-reference/web-component">Web component</a></td>
 				<td>Vue, Angular, plain HTML, no-code tools</td>
 			</tr>

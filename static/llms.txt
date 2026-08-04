@@ -16,6 +16,7 @@ This file helps coding agents find canonical documentation. Prefer these URLs ov
 - [Experience (Svelte)](https://docs.liforma.ai/avatar-experiences/svelte) — `@liforma/client/svelte`
 - [Experience (React)](https://docs.liforma.ai/avatar-experiences/react) — `@liforma/client/react`
 - [Experience (Next.js)](https://docs.liforma.ai/avatar-experiences/nextjs) — `createLiformaSessionRouteHandler`
+- [ExperienceThumbnail](https://docs.liforma.ai/avatar-experiences/experience-thumbnail) — layered CDN gallery thumbs (Svelte / React / Next / vanilla)
 - [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors
 - [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only
 - [Session Manifests](https://docs.liforma.ai/avatar-experiences/session-manifests)

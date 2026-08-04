@@ -7,16 +7,18 @@
 	title="Experience Catalog"
 	description="List published experiences in a project for creator-managed galleries."
 	next={[
+		{ title: 'ExperienceThumbnail', href: '/avatar-experiences/experience-thumbnail' },
 		{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
-		{ title: 'Sessions', href: '/api-reference/sessions' },
-		{ title: 'Server session', href: '/guides/server-session' }
+		{ title: 'Sessions', href: '/api-reference/sessions' }
 	]}
 >
 	<h2>Overview</h2>
 	<p>
 		Use the catalog API when your app should automatically reflect experiences created and ordered
-		in Studio. Fetch the catalog server-side with your API key, link by <code>slug</code>, and mint
-		sessions with the returned <code>experienceId</code>.
+		in Studio. Fetch the catalog server-side with your API key, render
+		<a href="/avatar-experiences/experience-thumbnail"><code>&lt;ExperienceThumbnail&gt;</code></a>
+		from <code>galleryThumb</code>, link by <code>slug</code>, and mint sessions with the returned
+		<code>experienceId</code>.
 	</p>
 
 	<h2>GET /v1/projects/&#123;projectId&#125;/experiences</h2>
@@ -39,9 +41,9 @@ Authorization: Bearer YOUR_API_KEY`}
       "updatedAt": "2026-07-26T12:00:00.000Z",
       "catalogReady": true,
       "avatarId": "05a87620",
-      "thumbnailPath": "https://cdn.liforma.ai/avatars/05a87620/512/05a87620_CH.webp",
+      "thumbnailPath": "https://cdn.liforma.ai/avatars/05a87620/256/05a87620_CH.webp",
       "galleryThumb": {
-        "avatarImage": "https://cdn.liforma.ai/avatars/05a87620/512/05a87620_CH.webp"
+        "avatarImage": "https://cdn.liforma.ai/avatars/05a87620/256/05a87620_neutral.webp"
       },
       "discoveryTags": []
     }
@@ -67,6 +69,11 @@ Authorization: Bearer YOUR_API_KEY`}
 		</li>
 		<li><code>slug</code> is unique within a project, not globally.</li>
 		<li>Session mint endpoints still require <code>experienceId</code>.</li>
+		<li>
+			Prefer <code>galleryThumb</code> for UI cards (avatar tier <code>/256/</code>, location plates
+			<code>256x256</code>). <code>&lt;ExperienceThumbnail&gt;</code> rewrites larger known CDN
+			URLs down to those tiers.
+		</li>
 		<li>Never expose your API key to the browser.</li>
 	</ul>
 </DocPage>

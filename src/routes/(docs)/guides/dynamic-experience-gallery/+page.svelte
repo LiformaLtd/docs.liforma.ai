@@ -8,23 +8,32 @@
 	title="Build a Dynamic Experience Gallery"
 	description="Let creators manage experiences in Studio while your app updates automatically."
 	next={[
+		{ title: 'ExperienceThumbnail', href: '/avatar-experiences/experience-thumbnail' },
 		{ title: 'Experience Catalog API', href: '/api-reference/experience-catalog' },
-		{ title: 'Server session', href: '/guides/server-session' },
-		{ title: 'Embed an Experience', href: '/guides/embed' }
+		{ title: 'Server session', href: '/guides/server-session' }
 	]}
 >
 	<h2>Goal</h2>
 	<p>
-		Configure your project once, fetch published experiences from Liforma, render cards or lesson
-		links from creator-managed slugs, and start sessions with the returned
-		<code>experienceId</code>.
+		Configure your project once, fetch published experiences from Liforma, render
+		<code>&lt;ExperienceThumbnail&gt;</code> cards from creator-managed slugs, and start sessions
+		with the returned <code>experienceId</code>.
 	</p>
 
 	<h2>1. Fetch the catalog on the server</h2>
+	<p>
+		Use your API key only on the server. Catalog rows include <code>galleryThumb</code> when
+		<code>catalogReady</code> is true.
+	</p>
 	<CodeBlock code={snippets.projectCatalogServer} lang="typescript" />
 
-	<h2>2. Render links by slug</h2>
-	<CodeBlock code={snippets.projectCatalogPage} lang="svelte" />
+	<h2>2. Render thumbnail cards by slug</h2>
+	<p>
+		Display size comes from your CSS (the thumb fills its parent). See
+		<a href="/avatar-experiences/experience-thumbnail">ExperienceThumbnail</a> for hosted-player
+		launch and other click modes.
+	</p>
+	<CodeBlock code={snippets.projectCatalogPage} lang="svelte" filename="experiences/+page.svelte" />
 
 	<h2>3. Resolve a slug route</h2>
 	<CodeBlock code={snippets.projectCatalogDetailServer} lang="typescript" />
@@ -36,7 +45,7 @@
 	<ul>
 		<li>Experience title and public URL slug</li>
 		<li>Publish / unpublish</li>
-		<li>Gallery thumbnail and card imagery</li>
+		<li>Gallery thumbnail and card imagery (<code>galleryThumb</code>)</li>
 		<li>Sort order within the project</li>
 	</ul>
 

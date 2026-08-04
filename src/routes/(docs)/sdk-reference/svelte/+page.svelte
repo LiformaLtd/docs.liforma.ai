@@ -6,8 +6,9 @@
 
 <DocPage
 	title="Svelte Component"
-	description="Experience — embed avatars in Svelte and SvelteKit apps."
+	description="Experience and ExperienceThumbnail — embed avatars and gallery previews in Svelte."
 	next={[
+		{ title: 'ExperienceThumbnail', href: '/avatar-experiences/experience-thumbnail' },
 		{ title: 'Web Component', href: '/sdk-reference/web-component' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' }
 	]}
@@ -15,7 +16,7 @@
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
 
-	<h2>Usage</h2>
+	<h2>Experience</h2>
 	<p>
 		Pass <code>experienceId</code> for a self-contained embed. The component handles session mint,
 		attachment, and cleanup.
@@ -78,4 +79,12 @@
 		overrides automatic navigation. The deprecated <code>LiformaExperience</code> export remains as a
 		temporary alias; use <code>Experience</code> in new code.
 	</p>
+
+	<h2>ExperienceThumbnail</h2>
+	<p>
+		<code>&lt;ExperienceThumbnail&gt;</code> renders layered CDN gallery previews (no session mint).
+		Full props and recipes:
+		<a href="/avatar-experiences/experience-thumbnail">ExperienceThumbnail</a>.
+	</p>
+	<CodeBlock code={snippets.svelteThumbnailHosted} lang="svelte" filename="Card.svelte" />
 </DocPage>

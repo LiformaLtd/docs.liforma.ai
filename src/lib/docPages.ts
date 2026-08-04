@@ -16,6 +16,8 @@ const descriptions: Record<string, string> = {
 	'/avatar-experiences/svelte': 'The Experience Svelte component and embed options.',
 	'/avatar-experiences/react': 'Experience React component with ref-based control.',
 	'/avatar-experiences/nextjs': 'Next.js embed plus App Router session mint helper.',
+	'/avatar-experiences/experience-thumbnail':
+		'Layered CDN gallery thumbnails with optional hosted-player launch.',
 	'/avatar-experiences/experience-api':
 		'Experience.startSession, speak(), listenOnce(), conversationProcessor, and getters.',
 	'/avatar-experiences/session-manifests': 'Per-launch runtime configuration returned by the API.',
@@ -53,8 +55,9 @@ const descriptions: Record<string, string> = {
 	'/api-reference/errors': 'HTTP error shapes and troubleshooting.',
 	'/sdk-reference/javascript':
 		'@liforma/client — speak(), listenOnce(), conversationProcessor, and events.',
-	'/sdk-reference/svelte': 'Experience Svelte component.',
-	'/sdk-reference/web-component': 'liforma-experience web component for any framework.',
+	'/sdk-reference/svelte': 'Experience and ExperienceThumbnail Svelte components.',
+	'/sdk-reference/web-component':
+		'liforma-experience and liforma-experience-thumbnail web components.',
 	'/llms.txt': 'Agent-oriented documentation index for Liforma.',
 	'/llms-full.txt': 'Full docs page index for coding agents.',
 	'/openapi/sessions.json': 'OpenAPI for POST /v1/sessions and /v1/public-sessions.'
