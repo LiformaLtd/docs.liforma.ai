@@ -2,21 +2,31 @@
 	"openapi": "3.1.0",
 	"info": {
 		"title": "Liforma Session Mint API",
-		"version": "1.0.0",
-		"description": "Server (API key) and browser (Origin allowlist) Session Manifest mint endpoints used by @liforma/client."
+		"version": "1.1.0",
+		"description": "Server (API key) and browser (Origin allowlist) Session Manifest mint endpoints used by @liforma/client. Request schemas are generated from Zod validators in api.liforma.ai (`sessionMintRequestSchemas.ts`)."
 	},
-	"servers": [{ "url": "https://api.liforma.ai" }],
+	"servers": [
+		{
+			"url": "https://api.liforma.ai"
+		}
+	],
 	"paths": {
 		"/v1/sessions": {
 			"post": {
 				"summary": "Mint a Session Manifest with an API key (server-to-server)",
 				"operationId": "createSession",
-				"security": [{ "bearerAuth": [] }],
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
 				"requestBody": {
 					"required": true,
 					"content": {
 						"application/json": {
-							"schema": { "$ref": "#/components/schemas/AuthenticatedSessionRequest" }
+							"schema": {
+								"$ref": "#/components/schemas/AuthenticatedSessionRequest"
+							}
 						}
 					}
 				},
@@ -25,14 +35,24 @@
 						"description": "Session Manifest",
 						"content": {
 							"application/json": {
-								"schema": { "$ref": "#/components/schemas/SessionManifest" }
+								"schema": {
+									"$ref": "#/components/schemas/SessionManifest"
+								}
 							}
 						}
 					},
-					"400": { "description": "Invalid body" },
-					"401": { "description": "Invalid API key" },
-					"403": { "description": "API key cannot access experience" },
-					"404": { "description": "Unknown experience" }
+					"400": {
+						"description": "Invalid body"
+					},
+					"401": {
+						"description": "Invalid API key"
+					},
+					"403": {
+						"description": "API key cannot access experience"
+					},
+					"404": {
+						"description": "Unknown experience"
+					}
 				}
 			}
 		},
@@ -45,7 +65,9 @@
 						"name": "Origin",
 						"in": "header",
 						"required": true,
-						"schema": { "type": "string" },
+						"schema": {
+							"type": "string"
+						},
 						"description": "Browser origin; must be allowlisted for the experience."
 					}
 				],
@@ -53,7 +75,9 @@
 					"required": true,
 					"content": {
 						"application/json": {
-							"schema": { "$ref": "#/components/schemas/PublicSessionRequest" }
+							"schema": {
+								"$ref": "#/components/schemas/PublicSessionRequest"
+							}
 						}
 					}
 				},
@@ -62,13 +86,21 @@
 						"description": "Session Manifest",
 						"content": {
 							"application/json": {
-								"schema": { "$ref": "#/components/schemas/SessionManifest" }
+								"schema": {
+									"$ref": "#/components/schemas/SessionManifest"
+								}
 							}
 						}
 					},
-					"400": { "description": "Invalid body" },
-					"403": { "description": "Missing Origin, browser embeds disabled, or origin not allowlisted" },
-					"404": { "description": "Unknown experience" }
+					"400": {
+						"description": "Invalid body"
+					},
+					"403": {
+						"description": "Missing Origin, browser embeds disabled, or origin not allowlisted"
+					},
+					"404": {
+						"description": "Unknown experience"
+					}
 				}
 			}
 		}
@@ -82,56 +114,266 @@
 			}
 		},
 		"schemas": {
-			"ExperienceMode": {
-				"type": "string",
-				"enum": ["conversation", "presenter"]
-			},
-			"SpeechInputMode": {
-				"type": "string",
-				"enum": ["auto", "manual", "off"]
+			"StartButton": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 80
+					},
+					"ariaLabel": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 120
+					},
+					"placement": {
+						"type": "string",
+						"enum": [
+							"center",
+							"bottom-center",
+							"bottom-left",
+							"bottom-right"
+						]
+					},
+					"variant": {
+						"type": "string",
+						"enum": [
+							"primary",
+							"secondary",
+							"minimal"
+						]
+					},
+					"appearance": {
+						"type": "object",
+						"properties": {
+							"backgroundColor": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							"textColor": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							"borderColor": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							"borderRadiusPx": {
+								"type": "number",
+								"minimum": 0,
+								"maximum": 999
+							},
+							"size": {
+								"type": "string",
+								"enum": [
+									"small",
+									"medium",
+									"large"
+								]
+							},
+							"shadow": {
+								"type": "string",
+								"enum": [
+									"none",
+									"soft",
+									"strong"
+								]
+							}
+						},
+						"additionalProperties": false
+					}
+				},
+				"additionalProperties": false,
+				"description": "Optional start-button chrome for the player shell."
 			},
 			"PublicSessionRequest": {
 				"type": "object",
-				"required": ["experienceId"],
 				"properties": {
-					"experienceId": { "type": "string", "pattern": "^exp_" },
-					"language": { "type": "string", "enum": ["en", "es"] },
-					"mode": { "$ref": "#/components/schemas/ExperienceMode" },
-					"speechInputMode": { "$ref": "#/components/schemas/SpeechInputMode" },
-					"speechOnly": {
-						"type": "boolean",
-						"description": "When true, mint a voice-only session without avatar/location assets."
+					"experienceId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 128
 					},
-					"startButton": { "type": "object", "additionalProperties": true }
-				}
-			},
-			"AuthenticatedSessionRequest": {
-				"allOf": [
-					{ "$ref": "#/components/schemas/PublicSessionRequest" },
-					{
+					"language": {
+						"type": "string",
+						"enum": [
+							"en",
+							"es"
+						]
+					},
+					"mode": {
+						"type": "string",
+						"enum": [
+							"conversation",
+							"presenter"
+						]
+					},
+					"responseMode": {
+						"type": "string",
+						"enum": [
+							"managed",
+							"custom",
+							"manual"
+						]
+					},
+					"speechInputMode": {
+						"type": "string",
+						"enum": [
+							"auto",
+							"manual",
+							"off"
+						]
+					},
+					"startButton": {
+						"$ref": "#/components/schemas/StartButton"
+					},
+					"speechOnly": {
+						"type": "boolean"
+					},
+					"integration": {
 						"type": "object",
 						"properties": {
-							"processorId": { "type": "string" },
-							"integration": {
-								"type": "object",
-								"properties": {
-									"returnUrl": { "type": "string" }
-								}
-							},
-							"closeButton": { "type": "object", "additionalProperties": true }
-						}
+							"returnUrl": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 2048
+							}
+						},
+						"additionalProperties": false
 					}
-				]
+				},
+				"required": [
+					"experienceId"
+				],
+				"additionalProperties": false,
+				"description": "Browser mint body. experienceId is typically exp_…; validated as a non-empty string (max 128)."
+			},
+			"AuthenticatedSessionRequest": {
+				"type": "object",
+				"properties": {
+					"experienceId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 128
+					},
+					"language": {
+						"type": "string",
+						"enum": [
+							"en",
+							"es"
+						]
+					},
+					"mode": {
+						"type": "string",
+						"enum": [
+							"conversation",
+							"presenter"
+						]
+					},
+					"responseMode": {
+						"type": "string",
+						"enum": [
+							"managed",
+							"custom",
+							"manual"
+						]
+					},
+					"speechInputMode": {
+						"type": "string",
+						"enum": [
+							"auto",
+							"manual",
+							"off"
+						]
+					},
+					"startButton": {
+						"$ref": "#/components/schemas/StartButton"
+					},
+					"speechOnly": {
+						"type": "boolean"
+					},
+					"integration": {
+						"type": "object",
+						"properties": {
+							"returnUrl": {
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 2048
+							}
+						},
+						"additionalProperties": false
+					},
+					"closeButton": {
+						"type": "object",
+						"properties": {
+							"visible": {
+								"type": "boolean"
+							},
+							"style": {
+								"type": "string",
+								"enum": [
+									"icon",
+									"text"
+								]
+							},
+							"label": {
+								"anyOf": [
+									{
+										"type": "string",
+										"maxLength": 32
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"position": {
+								"type": "string",
+								"enum": [
+									"top-left",
+									"top-right",
+									"top-center",
+									"bottom-left",
+									"bottom-right"
+								]
+							}
+						},
+						"additionalProperties": false
+					},
+					"processorId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 128
+					}
+				},
+				"required": [
+					"experienceId"
+				],
+				"additionalProperties": false,
+				"description": "Server mint body — public fields plus closeButton and processorId."
 			},
 			"SessionManifest": {
 				"type": "object",
-				"description": "Runtime configuration returned to @liforma/client. Includes sessionId, sessionToken, experience, characters, transport, and related fields.",
+				"description": "Runtime configuration returned to @liforma/client. Includes sessionId, sessionToken, experience, characters, transport, and related fields. Full shape is owned by the SDK Session Manifest schema.",
 				"additionalProperties": true,
 				"properties": {
-					"schemaVersion": { "type": "integer" },
-					"sessionId": { "type": "string" },
-					"sessionToken": { "type": "string" },
-					"experience": { "type": "object", "additionalProperties": true }
+					"schemaVersion": {
+						"type": "integer"
+					},
+					"sessionId": {
+						"type": "string"
+					},
+					"sessionToken": {
+						"type": "string"
+					},
+					"experience": {
+						"type": "object",
+						"additionalProperties": true
+					}
 				}
 			}
 		}
