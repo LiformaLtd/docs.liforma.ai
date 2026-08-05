@@ -17,7 +17,10 @@
 >
 	<Callout title="For coding agents">
 		<p>
-			Read <a href="/llms.txt">llms.txt</a> before generating integration code. Full page index:
+			Install Agent Skills:
+			<code>npx skills add LiformaLtd/agent-skills</code>
+			(<a href="https://github.com/LiformaLtd/agent-skills" target="_blank" rel="noopener noreferrer">repo</a>).
+			Then read <a href="/llms.txt">llms.txt</a> before generating integration code. Full page index:
 			<a href="/llms-full.txt">llms-full.txt</a>. Session mint schema:
 			<a href="/openapi/sessions.json">openapi/sessions.json</a>.
 		</p>

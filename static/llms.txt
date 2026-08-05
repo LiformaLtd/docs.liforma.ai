@@ -45,12 +45,14 @@ This file helps coding agents find canonical documentation. Prefer these URLs ov
 
 ## Agent notes
 
+- **Install Agent Skills first:** `npx skills add LiformaLtd/agent-skills` ([repo](https://github.com/LiformaLtd/agent-skills)) — `liforma-integrate` and `liforma-debug` for Cursor, Claude Code, Codex, and similar agents.
 - Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/public-sessions` + Origin allowlist) for client-only embeds. The `/public-sessions` path name is historical.
 - Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
 - `modeChange` payload is a bare string: `'listening' | 'speaking' | 'thinking'`.
 - `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
 - Player `close` and embed `onStateUpdate` come from `attach()` / component props, not `experience.on()`.
 - CDN script is **v2** (`/sdk/v2/client.js`).
+- npm: [`@liforma/client`](https://www.npmjs.com/package/@liforma/client)
 - Examples: https://examples.liforma.ai · https://github.com/LiformaLtd/examples.liforma.ai
 - Developer portal (API keys, origins): https://app.liforma.ai
 
