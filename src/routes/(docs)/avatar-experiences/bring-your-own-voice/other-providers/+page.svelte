@@ -9,28 +9,27 @@
 	description="OpenAI, Google, Deepgram, and file/URL playback into experience.speech.play."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
-		{ title: 'ElevenLabs streaming', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
+		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
+		{ title: 'Google', href: '/avatar-experiences/bring-your-own-voice/google' },
+		{ title: 'Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
 	<h2>Same contract for every vendor</h2>
 	<p>
 		Liforma does not ship provider-specific SDK types. Convert your vendor’s audio to mono PCM chunks
-		for <code>createUtterance</code>, or pass a complete buffer / URL to <code>speech.play</code>.
+		for <code>createUtterance</code>, or pass a complete buffer / URL / track to
+		<code>speech.play</code>. Dedicated notes:
+		<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/google">Google</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>.
 	</p>
-
-	<h2>OpenAI / Google / Deepgram TTS</h2>
-	<ol>
-		<li>Request PCM (or decode vendor audio to PCM in your host).</li>
-		<li>
-			One-shot: <code>speech.play(&#123; audio: &#123; data, format &#125; &#125;)</code>
-		</li>
-		<li>
-			Streaming: same turn-id map as
-			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>.
-		</li>
-	</ol>
 	<CodeBlock code={snippets.jsSpeechPlayPcm} lang="javascript" />
+
+	<h2>MediaStreamTrack</h2>
+	<p>Capture runs in the host page; the player only receives PCM.</p>
+	<CodeBlock code={snippets.jsSpeechPlayMediaStream} lang="javascript" />
 
 	<h2>MP3 / WAV files</h2>
 	<p>

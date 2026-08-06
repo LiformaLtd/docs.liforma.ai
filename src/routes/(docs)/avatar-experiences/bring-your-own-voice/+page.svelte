@@ -8,8 +8,11 @@
 	title="Bring your own voice"
 	description="Drive Liforma lipsync from ElevenLabs, OpenAI, Deepgram, or any PCM/file audio stack."
 	next={[
-		{ title: 'ElevenLabs streaming', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
-		{ title: 'Encoded files & other providers', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
+		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
+		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
+		{ title: 'Google', href: '/avatar-experiences/bring-your-own-voice/google' },
+		{ title: 'Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
+		{ title: 'Other / files', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >

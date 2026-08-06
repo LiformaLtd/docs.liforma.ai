@@ -304,6 +304,20 @@ await experience.speech.play({
   queue: 'append'
 });`,
 
+	jsSpeechPlayMediaStream: `// Live track — captured to PCM in the host SDK, then streamed into the player
+await experience.speech.play({
+  audio: { track: audioMediaStreamTrack, sampleRate: 24_000 },
+  queue: 'replace-active'
+});
+
+// Or keep the utterance open while the track runs
+const utterance = experience.speech.createUtterance({
+  track: audioMediaStreamTrack,
+  sampleRate: 24_000,
+  queue: 'replace-active'
+});
+// utterance closes automatically when the track ends`,
+
 	jsSpeechCreateUtterance: `type TurnState = {
   utterance: ReturnType<typeof experience.speech.createUtterance>;
   writes: Promise<void>;
