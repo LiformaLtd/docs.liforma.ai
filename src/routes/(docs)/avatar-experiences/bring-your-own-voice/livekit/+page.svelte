@@ -41,7 +41,7 @@
 			element — you would hear the voice twice. Let Liforma be the only speaker.
 		</li>
 	</ol>
-	<CodeBlock code={snippets.jsSpeechLiveKitBridge} lang="javascript" filename="livekit-bridge.js" />
+	<CodeBlock code={snippets.jsSpeechLiveKitBridge} lang="typescript" filename="livekit-bridge.ts" />
 
 	<h2>Turns vs continuous tracks</h2>
 	<p>

@@ -32,7 +32,11 @@
 	<p>
 		Map your vendor’s turn-start / audio-chunk / turn-end / barge-in callbacks onto these functions.
 	</p>
-	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="generic-turn-map.js" />
+	<CodeBlock
+		code={snippets.jsSpeechCreateUtterance}
+		lang="typescript"
+		filename="generic-turn-map.ts"
+	/>
 
 	<h2>One-shot PCM</h2>
 	<CodeBlock code={snippets.jsSpeechPlayPcm} lang="javascript" />
