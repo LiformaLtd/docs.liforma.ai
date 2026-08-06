@@ -6,30 +6,89 @@
 
 <DocPage
 	title="OpenAI → experience.speech"
-	description="Stream OpenAI TTS or Realtime audio into Liforma lipsync."
+	description="Bridge OpenAI Realtime PCM deltas or classic TTS into Liforma lipsync."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
-		{ title: 'ElevenLabs streaming', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
-		{ title: 'Other providers', href: '/avatar-experiences/bring-your-own-voice/other-providers' }
+		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
+		{ title: 'Google', href: '/avatar-experiences/bring-your-own-voice/google' },
+		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>Pattern</h2>
+	<h2>Two OpenAI paths</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>API</th>
+				<th>When</th>
+				<th>Liforma entry</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<a href="https://platform.openai.com/docs/guides/realtime-conversations">Realtime</a>
+				</td>
+				<td>Live agent / S2S over WebSocket</td>
+				<td><code>createUtterance</code> + PCM writes</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="https://platform.openai.com/docs/guides/text-to-speech">Audio Speech (TTS)</a>
+				</td>
+				<td>One-shot scripted lines</td>
+				<td><code>speech.play</code> with PCM or MP3</td>
+			</tr>
+		</tbody>
+	</table>
 	<p>
-		Liforma has no OpenAI-specific SDK types. Convert OpenAI audio to mono PCM (or pass a finished
-		buffer / URL) and use the same <code>createUtterance</code> / <code>speech.play</code> contract as
-		every other vendor.
+		Keep the OpenAI API key on a server or BFF. The browser should only talk to your same-origin
+		proxy (or receive already-decoded PCM).
 	</p>
-	<ol>
-		<li>Prefer PCM16 from the OpenAI TTS or Realtime APIs when available.</li>
-		<li>
-			On each agent turn start, open
-			<code>experience.speech.createUtterance(&#123; format, queue: 'replace-active' &#125;)</code>.
-		</li>
-		<li>Write chunks as they arrive; <code>close</code> when the turn ends; interrupt on barge-in.</li>
-	</ol>
-	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="openai-turn.js" />
 
-	<h2>One-shot TTS file</h2>
-	<p>If you already have an MP3/WAV response body, play it directly:</p>
-	<CodeBlock code={snippets.jsSpeechPlayEncoded} lang="javascript" />
+	<h2>Realtime event mapping</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>OpenAI server event</th>
+				<th>Liforma action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<code>response.output_audio.delta</code> (or legacy <code>response.audio.delta</code>)
+				</td>
+				<td>base64 → PCM → <code>utterance.write</code></td>
+			</tr>
+			<tr>
+				<td>
+					<code>response.output_audio.done</code> / <code>response.done</code>
+				</td>
+				<td><code>utterance.close</code></td>
+			</tr>
+			<tr>
+				<td><code>input_audio_buffer.speech_started</code></td>
+				<td>Barge-in → <code>cancel</code> / <code>interrupt</code></td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		Configure the Realtime session for PCM16 output (typically <strong>24&nbsp;kHz</strong> mono). Do
+		not also play those deltas through a local Web Audio sink if Liforma is speaking.
+	</p>
+	<CodeBlock
+		code={snippets.jsSpeechOpenAiRealtimeBridge}
+		lang="javascript"
+		filename="openai-realtime-bridge.js"
+	/>
+
+	<h2>Classic TTS (one-shot)</h2>
+	<p>
+		<code>response_format: 'pcm'</code> is raw <code>pcm_s16le</code> at 24&nbsp;kHz (no WAV header).
+		MP3/WAV can use encoded <code>speech.play</code> instead.
+	</p>
+	<CodeBlock code={snippets.jsSpeechOpenAiTtsPlay} lang="javascript" filename="openai-tts-play.js" />
+
+	<h2>Session capability</h2>
+	<p>Mint with <code>externalSpeechAudio</code>.</p>
 </DocPage>

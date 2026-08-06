@@ -6,24 +6,74 @@
 
 <DocPage
 	title="Deepgram → experience.speech"
-	description="Pipe Deepgram Aura / agent audio into Liforma Experiences."
+	description="Bridge Deepgram Voice Agent binary audio into Liforma lipsync."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
-		{ title: 'Other providers', href: '/avatar-experiences/bring-your-own-voice/other-providers' }
+		{ title: 'Google', href: '/avatar-experiences/bring-your-own-voice/google' },
+		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>Pattern</h2>
+	<h2>What to use</h2>
 	<p>
-		Treat Deepgram agent turns like any other S2S vendor: one Liforma utterance per turn, PCM writes,
-		close on turn end, <code>speech.interrupt</code> on barge-in.
+		Deepgram
+		<a href="https://developers.deepgram.com/docs/voice-agent-message-flow">Voice Agent</a> WebSocket
+		(<code>wss://agent.deepgram.com/v1/agent/converse</code>). After you send
+		<code>Settings</code> and receive <code>SettingsApplied</code>, the agent’s spoken audio arrives as
+		<strong>raw binary</strong> WebSocket frames (not base64 JSON). Control messages stay JSON.
 	</p>
-	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="deepgram-turn.js" />
+	<p>
+		Set <code>audio.output.encoding</code> to <code>linear16</code> and pick a sample rate Liforma
+		accepts (commonly <strong>24&nbsp;kHz</strong>). Keep the Deepgram API key on the server if you
+		proxy the socket.
+	</p>
 
-	<h2>MediaStreamTrack</h2>
+	<h2>Event mapping</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Deepgram message</th>
+				<th>Liforma action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Binary <code>ArrayBuffer</code> (agent PCM)</td>
+				<td>Open utterance on first frame → <code>write</code></td>
+			</tr>
+			<tr>
+				<td><code>AgentAudioDone</code></td>
+				<td><code>utterance.close</code> after draining writes</td>
+			</tr>
+			<tr>
+				<td><code>UserStartedSpeaking</code></td>
+				<td>Barge-in → <code>cancel</code> / <code>interrupt</code> immediately</td>
+			</tr>
+			<tr>
+				<td><code>ConversationText</code> (role agent)</td>
+				<td>Optional transcript for <code>close(&#123; transcript &#125;)</code></td>
+			</tr>
+		</tbody>
+	</table>
 	<p>
-		If your host already has a live audio <code>MediaStreamTrack</code>, pass it to
-		<code>speech.play</code> or <code>createUtterance</code>. Capture happens in the host SDK.
+		Do not prepend WAV headers for Liforma PCM writes — Deepgram agent output is headerless
+		<code>linear16</code> when configured that way.
 	</p>
-	<CodeBlock code={snippets.jsSpeechPlayMediaStream} lang="javascript" />
+
+	<h2>Bridge</h2>
+	<CodeBlock
+		code={snippets.jsSpeechDeepgramAgentBridge}
+		lang="javascript"
+		filename="deepgram-agent-bridge.js"
+	/>
+
+	<h2>Aura / TTS-only</h2>
+	<p>
+		If you only use Deepgram TTS (not Voice Agent), fetch or stream the audio bytes and call
+		<code>speech.play</code> with PCM or encoded media the same way as
+		<a href="/avatar-experiences/bring-your-own-voice/other-providers">other providers</a>.
+	</p>
+
+	<h2>Session capability</h2>
+	<p>Mint with <code>externalSpeechAudio</code>.</p>
 </DocPage>
