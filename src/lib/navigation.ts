@@ -28,6 +28,7 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'ExperienceThumbnail', href: '/avatar-experiences/experience-thumbnail' },
 			{ title: 'ExperienceWidget', href: '/avatar-experiences/experience-widget' },
 			{ title: 'Experience API', href: '/avatar-experiences/experience-api' },
+			{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },
 			{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
@@ -55,7 +56,8 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'Listen Once Capture', href: '/guides/listen-once-capture' },
 			{ title: 'Customise Characters', href: '/guides/customise-characters' },
 			{ title: 'Add Tools', href: '/guides/tools' },
-			{ title: 'Migrate from ElevenLabs', href: '/guides/migrate-elevenlabs' }
+			{ title: 'Migrate from ElevenLabs', href: '/guides/migrate-elevenlabs' },
+			{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' }
 		]
 	},
 	{
