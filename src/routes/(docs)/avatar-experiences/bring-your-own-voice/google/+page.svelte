@@ -50,12 +50,12 @@
 		<code>audio/wav</code> — do not treat the bytes as raw <code>pcm_s16le</code> unless you strip the
 		header yourself.
 	</p>
-	<CodeBlock code={snippets.jsSpeechGoogleTtsPlay} lang="javascript" filename="google-tts-play.js" />
+	<CodeBlock code={snippets.jsSpeechGoogleTtsPlay} lang="typescript" filename="google-tts.ts" />
 	<p>
-		For <code>streamingSynthesize</code>, each <code>audio_content</code> chunk after the first is
-		typically headerless PCM at the configured rate — open a
-		<code>createUtterance</code> and <code>write</code> those chunks, then <code>close</code> when the
-		stream ends.
+		For <code>streamingSynthesize</code>, every <code>audio_content</code> response is
+		<strong>headerless LINEAR16 at 24&nbsp;kHz</strong> (no WAV header on any chunk). Open a
+		<code>createUtterance</code> with <code>pcm_s16le</code> @ 24&nbsp;kHz, <code>write</code> each
+		chunk directly, then <code>close</code> when the stream ends.
 	</p>
 
 	<h2>Gemini Live event mapping</h2>
@@ -72,8 +72,12 @@
 				<td>base64 PCM16 @ 24&nbsp;kHz → <code>utterance.write</code></td>
 			</tr>
 			<tr>
-				<td><code>serverContent.turnComplete</code></td>
-				<td><code>utterance.close</code></td>
+				<td><code>serverContent.outputTranscription</code></td>
+				<td>Accumulate separately (ordering is not tied to <code>turnComplete</code>)</td>
+			</tr>
+			<tr>
+				<td><code>generationComplete</code> (prefer) / <code>turnComplete</code></td>
+				<td><code>utterance.close</code> with stored transcript</td>
 			</tr>
 			<tr>
 				<td><code>serverContent.interrupted</code></td>
@@ -83,12 +87,14 @@
 	</table>
 	<p>
 		Input to Gemini is usually PCM @ 16&nbsp;kHz; <strong>output</strong> to Liforma is PCM @
-		<strong>24&nbsp;kHz</strong>. Connect with an ephemeral token in production.
+		<strong>24&nbsp;kHz</strong>. Connect with an ephemeral token in production. Prefer closing on
+		<code>generationComplete</code> when present — <code>turnComplete</code> can lag while the API
+		assumes client-side playback timing (Liforma already owns playback).
 	</p>
 	<CodeBlock
 		code={snippets.jsSpeechGeminiLiveBridge}
-		lang="javascript"
-		filename="gemini-live-bridge.js"
+		lang="typescript"
+		filename="gemini-live-bridge.ts"
 	/>
 
 	<h2>Session capability</h2>

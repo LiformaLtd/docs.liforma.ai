@@ -237,7 +237,7 @@ await experience.attach({
 		<a href="/avatar-experiences/bring-your-own-voice">Bring your own voice</a>.
 	</p>
 	<CodeBlock code={snippets.jsSpeechPlayEncoded} lang="javascript" />
-	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="stream-pcm.js" />
+	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="typescript" filename="stream-pcm.ts" />
 
 	<h3><code>speech.interrupt()</code></h3>
 	<p>

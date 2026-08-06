@@ -67,7 +67,11 @@
 	</p>
 
 	<h2>Bridge</h2>
-	<CodeBlock code={snippets.jsSpeechElevenLabsBridge} lang="javascript" filename="elevenlabs-convai-bridge.js" />
+	<CodeBlock
+		code={snippets.jsSpeechElevenLabsBridge}
+		lang="typescript"
+		filename="elevenlabs-convai-bridge.ts"
+	/>
 
 	<h2>Session capability</h2>
 	<p>

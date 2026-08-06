@@ -91,8 +91,8 @@
 			WebSocket <code>audio</code> / <code>interruption</code>
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> — Realtime
-			<code>response.output_audio.delta</code> + TTS <code>/audio/speech</code>
+			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> — Realtime WebRTC track
+			(preferred) / WS proxy + TTS
 		</li>
 		<li>
 			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> — Cloud TTS + Gemini Live

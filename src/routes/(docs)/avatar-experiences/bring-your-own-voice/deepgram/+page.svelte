@@ -17,16 +17,22 @@
 	<h2>What to use</h2>
 	<p>
 		Deepgram
-		<a href="https://developers.deepgram.com/docs/voice-agent-message-flow">Voice Agent</a> WebSocket
-		(<code>wss://agent.deepgram.com/v1/agent/converse</code>). After you send
-		<code>Settings</code> and receive <code>SettingsApplied</code>, the agent’s spoken audio arrives as
-		<strong>raw binary</strong> WebSocket frames (not base64 JSON). Control messages stay JSON.
+		<a href="https://developers.deepgram.com/docs/voice-agent-message-flow">Voice Agent</a> WebSocket.
+		After the handshake, agent audio arrives as <strong>raw binary</strong> frames; control messages
+		stay JSON.
 	</p>
-	<p>
-		Set <code>audio.output.encoding</code> to <code>linear16</code> and pick a sample rate Liforma
-		accepts (commonly <strong>24&nbsp;kHz</strong>). Keep the Deepgram API key on the server if you
-		proxy the socket.
-	</p>
+
+	<h2>Required handshake</h2>
+	<ol>
+		<li>Connect WebSocket</li>
+		<li>Wait for <code>Welcome</code> — do <strong>not</strong> send anything before this</li>
+		<li>
+			Send <code>Settings</code> with <code>audio.output.container: 'none'</code> for headerless
+			<code>linear16</code>
+		</li>
+		<li>Wait for <code>SettingsApplied</code></li>
+		<li>Then stream mic audio / accept agent binary PCM</li>
+	</ol>
 
 	<h2>Event mapping</h2>
 	<table>
@@ -38,39 +44,31 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>Binary <code>ArrayBuffer</code> (agent PCM)</td>
-				<td>Open utterance on first frame → <code>write</code></td>
+				<td>Binary <code>ArrayBuffer</code> (after SettingsApplied)</td>
+				<td>Open utterance → <code>write</code> (capture utterance in the promise chain)</td>
 			</tr>
 			<tr>
 				<td><code>AgentAudioDone</code></td>
-				<td><code>utterance.close</code> after draining writes</td>
+				<td>Await pending writes → <code>close</code></td>
 			</tr>
 			<tr>
 				<td><code>UserStartedSpeaking</code></td>
-				<td>Barge-in → <code>cancel</code> / <code>interrupt</code> immediately</td>
-			</tr>
-			<tr>
-				<td><code>ConversationText</code> (role agent)</td>
-				<td>Optional transcript for <code>close(&#123; transcript &#125;)</code></td>
+				<td>Barge-in → <code>cancel</code> / <code>interrupt</code></td>
 			</tr>
 		</tbody>
 	</table>
-	<p>
-		Do not prepend WAV headers for Liforma PCM writes — Deepgram agent output is headerless
-		<code>linear16</code> when configured that way.
-	</p>
 
 	<h2>Bridge</h2>
 	<CodeBlock
 		code={snippets.jsSpeechDeepgramAgentBridge}
-		lang="javascript"
-		filename="deepgram-agent-bridge.js"
+		lang="typescript"
+		filename="deepgram-agent-bridge.ts"
 	/>
 
 	<h2>Aura / TTS-only</h2>
 	<p>
 		If you only use Deepgram TTS (not Voice Agent), fetch or stream the audio bytes and call
-		<code>speech.play</code> with PCM or encoded media the same way as
+		<code>speech.play</code> — see
 		<a href="/avatar-experiences/bring-your-own-voice/other-providers">other providers</a>.
 	</p>
 
