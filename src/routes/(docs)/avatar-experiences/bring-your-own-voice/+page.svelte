@@ -6,12 +6,13 @@
 
 <DocPage
 	title="Bring your own voice"
-	description="Drive Liforma lipsync from ElevenLabs, OpenAI, Deepgram, or any PCM/file audio stack."
+	description="Drive Liforma lipsync from ElevenLabs, OpenAI, Deepgram, LiveKit, or any PCM/file audio stack."
 	next={[
 		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
 		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
 		{ title: 'Google', href: '/avatar-experiences/bring-your-own-voice/google' },
 		{ title: 'Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
+		{ title: 'LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
 		{ title: 'Other / files', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
@@ -88,8 +89,17 @@
 			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a> — live PCM stream
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/other-providers">Other providers</a> — OpenAI,
-			Google, Deepgram, file URLs
+			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> —
+			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> —
+			<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a>
+		</li>
+		<li>
+			<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a> — remote
+			<code>MediaStreamTrack</code> bridge
+		</li>
+		<li>
+			<a href="/avatar-experiences/bring-your-own-voice/other-providers">Other providers</a> — files,
+			URLs, generic PCM
 		</li>
 		<li>
 			<a href="/guides/migrate-elevenlabs">Migrate from ElevenLabs Conversational AI</a> — product
