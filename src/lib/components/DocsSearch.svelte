@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { searchDocPages, type DocPageEntry } from '$lib/docPages';
+	import IconSearch from '~icons/tabler/search';
 
 	let query = $state('');
 	let open = $state(false);
@@ -39,10 +40,7 @@
 
 <div class="search" bind:this={container}>
 	<label class="sr-only" for="docs-search">Search documentation</label>
-	<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-		<circle cx="11" cy="11" r="7" />
-		<path d="M20 20l-3-3" />
-	</svg>
+	<IconSearch class="search-icon" width="16" height="16" aria-hidden="true" />
 	<input
 		id="docs-search"
 		type="search"
@@ -80,7 +78,7 @@
 		width: min(100%, 220px);
 	}
 
-	.search-icon {
+	:global(svg.search-icon) {
 		position: absolute;
 		left: 0.65rem;
 		top: 50%;

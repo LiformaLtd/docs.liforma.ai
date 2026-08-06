@@ -4,6 +4,7 @@
 	import { DEMO_EXPERIENCE_ID, externalLinks } from '$lib/navigation';
 	import { canonicalUrl, DEFAULT_DESCRIPTION, ogImageUrl, pageTitle } from '$lib/seo';
 	import { toggleTheme } from '$lib/theme';
+	import IconSun from '~icons/tabler/sun';
 
 	const helloWorld = `import { Experience } from '@liforma/client/react';
 
@@ -44,10 +45,7 @@ export function Demo() {
 				<DocsSearch />
 			</div>
 			<button type="button" class="icon-btn" aria-label="Toggle theme" onclick={toggleTheme}>
-				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<circle cx="12" cy="12" r="4" />
-					<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-				</svg>
+				<IconSun width="18" height="18" aria-hidden="true" />
 			</button>
 		</div>
 	</header>

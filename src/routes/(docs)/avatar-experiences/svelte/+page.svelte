@@ -65,7 +65,7 @@
 		</li>
 		<li>
 			When the user taps the <strong>player-owned start button</strong>, <code>onStarted</code>
-			fires (audio unlocked) and the app speaks a welcome line via <code>experience.speak()</code>.
+			fires (audio unlocked) and the app speaks a welcome line via <code>experience.speech.speak()</code>.
 		</li>
 		<li>
 			Host <strong>Start answer</strong> / <strong>Stop answer</strong> buttons call listening

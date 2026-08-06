@@ -41,7 +41,7 @@
 	<p>Typical sequence for each scripted line:</p>
 	<ol>
 		<li>
-			<code>await experience.speak(&#123; text: line &#125;)</code> — character delivers the tutor line
+			<code>await experience.speech.speak(&#123; text: line &#125;)</code> — character delivers the tutor line
 		</li>
 		<li><code>await experience.startListening()</code> — learner taps Start</li>
 		<li><code>await experience.stopListening()</code> — learner taps Stop; pauses do not finalize</li>

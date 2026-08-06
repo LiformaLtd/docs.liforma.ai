@@ -27,7 +27,7 @@
 
 	<h2>When to use presenter mode</h2>
 	<ul>
-		<li>Scripted lines from your app via <code>experience.speak(&#123; text &#125;)</code></li>
+		<li>Scripted lines from your app via <code>experience.speech.speak(&#123; text &#125;)</code></li>
 		<li>No automatic conversational loop — the character does not reason or reply on its own</li>
 		<li>Optional microphone capture when you also need learner input (manual or listen-once flows)</li>
 	</ul>
