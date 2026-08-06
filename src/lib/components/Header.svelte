@@ -2,6 +2,8 @@
 	import DocsSearch from '$lib/components/DocsSearch.svelte';
 	import { externalLinks } from '$lib/navigation';
 	import { toggleTheme } from '$lib/theme';
+	import IconMenu from '~icons/tabler/menu-2';
+	import IconSun from '~icons/tabler/sun';
 
 	type Props = {
 		onmenutoggle?: () => void;
@@ -14,9 +16,7 @@
 	<div class="header-inner">
 		<div class="left">
 			<button type="button" class="menu-btn" aria-label="Open menu" onclick={() => onmenutoggle?.()}>
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<path d="M4 6h16M4 12h16M4 18h16" />
-				</svg>
+				<IconMenu width="20" height="20" aria-hidden="true" />
 			</button>
 			<a class="brand" href="/">
 				<span class="brand-name">liforma</span>
@@ -34,10 +34,7 @@
 		</nav>
 		<div class="right">
 			<button type="button" class="icon-btn" aria-label="Toggle theme" onclick={toggleTheme}>
-				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<circle cx="12" cy="12" r="4" />
-					<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-				</svg>
+				<IconSun width="18" height="18" aria-hidden="true" />
 			</button>
 		</div>
 	</div>

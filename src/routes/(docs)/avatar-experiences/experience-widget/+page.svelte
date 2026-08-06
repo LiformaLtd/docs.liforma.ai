@@ -62,7 +62,9 @@
 		Use <code>position="bottom-right"</code> or <code>bottom-left</code> (optional
 		<code>offset</code>, default <code>16</code>) for a paste-and-go corner FAB — ideal for CMS /
 		WordPress. Default <code>position="static"</code> fills the host so you can place size and
-		offsets with your own CSS. Preview images load without an allowlist; add your site origin in
+		offsets with your own CSS. On desktop, the open player can <strong>reduce</strong> to a
+		draggable portrait dock (~50% of screen height, 9:16); mobile opens near full-screen with close
+		only. Preview images load without an allowlist; add your site origin in
 		<a href="https://app.liforma.ai">app.liforma.ai</a> before users expand (session mint).
 	</p>
 	<CodeBlock code={snippets.htmlExperienceWidget} lang="html" filename="index.html" />
