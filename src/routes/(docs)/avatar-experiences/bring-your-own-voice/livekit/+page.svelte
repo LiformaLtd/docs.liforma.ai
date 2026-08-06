@@ -9,8 +9,8 @@
 	description="Bridge a LiveKit remote audio track into Liforma lipsync with MediaStreamTrack."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
+		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
 		{ title: 'Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
-		{ title: 'Other providers', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >

@@ -5,48 +5,73 @@
 </script>
 
 <DocPage
-	title="ElevenLabs → speech.createUtterance"
-	description="Stream ElevenLabs (or similar) PCM into Liforma with turn-correlated utterances."
+	title="ElevenLabs Agents → experience.speech"
+	description="Bridge ElevenLabs ConvAI WebSocket audio events into Liforma lipsync."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
-		{ title: 'Other providers', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
+		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
+		{ title: 'LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>Pattern</h2>
+	<h2>What to use</h2>
 	<p>
-		On each agent turn start, open a <code>createUtterance</code> with
-		<code>queue: 'replace-active'</code>. Write PCM chunks as they arrive (await
-		<code>write</code> for backpressure). On turn end, <code>close</code> after draining writes. On
-		barge-in, <code>cancel</code> that turn id or <code>speech.interrupt</code>.
+		ElevenLabs <strong>Agents</strong> (Conversational AI) over the
+		<a href="https://elevenlabs.io/docs/eleven-agents/libraries/web-sockets">ConvAI WebSocket</a>. Mint a
+		<strong>signed URL</strong> on your server; never put an ElevenLabs API key in the browser if you
+		can avoid it.
+	</p>
+	<p>
+		Do <strong>not</strong> use <code>@elevenlabs/client</code>’s default audio playback for the agent
+		voice when bridging to Liforma — that would play twice. Consume the WebSocket
+		<code>audio</code> events yourself and feed PCM into <code>experience.speech</code>.
 	</p>
 
-	<h2>Turn-correlated stream</h2>
+	<h2>Event mapping</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>ElevenLabs event</th>
+				<th>Liforma action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>conversation_initiation_metadata</code></td>
+				<td>
+					Read <code>agent_output_audio_format</code> (e.g. <code>pcm_16000</code>) → sample rate
+				</td>
+			</tr>
+			<tr>
+				<td><code>ping</code></td>
+				<td>Reply with <code>pong</code> + <code>event_id</code></td>
+			</tr>
+			<tr>
+				<td><code>audio</code> → <code>audio_event.audio_base_64</code></td>
+				<td>Decode base64 → <code>utterance.write</code> (open utterance on first chunk)</td>
+			</tr>
+			<tr>
+				<td><code>interruption</code></td>
+				<td><code>utterance.cancel</code> / <code>speech.interrupt</code></td>
+			</tr>
+			<tr>
+				<td><code>agent_response_complete</code> (optional)</td>
+				<td><code>utterance.close</code> after draining writes</td>
+			</tr>
+		</tbody>
+	</table>
 	<p>
-		Replace <code>vendor.*</code> with your ElevenLabs Conversational AI / WebSocket callbacks. Chunks
-		must be mono <code>pcm_s16le</code> at an accepted rate (e.g. 24&nbsp;kHz).
+		Over ElevenLabs <strong>WebRTC</strong>, the <code>audio</code> JSON event is not sent — audio goes
+		through LiveKit. In that mode use the
+		<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit bridge</a> instead.
 	</p>
-	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="elevenlabs-bridge.js" />
 
-	<h2>Rules that avoid broken turns</h2>
-	<ul>
-		<li>
-			Late <code>onAgentTurnEnd</code> for an interrupted turn id must no-op — never
-			<code>close</code> a newer utterance.
-		</li>
-		<li>
-			<code>createUtterance</code> queue is only <code>replace-active</code> or
-			<code>replace-all</code> (no <code>append</code> on live streams).
-		</li>
-		<li>
-			<code>write</code> waits for player buffer capacity; it rejects on cancel, interrupt, timeout,
-			or closed utterance.
-		</li>
-	</ul>
+	<h2>Bridge</h2>
+	<CodeBlock code={snippets.jsSpeechElevenLabsBridge} lang="javascript" filename="elevenlabs-convai-bridge.js" />
 
 	<h2>Session capability</h2>
 	<p>
-		The minted manifest must include <code>externalSpeechAudio</code>. Without it,
-		<code>createUtterance</code> throws <code>UnsupportedSpeechOperationError</code>.
+		Mint with <code>externalSpeechAudio</code>. Align ConvAI output format with an accepted Liforma rate
+		(8 / 16 / 22.05 / 24 / 44.1 / 48&nbsp;kHz).
 	</p>
 </DocPage>

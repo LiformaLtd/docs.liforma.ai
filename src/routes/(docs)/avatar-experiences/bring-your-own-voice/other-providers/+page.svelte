@@ -6,26 +6,35 @@
 
 <DocPage
 	title="Other providers & encoded audio"
-	description="OpenAI, Google, Deepgram, and file/URL playback into experience.speech.play."
+	description="Generic PCM turn map, MediaStreamTrack, and file/URL playback for any voice stack."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
+		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
 		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
-		{ title: 'Google', href: '/avatar-experiences/bring-your-own-voice/google' },
-		{ title: 'Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
+		{ title: 'LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>Same contract for every vendor</h2>
+	<h2>Prefer a dedicated guide when you can</h2>
+	<ul>
+		<li><a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs Agents</a></li>
+		<li><a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI Realtime / TTS</a></li>
+		<li><a href="/avatar-experiences/bring-your-own-voice/google">Google Cloud TTS / Gemini Live</a></li>
+		<li><a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram Voice Agent</a></li>
+		<li><a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit remote tracks</a></li>
+	</ul>
 	<p>
-		Liforma does not ship provider-specific SDK types. Convert your vendor’s audio to mono PCM chunks
-		for <code>createUtterance</code>, or pass a complete buffer / URL / track to
-		<code>speech.play</code>. Dedicated notes:
-		<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a>,
-		<a href="/avatar-experiences/bring-your-own-voice/google">Google</a>,
-		<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a>,
-		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>,
-		<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a>.
+		For any other vendor, convert to mono <code>pcm_s16le</code> (or pass encoded bytes / a CORS-open
+		URL) and use the helpers below.
 	</p>
+
+	<h2>Generic turn helpers</h2>
+	<p>
+		Map your vendor’s turn-start / audio-chunk / turn-end / barge-in callbacks onto these functions.
+	</p>
+	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="generic-turn-map.js" />
+
+	<h2>One-shot PCM</h2>
 	<CodeBlock code={snippets.jsSpeechPlayPcm} lang="javascript" />
 
 	<h2>MediaStreamTrack</h2>

@@ -345,6 +345,7 @@ await room.connect(LIVEKIT_URL, USER_TOKEN);
 // Mute LiveKit's default remote audio playback if your SDK version enables it:
 // room.setAudioPlaybackEnabled?.(false);`,
 
+	/** Generic turn map — for custom vendors; prefer provider-specific snippets below. */
 	jsSpeechCreateUtterance: `type TurnState = {
   utterance: ReturnType<typeof experience.speech.createUtterance>;
   writes: Promise<void>;
@@ -352,15 +353,15 @@ await room.connect(LIVEKIT_URL, USER_TOKEN);
 
 const turns = new Map<string, TurnState>();
 
-vendor.onAgentTurnStart((turnId) => {
+function beginTurn(turnId) {
   const utterance = experience.speech.createUtterance({
     format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 },
     queue: 'replace-active'
   });
   turns.set(turnId, { utterance, writes: Promise.resolve() });
-});
+}
 
-vendor.onAgentAudio((turnId, chunk) => {
+function writeTurn(turnId, chunk) {
   const turn = turns.get(turnId);
   if (!turn) return;
   turn.writes = turn.writes
@@ -369,26 +370,335 @@ vendor.onAgentAudio((turnId, chunk) => {
       console.error('Unable to write speech audio', error);
       void turn.utterance.cancel();
     });
-});
+}
 
-vendor.onAgentTurnEnd(async (turnId, transcript) => {
+async function endTurn(turnId, transcript) {
   const turn = turns.get(turnId);
   if (!turn) return;
   turns.delete(turnId);
   await turn.writes;
   await turn.utterance.close({ transcript, history: 'none' });
-});
+}
 
-vendor.onInterruption(async (turnId) => {
-  if (turnId) {
-    const turn = turns.get(turnId);
-    turns.delete(turnId);
-    if (turn) await turn.utterance.cancel();
+async function cancelTurn(turnId) {
+  const turn = turns.get(turnId);
+  turns.delete(turnId);
+  if (turn) await turn.utterance.cancel();
+}`,
+
+	jsSpeechElevenLabsBridge: `// ElevenLabs Agents WebSocket (ConvAI) — mint a signed URL on your server first.
+// Docs: https://elevenlabs.io/docs/eleven-agents/libraries/web-sockets
+// Audio is base64 PCM; sample rate comes from conversation_initiation_metadata
+// (e.g. agent_output_audio_format: "pcm_16000" | "pcm_24000" | "pcm_44100").
+
+function base64ToArrayBuffer(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+
+function parsePcmRate(format) {
+  // "pcm_16000" → 16000
+  const m = /^pcm_(\\d+)$/.exec(format ?? '');
+  return m ? Number(m[1]) : 16_000;
+}
+
+let sampleRate = 16_000;
+let utterance = null;
+let writes = Promise.resolve();
+
+const ws = new WebSocket(SIGNED_CONVAI_URL); // from your backend
+
+ws.onmessage = async (ev) => {
+  const msg = JSON.parse(ev.data);
+
+  if (msg.type === 'conversation_initiation_metadata') {
+    sampleRate = parsePcmRate(
+      msg.conversation_initiation_metadata_event?.agent_output_audio_format
+    );
     return;
   }
-  turns.clear();
-  await experience.speech.interrupt({ scope: 'active' });
+
+  if (msg.type === 'ping') {
+    ws.send(JSON.stringify({
+      type: 'pong',
+      event_id: msg.ping_event?.event_id
+    }));
+    return;
+  }
+
+  if (msg.type === 'interruption') {
+    if (utterance) {
+      await utterance.cancel();
+      utterance = null;
+      writes = Promise.resolve();
+    } else {
+      await experience.speech.interrupt({ scope: 'active' });
+    }
+    return;
+  }
+
+  if (msg.type === 'audio') {
+    const b64 = msg.audio_event?.audio_base_64;
+    if (!b64) return;
+    if (!utterance) {
+      utterance = experience.speech.createUtterance({
+        format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
+        queue: 'replace-active'
+      });
+    }
+    const chunk = base64ToArrayBuffer(b64);
+    writes = writes
+      .then(() => utterance.write(chunk))
+      .catch((err) => {
+        console.error(err);
+        void utterance?.cancel();
+        utterance = null;
+      });
+    return;
+  }
+
+  if (msg.type === 'agent_response_complete') {
+    // Enable this client event on the agent if you need an explicit end marker.
+    const u = utterance;
+    utterance = null;
+    if (!u) return;
+    await writes;
+    await u.close({
+      transcript: undefined,
+      history: 'none'
+    });
+  }
+};
+
+// If agent_response_complete is not enabled, close on interruption / next audio
+// after a silence policy, or when you stop the conversation.`,
+
+	jsSpeechOpenAiRealtimeBridge: `// OpenAI Realtime (WebSocket, typically server-side).
+// Docs: https://platform.openai.com/docs/guides/realtime-conversations
+// Output audio is base64 PCM16 (commonly 24 kHz mono). Prefer response.output_audio.delta;
+// some older samples still use response.audio.delta.
+
+function base64ToArrayBuffer(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+
+const SAMPLE_RATE = 24_000;
+let utterance = null;
+let writes = Promise.resolve();
+
+ws.on('message', async (raw) => {
+  const msg = JSON.parse(raw.toString());
+
+  if (msg.type === 'response.output_audio.delta' || msg.type === 'response.audio.delta') {
+    if (!utterance) {
+      utterance = experience.speech.createUtterance({
+        format: { encoding: 'pcm_s16le', sampleRate: SAMPLE_RATE, channels: 1 },
+        queue: 'replace-active'
+      });
+    }
+    const chunk = base64ToArrayBuffer(msg.delta);
+    writes = writes.then(() => utterance.write(chunk)).catch(console.error);
+    return;
+  }
+
+  if (
+    msg.type === 'response.output_audio.done' ||
+    msg.type === 'response.audio.done' ||
+    msg.type === 'response.done'
+  ) {
+    const u = utterance;
+    utterance = null;
+    if (!u) return;
+    await writes;
+    await u.close({ history: 'none' });
+    return;
+  }
+
+  if (msg.type === 'input_audio_buffer.speech_started') {
+    // User barge-in — stop avatar speech
+    if (utterance) {
+      await utterance.cancel();
+      utterance = null;
+      writes = Promise.resolve();
+    } else {
+      await experience.speech.interrupt({ scope: 'active' });
+    }
+  }
 });`,
+
+	jsSpeechOpenAiTtsPlay: `// Classic OpenAI TTS → one-shot speech.play (server or BFF).
+// Docs: https://platform.openai.com/docs/guides/text-to-speech
+// response_format: "pcm" is raw pcm_s16le @ 24 kHz (no WAV header).
+
+import OpenAI from 'openai';
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const speech = await openai.audio.speech.create({
+  model: 'gpt-4o-mini-tts',
+  voice: 'alloy',
+  input: 'Welcome to the lesson.',
+  response_format: 'pcm'
+});
+
+const pcm = new Uint8Array(await speech.arrayBuffer());
+await experience.speech.play({
+  audio: {
+    data: pcm,
+    format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 }
+  },
+  queue: 'append'
+});
+
+// Or keep MP3/WAV and let the player decode:
+// response_format: 'mp3' → speech.play({ audio: { data, encoding: 'audio/mpeg' } })`,
+
+	jsSpeechGoogleTtsPlay: `// Google Cloud Text-to-Speech → speech.play (server / BFF).
+// Docs: https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize
+// LINEAR16 responses include a WAV header — pass as encoded audio, not raw PCM.
+
+import textToSpeech from '@google-cloud/text-to-speech';
+
+const client = new textToSpeech.TextToSpeechClient();
+const [response] = await client.synthesizeSpeech({
+  input: { text: 'Welcome to the lesson.' },
+  voice: { languageCode: 'en-US', name: 'en-US-Chirp3-HD-Charon' },
+  audioConfig: {
+    audioEncoding: 'LINEAR16',
+    sampleRateHertz: 24_000
+  }
+});
+
+const wavBytes = response.audioContent; // Buffer / Uint8Array with WAV header
+await experience.speech.play({
+  audio: { data: wavBytes, encoding: 'audio/wav' },
+  queue: 'append'
+});
+
+// MP3 alternative:
+// audioEncoding: 'MP3' → encoding: 'audio/mpeg'`,
+
+	jsSpeechGeminiLiveBridge: `// Gemini Live API (BidiGenerateContent WebSocket) — usually via your backend.
+// Docs: https://ai.google.dev/gemini-api/docs/live-api
+// Model audio: raw PCM16 LE @ 24 kHz, base64 in serverContent.modelTurn.parts[].inlineData.
+
+function base64ToArrayBuffer(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+
+const SAMPLE_RATE = 24_000;
+let utterance = null;
+let writes = Promise.resolve();
+
+ws.onmessage = async (ev) => {
+  const msg = JSON.parse(ev.data);
+  const content = msg.serverContent;
+  if (!content) return;
+
+  if (content.interrupted) {
+    if (utterance) {
+      await utterance.cancel();
+      utterance = null;
+      writes = Promise.resolve();
+    } else {
+      await experience.speech.interrupt({ scope: 'active' });
+    }
+    return;
+  }
+
+  for (const part of content.modelTurn?.parts ?? []) {
+    const b64 = part.inlineData?.data;
+    if (!b64) continue;
+    if (!utterance) {
+      utterance = experience.speech.createUtterance({
+        format: { encoding: 'pcm_s16le', sampleRate: SAMPLE_RATE, channels: 1 },
+        queue: 'replace-active'
+      });
+    }
+    const chunk = base64ToArrayBuffer(b64);
+    writes = writes.then(() => utterance.write(chunk)).catch(console.error);
+  }
+
+  if (content.turnComplete) {
+    const u = utterance;
+    utterance = null;
+    if (!u) return;
+    await writes;
+    await u.close({
+      transcript: content.outputTranscription?.text,
+      history: 'none'
+    });
+  }
+};`,
+
+	jsSpeechDeepgramAgentBridge: `// Deepgram Voice Agent WebSocket.
+// Docs: https://developers.deepgram.com/docs/voice-agent-message-flow
+// After SettingsApplied: agent audio arrives as raw binary frames (ArrayBuffer);
+// JSON control messages include UserStartedSpeaking and AgentAudioDone.
+
+const SAMPLE_RATE = 24_000; // must match Settings.audio.output.sample_rate
+let utterance = null;
+let writes = Promise.resolve();
+
+// Prefer a same-origin proxy: browsers cannot set Authorization on WebSocket.
+// Server connects with Authorization: Token <DEEPGRAM_API_KEY>.
+const ws = new WebSocket(YOUR_DEEPGRAM_AGENT_PROXY_URL);
+ws.binaryType = 'arraybuffer';
+
+ws.onopen = () => {
+  ws.send(JSON.stringify({
+    type: 'Settings',
+    audio: {
+      input: { encoding: 'linear16', sample_rate: 16_000 },
+      output: { encoding: 'linear16', sample_rate: SAMPLE_RATE }
+    },
+    // agent: { listen / think / speak … } — see Deepgram Voice Agent Settings
+    agent: { /* your agent config */ }
+  }));
+};
+
+ws.onmessage = async (ev) => {
+  if (ev.data instanceof ArrayBuffer) {
+    // Agent PCM chunk
+    if (!utterance) {
+      utterance = experience.speech.createUtterance({
+        format: { encoding: 'pcm_s16le', sampleRate: SAMPLE_RATE, channels: 1 },
+        queue: 'replace-active'
+      });
+    }
+    writes = writes.then(() => utterance.write(ev.data)).catch(console.error);
+    return;
+  }
+
+  const msg = JSON.parse(ev.data);
+
+  if (msg.type === 'UserStartedSpeaking') {
+    if (utterance) {
+      await utterance.cancel();
+      utterance = null;
+      writes = Promise.resolve();
+    } else {
+      await experience.speech.interrupt({ scope: 'active' });
+    }
+    return;
+  }
+
+  if (msg.type === 'AgentAudioDone') {
+    const u = utterance;
+    utterance = null;
+    if (!u) return;
+    await writes;
+    await u.close({ history: 'none' });
+  }
+};`,
 
 	jsManualListening: `await experience.startListening();
 // Learner speaks; pauses do not end the utterance in manual mode.

@@ -62,15 +62,16 @@
 	</p>
 	<CodeBlock code={snippets.jsSpeechPlayEncoded} lang="javascript" filename="play-encoded.js" />
 
-	<h2>Live streaming (turn-correlated)</h2>
+	<h2>Live streaming</h2>
 	<p>
-		Use <code>createUtterance</code> when your vendor emits many PCM chunks per agent turn. Map vendor
-		turn ids to utterances; ignore late end events for interrupted turns.
-	</p>
-	<p>
-		See the
-		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs streaming guide</a>
-		for the canonical turn-id pattern.
+		Use <code>createUtterance</code> when your vendor emits many PCM chunks per agent turn. Each
+		provider guide maps real vendor events onto <code>write</code> / <code>close</code> /
+		<code>interrupt</code> — start with
+		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/google">Google</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a>, or
+		<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a>.
 	</p>
 
 	<h2>Lipsync behaviour</h2>
@@ -86,24 +87,31 @@
 	<h2>Provider guides</h2>
 	<ul>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a> — live PCM stream
+			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs Agents</a> — ConvAI
+			WebSocket <code>audio</code> / <code>interruption</code>
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> —
-			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> —
-			<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a>
+			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> — Realtime
+			<code>response.output_audio.delta</code> + TTS <code>/audio/speech</code>
+		</li>
+		<li>
+			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> — Cloud TTS + Gemini Live
+			<code>modelTurn</code> PCM
+		</li>
+		<li>
+			<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a> — Voice Agent binary
+			frames + <code>AgentAudioDone</code>
 		</li>
 		<li>
 			<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a> — remote
-			<code>MediaStreamTrack</code> bridge
+			<code>MediaStreamTrack</code>
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/other-providers">Other providers</a> — files,
-			URLs, generic PCM
+			<a href="/avatar-experiences/bring-your-own-voice/other-providers">Other / files</a> — generic
+			turn map, URLs, encoded bytes
 		</li>
 		<li>
-			<a href="/guides/migrate-elevenlabs">Migrate from ElevenLabs Conversational AI</a> — product
-			migration notes
+			<a href="/guides/migrate-elevenlabs">Migrate from ElevenLabs Conversational AI</a>
 		</li>
 	</ul>
 </DocPage>
