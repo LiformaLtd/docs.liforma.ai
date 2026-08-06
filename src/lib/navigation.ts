@@ -33,6 +33,7 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'BYO — OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
 			{ title: 'BYO — Google', href: '/avatar-experiences/bring-your-own-voice/google' },
 			{ title: 'BYO — Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
+			{ title: 'BYO — LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
 			{ title: 'BYO — Other / files', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
 			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },

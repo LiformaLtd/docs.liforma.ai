@@ -9,7 +9,7 @@
 	description="Pipe Deepgram Aura / agent audio into Liforma Experiences."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
-		{ title: 'ElevenLabs streaming', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
+		{ title: 'LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
 		{ title: 'Other providers', href: '/avatar-experiences/bring-your-own-voice/other-providers' }
 	]}
 >

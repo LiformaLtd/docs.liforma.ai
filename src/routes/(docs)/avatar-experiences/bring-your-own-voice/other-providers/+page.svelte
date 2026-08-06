@@ -23,7 +23,8 @@
 		<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a>,
 		<a href="/avatar-experiences/bring-your-own-voice/google">Google</a>,
 		<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a>,
-		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>.
+		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>,
+		<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a>.
 	</p>
 	<CodeBlock code={snippets.jsSpeechPlayPcm} lang="javascript" />
 

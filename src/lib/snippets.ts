@@ -318,6 +318,33 @@ const utterance = experience.speech.createUtterance({
 });
 // utterance closes automatically when the track ends`,
 
+	jsSpeechLiveKitBridge: `import { Room, RoomEvent, Track } from 'livekit-client';
+
+// Host owns the LiveKit room; Liforma owns avatar playback + lipsync.
+// Do not also attach the remote track to an <audio> element — that doubles the voice.
+const room = new Room();
+
+room.on(RoomEvent.TrackSubscribed, async (track, publication, participant) => {
+  if (track.kind !== Track.Kind.Audio) return;
+  // Optional: only bridge the agent participant
+  // if (!participant.identity.startsWith('agent')) return;
+
+  const mediaTrack = track.mediaStreamTrack;
+  await experience.speech.play({
+    audio: { track: mediaTrack, sampleRate: 48_000 },
+    queue: 'replace-active'
+  });
+});
+
+room.on(RoomEvent.TrackUnsubscribed, async (track) => {
+  if (track.kind !== Track.Kind.Audio) return;
+  await experience.speech.interrupt({ scope: 'active' });
+});
+
+await room.connect(LIVEKIT_URL, USER_TOKEN);
+// Mute LiveKit's default remote audio playback if your SDK version enables it:
+// room.setAudioPlaybackEnabled?.(false);`,
+
 	jsSpeechCreateUtterance: `type TurnState = {
   utterance: ReturnType<typeof experience.speech.createUtterance>;
   writes: Promise<void>;
