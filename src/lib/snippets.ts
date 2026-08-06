@@ -35,7 +35,7 @@ export function Lesson() {
 
   async function handleStarted() {
     setAudioUnlocked(true);
-    await experienceRef.current?.speak({ text: 'Welcome to the lesson.' });
+    await experienceRef.current?.speech.speak({ text: 'Welcome to the lesson.' });
   }
 
   return (
@@ -76,7 +76,7 @@ export function Lesson() {
   // Safe point to speak: player start button has unlocked audio.
   async function handleStarted() {
     audioUnlocked = true;
-    await experience?.speak({ text: 'Welcome to the lesson.' });
+    await experience?.speech.speak({ text: 'Welcome to the lesson.' });
   }
 
   // Host-owned Start/Stop — manual speech capture for the learner.
@@ -141,7 +141,7 @@ export function Lesson() {
   let experience: ExperienceHandle | undefined = $state();
 
   async function speakIntro() {
-    await experience?.speak({ text: 'Hello! Welcome to the lesson.' });
+    await experience?.speech.speak({ text: 'Hello! Welcome to the lesson.' });
   }
 <\\/script>
 
@@ -162,7 +162,7 @@ export function Lesson() {
   let experience: ExperienceHandle | undefined = $state();
 
   async function speakPrompt() {
-    await experience?.speak({ text: 'Your table is ready.' });
+    await experience?.speech.speak({ text: 'Your table is ready.' });
   }
 <\\/script>
 
@@ -193,7 +193,7 @@ const experience = await Experience.startSession({
 });
 
 experience.on('started', async () => {
-  await experience.speak({ text: 'Your table is ready.' });
+  await experience.speech.speak({ text: 'Your table is ready.' });
 });
 
 await experience.attach({ container: '#voice-shell' });`,
@@ -207,7 +207,7 @@ const experience = await Experience.startSession({
 });
 
 experience.on('started', async () => {
-  await experience.speak({ text: 'Hello! Welcome to the lesson.' });
+  await experience.speech.speak({ text: 'Hello! Welcome to the lesson.' });
 });
 
 await experience.attach({ container: '#avatar' });`,
@@ -271,18 +271,83 @@ await experience.attach({ container: '#avatar' });`,
 });
 
 experience.on('started', async () => {
-  await experience.speak({ text: 'Welcome to the lesson.' });
+  await experience.speech.speak({ text: 'Welcome to the lesson.' });
 });
 
 await experience.attach({ container: '#avatar' });`,
 
-	jsSpeak: `const result = await experience.speak({
+	jsSpeak: `const result = await experience.speech.speak({
   text: 'Repeat after me: Buenos días.',
   characterId: 'char_…', // optional — defaults to activeCharacterId
-  behavior: 'enqueue' // optional — enqueue (default) or interrupt
+  queue: 'append' // optional — append (default), replace-active, or replace-all
 });
 
-console.log(result.turnId, result.durationMs);`,
+console.log(result.utteranceId, result.durationMs, result.status);`,
+
+	jsSpeechPlayPcm: `await experience.speech.play({
+  audio: {
+    data: pcmS16leBytes,
+    format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 }
+  },
+  queue: 'append' // append | replace-active | replace-all
+});`,
+
+	jsSpeechPlayEncoded: `// Encoded bytes — decoded in the player (not on api.liforma.ai)
+await experience.speech.play({
+  audio: { data: mp3Bytes, encoding: 'audio/mpeg' },
+  queue: 'append'
+});
+
+// Or a CORS-open URL fetched + decoded inside the player iframe
+await experience.speech.play({
+  audio: { url: 'https://cdn.example.com/line.mp3' },
+  queue: 'append'
+});`,
+
+	jsSpeechCreateUtterance: `type TurnState = {
+  utterance: ReturnType<typeof experience.speech.createUtterance>;
+  writes: Promise<void>;
+};
+
+const turns = new Map<string, TurnState>();
+
+vendor.onAgentTurnStart((turnId) => {
+  const utterance = experience.speech.createUtterance({
+    format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 },
+    queue: 'replace-active'
+  });
+  turns.set(turnId, { utterance, writes: Promise.resolve() });
+});
+
+vendor.onAgentAudio((turnId, chunk) => {
+  const turn = turns.get(turnId);
+  if (!turn) return;
+  turn.writes = turn.writes
+    .then(() => turn.utterance.write(chunk))
+    .catch((error) => {
+      console.error('Unable to write speech audio', error);
+      void turn.utterance.cancel();
+    });
+});
+
+vendor.onAgentTurnEnd(async (turnId, transcript) => {
+  const turn = turns.get(turnId);
+  if (!turn) return;
+  turns.delete(turnId);
+  await turn.writes;
+  await turn.utterance.close({ transcript, history: 'none' });
+});
+
+vendor.onInterruption(async (turnId) => {
+  if (turnId) {
+    const turn = turns.get(turnId);
+    turns.delete(turnId);
+    if (turn) await turn.utterance.cancel();
+    return;
+  }
+  turns.clear();
+  await experience.speech.interrupt({ scope: 'active' });
+});`,
 
 	jsManualListening: `await experience.startListening();
 // Learner speaks; pauses do not end the utterance in manual mode.
@@ -297,7 +362,7 @@ experience.on('conversationUpdate', (conversation) => {
 });`,
 
 	guidedPracticeTurnLoop: `async function runPracticeTurn(line) {
-  await experience.speak({ text: line });
+  await experience.speech.speak({ text: line });
   await experience.startListening();
 }
 
@@ -323,7 +388,7 @@ async function finishPracticeTurn(line) {
 
   async function playTutorLine() {
     audioUnlocked = true;
-    await experience?.speak({ text: 'Read this sentence aloud.' });
+    await experience?.speech.speak({ text: 'Read this sentence aloud.' });
   }
 
   async function startAnswer() {
@@ -357,7 +422,7 @@ async function finishPracticeTurn(line) {
 });
 
 experience.on('started', async () => {
-  await experience.speak({ text: 'What is your party size?' });
+  await experience.speech.speak({ text: 'What is your party size?' });
   const answer = await experience.listenOnce({ timeoutMs: 15_000 });
   console.log(answer.utteranceId, answer.text);
 });
@@ -407,12 +472,12 @@ await experience.attach({ container: '#avatar' });`,
 }`,
 
 	quizCoachTurnLoop: `async function runQuizQuestion(question, expectedKeyword) {
-  await experience.speak({ text: question });
+  await experience.speech.speak({ text: question });
   const answer = await experience.listenOnce({ timeoutMs: 20_000 });
   const correct = answer.text.toLowerCase().includes(expectedKeyword);
-  await experience.speak({
+  await experience.speech.speak({
     text: correct ? 'Correct!' : 'Not quite — try the next one.',
-    behavior: 'interrupt'
+    queue: 'replace-active'
   });
 }`,
 

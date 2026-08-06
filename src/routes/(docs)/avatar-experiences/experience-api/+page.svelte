@@ -8,6 +8,7 @@
 	title="Experience API"
 	description="Programmatic control over Avatar Experience sessions."
 	next={[
+		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'Events', href: '/avatar-experiences/events' },
 		{ title: 'Custom Conversation Processor', href: '/guides/custom-conversation-processor' },
 		{ title: 'Listen Once Capture', href: '/guides/listen-once-capture' },
@@ -161,7 +162,7 @@
 
 experience.on('started', async ({ mode }) => {
   if (mode === 'presenter') {
-    await experience.speak({ text: 'Welcome to the lesson.' });
+    await experience.speech.speak({ text: 'Welcome to the lesson.' });
   }
 });
 
@@ -192,10 +193,10 @@ await experience.attach({
 		the player-owned start button unlocks audio.
 	</p>
 
-	<h3><code>speak()</code></h3>
+	<h3><code>speech.speak()</code></h3>
 	<p>
-		Queue animated character speech without invoking the managed LLM. Resolves when playback
-		completes. An interrupted active or queued call rejects with <code>AbortError</code>.
+		Queue animated character speech via Liforma TTS without invoking the managed LLM. Requires
+		<code>textSpeech</code>. Resolves when playback completes.
 	</p>
 	<CodeBlock code={snippets.jsSpeak} lang="javascript" />
 	<table>
@@ -218,18 +219,31 @@ await experience.attach({
 				<td>Defaults to <code>activeCharacterId</code> from the manifest.</td>
 			</tr>
 			<tr>
-				<td><code>behavior</code></td>
-				<td><code>enqueue</code> | <code>interrupt</code></td>
+				<td><code>queue</code></td>
+				<td><code>append</code> | <code>replace-active</code> | <code>replace-all</code></td>
 				<td>
-					<code>enqueue</code> waits for current speech (default). <code>interrupt</code> stops
-					active playback and clears the queue before speaking.
+					<code>append</code> waits for current speech (default). Replace policies interrupt before
+					speaking.
 				</td>
 			</tr>
 		</tbody>
 	</table>
+
+	<h3><code>speech.play()</code> and <code>createUtterance()</code></h3>
 	<p>
-		Returns <code>SpeechResult</code>: <code>speechId</code>, <code>turnId</code>,
-		<code>characterId</code>, <code>text</code>, and <code>durationMs</code>.
+		Bring-your-own audio. Requires <code>externalSpeechAudio</code>. Pass PCM, encoded bytes
+		(<code>audio/mpeg</code>, …), or a CORS-open URL. Encoded/URL sources are decoded in the player,
+		then lipsynced via speech-animation windows. See
+		<a href="/avatar-experiences/bring-your-own-voice">Bring your own voice</a>.
+	</p>
+	<CodeBlock code={snippets.jsSpeechPlayEncoded} lang="javascript" />
+	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="javascript" filename="stream-pcm.js" />
+
+	<h3><code>speech.interrupt()</code></h3>
+	<p>
+		Returns settled <code>SpeechResult[]</code> for interrupted/cancelled utterances. Options:
+		<code>{'{ scope: \'active\' | \'all\' }'}</code>, <code>{'{ utteranceId }'}</code>, or
+		<code>{'{ characterId }'}</code>.
 	</p>
 
 	<h3><code>startListening()</code> and <code>stopListening()</code></h3>
