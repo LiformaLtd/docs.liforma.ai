@@ -385,9 +385,9 @@ async function cancelTurn(turnId) {
   if (turn) await turn.utterance.cancel();
 }`,
 
-	jsSpeechElevenLabsBridge: `// ElevenLabs Agents WebSocket (ConvAI) — mint a signed URL on your server first.
-// Docs: https://elevenlabs.io/docs/eleven-agents/libraries/web-sockets
-// Capture the utterance object in the write chain — do not close over a mutable global.
+	jsSpeechElevenLabsSimple: `// Simplest path: @elevenlabs/client → Liforma (WebSocket connection type).
+// Mute ElevenLabs' own speaker so only the avatar talks.
+import { Conversation } from '@elevenlabs/client';
 
 function base64ToArrayBuffer(b64: string): ArrayBuffer {
   const bin = atob(b64);
@@ -396,9 +396,68 @@ function base64ToArrayBuffer(b64: string): ArrayBuffer {
   return out.buffer;
 }
 
-function parsePcmRate(format: string | undefined): number {
-  const m = /^pcm_(\\d+)$/.exec(format ?? '');
-  return m ? Number(m[1]) : 16_000;
+type Turn = {
+  utterance: ReturnType<typeof experience.speech.createUtterance>;
+  writes: Promise<void>;
+};
+
+let sampleRate = 16_000; // override from onConversationMetadata if needed
+let turn: Turn | null = null;
+
+const conversation = await Conversation.startSession({
+  // Prefer a signed URL from your server in production:
+  // signedUrl: await fetch('/api/elevenlabs-signed-url').then((r) => r.text()),
+  agentId: 'YOUR_AGENT_ID',
+  connectionType: 'websocket',
+
+  onConversationMetadata: (meta) => {
+    const fmt = meta.agent_output_audio_format; // e.g. "pcm_16000"
+    const m = /^pcm_(\\d+)$/.exec(fmt ?? '');
+    if (m) sampleRate = Number(m[1]);
+  },
+
+  onAudio: (base64Audio) => {
+    if (!turn) {
+      const utterance = experience.speech.createUtterance({
+        format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
+        queue: 'replace-active'
+      });
+      turn = { utterance, writes: Promise.resolve() };
+    }
+    const u = turn.utterance;
+    const chunk = base64ToArrayBuffer(base64Audio);
+    turn.writes = turn.writes.then(() => u.write(chunk)).catch(console.error);
+  },
+
+  onModeChange: ({ mode }) => {
+    if (mode !== 'listening') return;
+    const current = turn;
+    turn = null;
+    if (!current) return;
+    void current.writes.then(() => current.utterance.close({ history: 'none' }));
+  },
+
+  onInterruption: () => {
+    const current = turn;
+    turn = null;
+    void (current
+      ? current.utterance.cancel()
+      : experience.speech.interrupt({ scope: 'active' }));
+  }
+});
+
+// Critical: silence ElevenLabs playback — Liforma owns the speaker.
+await conversation.setVolume({ volume: 0 });`,
+
+	jsSpeechElevenLabsBridge: `// Advanced: raw ConvAI WebSocket (no @elevenlabs/client).
+// Docs: https://elevenlabs.io/docs/eleven-agents/libraries/web-sockets
+// Prefer the simpler Conversation.startSession example above unless you need full control.
+
+function base64ToArrayBuffer(b64: string): ArrayBuffer {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
 }
 
 type Turn = {
@@ -409,76 +468,58 @@ type Turn = {
 let sampleRate = 16_000;
 let turn: Turn | null = null;
 
-function beginTurn(): Turn {
-  const utterance = experience.speech.createUtterance({
-    format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
-    queue: 'replace-active'
-  });
-  turn = { utterance, writes: Promise.resolve() };
-  return turn;
-}
-
-async function endTurn(): Promise<void> {
-  const current = turn;
-  turn = null;
-  if (!current) return;
-  await current.writes;
-  await current.utterance.close({ history: 'none' });
-}
-
-async function cancelTurn(): Promise<void> {
-  const current = turn;
-  turn = null;
-  if (current) await current.utterance.cancel();
-  else await experience.speech.interrupt({ scope: 'active' });
-}
-
-const ws = new WebSocket(SIGNED_CONVAI_URL);
+const ws = new WebSocket(SIGNED_CONVAI_URL); // from your backend
 
 ws.onmessage = (ev) => {
   const msg = JSON.parse(String(ev.data));
 
   if (msg.type === 'conversation_initiation_metadata') {
-    sampleRate = parsePcmRate(
-      msg.conversation_initiation_metadata_event?.agent_output_audio_format
-    );
+    const fmt = msg.conversation_initiation_metadata_event?.agent_output_audio_format;
+    const m = /^pcm_(\\d+)$/.exec(fmt ?? '');
+    if (m) sampleRate = Number(m[1]);
     return;
   }
 
   if (msg.type === 'ping') {
     const eventId = msg.ping_event?.event_id;
     const delayMs = Number(msg.ping_event?.ping_ms ?? 0);
-    const reply = () =>
-      ws.send(JSON.stringify({ type: 'pong', event_id: eventId }));
+    const reply = () => ws.send(JSON.stringify({ type: 'pong', event_id: eventId }));
     if (delayMs > 0) setTimeout(reply, delayMs);
     else reply();
     return;
   }
 
   if (msg.type === 'interruption') {
-    void cancelTurn();
+    const current = turn;
+    turn = null;
+    void (current
+      ? current.utterance.cancel()
+      : experience.speech.interrupt({ scope: 'active' }));
     return;
   }
 
   if (msg.type === 'audio') {
     const b64 = msg.audio_event?.audio_base_64 as string | undefined;
     if (!b64) return;
-    const current = turn ?? beginTurn();
-    const chunk = base64ToArrayBuffer(b64);
-    const u = current.utterance; // capture — do not read \`turn\` inside .then
-    current.writes = current.writes
-      .then(() => u.write(chunk))
-      .catch((err) => {
-        console.error(err);
-        void u.cancel();
-        if (turn?.utterance === u) turn = null;
+    if (!turn) {
+      const utterance = experience.speech.createUtterance({
+        format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
+        queue: 'replace-active'
       });
+      turn = { utterance, writes: Promise.resolve() };
+    }
+    const u = turn.utterance;
+    const chunk = base64ToArrayBuffer(b64);
+    turn.writes = turn.writes.then(() => u.write(chunk)).catch(console.error);
     return;
   }
 
   if (msg.type === 'agent_response_complete') {
-    // Enable this client event on the agent if you need an explicit end marker.
-    void endTurn();
+    // Enable this client event on the agent if you need it.
+    const current = turn;
+    turn = null;
+    if (!current) return;
+    void current.writes.then(() => current.utterance.close({ history: 'none' }));
   }
 };`,
 
