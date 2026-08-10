@@ -289,6 +289,8 @@ console.log(result.utteranceId, result.durationMs, result.status);`,
     data: pcmS16leBytes,
     format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 }
   },
+  // Optional: spoken text enables force-aligned lipsync (better than PCM-only).
+  transcript: agentReplyText,
   queue: 'append' // append | replace-active | replace-all
 });`,
 
@@ -351,10 +353,12 @@ await room.connect(LIVEKIT_URL, USER_TOKEN);`,
 
 const turns = new Map<string, TurnState>();
 
-function beginTurn(turnId) {
+function beginTurn(turnId, transcript) {
   const utterance = experience.speech.createUtterance({
     format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 },
-    queue: 'replace-active'
+    queue: 'replace-active',
+    // Optional seed — enables force-align STA when non-empty
+    ...(transcript ? { transcript } : {})
   });
   turns.set(turnId, { utterance, writes: Promise.resolve() });
 }
@@ -417,6 +421,7 @@ async function writePcmInChunks(
 type Turn = {
   utterance: ReturnType<typeof experience.speech.createUtterance>;
   writes: Promise<void>;
+  transcript: string;
 };
 
 // Lock sample rate from metadata before createUtterance — a wrong rate makes
@@ -441,7 +446,7 @@ function handleAudio(base64Audio: string) {
       format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
       queue: 'replace-active'
     });
-    turn = { utterance, writes: Promise.resolve() };
+    turn = { utterance, writes: Promise.resolve(), transcript: '' };
   }
   const u = turn.utterance;
   const chunk = base64ToArrayBuffer(base64Audio);
@@ -449,8 +454,16 @@ function handleAudio(base64Audio: string) {
 }
 
 const conversation = await Conversation.startSession({
-  // Prefer a signed URL from your server in production:
-  // signedUrl: await fetch('/api/elevenlabs-signed-url').then((r) => r.text()),
+  // Prefer a signed URL from your server in production (JSON { signedUrl }):
+  // signedUrl: await fetch('/api/elevenlabs-signed-url', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ agentId: 'YOUR_AGENT_ID' })
+  // }).then(async (r) => {
+  //   const data = await r.json();
+  //   if (!r.ok) throw new Error(data.error ?? r.statusText);
+  //   return data.signedUrl as string;
+  // }),
   agentId: 'YOUR_AGENT_ID',
   connectionType: 'websocket',
 
@@ -464,12 +477,27 @@ const conversation = await Conversation.startSession({
     handleAudio(base64Audio);
   },
 
+  // Agent spoken text → force-aligned STA (optional but recommended).
+  onMessage: ({ message, role }) => {
+    if (role !== 'agent' || !turn) return;
+    const text = message.trim();
+    if (!text) return;
+    turn.transcript = text;
+    void turn.utterance.setTranscript(text);
+  },
+
   onModeChange: ({ mode }) => {
     if (mode !== 'listening') return;
     const current = turn;
     turn = null;
     if (!current) return;
-    void current.writes.then(() => current.utterance.close({ history: 'none' }));
+    const transcript = current.transcript.trim();
+    void current.writes.then(() =>
+      current.utterance.close({
+        ...(transcript ? { transcript } : {}),
+        history: 'none'
+      })
+    );
   },
 
   onInterruption: () => {
@@ -739,6 +767,7 @@ ws.onmessage = (ev) => {
   if (content.outputTranscription?.text) {
     const current = turn ?? beginTurn();
     current.transcript += content.outputTranscription.text;
+    void current.utterance.setTranscript(current.transcript);
   }
 
   for (const part of content.modelTurn?.parts ?? []) {

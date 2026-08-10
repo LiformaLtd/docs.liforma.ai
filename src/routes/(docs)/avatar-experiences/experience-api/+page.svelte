@@ -236,6 +236,11 @@ await experience.attach({
 		then lipsynced via speech-animation windows. See
 		<a href="/avatar-experiences/bring-your-own-voice">Bring your own voice</a>.
 	</p>
+	<p>
+		Optional <code>transcript</code> on <code>play</code>, <code>createUtterance</code>,
+		<code>utterance.setTranscript(text)</code>, or <code>close(&#123; transcript &#125;)</code>
+		enables force-aligned lipsync when non-empty. Omit / whitespace → free decode (unchanged).
+	</p>
 	<CodeBlock code={snippets.jsSpeechPlayEncoded} lang="javascript" />
 	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="typescript" filename="stream-pcm.ts" />
 

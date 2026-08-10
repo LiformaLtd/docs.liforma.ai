@@ -82,6 +82,12 @@
 			Tracked animation uses limited-context HTTP windows to
 			<code>POST /v1/speech-animation/windows</code> (player-internal).
 		</li>
+		<li>
+			When you have the spoken text, pass <code>transcript</code> on
+			<code>speech.play</code>, <code>createUtterance</code>,
+			<code>setTranscript</code>, and/or <code>close</code> so lipsync can force-align
+			(better mouth shapes than PCM-only).
+		</li>
 	</ul>
 
 	<h2>Provider guides</h2>
