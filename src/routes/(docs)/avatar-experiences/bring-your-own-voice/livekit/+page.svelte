@@ -6,7 +6,7 @@
 
 <DocPage
 	title="LiveKit → experience.speech"
-	description="Bridge a LiveKit remote audio track into Liforma lipsync with MediaStreamTrack."
+	description="Pipe a LiveKit remote audio track into Liforma with @liforma/client/livekit."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
@@ -14,12 +14,11 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>What this is</h2>
+	<h2>Idea in one sentence</h2>
 	<p>
-		Use LiveKit (Agents, rooms, or any remote participant) as your <strong>voice source</strong>. The
-		host page joins the LiveKit room; when an agent audio track arrives, pass its
-		<code>MediaStreamTrack</code> into <code>experience.speech</code>. Liforma owns playback timing and
-		mouth animation.
+		Keep LiveKit (Agents, rooms, or any remote participant) as your voice source, and use
+		<code>connectLiveKitAgent</code> from <code>@liforma/client/livekit</code> to drive the Liforma
+		avatar from the remote <code>MediaStreamTrack</code>.
 	</p>
 	<p>
 		This is <strong>not</strong> Liforma’s future <code>transport: livekit</code> adapter. Here LiveKit
@@ -27,31 +26,56 @@
 		<code>externalSpeechAudio</code>.
 	</p>
 
-	<h2>Pattern</h2>
+	<h2>Install</h2>
+	<CodeBlock code="npm install @liforma/client livekit-client" lang="bash" />
+
+	<h2>Checklist</h2>
 	<ol>
-		<li>Connect <code>livekit-client</code> in the host (server mints the LiveKit token).</li>
 		<li>
-			On <code>TrackSubscribed</code> for a remote audio track, call
-			<code>speech.play(&#123; audio: &#123; track &#125; &#125;)</code> (or
-			<code>createUtterance(&#123; track &#125;)</code>).
+			Mount a Liforma Experience with <code>externalSpeechAudio</code> (often
+			<code>mode="presenter"</code>, <code>speechInputMode="off"</code>).
 		</li>
-		<li>On unsubscribe / barge-in, <code>speech.interrupt</code>.</li>
+		<li>Wait until the player has started (audio unlocked inside the iframe).</li>
+		<li>Mint a LiveKit participant token on your server.</li>
+		<li>
+			Call <code>connectLiveKitAgent(experience, &#123; url, token &#125;)</code> — the helper joins
+			the room, bridges agent audio tracks into <code>speech.play</code>, and interrupts on
+			unsubscribe.
+		</li>
 		<li>
 			<strong>Do not</strong> also play that track through a LiveKit <code>&lt;audio&gt;</code>
-			element — you would hear the voice twice. Let Liforma be the only speaker.
+			element — you would hear the voice twice.
 		</li>
+		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>
 	</ol>
-	<CodeBlock code={snippets.jsSpeechLiveKitBridge} lang="typescript" filename="livekit-bridge.ts" />
 
-	<h2>Turns vs continuous tracks</h2>
-	<p>
-		LiveKit often gives one long-lived remote audio track rather than discrete PCM turn chunks. Prefer
-		<code>speech.play(&#123; audio: &#123; track &#125; &#125;)</code> /
-		<code>createUtterance(&#123; track &#125;)</code> and <code>replace-active</code> when a new agent
-		track appears. If your agent emits framed PCM over a data channel instead, use the same turn-id
-		map as
-		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>.
-	</p>
+	<h2>Example</h2>
+	<CodeBlock
+		code={snippets.jsSpeechLiveKitSimple}
+		lang="typescript"
+		filename="livekit-liforma.ts"
+	/>
+
+	<details>
+		<summary>Advanced: own the LiveKit Room yourself</summary>
+		<p>Only if you are not using <code>connectLiveKitAgent</code>.</p>
+		<CodeBlock
+			code={snippets.jsSpeechLiveKitBridge}
+			lang="typescript"
+			filename="livekit-bridge.ts"
+		/>
+	</details>
+
+	<details>
+		<summary>Turns vs continuous tracks</summary>
+		<p>
+			LiveKit often gives one long-lived remote audio track rather than discrete PCM turn chunks. The
+			helper uses <code>speech.play(&#123; audio: &#123; track &#125; &#125;)</code> with
+			<code>replace-active</code>. If your agent emits framed PCM over a data channel instead, use the
+			same turn-id map as
+			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>.
+		</p>
+	</details>
 
 	<h2>Session capability</h2>
 	<p>

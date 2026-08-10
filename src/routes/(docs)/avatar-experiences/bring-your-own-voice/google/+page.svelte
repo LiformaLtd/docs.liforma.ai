@@ -6,7 +6,7 @@
 
 <DocPage
 	title="Google → experience.speech"
-	description="Bridge Google Cloud TTS or Gemini Live audio into Liforma lipsync."
+	description="Pipe Gemini Live (or Cloud TTS) into Liforma with @liforma/client/google."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
@@ -14,88 +14,69 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>Two Google paths</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>API</th>
-				<th>When</th>
-				<th>Liforma entry</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					<a href="https://cloud.google.com/text-to-speech/docs/create-audio-text-streaming"
-						>Cloud Text-to-Speech</a
-					>
-				</td>
-				<td>Scripted lines / streaming synthesize</td>
-				<td><code>speech.play</code> (WAV/MP3) or PCM writes</td>
-			</tr>
-			<tr>
-				<td>
-					<a href="https://ai.google.dev/gemini-api/docs/live-api">Gemini Live</a>
-				</td>
-				<td>Realtime voice agent (BidiGenerateContent)</td>
-				<td><code>createUtterance</code> + PCM writes</td>
-			</tr>
-		</tbody>
-	</table>
-	<p>Call Google from a trusted server; pass audio (or a proxy stream) into the browser Experience.</p>
-
-	<h2>Cloud TTS (one-shot)</h2>
+	<h2>Idea in one sentence</h2>
 	<p>
-		<code>LINEAR16</code> responses <strong>include a WAV header</strong>. Pass them as encoded
-		<code>audio/wav</code> — do not treat the bytes as raw <code>pcm_s16le</code> unless you strip the
-		header yourself.
-	</p>
-	<CodeBlock code={snippets.jsSpeechGoogleTtsPlay} lang="typescript" filename="google-tts.ts" />
-	<p>
-		For <code>streamingSynthesize</code>, every <code>audio_content</code> response is
-		<strong>headerless LINEAR16 at 24&nbsp;kHz</strong> (no WAV header on any chunk). Open a
-		<code>createUtterance</code> with <code>pcm_s16le</code> @ 24&nbsp;kHz, <code>write</code> each
-		chunk directly, then <code>close</code> when the stream ends.
+		Keep Gemini Live as the speech-to-speech brain, and use
+		<code>connectGeminiLive</code> from <code>@liforma/client/google</code> to drive the Liforma
+		avatar from agent PCM (+ <code>outputTranscription</code> for lipsync).
 	</p>
 
-	<h2>Gemini Live event mapping</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Live API field</th>
-				<th>Liforma action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><code>serverContent.modelTurn.parts[].inlineData.data</code></td>
-				<td>base64 PCM16 @ 24&nbsp;kHz → <code>utterance.write</code></td>
-			</tr>
-			<tr>
-				<td><code>serverContent.outputTranscription</code></td>
-				<td>Accumulate separately (ordering is not tied to <code>turnComplete</code>)</td>
-			</tr>
-			<tr>
-				<td><code>generationComplete</code> (prefer) / <code>turnComplete</code></td>
-				<td><code>utterance.close</code> with stored transcript</td>
-			</tr>
-			<tr>
-				<td><code>serverContent.interrupted</code></td>
-				<td><code>cancel</code> / <code>interrupt</code></td>
-			</tr>
-		</tbody>
-	</table>
-	<p>
-		Input to Gemini is usually PCM @ 16&nbsp;kHz; <strong>output</strong> to Liforma is PCM @
-		<strong>24&nbsp;kHz</strong>. Connect with an ephemeral token in production. Prefer closing on
-		<code>generationComplete</code> when present — <code>turnComplete</code> can lag while the API
-		assumes client-side playback timing (Liforma already owns playback).
-	</p>
+	<h2>Install</h2>
+	<CodeBlock code="npm install @liforma/client" lang="bash" />
+
+	<h2>Checklist</h2>
+	<ol>
+		<li>
+			Mount a Liforma Experience with <code>externalSpeechAudio</code> (often
+			<code>mode="presenter"</code>, <code>speechInputMode="off"</code> when Gemini owns the mic).
+		</li>
+		<li>Wait until the player has started (audio unlocked inside the iframe).</li>
+		<li>
+			Expose a <strong>same-origin WebSocket proxy</strong> that terminates Gemini Live
+			BidiGenerateContent (never ship Google API keys to browsers).
+		</li>
+		<li>
+			Call <code>connectGeminiLive(experience, &#123; proxyUrl &#125;)</code> — the helper streams mic
+			PCM @ 16&nbsp;kHz, writes model PCM @ 24&nbsp;kHz into <code>createUtterance</code>, and closes
+			on <code>generationComplete</code> / <code>turnComplete</code>.
+		</li>
+		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>
+	</ol>
+
+	<h2>Example</h2>
 	<CodeBlock
-		code={snippets.jsSpeechGeminiLiveBridge}
+		code={snippets.jsSpeechGeminiLiveSimple}
 		lang="typescript"
-		filename="gemini-live-bridge.ts"
+		filename="gemini-liforma.ts"
 	/>
+
+	<details>
+		<summary>Advanced: raw Gemini Live proxy messages</summary>
+		<p>
+			Only if you are not using <code>connectGeminiLive</code>. Accumulate
+			<code>outputTranscription</code> independently of <code>turnComplete</code> ordering.
+		</p>
+		<CodeBlock
+			code={snippets.jsSpeechGeminiLiveBridge}
+			lang="typescript"
+			filename="gemini-live-bridge.ts"
+		/>
+	</details>
+
+	<details>
+		<summary>Cloud TTS (one-shot)</summary>
+		<p>
+			<code>LINEAR16</code> responses <strong>include a WAV header</strong>. Pass them as encoded
+			<code>audio/wav</code> — do not treat the bytes as raw <code>pcm_s16le</code> unless you strip
+			the header yourself.
+		</p>
+		<CodeBlock code={snippets.jsSpeechGoogleTtsPlay} lang="typescript" filename="google-tts.ts" />
+		<p>
+			For <code>streamingSynthesize</code>, every <code>audio_content</code> response is
+			<strong>headerless LINEAR16 at 24&nbsp;kHz</strong>. Open a <code>createUtterance</code> with
+			<code>pcm_s16le</code> @ 24&nbsp;kHz, <code>write</code> each chunk, then <code>close</code>.
+		</p>
+	</details>
 
 	<h2>Session capability</h2>
 	<p>Mint with <code>externalSpeechAudio</code>.</p>

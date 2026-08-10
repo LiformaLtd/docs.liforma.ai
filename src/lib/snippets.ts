@@ -320,7 +320,24 @@ const utterance = experience.speech.createUtterance({
 });
 // utterance closes automatically when the track ends`,
 
-	jsSpeechLiveKitBridge: `import { Room, RoomEvent, Track } from 'livekit-client';
+	jsSpeechLiveKitSimple: `// After Experience is started (audio unlocked):
+import { connectLiveKitAgent } from '@liforma/client/livekit';
+
+// Mint a LiveKit participant token on your server:
+// const { url, token } = await fetch('/api/livekit-token', { method: 'POST' }).then((r) => r.json());
+
+const bridge = await connectLiveKitAgent(experience, {
+  url,   // wss://…
+  token  // from your mint route
+  // shouldBridgeParticipant: (p) => p.identity.startsWith('agent')
+});
+
+// … later
+await bridge.end();`,
+
+	jsSpeechLiveKitBridge: `// Advanced: own the LiveKit Room yourself.
+// Prefer connectLiveKitAgent from @liforma/client/livekit unless you need full control.
+import { Room, RoomEvent, Track } from 'livekit-client';
 
 // Host owns the LiveKit room; Liforma owns avatar playback + lipsync.
 // Do not call track.attach() / render an <audio> element for the agent — that doubles the voice.
@@ -603,6 +620,20 @@ await experience.speech.play({
   queue: 'append'
 });`,
 
+	jsSpeechGeminiLiveSimple: `// After Experience is started (audio unlocked):
+import { connectGeminiLive } from '@liforma/client/google';
+
+// Proxy terminates Gemini Live BidiGenerateContent (never ship Google API keys):
+// const proxyUrl = /* wss://your-origin/api/gemini-live */;
+
+const bridge = await connectGeminiLive(experience, {
+  proxyUrl
+  // captureMic: true // default — streams PCM @ 16 kHz as realtimeInput.mediaChunks
+});
+
+// … later
+await bridge.end();`,
+
 	jsSpeechGoogleTtsPlay: `// Google Cloud Text-to-Speech — server synthesizes; browser plays.
 // Docs: https://cloud.google.com/text-to-speech/docs/reference/rest/v1/text/synthesize
 // Non-streaming LINEAR16 includes a WAV header → pass as audio/wav.
@@ -634,7 +665,8 @@ await experience.speech.play({
   queue: 'append'
 });`,
 
-	jsSpeechGeminiLiveBridge: `// Gemini Live (BidiGenerateContent) — usually via your backend proxy.
+	jsSpeechGeminiLiveBridge: `// Advanced: own the Gemini Live proxy WebSocket yourself.
+// Prefer connectGeminiLive from @liforma/client/google unless you need full control.
 // Docs: https://ai.google.dev/gemini-api/docs/live-api
 // outputTranscription is delivered independently — accumulate it; do not read it only on turnComplete.
 
@@ -711,7 +743,22 @@ ws.onmessage = (ev) => {
   }
 };`,
 
-	jsSpeechDeepgramAgentBridge: `// Deepgram Voice Agent WebSocket.
+	jsSpeechDeepgramSimple: `// After Experience is started (audio unlocked):
+import { connectDeepgramAgent } from '@liforma/client/deepgram';
+
+// Same-origin proxy to wss://agent.deepgram.com/v1/agent/converse (API key stays server-side):
+// const proxyUrl = /* wss://your-origin/api/deepgram-agent */;
+
+const bridge = await connectDeepgramAgent(experience, {
+  proxyUrl,
+  // agent: { listen / think / speak } — audio I/O formats are enforced by the helper
+});
+
+// … later
+await bridge.end();`,
+
+	jsSpeechDeepgramAgentBridge: `// Advanced: own the Deepgram Voice Agent WebSocket yourself.
+// Prefer connectDeepgramAgent from @liforma/client/deepgram unless you need full control.
 // Docs: https://developers.deepgram.com/docs/voice-agent-message-flow
 // Handshake: Welcome → Settings → SettingsApplied → then audio.
 // Output must set container: "none" for headerless linear16 PCM.

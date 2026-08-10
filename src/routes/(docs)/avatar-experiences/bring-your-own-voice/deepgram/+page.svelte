@@ -6,7 +6,7 @@
 
 <DocPage
 	title="Deepgram → experience.speech"
-	description="Bridge Deepgram Voice Agent binary audio into Liforma lipsync."
+	description="Pipe Deepgram Voice Agent audio into Liforma with @liforma/client/deepgram."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
@@ -14,63 +14,78 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>What to use</h2>
+	<h2>Idea in one sentence</h2>
 	<p>
-		Deepgram
-		<a href="https://developers.deepgram.com/docs/voice-agent-message-flow">Voice Agent</a> WebSocket.
-		After the handshake, agent audio arrives as <strong>raw binary</strong> frames; control messages
-		stay JSON.
+		Keep Deepgram Voice Agent as the speech-to-speech brain, and use
+		<code>connectDeepgramAgent</code> from <code>@liforma/client/deepgram</code> to drive the
+		Liforma avatar from agent PCM (+ transcript when available).
 	</p>
 
-	<h2>Required handshake</h2>
+	<h2>Install</h2>
+	<CodeBlock code="npm install @liforma/client" lang="bash" />
+
+	<h2>Checklist</h2>
 	<ol>
-		<li>Connect WebSocket</li>
-		<li>Wait for <code>Welcome</code> — do <strong>not</strong> send anything before this</li>
 		<li>
-			Send <code>Settings</code> with <code>audio.output.container: 'none'</code> for headerless
-			<code>linear16</code>
+			Mount a Liforma Experience with <code>externalSpeechAudio</code> (often
+			<code>mode="presenter"</code>, <code>speechInputMode="off"</code> when Deepgram owns the mic).
 		</li>
-		<li>Wait for <code>SettingsApplied</code></li>
-		<li>Then stream mic audio / accept agent binary PCM</li>
+		<li>Wait until the player has started (audio unlocked inside the iframe).</li>
+		<li>
+			Expose a <strong>same-origin WebSocket proxy</strong> to
+			<code>wss://agent.deepgram.com/v1/agent/converse</code> (browsers cannot set
+			<code>Authorization</code> on WebSocket).
+		</li>
+		<li>
+			Call <code>connectDeepgramAgent(experience, &#123; proxyUrl &#125;)</code> — the helper runs
+			Welcome → Settings → SettingsApplied, streams mic PCM, and forwards binary agent audio into
+			<code>createUtterance</code>.
+		</li>
+		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>
 	</ol>
 
-	<h2>Event mapping</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Deepgram message</th>
-				<th>Liforma action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Binary <code>ArrayBuffer</code> (after SettingsApplied)</td>
-				<td>Open utterance → <code>write</code> (capture utterance in the promise chain)</td>
-			</tr>
-			<tr>
-				<td><code>AgentAudioDone</code></td>
-				<td>Await pending writes → <code>close</code></td>
-			</tr>
-			<tr>
-				<td><code>UserStartedSpeaking</code></td>
-				<td>Barge-in → <code>cancel</code> / <code>interrupt</code></td>
-			</tr>
-		</tbody>
-	</table>
-
-	<h2>Bridge</h2>
+	<h2>Example</h2>
 	<CodeBlock
-		code={snippets.jsSpeechDeepgramAgentBridge}
+		code={snippets.jsSpeechDeepgramSimple}
 		lang="typescript"
-		filename="deepgram-agent-bridge.ts"
+		filename="deepgram-liforma.ts"
 	/>
 
-	<h2>Aura / TTS-only</h2>
-	<p>
-		If you only use Deepgram TTS (not Voice Agent), fetch or stream the audio bytes and call
-		<code>speech.play</code> — see
-		<a href="/avatar-experiences/bring-your-own-voice/other-providers">other providers</a>.
-	</p>
+	<details>
+		<summary>Required handshake (handled by the helper)</summary>
+		<ol>
+			<li>Connect WebSocket</li>
+			<li>Wait for <code>Welcome</code> — do <strong>not</strong> send anything before this</li>
+			<li>
+				Send <code>Settings</code> with <code>audio.output.container: 'none'</code> for headerless
+				<code>linear16</code>
+			</li>
+			<li>Wait for <code>SettingsApplied</code></li>
+			<li>Then stream mic audio / accept agent binary PCM</li>
+		</ol>
+	</details>
+
+	<details>
+		<summary>Advanced: raw Voice Agent WebSocket</summary>
+		<p>
+			Only if you are not using <code>connectDeepgramAgent</code>. You must handle the handshake and
+			binary frames yourself.
+		</p>
+		<CodeBlock
+			code={snippets.jsSpeechDeepgramAgentBridge}
+			lang="typescript"
+			filename="deepgram-agent-bridge.ts"
+		/>
+	</details>
+
+	<details>
+		<summary>Aura / TTS-only</summary>
+		<p>
+			If you only use Deepgram TTS (not Voice Agent), fetch or stream the audio bytes and call
+			<code>speech.play</code> — see
+			<a href="/avatar-experiences/bring-your-own-voice/other-providers">other providers</a>.
+		</p>
+	</details>
 
 	<h2>Session capability</h2>
 	<p>Mint with <code>externalSpeechAudio</code>.</p>

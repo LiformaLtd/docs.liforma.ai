@@ -102,16 +102,16 @@
 			<code>connectOpenAiRealtime</code> / Realtime WebRTC / classic TTS
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> — Cloud TTS + Gemini Live
-			<code>modelTurn</code> PCM
+			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> —
+			<code>connectGeminiLive</code> / Cloud TTS
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a> — Voice Agent binary
-			frames + <code>AgentAudioDone</code>
+			<a href="/avatar-experiences/bring-your-own-voice/deepgram">Deepgram</a> —
+			<code>connectDeepgramAgent</code> / Voice Agent PCM
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a> — remote
-			<code>MediaStreamTrack</code>
+			<a href="/avatar-experiences/bring-your-own-voice/livekit">LiveKit</a> —
+			<code>connectLiveKitAgent</code> / remote <code>MediaStreamTrack</code>
 		</li>
 		<li>
 			<a href="/avatar-experiences/bring-your-own-voice/other-providers">Other / files</a> — generic
