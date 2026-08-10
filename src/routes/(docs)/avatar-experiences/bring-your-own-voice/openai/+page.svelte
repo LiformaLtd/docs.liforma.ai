@@ -37,8 +37,10 @@
 		</li>
 		<li>
 			Call <code>connectOpenAiRealtime(experience, &#123; ephemeralKey &#125;)</code> — the helper
-			opens the Realtime WebSocket, streams mic PCM, chunks agent audio into
-			<code>createUtterance</code>, and forwards transcript for force-align lipsync.
+			opens the Realtime WebSocket, streams mic PCM (default
+			<code>captureMic: true</code>; pass <code>mediaStream</code> to reuse a stream), chunks agent
+			audio into <code>createUtterance</code>, and forwards transcript for force-align lipsync.
+			Unexpected disconnect cancels any active utterance.
 		</li>
 		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>
 	</ol>

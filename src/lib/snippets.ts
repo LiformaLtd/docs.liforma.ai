@@ -518,6 +518,8 @@ import { connectOpenAiRealtime } from '@liforma/client/openai';
 
 const bridge = await connectOpenAiRealtime(experience, {
   ephemeralKey, // from your mint route
+  // captureMic: true,      // default — set false if the host owns the mic
+  // mediaStream,           // optional existing stream instead of getUserMedia
   // instructions: 'You are a helpful voice assistant…',
   // model: 'gpt-realtime-2.1',
   // voice: 'marin'

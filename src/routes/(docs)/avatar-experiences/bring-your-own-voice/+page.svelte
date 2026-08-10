@@ -90,6 +90,16 @@
 		</li>
 	</ul>
 
+	<h2>Mic ownership</h2>
+	<p>
+		PCM helpers that capture audio (<code>openai</code>, <code>deepgram</code>,
+		<code>google</code>) share the same options: <code>captureMic</code> (default
+		<code>true</code>) and optional <code>mediaStream</code>. Keep Liforma
+		<code>speechInputMode="off"</code> so only one stack owns the mic. On unexpected
+		disconnect, helpers cancel the active utterance so the player does not keep an orphaned
+		turn.
+	</p>
+
 	<h2>Provider guides</h2>
 	<ul>
 		<li>

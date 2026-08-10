@@ -33,7 +33,9 @@
 		<li>Wait until the player has started (audio unlocked inside the iframe).</li>
 		<li>
 			Call <code>connectElevenLabsAgent(experience, &#123; signedUrl &#125;)</code> — the helper mutes
-			ElevenLabs' speaker, locks sample rate, chunks PCM, and forwards transcript for lipsync.
+			ElevenLabs' speaker, locks sample rate from <code>agent_output_audio_format</code> (never
+			guesses — missing format surfaces via <code>onError</code>), chunks PCM, and forwards
+			transcript for lipsync.
 		</li>
 		<li>Mint the signed URL on your server (never ship ElevenLabs API keys to production browsers).</li>
 		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>

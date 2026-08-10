@@ -39,8 +39,8 @@
 		<li>Mint a LiveKit participant token on your server.</li>
 		<li>
 			Call <code>connectLiveKitAgent(experience, &#123; url, token &#125;)</code> — the helper joins
-			the room, bridges agent audio tracks into <code>speech.play</code>, and interrupts on
-			unsubscribe.
+			the room, bridges agent audio tracks into <code>speech.play</code>, and interrupts only
+			while a bridge play is outstanding (idle disconnect will not cancel later host speech).
 		</li>
 		<li>
 			<strong>Do not</strong> also play that track through a LiveKit <code>&lt;audio&gt;</code>
