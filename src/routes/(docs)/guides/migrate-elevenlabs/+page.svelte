@@ -47,6 +47,15 @@
 	<h2>Compatibility package</h2>
 	<p>For incremental migration, use the ElevenLabs-shaped compatibility layer:</p>
 	<CodeBlock code="npm install @liforma/elevenlabs-compatible" lang="bash" />
+	<p>
+		That package is for <strong>replacing</strong> ElevenLabs Agents with Liforma Experiences. If
+		you want to <strong>keep</strong> ElevenLabs Agents and only drive a Liforma avatar from their
+		audio, use
+		<a href="/avatar-experiences/bring-your-own-voice/elevenlabs"
+			><code>@liforma/client/elevenlabs</code> (<code>connectElevenLabsAgent</code>)</a
+		>
+		instead.
+	</p>
 
 	<h3>Before (ElevenLabs)</h3>
 	<CodeBlock

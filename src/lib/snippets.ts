@@ -389,132 +389,31 @@ async function cancelTurn(turnId) {
   if (turn) await turn.utterance.cancel();
 }`,
 
-	jsSpeechElevenLabsSimple: `// Simplest path: @elevenlabs/client → Liforma (WebSocket connection type).
-// Mute ElevenLabs' own speaker so only the avatar talks.
-import { Conversation } from '@elevenlabs/client';
+	jsSpeechElevenLabsSimple: `// After Experience is started (audio unlocked):
+import { connectElevenLabsAgent } from '@liforma/client/elevenlabs';
 
-function base64ToArrayBuffer(b64: string): ArrayBuffer {
-  const bin = atob(b64);
-  const out = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
-  return out.buffer;
-}
+// Prefer a signed URL from your server in production:
+// const signedUrl = await fetch('/api/elevenlabs-signed-url', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({ agentId: 'YOUR_AGENT_ID' })
+// }).then(async (r) => {
+//   const data = await r.json();
+//   if (!r.ok) throw new Error(data.error ?? r.statusText);
+//   return data.signedUrl as string;
+// });
 
-// experience.speech.write rejects chunks larger than 64 KiB.
-const MAX_PCM_CHUNK_BYTES = 64 * 1024;
-
-async function writePcmInChunks(
-  utterance: ReturnType<typeof experience.speech.createUtterance>,
-  chunk: ArrayBuffer
-) {
-  const bytes = new Uint8Array(chunk);
-  let offset = 0;
-  while (offset < bytes.byteLength) {
-    let end = Math.min(offset + MAX_PCM_CHUNK_BYTES, bytes.byteLength);
-    if (end < bytes.byteLength && (end - offset) % 2 === 1) end -= 1; // pcm_s16le align
-    if (end <= offset) break;
-    await utterance.write(bytes.subarray(offset, end));
-    offset = end;
-  }
-}
-
-type Turn = {
-  utterance: ReturnType<typeof experience.speech.createUtterance>;
-  writes: Promise<void>;
-  transcript: string;
-};
-
-// Lock sample rate from metadata before createUtterance — a wrong rate makes
-// STA/energy clocks drift and the mouth can look stuck open.
-let sampleRate: number | null = null;
-let turn: Turn | null = null;
-const pendingAudio: string[] = [];
-
-function lockSampleRate(rate: number) {
-  if (sampleRate != null) return;
-  sampleRate = rate;
-  for (const b64 of pendingAudio.splice(0)) handleAudio(b64);
-}
-
-function handleAudio(base64Audio: string) {
-  if (sampleRate == null) {
-    pendingAudio.push(base64Audio);
-    return;
-  }
-  if (!turn) {
-    const utterance = experience.speech.createUtterance({
-      format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
-      queue: 'replace-active'
-    });
-    turn = { utterance, writes: Promise.resolve(), transcript: '' };
-  }
-  const u = turn.utterance;
-  const chunk = base64ToArrayBuffer(base64Audio);
-  turn.writes = turn.writes.then(() => writePcmInChunks(u, chunk)).catch(console.error);
-}
-
-const conversation = await Conversation.startSession({
-  // Prefer a signed URL from your server in production (JSON { signedUrl }):
-  // signedUrl: await fetch('/api/elevenlabs-signed-url', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ agentId: 'YOUR_AGENT_ID' })
-  // }).then(async (r) => {
-  //   const data = await r.json();
-  //   if (!r.ok) throw new Error(data.error ?? r.statusText);
-  //   return data.signedUrl as string;
-  // }),
-  agentId: 'YOUR_AGENT_ID',
-  connectionType: 'websocket',
-
-  onConversationMetadata: (meta) => {
-    const fmt = meta.agent_output_audio_format; // e.g. "pcm_16000" / "pcm_24000"
-    const m = /^pcm_(\\d+)$/.exec(fmt ?? '');
-    if (m) lockSampleRate(Number(m[1]));
-  },
-
-  onAudio: (base64Audio) => {
-    handleAudio(base64Audio);
-  },
-
-  // Agent spoken text when available (optional but recommended — helps lipsync).
-  onMessage: ({ message, role }) => {
-    if (role !== 'agent' || !turn) return;
-    const text = message.trim();
-    if (!text) return;
-    turn.transcript = text;
-    void turn.utterance.setTranscript(text);
-  },
-
-  onModeChange: ({ mode }) => {
-    if (mode !== 'listening') return;
-    const current = turn;
-    turn = null;
-    if (!current) return;
-    const transcript = current.transcript.trim();
-    void current.writes.then(() =>
-      current.utterance.close({
-        ...(transcript ? { transcript } : {}),
-        history: 'none'
-      })
-    );
-  },
-
-  onInterruption: () => {
-    const current = turn;
-    turn = null;
-    void (current
-      ? current.utterance.cancel()
-      : experience.speech.interrupt({ scope: 'active' }));
-  }
+const bridge = await connectElevenLabsAgent(experience, {
+  // signedUrl,
+  agentId: 'YOUR_AGENT_ID' // demos / public agents
 });
 
-// Critical: silence ElevenLabs playback — Liforma owns the speaker.
-await conversation.setVolume({ volume: 0 });`,
+// … later
+await bridge.end();`,
 
 	jsSpeechElevenLabsBridge: `// Advanced: raw ConvAI WebSocket (no @elevenlabs/client).
 // Docs: https://elevenlabs.io/docs/eleven-agents/libraries/web-sockets
-// Prefer the simpler Conversation.startSession example above unless you need full control.
+// Prefer connectElevenLabsAgent from @liforma/client/elevenlabs unless you need full control.
 
 function base64ToArrayBuffer(b64: string): ArrayBuffer {
   const bin = atob(b64);
@@ -586,9 +485,34 @@ ws.onmessage = (ev) => {
   }
 };`,
 
-	jsSpeechOpenAiRealtimeWebRtc: `// Preferred browser path: OpenAI Realtime over WebRTC.
+	jsSpeechOpenAiRealtimeSimple: `// After Experience is started (audio unlocked):
+import { connectOpenAiRealtime } from '@liforma/client/openai';
+
+// Mint an ephemeral client secret on your server (never ship OPENAI_API_KEY):
+// const ephemeralKey = await fetch('/api/openai-realtime-session', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({})
+// }).then(async (r) => {
+//   const data = await r.json();
+//   if (!r.ok) throw new Error(data.error ?? r.statusText);
+//   return String(data.value ?? data.ephemeralKey ?? '');
+// });
+
+const bridge = await connectOpenAiRealtime(experience, {
+  ephemeralKey, // from your mint route
+  // instructions: 'You are a helpful voice assistant…',
+  // model: 'gpt-realtime-2.1',
+  // voice: 'marin'
+});
+
+// … later
+await bridge.end();`,
+
+	jsSpeechOpenAiRealtimeWebRtc: `// Preferred OpenAI browser media path: Realtime over WebRTC.
 // Docs: https://platform.openai.com/docs/guides/realtime-webrtc
 // The remote audio MediaStreamTrack feeds Liforma directly (no base64 PCM loop).
+// For the createUtterance + transcript helper, prefer connectOpenAiRealtime.
 
 // After your Realtime WebRTC peer connection is up:
 const remoteStream = /* RTCPeerConnection remote audio stream */;
@@ -605,6 +529,7 @@ await experience.speech.interrupt({ scope: 'active' });
 
 	jsSpeechOpenAiRealtimeBridge: `// Advanced: OpenAI Realtime WebSocket on your server, PCM forwarded to the browser.
 // Docs: https://platform.openai.com/docs/guides/realtime-conversations
+// Prefer connectOpenAiRealtime from @liforma/client/openai unless you terminate OpenAI on a server.
 // Server holds the OpenAI key; browser only talks to your proxy + Liforma.
 
 // --- Browser ---

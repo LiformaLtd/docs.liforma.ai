@@ -6,7 +6,7 @@
 
 <DocPage
 	title="OpenAI → experience.speech"
-	description="Bridge OpenAI Realtime (WebRTC preferred) or classic TTS into Liforma lipsync."
+	description="Pipe OpenAI Realtime (or classic TTS) into Liforma with @liforma/client/openai."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'ElevenLabs', href: '/avatar-experiences/bring-your-own-voice/elevenlabs' },
@@ -14,83 +14,92 @@
 		{ title: 'Experience API', href: '/avatar-experiences/experience-api' }
 	]}
 >
-	<h2>Paths</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>API</th>
-				<th>Recommended for</th>
-				<th>Liforma entry</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					<a href="https://platform.openai.com/docs/guides/realtime-webrtc">Realtime WebRTC</a>
-				</td>
-				<td>Browser agents (OpenAI’s preferred browser transport)</td>
-				<td><code>speech.play(&#123; audio: &#123; track &#125; &#125;)</code></td>
-			</tr>
-			<tr>
-				<td>
-					<a href="https://platform.openai.com/docs/guides/realtime-conversations"
-						>Realtime WebSocket</a
-					>
-				</td>
-				<td>Server-to-server / advanced proxies</td>
-				<td>Forward PCM → browser <code>createUtterance</code></td>
-			</tr>
-			<tr>
-				<td>
-					<a href="https://platform.openai.com/docs/guides/text-to-speech">Audio Speech (TTS)</a>
-				</td>
-				<td>One-shot scripted lines</td>
-				<td>Server fetch → browser <code>speech.play</code></td>
-			</tr>
-		</tbody>
-	</table>
-	<p>Keep the OpenAI API key on a server. Never mix credentialed Node SDK calls and browser Experience code in one process.</p>
-
+	<h2>Idea in one sentence</h2>
 	<p>
-		Runnable coffee-barista demo (vanilla + SvelteKit):
-		<a href="https://github.com/LiformaLtd/examples.liforma.ai/tree/main/examples/openai-realtime-embed"
-			>examples/openai-realtime-embed</a
-		>
-		— WebSocket + ephemeral client secret → <code>createUtterance</code>, with optional
-		<code>transcript</code> when the model text is available (same pattern as the ElevenLabs
-		example). Local port <code>4007</code>.
+		Keep OpenAI Realtime as the speech-to-speech brain, and use
+		<code>connectOpenAiRealtime</code> from <code>@liforma/client/openai</code> to drive the
+		Liforma avatar from agent PCM (+ transcript for lipsync).
 	</p>
 
-	<h2>Realtime WebRTC (primary)</h2>
-	<p>
-		OpenAI recommends WebRTC for browser audio. The remote audio track maps cleanly onto Liforma’s
-		<code>MediaStreamTrack</code> play path — no base64 PCM loop.
-	</p>
+	<h2>Install</h2>
+	<CodeBlock code="npm install @liforma/client" lang="bash" />
+
+	<h2>Checklist</h2>
+	<ol>
+		<li>
+			Mount a Liforma Experience with <code>externalSpeechAudio</code> (often
+			<code>mode="presenter"</code>, <code>speechInputMode="off"</code> when OpenAI owns the mic).
+		</li>
+		<li>Wait until the player has started (audio unlocked inside the iframe).</li>
+		<li>
+			Mint an <strong>ephemeral Realtime client secret</strong> on your server (never ship
+			<code>OPENAI_API_KEY</code> to production browsers).
+		</li>
+		<li>
+			Call <code>connectOpenAiRealtime(experience, &#123; ephemeralKey &#125;)</code> — the helper
+			opens the Realtime WebSocket, streams mic PCM, chunks agent audio into
+			<code>createUtterance</code>, and forwards transcript for force-align lipsync.
+		</li>
+		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>
+	</ol>
+
+	<h2>Example</h2>
 	<CodeBlock
-		code={snippets.jsSpeechOpenAiRealtimeWebRtc}
+		code={snippets.jsSpeechOpenAiRealtimeSimple}
 		lang="typescript"
-		filename="openai-realtime-webrtc.ts"
+		filename="openai-liforma.ts"
 	/>
-
-	<h2>Realtime WebSocket (advanced)</h2>
 	<p>
-		Use when you already terminate OpenAI on a server. Event names:
-		<code>response.output_audio.delta</code>, <code>response.output_audio.done</code> /
-		<code>response.done</code>, barge-in via <code>input_audio_buffer.speech_started</code>. Capture
-		the utterance object in the write chain (see snippet).
+		Runnable coffee-barista demo:
+		<a href="https://examples.liforma.ai/examples/openai-realtime-embed">OpenAI Realtime embed</a>
+		on examples.liforma.ai (local port <code>4007</code>).
 	</p>
-	<CodeBlock
-		code={snippets.jsSpeechOpenAiRealtimeBridge}
-		lang="typescript"
-		filename="openai-realtime-proxy.ts"
-	/>
 
-	<h2>Classic TTS (one-shot)</h2>
-	<p>
-		<code>response_format: 'pcm'</code> is raw <code>pcm_s16le</code> at 24&nbsp;kHz (no WAV header).
-		Split the OpenAI call (server) from <code>speech.play</code> (browser).
-	</p>
-	<CodeBlock code={snippets.jsSpeechOpenAiTtsPlay} lang="typescript" filename="openai-tts.ts" />
+	<details>
+		<summary>Why WebSocket in the helper (vs WebRTC)?</summary>
+		<p>
+			OpenAI recommends WebRTC for browser media. The SDK helper uses
+			<strong>WebSocket + ephemeral client secret</strong> so each agent turn maps cleanly onto
+			<code>createUtterance</code> / <code>write</code> / <code>setTranscript</code> /
+			<code>close</code> (same pattern as ElevenLabs). Use the WebRTC path below when you already
+			have a peer connection and only need a remote track.
+		</p>
+	</details>
+
+	<details>
+		<summary>Realtime WebRTC (remote track)</summary>
+		<p>
+			Maps the remote audio <code>MediaStreamTrack</code> onto Liforma’s track play path — no
+			base64 PCM loop.
+		</p>
+		<CodeBlock
+			code={snippets.jsSpeechOpenAiRealtimeWebRtc}
+			lang="typescript"
+			filename="openai-realtime-webrtc.ts"
+		/>
+	</details>
+
+	<details>
+		<summary>Advanced: server-terminated WebSocket proxy</summary>
+		<p>
+			Only if you terminate OpenAI on a server and forward PCM to the browser. Prefer
+			<code>connectOpenAiRealtime</code> for the browser WebSocket path.
+		</p>
+		<CodeBlock
+			code={snippets.jsSpeechOpenAiRealtimeBridge}
+			lang="typescript"
+			filename="openai-realtime-proxy.ts"
+		/>
+	</details>
+
+	<details>
+		<summary>Classic TTS (one-shot)</summary>
+		<p>
+			<code>response_format: 'pcm'</code> is raw <code>pcm_s16le</code> at 24&nbsp;kHz (no WAV
+			header). Split the OpenAI call (server) from <code>speech.play</code> (browser).
+		</p>
+		<CodeBlock code={snippets.jsSpeechOpenAiTtsPlay} lang="typescript" filename="openai-tts.ts" />
+	</details>
 
 	<h2>Session capability</h2>
 	<p>Mint with <code>externalSpeechAudio</code>.</p>

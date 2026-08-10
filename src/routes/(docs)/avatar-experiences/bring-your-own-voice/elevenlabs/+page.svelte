@@ -6,7 +6,7 @@
 
 <DocPage
 	title="ElevenLabs Agents → experience.speech"
-	description="Pipe ElevenLabs agent audio into Liforma with @elevenlabs/client."
+	description="Pipe ElevenLabs agent audio into Liforma with @liforma/client/elevenlabs."
 	next={[
 		{ title: 'Bring your own voice', href: '/avatar-experiences/bring-your-own-voice' },
 		{ title: 'OpenAI', href: '/avatar-experiences/bring-your-own-voice/openai' },
@@ -16,26 +16,27 @@
 >
 	<h2>Idea in one sentence</h2>
 	<p>
-		Use <code>@elevenlabs/client</code> for the conversation, mute its speaker, and forward
-		<code>onAudio</code> PCM chunks into <code>experience.speech.createUtterance</code> so the avatar
-		talks instead.
+		Keep ElevenLabs Agents as the speech-to-speech brain, and use
+		<code>connectElevenLabsAgent</code> from <code>@liforma/client/elevenlabs</code> to drive the
+		Liforma avatar from agent PCM.
 	</p>
+
+	<h2>Install</h2>
+	<CodeBlock code="npm install @liforma/client @elevenlabs/client" lang="bash" />
 
 	<h2>Checklist</h2>
 	<ol>
-		<li>Mint a Liforma session with <code>externalSpeechAudio</code>.</li>
 		<li>
-			Start ElevenLabs with <code>connectionType: 'websocket'</code> (so you get
-			<code>onAudio</code> base64 PCM).
+			Mount a Liforma Experience with <code>externalSpeechAudio</code> (often
+			<code>mode="presenter"</code>, <code>speechInputMode="off"</code> when ElevenLabs owns the mic).
 		</li>
-		<li><code>conversation.setVolume(&#123; volume: 0 &#125;)</code> — avoid double audio.</li>
-		<li>On each <code>onAudio</code> chunk → <code>utterance.write</code>.</li>
+		<li>Wait until the player has started (audio unlocked inside the iframe).</li>
 		<li>
-			When agent text is available (<code>onMessage</code>), pass it via
-			<code>setTranscript</code> /
-			<code>close(&#123; transcript &#125;)</code> — helpful for lipsync, not required.
+			Call <code>connectElevenLabsAgent(experience, &#123; signedUrl &#125;)</code> — the helper mutes
+			ElevenLabs' speaker, locks sample rate, chunks PCM, and forwards transcript for lipsync.
 		</li>
-		<li>When mode returns to <code>listening</code> → <code>close</code>; on interrupt → <code>cancel</code>.</li>
+		<li>Mint the signed URL on your server (never ship ElevenLabs API keys to production browsers).</li>
+		<li>Call <code>bridge.end()</code> when the conversation finishes.</li>
 	</ol>
 
 	<h2>Example</h2>
@@ -49,13 +50,9 @@
 		<code>agentId</code> + API key in the browser.
 	</p>
 	<p>
-		Ideally pass agent text when you have it:
-		<code>createUtterance(&#123; transcript &#125;)</code>,
-		<code>utterance.setTranscript(text)</code>, and/or
-		<code>close(&#123; transcript &#125;)</code> (see <code>onMessage</code> in the snippet).
-		Complete audio + text can also use
-		<code>speech.play(&#123; audio, transcript &#125;)</code>. Audio-only still works if text is
-		unavailable.
+		Runnable example:
+		<a href="https://examples.liforma.ai/examples/elevenlabs-embed">ElevenLabs embed</a>
+		on examples.liforma.ai.
 	</p>
 
 	<details>
@@ -70,8 +67,9 @@
 	<details>
 		<summary>Advanced: raw ConvAI WebSocket</summary>
 		<p>
-			Only if you are not using <code>@elevenlabs/client</code>. You must handle
-			<code>ping</code>/<code>pong</code> and parse event types yourself.
+			Only if you are not using <code>@elevenlabs/client</code> /
+			<code>connectElevenLabsAgent</code>. You must handle <code>ping</code>/<code>pong</code> and
+			parse event types yourself.
 		</p>
 		<CodeBlock
 			code={snippets.jsSpeechElevenLabsBridge}
@@ -79,4 +77,13 @@
 			filename="elevenlabs-raw-ws.ts"
 		/>
 	</details>
+
+	<h2>Not the migration package</h2>
+	<p>
+		<code>@liforma/client/elevenlabs</code> is <strong>bring-your-own-voice</strong>: keep ElevenLabs
+		Agents and animate a Liforma avatar. To
+		<strong>replace</strong> ElevenLabs Agents with a Liforma Experience, see
+		<a href="/guides/migrate-elevenlabs">Migrate from ElevenLabs</a>
+		(<code>@liforma/elevenlabs-compatible</code>).
+	</p>
 </DocPage>

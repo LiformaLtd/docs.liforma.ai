@@ -93,17 +93,13 @@
 	<h2>Provider guides</h2>
 	<ul>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs Agents</a> — ConvAI
+			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs Agents</a> —
+			<code>connectElevenLabsAgent</code> / ConvAI
 			WebSocket <code>audio</code> / <code>interruption</code>
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> — Realtime WebRTC
-			(preferred) or WebSocket PCM / classic TTS; runnable
-			<a
-				href="https://github.com/LiformaLtd/examples.liforma.ai/tree/main/examples/openai-realtime-embed"
-				>openai-realtime-embed</a
-			>
-			example
+			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> —
+			<code>connectOpenAiRealtime</code> / Realtime WebRTC / classic TTS
 		</li>
 		<li>
 			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> — Cloud TTS + Gemini Live
