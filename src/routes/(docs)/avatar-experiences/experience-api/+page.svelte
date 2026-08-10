@@ -237,9 +237,11 @@ await experience.attach({
 		<a href="/avatar-experiences/bring-your-own-voice">Bring your own voice</a>.
 	</p>
 	<p>
-		Optional <code>transcript</code> on <code>play</code>, <code>createUtterance</code>,
-		<code>utterance.setTranscript(text)</code>, or <code>close(&#123; transcript &#125;)</code>
-		enables force-aligned lipsync when non-empty. Omit / whitespace → free decode (unchanged).
+		When you have the spoken text, pass optional <code>transcript</code> on
+		<code>play</code>, <code>createUtterance</code>,
+		<code>utterance.setTranscript(text)</code>, or
+		<code>close(&#123; transcript &#125;)</code>. Audio alone is enough; providing the text when
+		available usually improves lipsync. Empty / whitespace is ignored.
 	</p>
 	<CodeBlock code={snippets.jsSpeechPlayEncoded} lang="javascript" />
 	<CodeBlock code={snippets.jsSpeechCreateUtterance} lang="typescript" filename="stream-pcm.ts" />

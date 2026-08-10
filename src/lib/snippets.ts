@@ -289,7 +289,7 @@ console.log(result.utteranceId, result.durationMs, result.status);`,
     data: pcmS16leBytes,
     format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 }
   },
-  // Optional: spoken text enables force-aligned lipsync (better than PCM-only).
+  // Optional but recommended when you have the spoken text — usually improves lipsync.
   transcript: agentReplyText,
   queue: 'append' // append | replace-active | replace-all
 });`,
@@ -357,7 +357,7 @@ function beginTurn(turnId, transcript) {
   const utterance = experience.speech.createUtterance({
     format: { encoding: 'pcm_s16le', sampleRate: 24_000, channels: 1 },
     queue: 'replace-active',
-    // Optional seed — enables force-align STA when non-empty
+    // Optional seed — pass spoken text when available (helps lipsync)
     ...(transcript ? { transcript } : {})
   });
   turns.set(turnId, { utterance, writes: Promise.resolve() });
@@ -477,7 +477,7 @@ const conversation = await Conversation.startSession({
     handleAudio(base64Audio);
   },
 
-  // Agent spoken text → force-aligned STA (optional but recommended).
+  // Agent spoken text when available (optional but recommended — helps lipsync).
   onMessage: ({ message, role }) => {
     if (role !== 'agent' || !turn) return;
     const text = message.trim();

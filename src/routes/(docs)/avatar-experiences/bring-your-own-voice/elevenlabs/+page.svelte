@@ -31,9 +31,9 @@
 		<li><code>conversation.setVolume(&#123; volume: 0 &#125;)</code> — avoid double audio.</li>
 		<li>On each <code>onAudio</code> chunk → <code>utterance.write</code>.</li>
 		<li>
-			Collect agent text (<code>onMessage</code>) →
+			When agent text is available (<code>onMessage</code>), pass it via
 			<code>setTranscript</code> /
-			<code>close(&#123; transcript &#125;)</code> for force-aligned lipsync.
+			<code>close(&#123; transcript &#125;)</code> — helpful for lipsync, not required.
 		</li>
 		<li>When mode returns to <code>listening</code> → <code>close</code>; on interrupt → <code>cancel</code>.</li>
 	</ol>
@@ -49,12 +49,13 @@
 		<code>agentId</code> + API key in the browser.
 	</p>
 	<p>
-		Pass agent text when you have it: <code>createUtterance(&#123; transcript &#125;)</code>,
+		Ideally pass agent text when you have it:
+		<code>createUtterance(&#123; transcript &#125;)</code>,
 		<code>utterance.setTranscript(text)</code>, and/or
-		<code>close(&#123; transcript &#125;)</code> (see <code>onMessage</code> in the snippet)
-		so STA can force-align. Complete audio + text can also use
-		<code>speech.play(&#123; audio, transcript &#125;)</code>. Omit transcript → free decode
-		(same as before).
+		<code>close(&#123; transcript &#125;)</code> (see <code>onMessage</code> in the snippet).
+		Complete audio + text can also use
+		<code>speech.play(&#123; audio, transcript &#125;)</code>. Audio-only still works if text is
+		unavailable.
 	</p>
 
 	<details>

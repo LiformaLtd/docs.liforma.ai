@@ -83,10 +83,10 @@
 			<code>POST /v1/speech-animation/windows</code> (player-internal).
 		</li>
 		<li>
-			When you have the spoken text, pass <code>transcript</code> on
+			When the spoken text is available, pass it as <code>transcript</code> on
 			<code>speech.play</code>, <code>createUtterance</code>,
-			<code>setTranscript</code>, and/or <code>close</code> so lipsync can force-align
-			(better mouth shapes than PCM-only).
+			<code>setTranscript</code>, and/or <code>close</code>. Audio alone works; including the
+			text usually improves mouth timing and shapes.
 		</li>
 	</ul>
 
@@ -97,8 +97,13 @@
 			WebSocket <code>audio</code> / <code>interruption</code>
 		</li>
 		<li>
-			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> — Realtime WebRTC track
-			(preferred) / WS proxy + TTS
+			<a href="/avatar-experiences/bring-your-own-voice/openai">OpenAI</a> — Realtime WebRTC
+			(preferred) or WebSocket PCM / classic TTS; runnable
+			<a
+				href="https://github.com/LiformaLtd/examples.liforma.ai/tree/main/examples/openai-realtime-embed"
+				>openai-realtime-embed</a
+			>
+			example
 		</li>
 		<li>
 			<a href="/avatar-experiences/bring-your-own-voice/google">Google</a> — Cloud TTS + Gemini Live

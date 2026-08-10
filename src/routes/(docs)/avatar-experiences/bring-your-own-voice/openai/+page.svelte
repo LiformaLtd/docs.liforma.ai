@@ -51,6 +51,16 @@
 	</table>
 	<p>Keep the OpenAI API key on a server. Never mix credentialed Node SDK calls and browser Experience code in one process.</p>
 
+	<p>
+		Runnable coffee-barista demo (vanilla + SvelteKit):
+		<a href="https://github.com/LiformaLtd/examples.liforma.ai/tree/main/examples/openai-realtime-embed"
+			>examples/openai-realtime-embed</a
+		>
+		— WebSocket + ephemeral client secret → <code>createUtterance</code>, with optional
+		<code>transcript</code> when the model text is available (same pattern as the ElevenLabs
+		example). Local port <code>4007</code>.
+	</p>
+
 	<h2>Realtime WebRTC (primary)</h2>
 	<p>
 		OpenAI recommends WebRTC for browser audio. The remote audio track maps cleanly onto Liforma’s
