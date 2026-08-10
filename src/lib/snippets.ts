@@ -396,13 +396,57 @@ function base64ToArrayBuffer(b64: string): ArrayBuffer {
   return out.buffer;
 }
 
+// experience.speech.write rejects chunks larger than 64 KiB.
+const MAX_PCM_CHUNK_BYTES = 64 * 1024;
+
+async function writePcmInChunks(
+  utterance: ReturnType<typeof experience.speech.createUtterance>,
+  chunk: ArrayBuffer
+) {
+  const bytes = new Uint8Array(chunk);
+  let offset = 0;
+  while (offset < bytes.byteLength) {
+    let end = Math.min(offset + MAX_PCM_CHUNK_BYTES, bytes.byteLength);
+    if (end < bytes.byteLength && (end - offset) % 2 === 1) end -= 1; // pcm_s16le align
+    if (end <= offset) break;
+    await utterance.write(bytes.subarray(offset, end));
+    offset = end;
+  }
+}
+
 type Turn = {
   utterance: ReturnType<typeof experience.speech.createUtterance>;
   writes: Promise<void>;
 };
 
-let sampleRate = 16_000; // override from onConversationMetadata if needed
+// Lock sample rate from metadata before createUtterance — a wrong rate makes
+// STA/energy clocks drift and the mouth can look stuck open.
+let sampleRate: number | null = null;
 let turn: Turn | null = null;
+const pendingAudio: string[] = [];
+
+function lockSampleRate(rate: number) {
+  if (sampleRate != null) return;
+  sampleRate = rate;
+  for (const b64 of pendingAudio.splice(0)) handleAudio(b64);
+}
+
+function handleAudio(base64Audio: string) {
+  if (sampleRate == null) {
+    pendingAudio.push(base64Audio);
+    return;
+  }
+  if (!turn) {
+    const utterance = experience.speech.createUtterance({
+      format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
+      queue: 'replace-active'
+    });
+    turn = { utterance, writes: Promise.resolve() };
+  }
+  const u = turn.utterance;
+  const chunk = base64ToArrayBuffer(base64Audio);
+  turn.writes = turn.writes.then(() => writePcmInChunks(u, chunk)).catch(console.error);
+}
 
 const conversation = await Conversation.startSession({
   // Prefer a signed URL from your server in production:
@@ -411,22 +455,13 @@ const conversation = await Conversation.startSession({
   connectionType: 'websocket',
 
   onConversationMetadata: (meta) => {
-    const fmt = meta.agent_output_audio_format; // e.g. "pcm_16000"
+    const fmt = meta.agent_output_audio_format; // e.g. "pcm_16000" / "pcm_24000"
     const m = /^pcm_(\\d+)$/.exec(fmt ?? '');
-    if (m) sampleRate = Number(m[1]);
+    if (m) lockSampleRate(Number(m[1]));
   },
 
   onAudio: (base64Audio) => {
-    if (!turn) {
-      const utterance = experience.speech.createUtterance({
-        format: { encoding: 'pcm_s16le', sampleRate, channels: 1 },
-        queue: 'replace-active'
-      });
-      turn = { utterance, writes: Promise.resolve() };
-    }
-    const u = turn.utterance;
-    const chunk = base64ToArrayBuffer(base64Audio);
-    turn.writes = turn.writes.then(() => u.write(chunk)).catch(console.error);
+    handleAudio(base64Audio);
   },
 
   onModeChange: ({ mode }) => {
