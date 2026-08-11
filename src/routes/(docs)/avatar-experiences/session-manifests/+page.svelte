@@ -44,6 +44,7 @@
     "experienceRevisionId": "…",
     "expiresAt": "2026-08-11T12:30:00.000Z",
     "locale": "en-GB",
+    "secondaryLocale": "fr-FR",
     "mode": "conversation",
     "capabilities": {
       "avatar": true,
@@ -86,7 +87,11 @@
 			</tr>
 			<tr>
 				<td><code>locale</code></td>
-				<td>BCP 47 locale</td>
+				<td>Resolved primary / user language (BCP 47)</td>
+			</tr>
+			<tr>
+				<td><code>secondaryLocale</code></td>
+				<td>Paired / learning language when dual; omitted for plain sessions</td>
 			</tr>
 			<tr>
 				<td><code>mode</code></td>

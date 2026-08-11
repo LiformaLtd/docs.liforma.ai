@@ -127,7 +127,26 @@
 			<tr>
 				<td><code>locale</code></td>
 				<td><code>string</code></td>
-				<td>BCP 47 locale override (e.g. <code>en-GB</code>).</td>
+				<td>
+					Primary / user language (BCP 47). Defaults to <code>navigator.language</code> when
+					omitted.
+				</td>
+			</tr>
+			<tr>
+				<td><code>secondaryLocale</code></td>
+				<td><code>string</code></td>
+				<td>
+					Dual: paired / learning language (BCP 47). Non-dual Match: immerses the session in
+					this language. Required for dual when Studio left the paired axis as Match.
+				</td>
+			</tr>
+			<tr>
+				<td><code>learningLocale</code></td>
+				<td><code>string</code></td>
+				<td>
+					Alias of <code>secondaryLocale</code> — same value works for tutors and roleplay in
+					language-learning apps.
+				</td>
 			</tr>
 			<tr>
 				<td><code>mode</code></td>
@@ -297,7 +316,8 @@
 	<p>
 		Changing <strong>developer-intent</strong> props restarts the owned session:
 		<code>experienceId</code>, <code>sessionEndpoint</code>, <code>launch</code>,
-		<code>locale</code>, <code>mode</code>, <code>speechInputMode</code>,
+		<code>locale</code>, <code>secondaryLocale</code> / <code>learningLocale</code>,
+		<code>mode</code>, <code>speechInputMode</code>,
 		<code>conversationProcessor</code>, <code>speechOnly</code>, <code>avatarId</code>,
 		<code>locationId</code>, <code>embedBaseUrl</code>, or <code>debug</code>. You do not need a
 		<code>{`{#key ...}`}</code> block.

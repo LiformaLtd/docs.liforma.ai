@@ -297,6 +297,11 @@
 						"minLength": 2,
 						"maxLength": 32
 					},
+					"secondaryLocale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
 					"mode": {
 						"type": "string",
 						"enum": [
@@ -368,6 +373,11 @@
 								"minLength": 1
 							},
 							"locale": {
+								"type": "string",
+								"minLength": 2,
+								"maxLength": 32
+							},
+							"secondaryLocale": {
 								"type": "string",
 								"minLength": 2,
 								"maxLength": 32
@@ -444,6 +454,16 @@
 						"minLength": 2,
 						"maxLength": 32
 					},
+					"secondaryLocale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
+					"learningLocale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
 					"language": {
 						"type": "string",
 						"enum": [
@@ -485,6 +505,16 @@
 						"maxLength": 128
 					},
 					"locale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
+					"secondaryLocale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
+					"learningLocale": {
 						"type": "string",
 						"minLength": 2,
 						"maxLength": 32

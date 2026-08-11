@@ -66,7 +66,20 @@ Content-Type: application/json
 			<tr>
 				<td><code>locale</code></td>
 				<td>No</td>
-				<td>BCP 47 locale (e.g. <code>en-GB</code>)</td>
+				<td>Primary / user language (BCP 47, e.g. <code>en-GB</code>)</td>
+			</tr>
+			<tr>
+				<td><code>secondaryLocale</code></td>
+				<td>No*</td>
+				<td>
+					Dual: paired / learning language. Non-dual Match: immerses the session in this
+					language (wins over <code>locale</code>).
+				</td>
+			</tr>
+			<tr>
+				<td><code>learningLocale</code></td>
+				<td>No</td>
+				<td>Alias of <code>secondaryLocale</code> (language-learning apps)</td>
 			</tr>
 			<tr>
 				<td><code>mode</code></td>
@@ -87,6 +100,11 @@ Content-Type: application/json
 			</tr>
 		</tbody>
 	</table>
+
+	<p>
+		* Required for dual experiences when the paired/learning language is Match in Studio. See
+		<a href="/api-reference/browser-sessions">Browser Sessions</a> for the same locale contract.
+	</p>
 
 	<p>
 		Player chrome (<code>startButton</code>, <code>closeButton</code>, <code>returnUrl</code>,

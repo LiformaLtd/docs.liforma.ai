@@ -28,6 +28,7 @@ Content-Type: application/json
 {
   "experienceId": "${snippets.experienceId}",
   "locale": "en-GB",
+  "secondaryLocale": "fr-FR",
   "mode": "conversation",
   "speechInputMode": "auto",
   "speechOnly": false
@@ -39,7 +40,8 @@ Content-Type: application/json
 	<p>
 		<a href="/avatar-experiences/session-manifests">SessionLaunchResponse</a>:
 		<code>session</code> plus opaque <code>launch</code>. Header:
-		<code>Cache-Control: no-store, private</code>.
+		<code>Cache-Control: no-store, private</code>. Dual sessions also echo
+		<code>session.secondaryLocale</code> when resolved.
 	</p>
 
 	<h3>Parameters</h3>
@@ -60,7 +62,27 @@ Content-Type: application/json
 			<tr>
 				<td><code>locale</code></td>
 				<td>No</td>
-				<td>BCP 47 locale (e.g. <code>en-GB</code>)</td>
+				<td>
+					Primary / user language (BCP 47). SDK defaults to
+					<code>navigator.language</code> when omitted.
+				</td>
+			</tr>
+			<tr>
+				<td><code>secondaryLocale</code></td>
+				<td>No*</td>
+				<td>
+					Dual: paired / learning language (BCP 47). Required when the creator left the paired
+					axis as Match; ignored when Fixed. Non-dual: when conversation is Match, immerses the
+					session in this language (wins over browser/<code>locale</code>); ignored when Fixed.
+				</td>
+			</tr>
+			<tr>
+				<td><code>learningLocale</code></td>
+				<td>No</td>
+				<td>
+					Alias of <code>secondaryLocale</code> — prefer for language-learning apps (tutors and
+					roleplay). Must not disagree with <code>secondaryLocale</code> when both are set.
+				</td>
 			</tr>
 			<tr>
 				<td><code>mode</code></td>
@@ -79,6 +101,13 @@ Content-Type: application/json
 			</tr>
 		</tbody>
 	</table>
+
+	<p>
+		* Language-learning apps can pass the same <code>learningLocale</code> (or
+		<code>secondaryLocale</code>) for tutors and roleplay. Dual tutors use it as the learning
+		axis (clip / v2a pipeline); non-dual roleplay immerses conversation and voice in that
+		language when Studio left Match open (plain / v2b). Creator Fixed still wins.
+	</p>
 
 	<p>
 		Player chrome (<code>startButton</code>, <code>closeButton</code>, <code>returnUrl</code>,
