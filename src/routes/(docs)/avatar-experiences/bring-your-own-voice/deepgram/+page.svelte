@@ -20,6 +20,12 @@
 		<code>connectDeepgramAgent</code> from <code>@liforma/client/deepgram</code> to drive the
 		Liforma avatar from agent PCM (+ transcript when available).
 	</p>
+	<p>
+		<strong>Copy into your product:</strong> the runnable example’s
+		<code>helloByo.ts</code> / <code>helloByo.js</code> (<code>startByoSpeech</code>) is a thin
+		wrapper over that helper — DemoApp / page UI is scaffolding only. Keep the same-origin
+		WebSocket proxy in your BFF.
+	</p>
 
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
@@ -50,6 +56,11 @@
 		lang="typescript"
 		filename="deepgram-liforma.ts"
 	/>
+	<p>
+		Runnable coffee-barista demo with a same-origin WebSocket proxy:
+		<a href="https://examples.liforma.ai/examples/deepgram-embed">Deepgram embed</a>
+		on examples.liforma.ai (local port <code>4008</code>).
+	</p>
 
 	<details>
 		<summary>Required handshake (handled by the helper)</summary>

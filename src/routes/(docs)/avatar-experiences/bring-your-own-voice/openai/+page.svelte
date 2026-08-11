@@ -17,8 +17,14 @@
 	<h2>Idea in one sentence</h2>
 	<p>
 		Keep OpenAI Realtime as the speech-to-speech brain, and use
-		<code>connectOpenAiRealtime</code> from <code>@liforma/client/openai</code> to drive the
-		Liforma avatar from agent PCM (+ transcript for lipsync).
+		<code>connectOpenAiRealtime</code> (WebSocket) or
+		<code>connectOpenAiRealtimeWebRtc</code> (preferred browser media path) from
+		<code>@liforma/client/openai</code> to drive the Liforma avatar (+ transcript for lipsync).
+	</p>
+	<p>
+		<strong>Copy into your product:</strong> the runnable example’s
+		<code>helloByo.ts</code> / <code>helloByo.js</code> (<code>startByoSpeech</code>) is a thin
+		wrapper over <code>connectOpenAiRealtime</code> — DemoApp / page UI is scaffolding only.
 	</p>
 
 	<h2>Install</h2>
@@ -58,27 +64,29 @@
 	</p>
 
 	<details>
-		<summary>Why WebSocket in the helper (vs WebRTC)?</summary>
+		<summary>Realtime WebRTC (preferred browser media)</summary>
 		<p>
-			OpenAI recommends WebRTC for browser media. The SDK helper uses
-			<strong>WebSocket + ephemeral client secret</strong> so each agent turn maps cleanly onto
-			<code>createUtterance</code> / <code>write</code> / <code>setTranscript</code> /
-			<code>close</code> (same pattern as ElevenLabs). Use the WebRTC path below when you already
-			have a peer connection and only need a remote track.
-		</p>
-	</details>
-
-	<details>
-		<summary>Realtime WebRTC (remote track)</summary>
-		<p>
-			Maps the remote audio <code>MediaStreamTrack</code> onto Liforma’s track play path — no
-			base64 PCM loop.
+			<code>connectOpenAiRealtimeWebRtc</code> uses OpenAI’s WebRTC peer connection: remote audio
+			track → <code>createUtterance(&#123; track &#125;)</code>, transcript on the
+			<code>oai-events</code> data channel for force-align. Same ephemeral client-secret mint as
+			the WebSocket helper. Do <strong>not</strong> also attach the remote track to an
+			<code>&lt;audio&gt;</code> element.
 		</p>
 		<CodeBlock
 			code={snippets.jsSpeechOpenAiRealtimeWebRtc}
 			lang="typescript"
 			filename="openai-realtime-webrtc.ts"
 		/>
+	</details>
+
+	<details>
+		<summary>When to use the WebSocket helper</summary>
+		<p>
+			<code>connectOpenAiRealtime</code> maps each agent turn onto discrete
+			<code>createUtterance</code> / <code>write</code> / <code>close</code> (same pattern as
+			ElevenLabs). Prefer WebRTC for browser media latency; keep WebSocket when you already
+			terminate Realtime over WS or need per-chunk PCM control.
+		</p>
 	</details>
 
 	<details>

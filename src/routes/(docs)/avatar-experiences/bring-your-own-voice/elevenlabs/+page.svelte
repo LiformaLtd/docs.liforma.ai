@@ -20,6 +20,11 @@
 		<code>connectElevenLabsAgent</code> from <code>@liforma/client/elevenlabs</code> to drive the
 		Liforma avatar from agent PCM.
 	</p>
+	<p>
+		<strong>Copy into your product:</strong> the runnable example’s
+		<code>helloByo.ts</code> / <code>helloByo.js</code> (<code>startByoSpeech</code>) is a thin
+		wrapper over that helper — DemoApp / page UI is scaffolding only.
+	</p>
 
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client @elevenlabs/client" lang="bash" />

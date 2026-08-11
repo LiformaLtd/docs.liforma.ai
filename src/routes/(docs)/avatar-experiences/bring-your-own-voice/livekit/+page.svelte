@@ -25,6 +25,17 @@
 		is your external voice stack; the Experience session still mints normally (http adapter today) with
 		<code>externalSpeechAudio</code>.
 	</p>
+	<p>
+		<strong>Copy into your product:</strong> the runnable example’s
+		<code>helloByo.ts</code> / <code>helloByo.js</code> (<code>startByoSpeech</code>) is a thin
+		wrapper over <code>connectLiveKitAgent</code> — DemoApp / page UI is scaffolding only.
+	</p>
+
+	<h2>Runnable example</h2>
+	<p>
+		See <a href="https://examples.liforma.ai/examples/livekit-embed">examples.liforma.ai</a>
+		(<code>examples/livekit-embed</code> in the examples repo).
+	</p>
 
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client livekit-client" lang="bash" />
@@ -39,8 +50,10 @@
 		<li>Mint a LiveKit participant token on your server.</li>
 		<li>
 			Call <code>connectLiveKitAgent(experience, &#123; url, token &#125;)</code> — the helper joins
-			the room, bridges agent audio tracks into <code>speech.play</code>, and interrupts only
-			while a bridge play is outstanding (idle disconnect will not cancel later host speech).
+			the room, bridges agent audio via <code>createUtterance(&#123; track &#125;)</code>, forwards
+			<code>lk.transcription</code> text streams into <code>setTranscript</code> for force-align
+			(disable with <code>enableTranscript: false</code>), and interrupts only while a bridge is
+			outstanding.
 		</li>
 		<li>
 			<strong>Do not</strong> also play that track through a LiveKit <code>&lt;audio&gt;</code>
@@ -70,10 +83,9 @@
 		<summary>Turns vs continuous tracks</summary>
 		<p>
 			LiveKit often gives one long-lived remote audio track rather than discrete PCM turn chunks. The
-			helper uses <code>speech.play(&#123; audio: &#123; track &#125; &#125;)</code> with
-			<code>replace-active</code>. If your agent emits framed PCM over a data channel instead, use the
-			same turn-id map as
-			<a href="/avatar-experiences/bring-your-own-voice/elevenlabs">ElevenLabs</a>.
+			helper uses <code>createUtterance(&#123; track &#125;)</code> with <code>replace-active</code>
+			and upgrades lipsync when agent text arrives on the <code>lk.transcription</code> stream. If
+			your agent emits framed PCM over a data channel instead, use the PCM helpers from the BYO hub.
 		</p>
 	</details>
 

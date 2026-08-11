@@ -321,6 +321,7 @@ const utterance = experience.speech.createUtterance({
 // utterance closes automatically when the track ends`,
 
 	jsSpeechLiveKitSimple: `// After Experience is started (audio unlocked):
+// Or copy helloByo.ts from examples/livekit-embed → startByoSpeech(experience, { url, token })
 import { connectLiveKitAgent } from '@liforma/client/livekit';
 
 // Mint a LiveKit participant token on your server:
@@ -329,6 +330,8 @@ import { connectLiveKitAgent } from '@liforma/client/livekit';
 const bridge = await connectLiveKitAgent(experience, {
   url,   // wss://…
   token  // from your mint route
+  // enableTranscript: true,           // default — lk.transcription → setTranscript
+  // transcriptionTopic: 'lk.transcription',
   // shouldBridgeParticipant: (p) => p.identity.startsWith('agent')
 });
 
@@ -342,21 +345,26 @@ import { Room, RoomEvent, Track } from 'livekit-client';
 // Host owns the LiveKit room; Liforma owns avatar playback + lipsync.
 // Do not call track.attach() / render an <audio> element for the agent — that doubles the voice.
 const room = new Room();
+let activeUtterance: ReturnType<typeof experience.speech.createUtterance> | null = null;
 
-room.on(RoomEvent.TrackSubscribed, async (track, publication, participant) => {
+room.on(RoomEvent.TrackSubscribed, (track, _publication, participant) => {
   if (track.kind !== Track.Kind.Audio) return;
   // Optional: only bridge the agent participant
   // if (!participant.identity.startsWith('agent')) return;
 
   const mediaTrack = track.mediaStreamTrack;
-  await experience.speech.play({
-    audio: { track: mediaTrack, sampleRate: 48_000 },
+  activeUtterance = experience.speech.createUtterance({
+    track: mediaTrack,
+    sampleRate: 48_000,
     queue: 'replace-active'
   });
+  // Optional: room.registerTextStreamHandler('lk.transcription', …)
+  // → activeUtterance.setTranscript(text) for force-align lipsync
 });
 
 room.on(RoomEvent.TrackUnsubscribed, async (track) => {
   if (track.kind !== Track.Kind.Audio) return;
+  activeUtterance = null;
   await experience.speech.interrupt({ scope: 'active' });
 });
 
@@ -407,6 +415,7 @@ async function cancelTurn(turnId) {
 }`,
 
 	jsSpeechElevenLabsSimple: `// After Experience is started (audio unlocked):
+// Or copy helloByo.ts from examples/elevenlabs-embed → startByoSpeech(experience, { signedUrl })
 import { connectElevenLabsAgent } from '@liforma/client/elevenlabs';
 
 // Prefer a signed URL from your server in production:
@@ -503,6 +512,7 @@ ws.onmessage = (ev) => {
 };`,
 
 	jsSpeechOpenAiRealtimeSimple: `// After Experience is started (audio unlocked):
+// Or copy helloByo.ts from examples/openai-realtime-embed → startByoSpeech(experience, { ephemeralKey })
 import { connectOpenAiRealtime } from '@liforma/client/openai';
 
 // Mint an ephemeral client secret on your server (never ship OPENAI_API_KEY):
@@ -530,21 +540,19 @@ await bridge.end();`,
 
 	jsSpeechOpenAiRealtimeWebRtc: `// Preferred OpenAI browser media path: Realtime over WebRTC.
 // Docs: https://platform.openai.com/docs/guides/realtime-webrtc
-// The remote audio MediaStreamTrack feeds Liforma directly (no base64 PCM loop).
-// For the createUtterance + transcript helper, prefer connectOpenAiRealtime.
+// Remote track → createUtterance({ track }); transcript via oai-events data channel.
 
-// After your Realtime WebRTC peer connection is up:
-const remoteStream = /* RTCPeerConnection remote audio stream */;
-const [track] = remoteStream.getAudioTracks();
+import { connectOpenAiRealtimeWebRtc } from '@liforma/client/openai';
 
-await experience.speech.play({
-  audio: { track, sampleRate: 24_000 },
-  queue: 'replace-active'
+// Mint an ephemeral client secret on your server (same as the WebSocket helper).
+const bridge = await connectOpenAiRealtimeWebRtc(experience, {
+  ephemeralKey,
+  // instructions: 'You are a helpful voice assistant…',
+  // captureMic: true,
 });
 
-// On barge-in / track ended:
-await experience.speech.interrupt({ scope: 'active' });
-// Do not also play the remote stream through an <audio> element.`,
+// Do not also attach the remote track to an <audio> element.
+await bridge.end();`,
 
 	jsSpeechOpenAiRealtimeBridge: `// Advanced: OpenAI Realtime WebSocket on your server, PCM forwarded to the browser.
 // Docs: https://platform.openai.com/docs/guides/realtime-conversations
@@ -623,6 +631,7 @@ await experience.speech.play({
 });`,
 
 	jsSpeechGeminiLiveSimple: `// After Experience is started (audio unlocked):
+// Or copy helloByo.ts from examples/gemini-live-embed → startByoSpeech(experience, { proxyUrl })
 import { connectGeminiLive } from '@liforma/client/google';
 
 // Proxy terminates Gemini Live BidiGenerateContent (never ship Google API keys):
@@ -746,6 +755,7 @@ ws.onmessage = (ev) => {
 };`,
 
 	jsSpeechDeepgramSimple: `// After Experience is started (audio unlocked):
+// Or copy helloByo.ts from examples/deepgram-embed → startByoSpeech(experience, { proxyUrl })
 import { connectDeepgramAgent } from '@liforma/client/deepgram';
 
 // Same-origin proxy to wss://agent.deepgram.com/v1/agent/converse (API key stays server-side):

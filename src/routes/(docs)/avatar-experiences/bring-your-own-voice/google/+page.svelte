@@ -20,6 +20,18 @@
 		<code>connectGeminiLive</code> from <code>@liforma/client/google</code> to drive the Liforma
 		avatar from agent PCM (+ <code>outputTranscription</code> for lipsync).
 	</p>
+	<p>
+		<strong>Copy into your product:</strong> the runnable example’s
+		<code>helloByo.ts</code> / <code>helloByo.js</code> (<code>startByoSpeech</code>) is a thin
+		wrapper over that helper — DemoApp / page UI is scaffolding only. Keep the same-origin
+		WebSocket proxy in your BFF.
+	</p>
+
+	<h2>Runnable example</h2>
+	<p>
+		See <a href="https://examples.liforma.ai/examples/gemini-live-embed">examples.liforma.ai</a>
+		(<code>examples/gemini-live-embed</code> in the examples repo).
+	</p>
 
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
