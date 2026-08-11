@@ -26,17 +26,19 @@
 		<li>You have a backend (SvelteKit, Next.js, or any server)</li>
 		<li>Per-user session context or app-owned authorization</li>
 		<li>Tighter control over who can start sessions and with which overrides</li>
-		<li>Custom integration settings (return URL, close button)</li>
+		<li>Per-user context via your same-origin <code>sessionEndpoint</code></li>
 	</ul>
 	<p>
 		For client-only pages with no server, use
 		<a href="/avatar-experiences/browser-embeds">browser embeds with allowed origins</a> instead.
+		Player chrome (<code>returnUrl</code>, <code>closeButton</code>) is configured via SDK
+		<code>attach</code>, not mint.
 	</p>
 
 	<h2>Flow</h2>
-	<pre class="diagram">Your backend  →  POST /v1/sessions  →  Session Manifest
+	<pre class="diagram">Your backend  →  POST /v1/sessions  →  SessionLaunchResponse
                                               ↓
-Your frontend  ←  manifest or sessionEndpoint  ←  SDK</pre>
+Your frontend  ←  sessionEndpoint (preferred)  ←  SDK</pre>
 
 	<h2>1. Mint on your server</h2>
 	<p>Call the Liforma API with your developer API key. Never expose the key to the browser.</p>
@@ -57,14 +59,13 @@ Your frontend  ←  manifest or sessionEndpoint  ←  SDK</pre>
 
 	<p>
 		Contract: <code>POST</code> with <code>experienceId</code> (and optional launch fields) →
-		<strong>Session Manifest</strong> with <code>Cache-Control: no-store, private</code>.
+		<strong>SessionLaunchResponse</strong> with <code>Cache-Control: no-store, private</code>.
 	</p>
 
 	<h2>SSR warning</h2>
 	<p>
-		Do not pass credential-bearing manifests through server load functions. The
-		<code>sessionToken</code> in the manifest would be embedded in HTML. Use
-		<code>sessionEndpoint</code> or client-side minting instead.
+		Do not put opaque <code>launch</code> through server load functions — it would be embedded in
+		HTML. Prefer <code>sessionEndpoint</code> so the browser fetches the launch after load.
 	</p>
 
 	<h2>API key</h2>

@@ -1,41 +1,33 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
-	import Callout from '$lib/components/Callout.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
 	import { snippets } from '$lib/snippets';
 </script>
 
 <DocPage
-	title="Public Sessions"
-	description="Browser mint endpoint — Origin allowlist auth (path name is historical)."
+	title="Browser Sessions"
+	description="Browser mint endpoint — Origin allowlist auth."
 	next={[
 		{ title: 'Sessions', href: '/api-reference/sessions' },
 		{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' }
 	]}
 >
-	<h2>POST /v1/public-sessions</h2>
+	<h2>POST /v1/browser-sessions</h2>
 	<p>
 		Called by the SDK for <a href="/avatar-experiences/browser-embeds">browser embeds</a> when you
 		pass <code>experienceId</code>. Auth is the page <code>Origin</code> against your allowlist —
 		not an API key in the browser.
 	</p>
 
-	<Callout title="Name is historical">
-		<p>
-			Despite the path name, this endpoint is the <strong>browser mint</strong> path (Origin
-			allowlist). Prefer product terms <em>browser embed</em> and <em>allowed origins</em>.
-		</p>
-	</Callout>
-
 	<h3>Request</h3>
 	<CodeBlock
-		code={`POST https://api.liforma.ai/v1/public-sessions
+		code={`POST https://api.liforma.ai/v1/browser-sessions
 Origin: https://your-app.com
 Content-Type: application/json
 
 {
   "experienceId": "${snippets.experienceId}",
-  "language": "en",
+  "locale": "en-GB",
   "mode": "conversation",
   "speechInputMode": "auto",
   "speechOnly": false
@@ -43,8 +35,12 @@ Content-Type: application/json
 		lang="http"
 	/>
 
-	<h3>Response <code>200</code></h3>
-	<p>Session Manifest JSON.</p>
+	<h3>Response <code>201</code></h3>
+	<p>
+		<a href="/avatar-experiences/session-manifests">SessionLaunchResponse</a>:
+		<code>session</code> plus opaque <code>launch</code>. Header:
+		<code>Cache-Control: no-store, private</code>.
+	</p>
 
 	<h3>Parameters</h3>
 	<table>
@@ -62,9 +58,9 @@ Content-Type: application/json
 				<td>Experience to launch</td>
 			</tr>
 			<tr>
-				<td><code>language</code></td>
+				<td><code>locale</code></td>
 				<td>No</td>
-				<td><code>en</code> or <code>es</code></td>
+				<td>BCP 47 locale (e.g. <code>en-GB</code>)</td>
 			</tr>
 			<tr>
 				<td><code>mode</code></td>
@@ -81,19 +77,21 @@ Content-Type: application/json
 				<td>No</td>
 				<td>When <code>true</code>, voice-only session without avatar/location assets</td>
 			</tr>
-			<tr>
-				<td><code>startButton</code></td>
-				<td>No</td>
-				<td>Player-owned startup button configuration</td>
-			</tr>
 		</tbody>
 	</table>
+
+	<p>
+		Player chrome (<code>startButton</code>, <code>closeButton</code>, <code>returnUrl</code>,
+		<code>fit</code>) is configured via SDK <code>attach</code> / component props — not on this
+		request.
+	</p>
 
 	<h3>Checks</h3>
 	<ul>
 		<li><code>Origin</code> header required</li>
 		<li>Browser embeds must be enabled for the project</li>
 		<li>Origin must be on the project allowlist</li>
+		<li>Experience must have a published revision</li>
 		<li>Quota and rate limits apply</li>
 	</ul>
 
@@ -109,5 +107,5 @@ Content-Type: application/json
 	</p>
 
 	<h3>Example</h3>
-	<CodeBlock code={snippets.publicSessionsCurl} lang="bash" />
+	<CodeBlock code={snippets.browserSessionsCurl} lang="bash" />
 </DocPage>

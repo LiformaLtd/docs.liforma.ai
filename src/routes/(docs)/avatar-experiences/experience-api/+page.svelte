@@ -36,11 +36,11 @@
 		<tbody>
 			<tr>
 				<td><code>{`{ experienceId }`}</code></td>
-				<td>Browser embed — SDK calls <code>/v1/public-sessions</code></td>
+				<td>Browser embed — SDK calls <code>/v1/browser-sessions</code></td>
 			</tr>
 			<tr>
-				<td><code>{`{ manifest }`}</code></td>
-				<td>Server-minted manifest passed to the client</td>
+				<td><code>{`{ launch }`}</code></td>
+				<td>Advanced: client-fetched opaque launch (prefer <code>sessionEndpoint</code>)</td>
 			</tr>
 			<tr>
 				<td><code>{`{ experienceId, sessionEndpoint }`}</code></td>

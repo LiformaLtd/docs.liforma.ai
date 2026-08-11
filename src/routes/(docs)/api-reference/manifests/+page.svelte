@@ -1,24 +1,45 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
-	import { snippets } from '$lib/snippets';
 </script>
 
 <DocPage
-	title="Manifests"
-	description="Session Manifest schema reference."
+	title="Session Launch"
+	description="SessionLaunchResponse schema reference."
 	next={[
-		{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
+		{ title: 'Session Launch overview', href: '/avatar-experiences/session-manifests' },
 		{ title: 'Sessions', href: '/api-reference/sessions' }
 	]}
 >
-	<h2>Schema version 1</h2>
+	<h2>SessionLaunchResponse</h2>
 	<p>
-		Both <code>/v1/sessions</code> and <code>/v1/public-sessions</code> return this shape. Breaking
-		changes increment <code>schemaVersion</code>.
+		Both <code>/v1/sessions</code> and <code>/v1/browser-sessions</code> return this shape
+		(<code>201</code>, <code>Cache-Control: no-store, private</code>). See
+		<a href="/openapi/sessions.json"><code>/openapi/sessions.json</code></a> for the machine-readable
+		contract.
 	</p>
 
-	<CodeBlock code={snippets.manifestExample} lang="json" />
+	<CodeBlock
+		code={`{
+  "session": {
+    "id": "sess_…",
+    "experienceId": "exp_…",
+    "experienceRevisionId": "…",
+    "expiresAt": "2026-08-11T12:30:00.000Z",
+    "locale": "en-GB",
+    "mode": "conversation",
+    "capabilities": {
+      "avatar": true,
+      "speechInput": true,
+      "speechOutput": true,
+      "tools": false,
+      "externalAudio": false
+    }
+  },
+  "launch": "eyJ…"
+}`}
+		lang="json"
+	/>
 
 	<h2>Top-level fields</h2>
 	<table>
@@ -31,14 +52,32 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><code>schemaVersion</code></td>
-				<td><code>number</code></td>
-				<td>Always <code>1</code> today</td>
+				<td><code>session</code></td>
+				<td><code>object</code></td>
+				<td>Minimal public session facts</td>
 			</tr>
 			<tr>
-				<td><code>sessionId</code></td>
+				<td><code>launch</code></td>
 				<td><code>string</code></td>
-				<td>Unique session identifier</td>
+				<td>Asymmetrically signed opaque bootstrap — do not parse</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2><code>session</code> fields</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Field</th>
+				<th>Type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>id</code></td>
+				<td><code>string</code></td>
+				<td>Session id</td>
 			</tr>
 			<tr>
 				<td><code>experienceId</code></td>
@@ -46,59 +85,35 @@
 				<td>Experience being run</td>
 			</tr>
 			<tr>
+				<td><code>experienceRevisionId</code></td>
+				<td><code>string</code></td>
+				<td>Published revision id</td>
+			</tr>
+			<tr>
 				<td><code>expiresAt</code></td>
 				<td><code>string</code></td>
 				<td>ISO 8601 expiry</td>
 			</tr>
 			<tr>
-				<td><code>sessionToken</code></td>
+				<td><code>locale</code></td>
 				<td><code>string</code></td>
-				<td>JWT for runtime authorisation (SDK internal)</td>
+				<td>BCP 47 locale</td>
 			</tr>
 			<tr>
-				<td><code>transport</code></td>
+				<td><code>mode</code></td>
+				<td><code>string</code></td>
+				<td><code>conversation</code> | <code>presenter</code></td>
+			</tr>
+			<tr>
+				<td><code>capabilities</code></td>
 				<td><code>object</code></td>
-				<td><code>type</code> + <code>config</code></td>
-			</tr>
-			<tr>
-				<td><code>runtime</code></td>
-				<td><code>object</code></td>
-				<td>CDN URL, input mode, renderer</td>
-			</tr>
-			<tr>
-				<td><code>characters</code></td>
-				<td><code>array</code></td>
-				<td>Character definitions</td>
-			</tr>
-			<tr>
-				<td><code>billing</code></td>
-				<td><code>object</code></td>
-				<td>Meter ID and payer</td>
+				<td>Boolean flags for avatar, speech I/O, tools, external audio</td>
 			</tr>
 		</tbody>
 	</table>
 
-	<h2>Transport types</h2>
-	<table>
-		<thead>
-			<tr>
-				<th><code>transport.type</code></th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><code>http</code></td>
-				<td>Available</td>
-			</tr>
-			<tr>
-				<td><code>livekit</code></td>
-				<td>Future transport option</td>
-			</tr>
-			<tr>
-				<td><code>webrtc</code></td>
-				<td>Future transport option</td>
-			</tr>
-		</tbody>
-	</table>
+	<p>
+		Runtime internals (transport, pipeline, renderer, <code>sessionToken</code>, characters) are
+		<strong>not</strong> part of the public API — they live only inside opaque <code>launch</code>.
+	</p>
 </DocPage>

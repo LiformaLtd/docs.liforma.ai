@@ -8,7 +8,7 @@
 	title="Errors"
 	description="HTTP status codes and error responses."
 	next={[
-		{ title: 'Public Sessions', href: '/api-reference/public-sessions' },
+		{ title: 'Browser Sessions', href: '/api-reference/browser-sessions' },
 		{ title: 'Sessions', href: '/api-reference/sessions' }
 	]}
 >

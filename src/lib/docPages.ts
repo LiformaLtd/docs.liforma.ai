@@ -11,7 +11,7 @@ export type DocPageEntry = {
 const descriptions: Record<string, string> = {
 	'/getting-started/introduction': 'What Liforma is and how Avatar Experiences fit your product.',
 	'/getting-started/quick-start': 'Embed your first intelligent animated avatar in minutes.',
-	'/getting-started/concepts': 'Experience, Session Manifest, SDK, and core platform ideas.',
+	'/getting-started/concepts': 'Experience, Session Launch, SDK, and core platform ideas.',
 	'/avatar-experiences/overview': 'Real-time AI characters that listen, think, speak, and animate.',
 	'/avatar-experiences/svelte': 'The Experience Svelte component and embed options.',
 	'/avatar-experiences/react': 'Experience React component with ref-based control.',
@@ -20,7 +20,8 @@ const descriptions: Record<string, string> = {
 		'Layered CDN gallery thumbnails with optional hosted-player launch.',
 	'/avatar-experiences/experience-api':
 		'Experience.startSession, speak(), listenOnce(), conversationProcessor, and getters.',
-	'/avatar-experiences/session-manifests': 'Per-launch runtime configuration returned by the API.',
+	'/avatar-experiences/session-manifests':
+		'Session Launch response — public session facts plus opaque launch bootstrap.',
 	'/avatar-experiences/events':
 		'Partial transcripts, speech boundaries, processor errors, and mode events.',
 	'/avatar-experiences/browser-embeds':
@@ -47,11 +48,10 @@ const descriptions: Record<string, string> = {
 	'/guides/customise-characters': 'Avatars, voices, and character configuration.',
 	'/guides/tools': 'Give characters controlled external capabilities.',
 	'/guides/migrate-elevenlabs': 'Move from voice agents to animated avatar experiences.',
-	'/api-reference/sessions': 'POST /v1/sessions — server-side API-key manifest minting.',
+	'/api-reference/sessions': 'POST /v1/sessions — server-side API-key Session Launch minting.',
 	'/api-reference/experience-catalog': 'GET /v1/projects/{projectId}/experiences — published catalog.',
-	'/api-reference/public-sessions':
-		'POST /v1/public-sessions — browser embed minting (path name historical).',
-	'/api-reference/manifests': 'Session Manifest schema and fields.',
+	'/api-reference/browser-sessions': 'POST /v1/browser-sessions — browser embed Session Launch minting.',
+	'/api-reference/manifests': 'SessionLaunchResponse shape — public session plus opaque launch.',
 	'/api-reference/errors': 'HTTP error shapes and troubleshooting.',
 	'/sdk-reference/javascript':
 		'@liforma/client — speak(), listenOnce(), conversationProcessor, and events.',
@@ -60,7 +60,7 @@ const descriptions: Record<string, string> = {
 		'liforma-experience and liforma-experience-thumbnail web components.',
 	'/llms.txt': 'Agent-oriented documentation index for Liforma.',
 	'/llms-full.txt': 'Full docs page index for coding agents.',
-	'/openapi/sessions.json': 'OpenAPI for POST /v1/sessions and /v1/public-sessions.'
+	'/openapi/sessions.json': 'OpenAPI for POST /v1/sessions and /v1/browser-sessions.'
 };
 
 export function allDocPages(): DocPageEntry[] {

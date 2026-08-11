@@ -31,7 +31,7 @@
 	<h2>What changes</h2>
 	<ul>
 		<li>You think in <strong>Experiences</strong>, not agents — characters, worlds, and state are first-class</li>
-		<li>Sessions are minted via a <strong>Session Manifest</strong>, not a thin conversation token</li>
+		<li>Sessions are minted via a <strong>Session Launch</strong>, not a thin conversation token</li>
 		<li>Transport and runtime details are hidden inside the SDK</li>
 		<li>Browser embeds use <code>experienceId</code> + origin allowlists — no signed URL required</li>
 	</ul>
@@ -92,7 +92,7 @@ const conversation = await Conversation.startSession({
 			</tr>
 			<tr>
 				<td><code>conversationToken</code></td>
-				<td>Session Manifest / <code>sessionToken</code></td>
+				<td>Session Launch / opaque <code>launch</code></td>
 			</tr>
 			<tr>
 				<td><code>onMessage</code></td>

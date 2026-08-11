@@ -35,7 +35,7 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'BYO — Deepgram', href: '/avatar-experiences/bring-your-own-voice/deepgram' },
 			{ title: 'BYO — LiveKit', href: '/avatar-experiences/bring-your-own-voice/livekit' },
 			{ title: 'BYO — Other / files', href: '/avatar-experiences/bring-your-own-voice/other-providers' },
-			{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
+			{ title: 'Session Launch', href: '/avatar-experiences/session-manifests' },
 			{ title: 'Events', href: '/avatar-experiences/events' },
 			{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
 			{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
@@ -71,8 +71,8 @@ export const docsNavigation: readonly NavSection[] = [
 		items: [
 			{ title: 'Sessions', href: '/api-reference/sessions' },
 			{ title: 'Experience Catalog', href: '/api-reference/experience-catalog' },
-			{ title: 'Public Sessions', href: '/api-reference/public-sessions' },
-			{ title: 'Manifests', href: '/api-reference/manifests' },
+			{ title: 'Browser Sessions', href: '/api-reference/browser-sessions' },
+			{ title: 'Session Launch', href: '/api-reference/manifests' },
 			{ title: 'Errors', href: '/api-reference/errors' }
 		]
 	},

@@ -18,7 +18,7 @@
 		Next.js apps use the same <a href="/avatar-experiences/react">React Experience component</a> inside
 		a client boundary. For
 		<a href="/avatar-experiences/server-sessions">server sessions</a>, add a same-origin API route that
-		mints Session Manifests with your server API key — the SDK helper returns a standard
+		mints Session Launches with your server API key — the SDK helper returns a standard
 		<code>Response</code> (no <code>next</code> package peer dependency).
 	</p>
 
@@ -47,7 +47,7 @@
 	</p>
 	<p>
 		On the client, pass <code>sessionEndpoint="/api/liforma-session"</code> with
-		<code>experienceId</code> — the SDK POSTs the mint request and attaches the returned manifest.
+		<code>experienceId</code> — the SDK POSTs the mint request and attaches the returned Session Launch.
 	</p>
 
 	<h2>Example</h2>

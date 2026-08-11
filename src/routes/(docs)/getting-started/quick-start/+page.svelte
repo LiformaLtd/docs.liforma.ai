@@ -72,7 +72,7 @@
 
 	<h2>3. Run</h2>
 	<p>
-		Open your app. The SDK mints a session, fetches a Session Manifest, and starts the runtime.
+		Open your app. The SDK mints a Session Launch and starts the runtime.
 		Allowlist your production origin in the
 		<a href={externalLinks.app} target="_blank" rel="noopener noreferrer">developer portal</a>
 		(<code>app.liforma.ai</code> → your project → Origins) so browser embeds work on your domain.
@@ -136,11 +136,10 @@ npm install
 	<ul>
 		<li>
 			<strong>Creates the session</strong> — browser mint via
-			<code>POST /v1/public-sessions</code> with your <code>experienceId</code> (endpoint name is
-			historical)
+			<code>POST /v1/browser-sessions</code> with your <code>experienceId</code>
 		</li>
-		<li><strong>Fetches the Session Manifest</strong> — runtime configuration for this launch</li>
-		<li><strong>Selects transport</strong> — connection strategy is declared in the manifest, hidden from you</li>
+		<li><strong>Receives a Session Launch</strong> — public <code>session</code> plus opaque <code>launch</code></li>
+		<li><strong>Starts the player</strong> — transport and pipeline stay inside <code>launch</code>, hidden from you</li>
 		<li><strong>Requests microphone access</strong> — when speech input is enabled</li>
 		<li><strong>Runs speech recognition</strong> — browser STT in the client</li>
 		<li><strong>Runs the AI response loop</strong> — language model, tools, and state updates</li>

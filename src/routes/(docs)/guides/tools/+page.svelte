@@ -8,7 +8,7 @@
 	title="Add Tools"
 	description="Give your avatar characters controlled external capabilities."
 	next={[
-		{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
+		{ title: 'Session Launch', href: '/avatar-experiences/session-manifests' },
 		{ title: 'Avatar Experiences', href: '/avatar-experiences/overview' }
 	]}
 >
@@ -21,7 +21,7 @@
 	<h2>How they work</h2>
 	<ol>
 		<li>Tools are defined on the experience configuration in Studio</li>
-		<li>They appear in the Session Manifest <code>tools</code> array</li>
+		<li>They are wired inside opaque <code>launch</code> (private runtime bootstrap)</li>
 		<li>The agent decides when to call a tool during conversation</li>
 		<li>Results may update structured experience state in the runtime</li>
 	</ol>

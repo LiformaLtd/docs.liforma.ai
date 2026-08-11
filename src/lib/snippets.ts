@@ -113,10 +113,10 @@ export function Lesson() {
 
 <Experience
   experienceId="${DEMO_EXPERIENCE_ID}"
-  onReady={({ manifest }) => console.log('Attached', manifest.sessionId)}
+  onReady={({ session }) => console.log('Attached', session.id)}
   onStarted={({ mode }) => console.log('Audio unlocked', mode)}
   onUserTranscript={(update) => console.log('Transcript', update.text)}
-  onStateUpdate={(state) => console.log('Player state', state)}
+  onPlayerStatusChange={(status) => console.log('Player status', status)}
   onClose={(event) => console.log('Player closed', event)}
   onError={reportError}
 />`,
@@ -1229,7 +1229,7 @@ export async function load({ params, fetch }) {
   return { experience };
 }`,
 
-	publicSessionsCurl: `curl -X POST https://api.liforma.ai/v1/public-sessions \\
+	browserSessionsCurl: `curl -X POST https://api.liforma.ai/v1/browser-sessions \\
   -H "Origin: https://your-app.com" \\
   -H "Content-Type: application/json" \\
   -d '{"experienceId": "${DEMO_EXPERIENCE_ID}"}'`,

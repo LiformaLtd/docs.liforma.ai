@@ -1,13 +1,13 @@
 # Liforma Docs
 
-> Liforma is an Avatar Experience platform: embed real-time AI characters that listen, think, speak, and animate in web apps via Session Manifests and `@liforma/client`.
+> Liforma is an Avatar Experience platform: embed real-time AI characters that listen, think, speak, and animate in web apps via Session Launch and `@liforma/client`.
 
 This file helps coding agents find canonical documentation. Prefer these URLs over inventing APIs.
 
 ## Start here
 
 - [Quick Start](https://docs.liforma.ai/getting-started/quick-start): install `@liforma/client`, embed with Svelte / React / web component
-- [Concepts](https://docs.liforma.ai/getting-started/concepts): Experience, Session Manifest, SDK
+- [Concepts](https://docs.liforma.ai/getting-started/concepts): Experience, Session Launch, SDK
 - [Introduction](https://docs.liforma.ai/getting-started/introduction)
 
 ## Avatar Experiences (primary product)
@@ -19,7 +19,7 @@ This file helps coding agents find canonical documentation. Prefer these URLs ov
 - [ExperienceThumbnail](https://docs.liforma.ai/avatar-experiences/experience-thumbnail) — layered CDN gallery thumbs (Svelte / React / Next / vanilla)
 - [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors
 - [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only
-- [Session Manifests](https://docs.liforma.ai/avatar-experiences/session-manifests)
+- [Session Launch](https://docs.liforma.ai/avatar-experiences/session-manifests)
 - [Browser embeds](https://docs.liforma.ai/avatar-experiences/browser-embeds) — origin allowlist mint
 - [Server sessions](https://docs.liforma.ai/avatar-experiences/server-sessions) — preferred API-key mint
 
@@ -32,9 +32,9 @@ This file helps coding agents find canonical documentation. Prefer these URLs ov
 ## HTTP API
 
 - [POST /v1/sessions](https://docs.liforma.ai/api-reference/sessions) — server mint with API key (preferred when you have a backend)
-- [POST /v1/public-sessions](https://docs.liforma.ai/api-reference/public-sessions) — browser mint with Origin allowlist (name is historical)
+- [POST /v1/browser-sessions](https://docs.liforma.ai/api-reference/browser-sessions) — browser mint with Origin allowlist
 - [Experience Catalog](https://docs.liforma.ai/api-reference/experience-catalog)
-- [Manifests](https://docs.liforma.ai/api-reference/manifests)
+- [Session Launch](https://docs.liforma.ai/api-reference/manifests)
 - [Errors](https://docs.liforma.ai/api-reference/errors)
 - [OpenAPI (sessions)](https://docs.liforma.ai/openapi/sessions.json)
 
@@ -46,11 +46,12 @@ This file helps coding agents find canonical documentation. Prefer these URLs ov
 ## Agent notes
 
 - **Install Agent Skills first:** `npx skills add LiformaLtd/agent-skills` ([repo](https://github.com/LiformaLtd/agent-skills)) — `liforma-demo`, `liforma-integrate`, and `liforma-debug` for Cursor, Claude Code, Codex, and similar agents.
-- Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/public-sessions` + Origin allowlist) for client-only embeds. The `/public-sessions` path name is historical.
+- Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/browser-sessions` + Origin allowlist) for client-only embeds.
+- Mint responses are `SessionLaunchResponse` (`{ session, launch }`) with `201` and `Cache-Control: no-store, private`. Do not parse opaque `launch`.
 - Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
 - `modeChange` payload is a bare string: `'listening' | 'speaking' | 'thinking'`.
 - `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
-- Player `close` and embed `onStateUpdate` come from `attach()` / component props, not `experience.on()`.
+- Player chrome (`startButton`, `returnUrl`, `fit`) comes from `attach()` / component props, not mint.
 - CDN script is **v2** (`/sdk/v2/client.js`).
 - npm: [`@liforma/client`](https://www.npmjs.com/package/@liforma/client)
 - Examples: https://examples.liforma.ai · https://github.com/LiformaLtd/examples.liforma.ai

@@ -16,7 +16,7 @@
 >
 	<h2>What this is</h2>
 	<p>
-		A <strong>browser embed</strong> lets the SDK mint a Session Manifest from the client. Your site
+		A <strong>browser embed</strong> lets the SDK mint a Session Launch from the client. Your site
 		sends its <code>Origin</code> header; Liforma checks that origin against your
 		<strong>allowed origins</strong> list. No API key runs in the browser.
 	</p>
@@ -68,10 +68,9 @@
 	<ol>
 		<li>Reads <code>experienceId</code> from your component</li>
 		<li>
-			Calls <code>POST /v1/public-sessions</code> with the page <code>Origin</code> header
-			(endpoint name is historical — this is the browser mint path)
+			Calls <code>POST /v1/browser-sessions</code> with the page <code>Origin</code> header
 		</li>
-		<li>Receives a Session Manifest if the origin is allowlisted</li>
+		<li>Receives a Session Launch if the origin is allowlisted</li>
 		<li>Starts the runtime — no API key on your server</li>
 	</ol>
 

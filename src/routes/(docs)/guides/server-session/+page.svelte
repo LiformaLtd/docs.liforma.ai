@@ -15,7 +15,7 @@
 >
 	<h2>Overview</h2>
 	<p>
-		Your server mints a Session Manifest with an API key. Your client embeds via
+		Your server mints a Session Launch with an API key. Your client embeds via
 		<code>sessionEndpoint</code>. Prefer this whenever you have a backend.
 	</p>
 

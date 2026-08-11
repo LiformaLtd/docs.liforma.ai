@@ -7,7 +7,7 @@
 	title="Concepts"
 	description="Core ideas behind the Liforma platform."
 	next={[
-		{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
+		{ title: 'Session Launch', href: '/avatar-experiences/session-manifests' },
 		{ title: 'Browser embeds', href: '/avatar-experiences/browser-embeds' },
 		{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
 	]}
@@ -15,12 +15,15 @@
 	<h2>The mental model</h2>
 	<pre class="diagram">Experience
     ↓
-Session Manifest
+published ExperienceRevision
+    ↓
+Session Launch
     ↓
 SDK</pre>
 	<p>
-		You configure an <strong>Experience</strong>. Each launch receives a <strong>Session
-		Manifest</strong>. The <strong>SDK</strong> runs the session.
+		You configure an <strong>Experience</strong>. Publishing freezes a revision. Each mint returns a
+		<strong>Session Launch</strong> (<code>session</code> + opaque <code>launch</code>). The
+		<strong>SDK</strong> runs the session.
 	</p>
 	<p>You integrate at the Experience level — not at tokens, HTTP routes, or player endpoints.</p>
 
@@ -43,15 +46,15 @@ SDK</pre>
 		playthrough. Sessions are short-lived and scoped.
 	</p>
 
-	<h2>Session Manifest</h2>
+	<h2>Session Launch</h2>
 	<p>
-		When a session starts, the API returns a <strong>Session Manifest</strong>: JSON that tells the
-		SDK how to run this launch — characters, transport, assets, integration rules, and a session
-		token.
+		When a session starts, the API returns a <strong>SessionLaunchResponse</strong>: a minimal
+		public <code>session</code> object plus an opaque <code>launch</code> string for the player.
+		Do not parse <code>launch</code>.
 	</p>
 	<p>
-		Most developers never inspect the manifest. The SDK consumes it automatically. See
-		<a href="/avatar-experiences/session-manifests">Session Manifests</a>.
+		Most developers never inspect the response details. The SDK consumes it automatically. See
+		<a href="/avatar-experiences/session-manifests">Session Launch</a>.
 	</p>
 
 	<h2>How sessions are authorized (mint auth)</h2>
@@ -95,9 +98,9 @@ SDK</pre>
 
 	<h2>Transport</h2>
 	<p>
-		Transport is how the SDK connects to the Liforma runtime. It is declared in the manifest and
-		<strong>hidden from integrators</strong>. You never configure HTTP routes, WebSockets, or
-		LiveKit rooms.
+		Transport is how the player connects to the Liforma runtime. It is sealed inside opaque
+		<code>launch</code> and <strong>hidden from integrators</strong>. You never configure HTTP
+		routes, WebSockets, or LiveKit rooms.
 	</p>
 
 	<h2>Catalog vs session mint</h2>
@@ -132,11 +135,10 @@ SDK</pre>
 		comes from origin allowlists, session tokens, quotas, and API keys — not ID secrecy.
 	</p>
 
-	<Callout title="Endpoint name note">
+	<Callout title="Browser mint">
 		<p>
-			The browser mint HTTP path is still named <code>POST /v1/public-sessions</code>. That name is
-			historical. Prefer the product terms <em>browser embed</em> and <em>allowed origins</em> when
-			reasoning about the integration.
+			Browser embeds call <code>POST /v1/browser-sessions</code> with the page
+			<code>Origin</code>. Configure allowed origins in the developer portal.
 		</p>
 	</Callout>
 </DocPage>

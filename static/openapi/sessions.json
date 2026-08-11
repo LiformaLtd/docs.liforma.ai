@@ -1,9 +1,9 @@
 {
 	"openapi": "3.1.0",
 	"info": {
-		"title": "Liforma Session Mint API",
-		"version": "1.1.0",
-		"description": "Server (API key) and browser (Origin allowlist) Session Manifest mint endpoints used by @liforma/client. Request schemas are generated from Zod validators in api.liforma.ai (`sessionMintRequestSchemas.ts`)."
+		"title": "Liforma Session Launch API",
+		"version": "2.0.0",
+		"description": "Server (API key) and browser (Origin allowlist) Session Launch endpoints used by @liforma/client. Public Zod schemas in api.liforma.ai (`sessionLaunchSchemas.ts`). Runtime bootstrap is an opaque signed `launch` string — not described here."
 	},
 	"servers": [
 		{
@@ -13,7 +13,7 @@
 	"paths": {
 		"/v1/sessions": {
 			"post": {
-				"summary": "Mint a Session Manifest with an API key (server-to-server)",
+				"summary": "Create a Session with an API key (server-to-server)",
 				"operationId": "createSession",
 				"security": [
 					{
@@ -31,35 +31,108 @@
 					}
 				},
 				"responses": {
-					"200": {
-						"description": "Session Manifest",
+					"201": {
+						"description": "Session Launch",
+						"headers": {
+							"Cache-Control": {
+								"schema": {
+									"type": "string",
+									"example": "no-store, private"
+								},
+								"description": "Required on every response containing launch."
+							}
+						},
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/SessionManifest"
+									"$ref": "#/components/schemas/SessionLaunchResponse"
 								}
 							}
 						}
 					},
 					"400": {
-						"description": "Invalid body"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					},
 					"401": {
-						"description": "Invalid API key"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					},
 					"403": {
-						"description": "API key cannot access experience"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					},
 					"404": {
-						"description": "Unknown experience"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					}
 				}
 			}
 		},
-		"/v1/public-sessions": {
+		"/v1/browser-sessions": {
 			"post": {
-				"summary": "Mint a Session Manifest from the browser (Origin allowlist; path name is historical)",
-				"operationId": "createPublicSession",
+				"summary": "Create a Session from the browser (Origin allowlist)",
+				"operationId": "createBrowserSession",
 				"parameters": [
 					{
 						"name": "Origin",
@@ -76,30 +149,87 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/PublicSessionRequest"
+								"$ref": "#/components/schemas/BrowserSessionRequest"
 							}
 						}
 					}
 				},
 				"responses": {
-					"200": {
-						"description": "Session Manifest",
+					"201": {
+						"description": "Session Launch",
+						"headers": {
+							"Cache-Control": {
+								"schema": {
+									"type": "string",
+									"example": "no-store, private"
+								},
+								"description": "Required on every response containing launch."
+							}
+						},
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/SessionManifest"
+									"$ref": "#/components/schemas/SessionLaunchResponse"
 								}
 							}
 						}
 					},
 					"400": {
-						"description": "Invalid body"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					},
 					"403": {
-						"description": "Missing Origin, browser embeds disabled, or origin not allowlisted"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					},
 					"404": {
-						"description": "Unknown experience"
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										},
+										"code": {
+											"type": "string"
+										}
+									},
+									"additionalProperties": true
+								}
+							}
+						}
 					}
 				}
 			}
@@ -114,89 +244,205 @@
 			}
 		},
 		"schemas": {
-			"StartButton": {
+			"SessionCapabilities": {
 				"type": "object",
 				"properties": {
-					"label": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 80
+					"avatar": {
+						"type": "boolean"
 					},
-					"ariaLabel": {
-						"type": "string",
-						"minLength": 1,
-						"maxLength": 120
+					"speechInput": {
+						"type": "boolean"
 					},
-					"placement": {
+					"speechOutput": {
+						"type": "boolean"
+					},
+					"tools": {
+						"type": "boolean"
+					},
+					"externalAudio": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"avatar",
+					"speechInput",
+					"speechOutput",
+					"tools",
+					"externalAudio"
+				],
+				"additionalProperties": false,
+				"description": "Session capability flags exposed to integrators."
+			},
+			"Session": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"experienceId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"experienceRevisionId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"expiresAt": {
+						"type": "string",
+						"minLength": 1
+					},
+					"locale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
+					"mode": {
 						"type": "string",
 						"enum": [
-							"center",
-							"bottom-center",
-							"bottom-left",
-							"bottom-right"
+							"conversation",
+							"presenter"
 						]
 					},
-					"variant": {
-						"type": "string",
-						"enum": [
-							"primary",
-							"secondary",
-							"minimal"
-						]
-					},
-					"appearance": {
+					"capabilities": {
 						"type": "object",
 						"properties": {
-							"backgroundColor": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 64
+							"avatar": {
+								"type": "boolean"
 							},
-							"textColor": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 64
+							"speechInput": {
+								"type": "boolean"
 							},
-							"borderColor": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 64
+							"speechOutput": {
+								"type": "boolean"
 							},
-							"borderRadiusPx": {
-								"type": "number",
-								"minimum": 0,
-								"maximum": 999
+							"tools": {
+								"type": "boolean"
 							},
-							"size": {
-								"type": "string",
-								"enum": [
-									"small",
-									"medium",
-									"large"
-								]
-							},
-							"shadow": {
-								"type": "string",
-								"enum": [
-									"none",
-									"soft",
-									"strong"
-								]
+							"externalAudio": {
+								"type": "boolean"
 							}
 						},
+						"required": [
+							"avatar",
+							"speechInput",
+							"speechOutput",
+							"tools",
+							"externalAudio"
+						],
 						"additionalProperties": false
 					}
 				},
+				"required": [
+					"id",
+					"experienceId",
+					"experienceRevisionId",
+					"expiresAt",
+					"locale",
+					"mode",
+					"capabilities"
+				],
 				"additionalProperties": false,
-				"description": "Optional start-button chrome for the player shell."
+				"description": "Stable public session facts. Does not include transport, pipeline, renderer, or credentials."
 			},
-			"PublicSessionRequest": {
+			"SessionLaunchResponse": {
+				"type": "object",
+				"properties": {
+					"session": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"minLength": 1
+							},
+							"experienceId": {
+								"type": "string",
+								"minLength": 1
+							},
+							"experienceRevisionId": {
+								"type": "string",
+								"minLength": 1
+							},
+							"expiresAt": {
+								"type": "string",
+								"minLength": 1
+							},
+							"locale": {
+								"type": "string",
+								"minLength": 2,
+								"maxLength": 32
+							},
+							"mode": {
+								"type": "string",
+								"enum": [
+									"conversation",
+									"presenter"
+								]
+							},
+							"capabilities": {
+								"type": "object",
+								"properties": {
+									"avatar": {
+										"type": "boolean"
+									},
+									"speechInput": {
+										"type": "boolean"
+									},
+									"speechOutput": {
+										"type": "boolean"
+									},
+									"tools": {
+										"type": "boolean"
+									},
+									"externalAudio": {
+										"type": "boolean"
+									}
+								},
+								"required": [
+									"avatar",
+									"speechInput",
+									"speechOutput",
+									"tools",
+									"externalAudio"
+								],
+								"additionalProperties": false
+							}
+						},
+						"required": [
+							"id",
+							"experienceId",
+							"experienceRevisionId",
+							"expiresAt",
+							"locale",
+							"mode",
+							"capabilities"
+						],
+						"additionalProperties": false
+					},
+					"launch": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": [
+					"session",
+					"launch"
+				],
+				"additionalProperties": false,
+				"description": "Public session plus opaque signed launch bootstrap for @liforma/client / player.liforma.ai. Integrators may transport `launch` but must not depend on its contents."
+			},
+			"BrowserSessionRequest": {
 				"type": "object",
 				"properties": {
 					"experienceId": {
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"locale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
 					},
 					"language": {
 						"type": "string",
@@ -212,14 +458,6 @@
 							"presenter"
 						]
 					},
-					"responseMode": {
-						"type": "string",
-						"enum": [
-							"managed",
-							"custom",
-							"manual"
-						]
-					},
 					"speechInputMode": {
 						"type": "string",
 						"enum": [
@@ -228,22 +466,8 @@
 							"off"
 						]
 					},
-					"startButton": {
-						"$ref": "#/components/schemas/StartButton"
-					},
 					"speechOnly": {
 						"type": "boolean"
-					},
-					"integration": {
-						"type": "object",
-						"properties": {
-							"returnUrl": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 2048
-							}
-						},
-						"additionalProperties": false
 					}
 				},
 				"required": [
@@ -260,6 +484,11 @@
 						"minLength": 1,
 						"maxLength": 128
 					},
+					"locale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
 					"language": {
 						"type": "string",
 						"enum": [
@@ -274,14 +503,6 @@
 							"presenter"
 						]
 					},
-					"responseMode": {
-						"type": "string",
-						"enum": [
-							"managed",
-							"custom",
-							"manual"
-						]
-					},
 					"speechInputMode": {
 						"type": "string",
 						"enum": [
@@ -290,59 +511,8 @@
 							"off"
 						]
 					},
-					"startButton": {
-						"$ref": "#/components/schemas/StartButton"
-					},
 					"speechOnly": {
 						"type": "boolean"
-					},
-					"integration": {
-						"type": "object",
-						"properties": {
-							"returnUrl": {
-								"type": "string",
-								"minLength": 1,
-								"maxLength": 2048
-							}
-						},
-						"additionalProperties": false
-					},
-					"closeButton": {
-						"type": "object",
-						"properties": {
-							"visible": {
-								"type": "boolean"
-							},
-							"style": {
-								"type": "string",
-								"enum": [
-									"icon",
-									"text"
-								]
-							},
-							"label": {
-								"anyOf": [
-									{
-										"type": "string",
-										"maxLength": 32
-									},
-									{
-										"type": "null"
-									}
-								]
-							},
-							"position": {
-								"type": "string",
-								"enum": [
-									"top-left",
-									"top-right",
-									"top-center",
-									"bottom-left",
-									"bottom-right"
-								]
-							}
-						},
-						"additionalProperties": false
 					},
 					"processorId": {
 						"type": "string",
@@ -354,27 +524,7 @@
 					"experienceId"
 				],
 				"additionalProperties": false,
-				"description": "Server mint body — public fields plus closeButton and processorId."
-			},
-			"SessionManifest": {
-				"type": "object",
-				"description": "Runtime configuration returned to @liforma/client. Includes sessionId, sessionToken, experience, characters, transport, and related fields. Full shape is owned by the SDK Session Manifest schema.",
-				"additionalProperties": true,
-				"properties": {
-					"schemaVersion": {
-						"type": "integer"
-					},
-					"sessionId": {
-						"type": "string"
-					},
-					"sessionToken": {
-						"type": "string"
-					},
-					"experience": {
-						"type": "object",
-						"additionalProperties": true
-					}
-				}
+				"description": "Server mint body — browser fields plus optional processorId."
 			}
 		}
 	}

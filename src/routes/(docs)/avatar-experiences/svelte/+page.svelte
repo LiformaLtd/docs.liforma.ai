@@ -82,7 +82,7 @@
 	<h3>Readiness</h3>
 	<ul>
 		<li>
-			<code>onReady</code> and <code>ready()</code> mean the manifest is resolved and the player is
+			<code>onReady</code> and <code>ready()</code> mean the Session Launch is resolved and the player is
 			attached.
 		</li>
 		<li>
@@ -112,27 +112,22 @@
 			<tr>
 				<td><code>experienceId</code></td>
 				<td><code>string</code></td>
-				<td>Experience ID. SDK mints via <code>/v1/public-sessions</code> (browser mint).</td>
+				<td>Experience ID. SDK mints via <code>/v1/browser-sessions</code> (browser mint).</td>
 			</tr>
 			<tr>
-				<td><code>manifest</code></td>
-				<td><code>SessionManifest</code></td>
-				<td>Pre-minted manifest from your backend. See SSR warning below.</td>
+				<td><code>launch</code></td>
+				<td><code>string</code></td>
+				<td>Advanced: client-fetched opaque launch. Prefer <code>sessionEndpoint</code>.</td>
 			</tr>
 			<tr>
 				<td><code>sessionEndpoint</code></td>
 				<td><code>string</code></td>
-				<td>Same-origin route that mints a manifest. For server-session embeds.</td>
+				<td>Same-origin route that returns SessionLaunchResponse. For server-session embeds.</td>
 			</tr>
 			<tr>
-				<td><code>acceptCredentialExposure</code></td>
-				<td><code>boolean</code></td>
-				<td>Required when passing a manifest that includes <code>sessionToken</code>.</td>
-			</tr>
-			<tr>
-				<td><code>language</code></td>
-				<td><code>'en' | 'es'</code></td>
-				<td>Session language override.</td>
+				<td><code>locale</code></td>
+				<td><code>string</code></td>
+				<td>BCP 47 locale override (e.g. <code>en-GB</code>).</td>
 			</tr>
 			<tr>
 				<td><code>mode</code></td>
@@ -197,7 +192,7 @@
 			<tr>
 				<td><code>returnUrl</code></td>
 				<td><code>string</code></td>
-				<td>Fallback close destination when the manifest omits one.</td>
+				<td>Close destination URL (player / attach chrome — does not remint).</td>
 			</tr>
 		</tbody>
 	</table>
@@ -300,19 +295,17 @@
 
 	<h2>Reactive restart behavior</h2>
 	<p>
-		Changing launch-defining props restarts the owned session: <code>experienceId</code>,
-		<code>sessionEndpoint</code>, <code>manifest</code>, <code>acceptCredentialExposure</code>,
-		<code>language</code>, <code>mode</code>, <code>responseMode</code>,
-		<code>speechInputMode</code>, <code>startButton</code>, <code>conversationProcessor</code>,
-		<code>speechOnly</code>, <code>fit</code>, <code>avatarId</code>, <code>locationId</code>,
-		<code>embedBaseUrl</code>, or <code>debug</code>. You do not need a
+		Changing <strong>developer-intent</strong> props restarts the owned session:
+		<code>experienceId</code>, <code>sessionEndpoint</code>, <code>launch</code>,
+		<code>locale</code>, <code>mode</code>, <code>speechInputMode</code>,
+		<code>conversationProcessor</code>, <code>speechOnly</code>, <code>avatarId</code>,
+		<code>locationId</code>, <code>embedBaseUrl</code>, or <code>debug</code>. You do not need a
 		<code>{`{#key ...}`}</code> block.
 	</p>
 	<p>
-		Callback-only changes do not restart the session; the component calls the latest callback.
-		Structurally equivalent <code>startButton</code> objects also do not restart. Keep
-		<code>startButton</code> stable where practical, and note that changing the
-		<code>conversationProcessor</code> function reference does restart.
+		<strong>Presentation</strong> props (<code>fit</code>, <code>startButton</code>,
+		<code>closeButton</code>, <code>returnUrl</code>, <code>ui</code>) update the live player
+		without reminting. Callback-only changes do not restart the session.
 	</p>
 
 	<h2>Server-session embed</h2>
@@ -353,16 +346,16 @@
 
 	<h2>SSR safety</h2>
 	<p>
-		<strong>Do not</strong> pass credential-bearing manifests through server load functions into page
-		data. The <code>sessionToken</code> would be embedded in HTML. Prefer <code>experienceId</code>
-		for browser embeds or a same-origin <code>sessionEndpoint</code>.
+		<strong>Do not</strong> put opaque <code>launch</code> through server load functions into page
+		data — it would be embedded in HTML. Prefer <code>experienceId</code> for browser embeds or a
+		same-origin <code>sessionEndpoint</code>.
 	</p>
 
 	<h2>Close behavior</h2>
 	<p>
-		Without <code>onClose</code>, the component follows the manifest return URL, then the
-		<code>returnUrl</code> prop, with <code>/meet</code> as its final fallback. Supplying
-		<code>onClose</code> disables that automatic navigation so your app can handle the event.
+		Without <code>onClose</code>, the component follows the <code>returnUrl</code> prop (player /
+		attach chrome). Supplying <code>onClose</code> disables automatic navigation so your app can
+		handle the event.
 	</p>
 
 	<h2>Deprecated alias</h2>

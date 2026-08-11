@@ -68,9 +68,9 @@ export function Demo() {
 			</div>
 
 			<p class="hero-note">
-				Same component surface in Svelte, React, and Next.js. Liforma starts a session, fetches a
-				Session Manifest, connects to the runtime, and renders your avatar — audio, speech,
-				animation, and lifecycle included. Coding agents: start at
+				Same component surface in Svelte, React, and Next.js. Liforma mints a Session Launch,
+				starts the player runtime, and renders your avatar — audio, speech, animation, and
+				lifecycle included. Coding agents: start at
 				<a href="/llms.txt">llms.txt</a>.
 			</p>
 		</div>
@@ -111,8 +111,8 @@ export function Demo() {
 				</div>
 				<span class="flow-arrow" aria-hidden="true">↓</span>
 				<div class="flow-step">
-					<span class="flow-label">Session Manifest</span>
-					<p>Per-launch runtime configuration</p>
+					<span class="flow-label">Session Launch</span>
+					<p>Public session facts plus opaque launch</p>
 				</div>
 				<span class="flow-arrow" aria-hidden="true">↓</span>
 				<div class="flow-step">

@@ -8,7 +8,7 @@
 	title="Customise Characters"
 	description="Configure avatars, voices, and agents in your experience."
 	next={[
-		{ title: 'Session Manifests', href: '/avatar-experiences/session-manifests' },
+		{ title: 'Session Launch', href: '/avatar-experiences/session-manifests' },
 		{ title: 'Avatar Experiences', href: '/avatar-experiences/overview' }
 	]}
 >
@@ -22,14 +22,14 @@
 	</ul>
 
 	<h2>In the manifest</h2>
-	<p>Characters appear in the Session Manifest:</p>
+	<p>Characters are wired inside the private runtime bootstrap (opaque <code>launch</code>):</p>
 	<CodeBlock code={snippets.characterManifestSnippet} lang="json" />
 
 	<h2>Authoring</h2>
 	<p>
 		Create and edit characters in Experience Studio on
 		<a href="https://app.liforma.ai">app.liforma.ai</a>. Published experiences expose character
-		fields on the Session Manifest consumed by <code>@liforma/client</code>.
+		fields inside opaque <code>launch</code> consumed by the player — not public Session fields.
 	</p>
 
 	<h2>Multi-character experiences</h2>

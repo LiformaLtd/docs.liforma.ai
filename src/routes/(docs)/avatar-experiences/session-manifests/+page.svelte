@@ -1,41 +1,65 @@
 <script lang="ts">
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import DocPage from '$lib/components/DocPage.svelte';
-	import { snippets } from '$lib/snippets';
 </script>
 
 <DocPage
-	title="Session Manifests"
-	description="The per-launch contract between the API and the SDK."
+	title="Session Launch"
+	description="The per-launch public contract between the API and the SDK."
 	next={[
-		{ title: 'Public Sessions API', href: '/api-reference/public-sessions' },
-		{ title: 'Manifests API', href: '/api-reference/manifests' },
+		{ title: 'Browser Sessions API', href: '/api-reference/browser-sessions' },
+		{ title: 'Session Launch API', href: '/api-reference/manifests' },
 		{ title: 'Server sessions', href: '/avatar-experiences/server-sessions' }
 	]}
 >
-	<h2>What is a Session Manifest?</h2>
+	<h2>What is a Session Launch?</h2>
 	<p>
-		A Session Manifest is a JSON document returned when a session is minted. It tells the SDK
-		everything needed to run this launch:
+		Both mint endpoints return a <strong>SessionLaunchResponse</strong> — not a full runtime
+		configuration document:
 	</p>
 	<ul>
-		<li>Which experience and characters are active</li>
-		<li>How to connect (transport)</li>
-		<li>Where to load avatar assets (CDN)</li>
-		<li>Integration rules (return URL, close button)</li>
-		<li>Session lifetime and authorisation token</li>
+		<li>
+			<code>session</code> — minimal public facts (id, experience, revision, expiry, locale, mode,
+			capabilities)
+		</li>
+		<li>
+			<code>launch</code> — asymmetrically signed opaque bootstrap for
+			<code>@liforma/client</code> / <code>player.liforma.ai</code>
+		</li>
 	</ul>
 
-	<h2>Do I need to read it?</h2>
+	<h2>Do I need to parse <code>launch</code>?</h2>
 	<p>
-		<strong>Usually no.</strong> The SDK consumes the manifest automatically. Inspect it for debugging,
-		advanced integrations, or server-side minting.
+		<strong>No.</strong> The SDK and player consume <code>launch</code> automatically. Do not parse
+		it — its structure is unsupported and may change. Opaque means contract boundary, not a promise
+		that page JavaScript cannot inspect the bytes.
 	</p>
 
-	<h2>Example</h2>
-	<CodeBlock code={snippets.manifestExample} lang="json" filename="manifest.json" />
+	<h2>Example response</h2>
+	<CodeBlock
+		code={`{
+  "session": {
+    "id": "sess_…",
+    "experienceId": "exp_…",
+    "experienceRevisionId": "…",
+    "expiresAt": "2026-08-11T12:30:00.000Z",
+    "locale": "en-GB",
+    "mode": "conversation",
+    "capabilities": {
+      "avatar": true,
+      "speechInput": true,
+      "speechOutput": true,
+      "tools": false,
+      "externalAudio": false
+    }
+  },
+  "launch": "eyJ…"
+}`}
+		lang="json"
+		filename="session-launch.json"
+	/>
 
-	<h2>Key fields</h2>
+	<h2>Public <code>session</code> fields</h2>
 	<table>
 		<thead>
 			<tr>
@@ -45,41 +69,44 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><code>schemaVersion</code></td>
-				<td>Manifest version for SDK negotiation</td>
+				<td><code>id</code></td>
+				<td>Session id (<code>sess_…</code>)</td>
 			</tr>
 			<tr>
-				<td><code>sessionToken</code></td>
-				<td>Short-lived JWT for runtime calls (internal to SDK)</td>
+				<td><code>experienceId</code></td>
+				<td>Experience being run</td>
 			</tr>
 			<tr>
-				<td><code>transport</code></td>
-				<td>How the SDK connects — <code>http</code>, <code>livekit</code>, etc.</td>
+				<td><code>experienceRevisionId</code></td>
+				<td>Published revision this session runs</td>
 			</tr>
 			<tr>
-				<td><code>runtime</code></td>
-				<td>CDN base URL, input mode, renderer type</td>
+				<td><code>expiresAt</code></td>
+				<td>ISO 8601 expiry</td>
 			</tr>
 			<tr>
-				<td><code>characters</code></td>
-				<td>Avatar, voice, STT language, agent per character</td>
+				<td><code>locale</code></td>
+				<td>BCP 47 locale</td>
 			</tr>
 			<tr>
-				<td><code>integration</code></td>
-				<td>Return URL and close navigation behaviour</td>
+				<td><code>mode</code></td>
+				<td><code>conversation</code> or <code>presenter</code></td>
 			</tr>
 			<tr>
-				<td><code>state</code></td>
-				<td>Initial world state snapshot (updates via events)</td>
-			</tr>
-			<tr>
-				<td><code>tools</code></td>
-				<td>External capabilities available to characters</td>
+				<td><code>capabilities</code></td>
+				<td>Avatar, speech I/O, tools, external audio flags</td>
 			</tr>
 		</tbody>
 	</table>
 
-	<h2>How manifests are minted</h2>
+	<p>
+		Transport, pipeline, renderer, characters, and credentials live only inside opaque
+		<code>launch</code> (private runtime bootstrap). Player chrome
+		(<code>startButton</code>, <code>returnUrl</code>, …) is configured via SDK
+		<code>attach</code>, not mint.
+	</p>
+
+	<h2>How launches are minted</h2>
 	<table>
 		<thead>
 			<tr>
@@ -89,7 +116,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><code>POST /v1/public-sessions</code></td>
+				<td><code>POST /v1/browser-sessions</code></td>
 				<td>Origin allowlist + browser embeds enabled</td>
 			</tr>
 			<tr>
@@ -98,5 +125,8 @@
 			</tr>
 		</tbody>
 	</table>
-	<p>Both return the same manifest shape. Only the minting path differs.</p>
+	<p>
+		Both return <code>201</code> with the same <code>SessionLaunchResponse</code> shape and
+		<code>Cache-Control: no-store, private</code>.
+	</p>
 </DocPage>

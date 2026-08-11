@@ -40,14 +40,14 @@
 	<p>Liforma is intentionally simple at the surface and powerful underneath.</p>
 	<ul>
 		<li><strong>Experience-first</strong> — you integrate experiences, not tokens or HTTP routes</li>
-		<li><strong>Manifest-driven</strong> — a Session Manifest tells the SDK how to run each launch</li>
-		<li><strong>Hidden complexity</strong> — transport, STT, TTS, and avatar rendering stay inside the SDK</li>
+		<li><strong>Launch-driven</strong> — a Session Launch (<code>session</code> + opaque <code>launch</code>) starts each runtime</li>
+		<li><strong>Hidden complexity</strong> — transport, STT, TTS, and avatar rendering stay inside the player</li>
 		<li><strong>Avatar-native</strong> — animation is first-class, not a bolt-on to voice</li>
 	</ul>
 
 	<h2>How you mint sessions</h2>
 	<p>
-		Choose how your app obtains a Session Manifest — with an API key on your server, or with
+		Choose how your app obtains a Session Launch — with an API key on your server, or with
 		allowed origins from the browser:
 	</p>
 	<ul>
