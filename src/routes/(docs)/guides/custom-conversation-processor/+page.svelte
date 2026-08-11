@@ -61,8 +61,8 @@
 		managed LLM. Handle retries or speak a fallback line in your handler.
 	</p>
 	<CodeBlock
-		code={`experience.on('conversationProcessorError', ({ utteranceId, message }) => {
-  showErrorBanner(message);
+		code={`experience.on('conversationProcessorError', (evt) => {
+  showErrorBanner(evt.data.message);
 });
 
 // speak({ behavior: 'interrupt' }) aborts an in-flight processor via signal.`}

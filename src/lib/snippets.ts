@@ -221,8 +221,8 @@ const experience = await Experience.startSession({
   speechInputMode: 'auto'
 });
 
-experience.on('message', (message) => {
-  console.log(message.role, message.text, message.status);
+experience.on('message', (evt) => {
+  console.log(evt.data.role, evt.data.text, evt.data.status);
 });
 
 await experience.attach({ container: '#voice-shell' });`,
@@ -858,8 +858,8 @@ console.log(utterance.utteranceId, utterance.text);`,
 	jsConversationGetters: `const history = experience.getConversation();
 const lastTurn = experience.getLastTurn();
 
-experience.on('conversationUpdate', (conversation) => {
-  console.log('History length', conversation.length);
+experience.on('conversationUpdate', (evt) => {
+  console.log('History length', evt.data.length);
 });`,
 
 	guidedPracticeTurnLoop: `async function runPracticeTurn(line) {
@@ -930,7 +930,8 @@ experience.on('started', async () => {
 
 await experience.attach({ container: '#avatar' });`,
 
-	jsPartialTranscript: `experience.on('userTranscript', (update) => {
+	jsPartialTranscript: `experience.on('userTranscript', (evt) => {
+  const update = evt.data;
   if (!update.isFinal) {
     liveCaptionEl.textContent = update.text;
     return;
@@ -958,8 +959,8 @@ experience.on('userSpeechEnded', () => micIndicator.classList.remove('active'));
   }
 });
 
-experience.on('conversationProcessorError', ({ utteranceId, message }) => {
-  console.error('Processor failed', utteranceId, message);
+experience.on('conversationProcessorError', (evt) => {
+  console.error('Processor failed', evt.data.utteranceId, evt.data.message);
 });
 
 await experience.attach({ container: '#avatar' });`,

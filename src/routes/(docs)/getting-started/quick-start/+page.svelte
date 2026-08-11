@@ -106,8 +106,9 @@ npm install
 	/>
 	<p>
 		That opens the gallery on <code>http://localhost:4000</code> and runnable demos on
-		<code>4001</code>–<code>4004</code> (basic embed, Spanish Tutor, guided practice, speak
-		playground). Framework modes share those ports:
+		<code>4001</code>–<code>4010</code>. See the
+		<a href={externalLinks.examples} target="_blank" rel="noopener noreferrer">examples gallery</a>
+		for the current list. Framework modes share those ports:
 	</p>
 	<ul>
 		<li><code>./start</code> or <code>./start vanilla</code> — HTML examples</li>
@@ -141,7 +142,7 @@ npm install
 		<li><strong>Receives a Session Launch</strong> — public <code>session</code> plus opaque <code>launch</code></li>
 		<li><strong>Starts the player</strong> — transport and pipeline stay inside <code>launch</code>, hidden from you</li>
 		<li><strong>Requests microphone access</strong> — when speech input is enabled</li>
-		<li><strong>Runs speech recognition</strong> — browser STT in the client</li>
+		<li><strong>Runs speech recognition</strong> — when speech input is enabled</li>
 		<li><strong>Runs the AI response loop</strong> — language model, tools, and state updates</li>
 		<li><strong>Synthesises speech</strong> — natural TTS</li>
 		<li><strong>Renders the avatar</strong> — lip-sync, expressions, and animation</li>

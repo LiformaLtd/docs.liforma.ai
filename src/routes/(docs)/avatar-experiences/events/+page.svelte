@@ -59,20 +59,20 @@ await experience.attach({ container });
 	</p>
 	<CodeBlock code={snippets.jsPartialTranscript} lang="javascript" />
 	<CodeBlock
-		code={`experience.on('characterSpeechStarted', (event) => {
-  console.log('Speaking', event.characterId, event.text, event.source);
+		code={`experience.on('characterSpeechStarted', (evt) => {
+  console.log('Speaking', evt.data.characterId, evt.data.text, evt.data.source);
 });
 
-experience.on('characterSpeechEnded', (event) => {
-  console.log('Speech ended', event.reason, event.durationMs);
+experience.on('characterSpeechEnded', (evt) => {
+  console.log('Speech ended', evt.data.reason, evt.data.durationMs);
 });
 
-experience.on('conversationUpdate', (conversation) => {
-  console.log('History length', conversation.length);
+experience.on('conversationUpdate', (evt) => {
+  console.log('History length', evt.data.length);
 });
 
-experience.on('listeningState', (listening) => {
-  console.log('Mic gate', listening);
+experience.on('listeningState', (evt) => {
+  console.log('Mic gate', evt.data);
 });`}
 		lang="javascript"
 	/>
@@ -84,8 +84,8 @@ experience.on('listeningState', (listening) => {
 		fallback.
 	</p>
 	<CodeBlock
-		code={`experience.on('conversationProcessorError', ({ utteranceId, message }) => {
-  console.error('Processor failed for', utteranceId, message);
+		code={`experience.on('conversationProcessorError', (evt) => {
+  console.error('Processor failed for', evt.data.utteranceId, evt.data.message);
 });`}
 		lang="javascript"
 	/>

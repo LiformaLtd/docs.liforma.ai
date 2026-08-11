@@ -63,7 +63,7 @@
 		</tbody>
 	</table>
 
-	<h2>Common 403 causes (public sessions)</h2>
+	<h2>Common 403 causes (browser sessions)</h2>
 	<ul>
 		<li><code>Origin</code> header missing — browser must send origin on cross-origin requests</li>
 		<li>Origin not on experience allowlist</li>

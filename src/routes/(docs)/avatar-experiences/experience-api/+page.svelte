@@ -159,8 +159,8 @@
   }
 });
 
-experience.on('started', async ({ mode }) => {
-  if (mode === 'presenter') {
+experience.on('started', async (evt) => {
+  if (evt.data.mode === 'presenter') {
     await experience.speech.speak({ text: 'Welcome to the lesson.' });
   }
 });
