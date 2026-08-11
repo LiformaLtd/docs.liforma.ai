@@ -24,6 +24,7 @@
 	<CodeBlock
 		code={`POST https://api.liforma.ai/v1/sessions
 Authorization: Bearer YOUR_API_KEY
+Idempotency-Key: optional-unique-key
 Content-Type: application/json
 
 {
@@ -44,8 +45,13 @@ Content-Type: application/json
 
 	<h3>Authentication</h3>
 	<p>
-		<code>Authorization: Bearer &lt;developer_api_key&gt;</code>. Never expose API keys to the
-		browser.
+		<code>Authorization: Bearer &lt;developer_api_key&gt;</code> (
+		<code>lfm_test_…</code> or <code>lfm_live_…</code>; requires scope
+		<code>sessions:create</code>). Never expose API keys to the browser.
+	</p>
+	<p>
+		Optional <code>Idempotency-Key</code>: same key + same body replays the prior launch; same key +
+		different body → <code>409 IDEMPOTENCY_CONFLICT</code>.
 	</p>
 
 	<h3>Parameters</h3>
@@ -118,4 +124,17 @@ Content-Type: application/json
 
 	<h3>Example</h3>
 	<CodeBlock code={snippets.sessionsCurl} lang="bash" />
+
+	<h2>GET /v1/sessions/{'{sessionId}'}</h2>
+	<p>
+		Read a persisted runtime session (API key, scope <code>sessions:read</code>). Returns
+		<code>status</code>, timestamps, and stub <code>usage: {'{ seconds: 0 }'}</code> until metering
+		ships.
+	</p>
+
+	<h2>POST /v1/sessions/{'{sessionId}'}/end</h2>
+	<p>
+		Mark a session ended (API key, scope <code>sessions:create</code>). Sets
+		<code>status: ended</code> and <code>endedAt</code>.
+	</p>
 </DocPage>

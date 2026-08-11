@@ -23,7 +23,7 @@
 	<ul>
 		<li><code>Conversation.startSession</code> → <code>Experience.startSession</code></li>
 		<li><code>agentId</code> → <code>experienceId</code></li>
-		<li><code>onMessage</code> / <code>onModeChange</code> → <code>experience.on('message')</code> / <code>on('modeChange')</code></li>
+		<li><code>onMessage</code> / <code>onModeChange</code> → <code>experience.on('message')</code> / <code>on('activityChange')</code> (envelope <code>.data</code>)</li>
 		<li><code>endSession()</code> → <code>end()</code></li>
 		<li><code>elevenlabs-convai</code> → <code>liforma-convai</code> or <code>liforma-experience</code></li>
 	</ul>
@@ -100,7 +100,7 @@ const conversation = await Conversation.startSession({
 			</tr>
 			<tr>
 				<td><code>onModeChange</code></td>
-				<td><code>on('modeChange')</code></td>
+				<td><code>on('activityChange')</code> (envelope <code>.data</code>)</td>
 			</tr>
 			<tr>
 				<td><code>endSession()</code></td>

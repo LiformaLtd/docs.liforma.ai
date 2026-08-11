@@ -46,7 +46,7 @@
 	<h2>Callbacks</h2>
 	<p>
 		Use Svelte 5 callback props for session events. Core callbacks include <code>onReady</code>,
-		<code>onStarted</code>, <code>onUserTranscript</code>, <code>onStateUpdate</code>,
+		<code>onStarted</code>, <code>onUserTranscript</code>, <code>onPlayerStatusChange</code>,
 		<code>onClose</code>, and <code>onError</code>.
 	</p>
 	<CodeBlock code={snippets.svelteCallbacks} lang="svelte" filename="App.svelte" />

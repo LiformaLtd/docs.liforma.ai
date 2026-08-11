@@ -28,7 +28,7 @@
 	<h2>Session setup</h2>
 	<p>
 		Pass <code>conversationProcessor</code> on <code>Experience.startSession()</code>. The SDK mints a
-		session with <code>responseMode: 'custom'</code> and never serializes your function to the API.
+		session with custom response ownership and never serializes your function to the API.
 		Typical pairing: <code>mode: 'conversation'</code> and <code>speechInputMode: 'auto'</code>.
 	</p>
 	<CodeBlock code={snippets.jsConversationProcessor} lang="javascript" />

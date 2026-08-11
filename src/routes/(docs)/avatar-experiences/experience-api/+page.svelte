@@ -77,8 +77,8 @@
 				<td><code>conversationProcessor</code></td>
 				<td>Browser function</td>
 				<td>
-					Replace the managed LLM with your own logic. The SDK mints
-					<code>responseMode: 'custom'</code> and never serializes the function. See
+					Replace the managed LLM with your own logic. The SDK derives custom response
+					ownership internally and never serializes the function. See
 					<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
 				</td>
 			</tr>
@@ -123,9 +123,8 @@
 		and <code>manual</code> input.
 	</p>
 	<p>
-		Do not pass <code>responseMode</code> directly for browser processors — supply
-		<code>conversationProcessor</code> instead. Registered server processors (opaque
-		<code>processorId</code>) are a separate upcoming capability.
+		Supply <code>conversationProcessor</code> for browser-owned responses. Registered server
+		processors (opaque <code>processorId</code>) are a separate upcoming capability.
 	</p>
 
 	<h2>Player-owned startup</h2>

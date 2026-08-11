@@ -28,12 +28,12 @@
     "expiresAt": "2026-08-11T12:30:00.000Z",
     "locale": "en-GB",
     "mode": "conversation",
+    "status": "active",
     "capabilities": {
-      "avatar": true,
-      "speechInput": true,
-      "speechOutput": true,
-      "tools": false,
-      "externalAudio": false
+      "speech": { "input": true, "output": true, "externalAudio": false },
+      "conversation": { "managed": true },
+      "avatar": { "enabled": true },
+      "tools": { "enabled": false }
     }
   },
   "launch": "eyJ…"

@@ -46,12 +46,12 @@
     "locale": "en-GB",
     "secondaryLocale": "fr-FR",
     "mode": "conversation",
+    "status": "active",
     "capabilities": {
-      "avatar": true,
-      "speechInput": true,
-      "speechOutput": true,
-      "tools": false,
-      "externalAudio": false
+      "speech": { "input": true, "output": true, "externalAudio": false },
+      "conversation": { "managed": true },
+      "avatar": { "enabled": true },
+      "tools": { "enabled": false }
     }
   },
   "launch": "eyJ…"

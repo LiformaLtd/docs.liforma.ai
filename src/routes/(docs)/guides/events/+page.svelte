@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<td>Mic / speaker indicator</td>
-				<td><code>modeChange</code> (bare <code>'listening' | 'speaking' | 'thinking'</code>)</td>
+				<td><code>activityChange</code> (envelope <code>.data</code>: <code>'idle' | 'listening' | 'speaking' | 'thinking'</code>)</td>
 			</tr>
 			<tr>
 				<td>Partial live captions</td>
@@ -42,7 +42,7 @@
 			</tr>
 			<tr>
 				<td>Player embed lifecycle</td>
-				<td><code>attach(&#123; onStateUpdate &#125;)</code></td>
+				<td><code>attach(&#123; onPlayerStatusChange &#125;)</code></td>
 			</tr>
 			<tr>
 				<td>Handle user closing the player</td>

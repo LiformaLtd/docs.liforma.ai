@@ -237,19 +237,19 @@ const experience = await Experience.startSession({
   experienceId: '${DEMO_EXPERIENCE_ID}'
 });
 
-experience.on('message', (message) => {
-  // ConversationMessage: role, text, status ('final'), source, …
-  console.log(message.role, message.text, message.status);
+experience.on('message', (evt) => {
+  // ExperienceEventEnvelope<data: ConversationMessage>
+  console.log(evt.data.role, evt.data.text, evt.data.status);
 });
 
-experience.on('modeChange', (mode) => {
-  // 'listening' | 'speaking' | 'thinking'
-  console.log('mode:', mode);
+experience.on('activityChange', (evt) => {
+  // evt.data: 'idle' | 'listening' | 'thinking' | 'speaking'
+  console.log('activity:', evt.data);
 });
 
 const player = await experience.attach({
   container: '#avatar',
-  onStateUpdate: (state) => console.log('Player embed state', state)
+  onPlayerStatusChange: (status) => console.log('Player status', status)
 });
 
 player.on('close', ({ reason }) => {

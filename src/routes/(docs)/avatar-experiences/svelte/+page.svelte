@@ -154,11 +154,6 @@
 				<td>Conversation or presenter behavior.</td>
 			</tr>
 			<tr>
-				<td><code>responseMode</code></td>
-				<td><code>ResponseMode</code></td>
-				<td>Deprecated; response ownership is derived from <code>mode</code>.</td>
-			</tr>
-			<tr>
 				<td><code>speechInputMode</code></td>
 				<td><code>SpeechInputMode</code></td>
 				<td>Automatic, manual, or disabled speech capture.</td>
@@ -243,8 +238,16 @@
 				<td>Partial or final user transcript update.</td>
 			</tr>
 			<tr>
-				<td><code>onStateUpdate</code></td>
-				<td>Embedded player state changes.</td>
+				<td><code>onPlayerStatusChange</code></td>
+				<td>Embedded player status (<code>loading</code> | <code>scene</code> | <code>ready</code> | <code>error</code>).</td>
+			</tr>
+			<tr>
+				<td><code>onActivityChange</code></td>
+				<td>
+					Session activity envelope (<code>data</code>:
+					<code>idle</code> | <code>listening</code> | <code>thinking</code> |
+					<code>speaking</code>).
+				</td>
 			</tr>
 			<tr>
 				<td><code>onClose</code></td>
@@ -260,7 +263,7 @@
 		Additional typed callbacks are <code>onUserSpeechStarted</code>,
 		<code>onUserSpeechEnded</code>, <code>onCharacterSpeechStarted</code>,
 		<code>onCharacterSpeechEnded</code>, <code>onConversationUpdate</code>,
-		<code>onMessage</code>, <code>onListeningState</code>, <code>onModeChange</code>, and
+		<code>onMessage</code>, <code>onListeningState</code>, and
 		<code>onConversationProcessorError</code>.
 	</p>
 

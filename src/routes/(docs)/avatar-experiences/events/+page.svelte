@@ -17,7 +17,7 @@
 	<p>
 		Register handlers with <code>experience.on(event, handler)</code> after
 		<code>Experience.startSession()</code>. Component integrations use the matching callback props
-		(<code>onMessage</code>, <code>onModeChange</code>, …).
+		(<code>onMessage</code>, <code>onActivityChange</code>, …).
 	</p>
 
 	<h2>Startup</h2>
@@ -90,14 +90,17 @@ experience.on('listeningState', (listening) => {
 
 	<h2>Conversation</h2>
 	<CodeBlock
-		code={`experience.on('message', (message) => {
-  // message.status is always 'final' for committed history messages
-  console.log(message.role, message.text, message.source, message.status);
+		code={`// Every experience.on handler receives an envelope:
+// { id: 'evt_…', type, sessionId, timestamp, data }
+
+experience.on('message', (evt) => {
+  // evt.data.status is always 'final' for committed history messages
+  console.log(evt.data.role, evt.data.text, evt.data.source, evt.data.status);
 });
 
-experience.on('modeChange', (mode) => {
-  // bare string: 'listening' | 'speaking' | 'thinking'
-  console.log('Session mode', mode);
+experience.on('activityChange', (evt) => {
+  // evt.data: 'idle' | 'listening' | 'thinking' | 'speaking'
+  console.log('Activity', evt.data);
 });`}
 		lang="javascript"
 	/>
@@ -117,9 +120,9 @@ experience.on('modeChange', (mode) => {
 	<CodeBlock
 		code={`const player = await experience.attach({
   container,
-  onStateUpdate: (state) => {
-    // EmbedState string from the hosted player (e.g. loading, ready, error)
-    console.log(state);
+  onPlayerStatusChange: (status) => {
+    // PlayerStatus: loading | scene | ready | error
+    console.log(status);
   }
 });
 
@@ -141,17 +144,18 @@ player.on('close', ({ reason, returnUrl }) => {
 		<tbody>
 			<tr>
 				<td><code>ready</code></td>
-				<td><code>{`{ manifest }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ manifest }`}</code></td>
 				<td>Player visuals are mounted and ready</td>
 			</tr>
 			<tr>
 				<td><code>started</code></td>
-				<td><code>{`{ mode }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ mode }`}</code></td>
 				<td>Player startup click, audio unlock, and session startup completed</td>
 			</tr>
 			<tr>
 				<td><code>userTranscript</code></td>
 				<td>
+					envelope <code>.data</code>:
 					<code>{`{ utteranceId, text, revision, isFinal, delta? }`}</code>
 				</td>
 				<td>
@@ -160,50 +164,50 @@ player.on('close', ({ reason, returnUrl }) => {
 			</tr>
 			<tr>
 				<td><code>userSpeechStarted</code></td>
-				<td><code>{`{ utteranceId? }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ utteranceId? }`}</code></td>
 				<td>VAD detected speech activity (auto mode telemetry)</td>
 			</tr>
 			<tr>
 				<td><code>userSpeechEnded</code></td>
-				<td><code>{`{ utteranceId? }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ utteranceId? }`}</code></td>
 				<td>VAD detected end of speech; final text may arrive after this event</td>
 			</tr>
 			<tr>
 				<td><code>characterSpeechStarted</code></td>
-				<td><code>{`{ speechId, turnId, characterId, text, source }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ speechId, turnId, characterId, text, source }`}</code></td>
 				<td>Character began speaking (<code>speak</code>, <code>opening</code>, or <code>llm</code>)</td>
 			</tr>
 			<tr>
 				<td><code>characterSpeechEnded</code></td>
-				<td><code>{`{ speechId, turnId, characterId, text, source, durationMs?, reason }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ speechId, turnId, characterId, text, source, durationMs?, reason }`}</code></td>
 				<td>Character speech finished or was interrupted</td>
 			</tr>
 			<tr>
 				<td><code>conversationUpdate</code></td>
-				<td><code>ConversationMessage[]</code></td>
+				<td>envelope <code>.data</code>: <code>ConversationMessage[]</code></td>
 				<td>Immutable snapshot of in-session conversation history</td>
 			</tr>
 			<tr>
 				<td><code>listeningState</code></td>
-				<td><code>boolean</code></td>
+				<td>envelope <code>.data</code>: <code>boolean</code></td>
 				<td>Manual listening gate opened (<code>true</code>) or closed (<code>false</code>)</td>
 			</tr>
 			<tr>
 				<td><code>message</code></td>
-				<td><code>ConversationMessage</code></td>
+				<td>envelope <code>.data</code>: <code>ConversationMessage</code></td>
 				<td>
 					Durable user or assistant message (<code>status: 'final'</code>, plus
 					<code>source</code>, <code>role</code>, <code>text</code>, ids)
 				</td>
 			</tr>
 			<tr>
-				<td><code>modeChange</code></td>
-				<td><code>'listening' | 'speaking' | 'thinking'</code></td>
-				<td>Session activity mode for UI sync (bare string, not an object)</td>
+				<td><code>activityChange</code></td>
+				<td>envelope <code>.data</code>: <code>'idle' | 'listening' | 'speaking' | 'thinking'</code></td>
+				<td>Session listening / speaking activity for UI sync</td>
 			</tr>
 			<tr>
 				<td><code>conversationProcessorError</code></td>
-				<td><code>{`{ utteranceId, message }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ utteranceId, message }`}</code></td>
 				<td>Browser <code>conversationProcessor</code> threw or rejected</td>
 			</tr>
 		</tbody>
@@ -221,8 +225,8 @@ player.on('close', ({ reason, returnUrl }) => {
 			<tr>
 				<td>Player embed state</td>
 				<td>
-					<code>attach(&#123; onStateUpdate &#125;)</code> or component
-					<code>onStateUpdate</code>
+					<code>attach(&#123; onPlayerStatusChange &#125;)</code> or component
+					<code>onPlayerStatusChange</code>
 				</td>
 			</tr>
 			<tr>

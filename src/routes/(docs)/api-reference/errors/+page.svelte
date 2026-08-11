@@ -38,7 +38,14 @@
 			</tr>
 			<tr>
 				<td><code>404</code></td>
-				<td>Experience not found</td>
+				<td>Experience or session not found</td>
+			</tr>
+			<tr>
+				<td><code>409</code></td>
+				<td>
+					<code>IDEMPOTENCY_CONFLICT</code> — <code>Idempotency-Key</code> reused with a different
+					body
+				</td>
 			</tr>
 			<tr>
 				<td><code>429</code></td>
