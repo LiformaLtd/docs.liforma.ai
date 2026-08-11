@@ -124,8 +124,9 @@ SDK</pre>
 
 	<h2>Event</h2>
 	<p>
-		Events are the SDK's way of reporting what happened — new messages, mode changes (listening /
-		speaking), and speech boundaries. Subscribe with <code>experience.on(…)</code>.
+		Events are the SDK's way of reporting what happened — new messages,
+		<code>activityChange</code> (idle / listening / thinking / speaking), and speech boundaries.
+		Subscribe with <code>experience.on(…)</code>.
 		See <a href="/guides/events">Listen to Events</a>.
 	</p>
 

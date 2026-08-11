@@ -32,7 +32,7 @@
 	<CodeBlock code={snippets.svelteGuidedPractice} lang="svelte" filename="+page.svelte" />
 	<p>
 		<code>onStarted</code> is the safe point to speak because audio is unlocked. The earlier
-		<code>onReady</code> callback only means the manifest is resolved and the player is attached.
+		<code>onReady</code> callback only means the Session Launch is resolved and the player is attached.
 		Calls to <code>speak()</code>, <code>startListening()</code>, <code>stopListening()</code>, and
 		<code>listenOnce()</code> preserve the root API's state checks and do not queue until startup.
 	</p>

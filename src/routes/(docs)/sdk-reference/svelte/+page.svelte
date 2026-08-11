@@ -36,7 +36,7 @@
 	</p>
 	<CodeBlock code={snippets.svelteAdvancedControl} lang="svelte" filename="Lesson.svelte" />
 	<p>
-		<code>ready()</code> means the manifest is resolved and the player is attached.
+		<code>ready()</code> means the Session Launch is resolved and the player is attached.
 		<code>started()</code> means the player-owned user gesture has unlocked audio. Speech and
 		listening methods do not silently wait for that gesture: they preserve the root API's state
 		validation and reject if called before <code>started</code>. Use <code>onStarted</code> or await
@@ -54,7 +54,7 @@
 	<h2>SvelteKit</h2>
 	<p>
 		For browser embeds, pass <code>experienceId</code> only — let the client mint the session. Do not
-		load credential-bearing manifests in <code>+page.server.ts</code>.
+		load credential-bearing Session Launch payloads in <code>+page.server.ts</code>.
 	</p>
 	<CodeBlock
 		code={`<!-- +page.svelte -->

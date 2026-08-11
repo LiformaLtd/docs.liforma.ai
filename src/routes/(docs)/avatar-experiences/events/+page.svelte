@@ -30,12 +30,14 @@
   experienceId: 'exp_…'
 });
 
-experience.on('ready', ({ manifest }) => {
-  console.log('Player visuals ready', manifest.experience.mode);
+experience.on('ready', (evt) => {
+  // evt: ExperienceEventEnvelope<{ session }>
+  console.log('Player visuals ready', evt.data.session.id);
 });
 
-experience.on('started', ({ mode }) => {
-  console.log('Audio and session started in', mode, 'mode');
+experience.on('started', (evt) => {
+  // evt.data.mode — experience mode after audio unlock
+  console.log('Audio and session started in', evt.data.mode, 'mode');
 });
 
 await experience.attach({ container });
@@ -43,10 +45,10 @@ await experience.attach({ container });
 		lang="javascript"
 	/>
 	<p>
-		<code>ready</code> includes the resolved manifest. <code>started</code> includes the experience
-		mode. Both replay asynchronously for handlers registered after the event. The
-		<code>onStart</code> option on <code>Experience.startSession()</code> is a convenience callback
-		for startup completion.
+		<code>ready</code> includes the public <code>session</code> facts (not a parseable
+		<code>launch</code>). <code>started</code> includes the experience mode. Both replay
+		asynchronously for handlers registered after the event. The <code>onStart</code> option on
+		<code>Experience.startSession()</code> is a convenience callback for startup completion.
 	</p>
 
 	<h2>Speech and transcripts</h2>
@@ -144,7 +146,7 @@ player.on('close', ({ reason, returnUrl }) => {
 		<tbody>
 			<tr>
 				<td><code>ready</code></td>
-				<td>envelope <code>.data</code>: <code>{`{ manifest }`}</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ session }`}</code></td>
 				<td>Player visuals are mounted and ready</td>
 			</tr>
 			<tr>

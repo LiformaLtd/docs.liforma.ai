@@ -24,7 +24,7 @@
 		<li>Store <code>LIFORMA_API_KEY</code> (and optionally <code>LIFORMA_API_URL</code>) in server env</li>
 		<li>Create a same-origin API route that calls <code>POST /v1/sessions</code></li>
 		<li>Pass <code>sessionEndpoint</code> to <code>&lt;Experience&gt;</code></li>
-		<li>SDK POSTs to your route, receives manifest, starts session</li>
+		<li>SDK POSTs to your route, receives Session Launch (<code>{`{ session, launch }`}</code>), starts session</li>
 	</ol>
 
 	<h2>Client</h2>
@@ -42,7 +42,7 @@
 	<h2>Security</h2>
 	<ul>
 		<li>Never expose your API key to the browser</li>
-		<li>Never pass manifests with <code>sessionToken</code> through SSR load data</li>
+		<li>Never pass Session Launch payloads (or any credential-bearing bootstrap) through SSR load data</li>
 		<li>Derive signed-in identity on the server; never trust a browser-supplied user id alone</li>
 	</ul>
 </DocPage>

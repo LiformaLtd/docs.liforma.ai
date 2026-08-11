@@ -13,6 +13,11 @@
 	]}
 >
 	<h2>Error format</h2>
+	<p>
+		JSON body uses a nested <code>error</code> object. The same
+		<code>requestId</code> is also returned as the <code>Liforma-Request-Id</code> response header
+		(include it when reporting issues).
+	</p>
 	<CodeBlock code={snippets.errorResponse} lang="json" />
 
 	<h2>Session minting</h2>

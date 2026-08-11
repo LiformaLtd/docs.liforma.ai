@@ -1252,7 +1252,13 @@ await conversation.attach({ container: '#avatar' });`,
 	elevenLabsWebComponent: `<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
 <liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>`,
 
-	errorResponse: '{ "message": "Human-readable description" }',
+	errorResponse: `{
+  "error": {
+    "code": "ORIGIN_NOT_ALLOWED",
+    "message": "Human-readable description",
+    "requestId": "req_…"
+  }
+}`,
 
 	characterManifestSnippet: `"characters": [{
   "characterId": "char_…",

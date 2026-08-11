@@ -23,7 +23,7 @@ const descriptions: Record<string, string> = {
 	'/avatar-experiences/session-manifests':
 		'Session Launch response — public session facts plus opaque launch bootstrap.',
 	'/avatar-experiences/events':
-		'Partial transcripts, speech boundaries, processor errors, and mode events.',
+		'Partial transcripts, speech boundaries, processor errors, and activityChange.',
 	'/avatar-experiences/browser-embeds':
 		'Client-side session minting protected by an origin allowlist.',
 	'/avatar-experiences/server-sessions':
@@ -38,7 +38,7 @@ const descriptions: Record<string, string> = {
 	'/guides/browser-embed': 'Client-side embed with origin allowlist.',
 	'/guides/server-session': 'Server-side session minting with API keys.',
 	'/guides/dynamic-experience-gallery': 'Fetch a creator-managed project catalog and route by slug.',
-	'/guides/events': 'Listen to messages, mode changes, and state updates.',
+	'/guides/events': 'Listen to messages, activityChange, and player status updates.',
 	'/guides/guided-scripted-practice':
 		'Scripted tutor lines with manual listening and host-side feedback.',
 	'/guides/custom-conversation-processor':

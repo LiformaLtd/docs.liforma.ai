@@ -149,7 +149,13 @@ npm install
 	</ul>
 
 	<h2>4. Listen to events</h2>
-	<p>Subscribe to conversation and mode changes when you need UI hooks:</p>
+	<p>
+		Subscribe to conversation and activity updates when you need UI hooks. Events arrive as
+		envelopes (<code>{`{ id, type, sessionId, timestamp, data }`}</code>); use
+		<code>activityChange</code> for idle / listening / thinking / speaking, and
+		<code>onPlayerStatusChange</code> on <code>attach()</code> for player chrome status. You never
+		need to inspect <code>launch</code>.
+	</p>
 	<CodeBlock code={snippets.jsListenToEvents} lang="javascript" />
 	<p>See <a href="/guides/events">Listen to Events</a> for the full event model.</p>
 

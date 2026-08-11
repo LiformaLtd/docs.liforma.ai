@@ -21,8 +21,12 @@
 		<li><strong>STT language</strong> — speech recognition locale (<code>sttLang</code>)</li>
 	</ul>
 
-	<h2>In the manifest</h2>
-	<p>Characters are wired inside the private runtime bootstrap (opaque <code>launch</code>):</p>
+	<h2>Inside the experience (Studio)</h2>
+	<p>
+		Characters are authored on the experience; the player receives them inside opaque
+		<code>launch</code> (not a public Session field). Illustrative shape only — do not parse
+		<code>launch</code>:
+	</p>
 	<CodeBlock code={snippets.characterManifestSnippet} lang="json" />
 
 	<h2>Authoring</h2>
@@ -34,9 +38,9 @@
 
 	<h2>Multi-character experiences</h2>
 	<p>
-		Experiences may define multiple characters in the manifest. Host apps select which character
-		speaks via <code>speak(&#123; text, characterId &#125;)</code> when needed. Dedicated
-		focus/enter/exit controller APIs are not part of the public SDK yet — author multi-character
-		layout and presence in Studio / the experience definition.
+		Experiences may define multiple characters. Host apps select which character speaks via
+		<code>speak(&#123; text, characterId &#125;)</code> when needed. Dedicated focus/enter/exit
+		controller APIs are not part of the public SDK yet — author multi-character layout and presence
+		in Studio / the experience definition.
 	</p>
 </DocPage>
