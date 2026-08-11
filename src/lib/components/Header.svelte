@@ -30,6 +30,7 @@
 			<a href="/getting-started/quick-start">Quick Start</a>
 			<a href="/api-reference/sessions">API</a>
 			<a href={externalLinks.pricing} target="_blank" rel="noopener noreferrer">Pricing</a>
+			<a href={externalLinks.legal} target="_blank" rel="noopener noreferrer">Legal</a>
 			<a href={externalLinks.www} target="_blank" rel="noopener noreferrer">Website</a>
 		</nav>
 		<div class="right">

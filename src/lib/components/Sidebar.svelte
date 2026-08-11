@@ -21,10 +21,13 @@
 				<p class="section-title">{section.title}</p>
 				<ul>
 					{#each section.items as item (item.href)}
+						{@const external = item.href.startsWith('http')}
 						<li>
 							<a
 								href={item.href}
-								class:active={isActive(item.href)}
+								class:active={!external && isActive(item.href)}
+								target={external ? '_blank' : undefined}
+								rel={external ? 'noopener noreferrer' : undefined}
 								onclick={() => onclose?.()}
 							>
 								{item.title}

@@ -67,6 +67,8 @@ export function allDocPages(): DocPageEntry[] {
 	const pages: DocPageEntry[] = [];
 	for (const section of docsNavigation) {
 		for (const item of section.items) {
+			// Skip external Trust & Legal links (hosted on www.liforma.ai).
+			if (!item.href.startsWith('/')) continue;
 			pages.push({
 				title: item.title,
 				href: item.href,

@@ -84,6 +84,16 @@ export const docsNavigation: readonly NavSection[] = [
 			{ title: 'React Component', href: '/avatar-experiences/react' },
 			{ title: 'Web Component', href: '/sdk-reference/web-component' }
 		]
+	},
+	{
+		title: 'Trust & Legal',
+		items: [
+			{ title: 'Legal (www)', href: 'https://www.liforma.ai/legal' },
+			{ title: 'Terms of Service', href: 'https://www.liforma.ai/legal/terms-of-service' },
+			{ title: 'Privacy Policy', href: 'https://www.liforma.ai/legal/privacy-policy' },
+			{ title: 'Acceptable Use', href: 'https://www.liforma.ai/legal/acceptable-use' },
+			{ title: 'Third-party notices', href: 'https://www.liforma.ai/legal/third-party' }
+		]
 	}
 ] as const;
 
@@ -95,7 +105,11 @@ export const externalLinks = {
 	player: 'https://player.liforma.ai',
 	examples: 'https://examples.liforma.ai',
 	examplesGithub: 'https://github.com/LiformaLtd/examples.liforma.ai',
-	github: 'https://github.com/LiformaLtd'
+	github: 'https://github.com/LiformaLtd',
+	legal: 'https://www.liforma.ai/legal',
+	terms: 'https://www.liforma.ai/legal/terms-of-service',
+	privacy: 'https://www.liforma.ai/legal/privacy-policy',
+	acceptableUse: 'https://www.liforma.ai/legal/acceptable-use'
 } as const;
 
 /** Canonical demo experience ID for docs examples. */

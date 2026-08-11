@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import NextSteps from '$lib/components/NextSteps.svelte';
-	import type { NavItem } from '$lib/navigation';
+	import { externalLinks, type NavItem } from '$lib/navigation';
 	import { canonicalUrl, ogImageUrl, pageTitle } from '$lib/seo';
 
 	type Props = {
@@ -60,6 +60,14 @@
 			·
 			<a href="/openapi/sessions.json">sessions OpenAPI</a>
 		</p>
+		<p class="legal-link">
+			Policies:
+			<a href={externalLinks.legal} target="_blank" rel="noopener noreferrer">Legal</a>
+			·
+			<a href={externalLinks.privacy} target="_blank" rel="noopener noreferrer">Privacy</a>
+			·
+			<a href={externalLinks.terms} target="_blank" rel="noopener noreferrer">Terms</a>
+		</p>
 	</footer>
 </article>
 
@@ -101,5 +109,9 @@
 
 	.doc-agent-links a:hover {
 		text-decoration: underline;
+	}
+
+	.legal-link {
+		margin-top: 0.5rem !important;
 	}
 </style>

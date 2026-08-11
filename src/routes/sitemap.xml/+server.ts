@@ -2,7 +2,12 @@ import { docsNavigation } from '$lib/navigation';
 import { SITE_URL } from '$lib/seo';
 
 export function GET() {
-	const paths = ['/', ...docsNavigation.flatMap((section) => section.items.map((item) => item.href))];
+	const paths = [
+		'/',
+		...docsNavigation.flatMap((section) =>
+			section.items.map((item) => item.href).filter((href) => href.startsWith('/'))
+		)
+	];
 
 	const urls = paths
 		.map(
