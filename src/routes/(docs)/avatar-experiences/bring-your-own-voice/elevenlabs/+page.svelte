@@ -59,7 +59,10 @@
 	<p>
 		Runnable example:
 		<a href="https://examples.liforma.ai/examples/elevenlabs-embed">ElevenLabs embed</a>
-		on examples.liforma.ai.
+		on examples.liforma.ai ·
+		<a href="https://elevenlabs-embed.examples.liforma.ai/" target="_blank" rel="noopener noreferrer"
+			>live demo</a
+		>.
 	</p>
 
 	<details>

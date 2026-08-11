@@ -59,7 +59,11 @@
 	<p>
 		Runnable coffee-barista demo with a same-origin WebSocket proxy:
 		<a href="https://examples.liforma.ai/examples/deepgram-embed">Deepgram embed</a>
-		on examples.liforma.ai (local port <code>4008</code>).
+		on examples.liforma.ai (local port <code>4008</code>). The
+		<a href="https://deepgram-embed.examples.liforma.ai/" target="_blank" rel="noopener noreferrer"
+			>hosted page</a
+		>
+		explains clone/run — Vercel serverless cannot host the long-lived WS proxy.
 	</p>
 
 	<details>

@@ -30,7 +30,11 @@
 	<h2>Runnable example</h2>
 	<p>
 		See <a href="https://examples.liforma.ai/examples/gemini-live-embed">examples.liforma.ai</a>
-		(<code>examples/gemini-live-embed</code> in the examples repo).
+		(<code>examples/gemini-live-embed</code> in the examples repo). The
+		<a href="https://gemini-live-embed.examples.liforma.ai/" target="_blank" rel="noopener noreferrer"
+			>hosted page</a
+		>
+		explains clone/run — Vercel serverless cannot host the long-lived WS proxy.
 	</p>
 
 	<h2>Install</h2>

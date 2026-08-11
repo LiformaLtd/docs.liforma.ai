@@ -60,7 +60,12 @@
 	<p>
 		Runnable coffee-barista demo:
 		<a href="https://examples.liforma.ai/examples/openai-realtime-embed">OpenAI Realtime embed</a>
-		on examples.liforma.ai (local port <code>4007</code>).
+		on examples.liforma.ai (local port <code>4007</code>) ·
+		<a
+			href="https://openai-realtime-embed.examples.liforma.ai/"
+			target="_blank"
+			rel="noopener noreferrer">live demo</a
+		>.
 	</p>
 
 	<details>

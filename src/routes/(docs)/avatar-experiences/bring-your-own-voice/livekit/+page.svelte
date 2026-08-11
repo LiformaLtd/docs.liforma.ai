@@ -34,7 +34,10 @@
 	<h2>Runnable example</h2>
 	<p>
 		See <a href="https://examples.liforma.ai/examples/livekit-embed">examples.liforma.ai</a>
-		(<code>examples/livekit-embed</code> in the examples repo).
+		(<code>examples/livekit-embed</code> in the examples repo) ·
+		<a href="https://livekit-embed.examples.liforma.ai/" target="_blank" rel="noopener noreferrer"
+			>live demo</a
+		>.
 	</p>
 
 	<h2>Install</h2>
