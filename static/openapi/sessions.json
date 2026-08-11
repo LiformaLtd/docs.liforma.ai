@@ -336,6 +336,43 @@
 							"externalAudio"
 						],
 						"additionalProperties": false
+					},
+					"localeVoiceFallbacks": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"axis": {
+									"type": "string",
+									"enum": [
+										"locale",
+										"secondaryLocale"
+									]
+								},
+								"requested": {
+									"type": "string",
+									"minLength": 2,
+									"maxLength": 32
+								},
+								"resolved": {
+									"type": "string",
+									"minLength": 2,
+									"maxLength": 32
+								},
+								"reason": {
+									"type": "string",
+									"const": "voice_unsupported"
+								}
+							},
+							"required": [
+								"axis",
+								"requested",
+								"resolved",
+								"reason"
+							],
+							"additionalProperties": false
+						}
 					}
 				},
 				"required": [
@@ -416,6 +453,43 @@
 									"externalAudio"
 								],
 								"additionalProperties": false
+							},
+							"localeVoiceFallbacks": {
+								"minItems": 1,
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"axis": {
+											"type": "string",
+											"enum": [
+												"locale",
+												"secondaryLocale"
+											]
+										},
+										"requested": {
+											"type": "string",
+											"minLength": 2,
+											"maxLength": 32
+										},
+										"resolved": {
+											"type": "string",
+											"minLength": 2,
+											"maxLength": 32
+										},
+										"reason": {
+											"type": "string",
+											"const": "voice_unsupported"
+										}
+									},
+									"required": [
+										"axis",
+										"requested",
+										"resolved",
+										"reason"
+									],
+									"additionalProperties": false
+								}
 							}
 						},
 						"required": [
