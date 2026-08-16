@@ -12,9 +12,10 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 
 - Mint returns **`SessionLaunchResponse`**: `{ session, launch }` with `201` and `Cache-Control: no-store, private`.
 - **`launch` is opaque.** Pass it to the SDK / player only — do not parse, decode, or inspect it.
-- Prefer **`locale`** (and optional `secondaryLocale` / `learningLocale`) on mint; do not invent UI mint fields (`startButton`, `closeButton`, `returnUrl`, `fit`).
+- Prefer **`locale`** (and optional `secondaryLocale` / `learningLocale`) on mint; do not invent UI mint fields (`startButton`, `closeButton`, `returnUrl`, `fit`, `showFeedback`).
 - Events use a common envelope: `{ id, type, sessionId, timestamp, data }`.
 - Primary activity event: **`activityChange`** — `data` is `'idle' | 'listening' | 'thinking' | 'speaking'`.
+- End-of-session Feedback: **`feedback`** (`feedback.v1` scores) / **`feedbackFailed`**. Player shows Feedback UI by default; set **`showFeedback={false}`** on attach / `<Experience>` to own the UX (not a Studio setting).
 - Player chrome / status: `attach()` / component props — prefer **`onPlayerStatusChange`** (not `onStateUpdate`).
 
 ## Start here
@@ -63,7 +64,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/browser-sessions` + Origin allowlist) for client-only embeds.
 - Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
 - `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
-- Player chrome (`startButton`, `returnUrl`, `fit`) comes from `attach()` / component props, not mint.
+- Player chrome (`startButton`, `returnUrl`, `fit`, `showFeedback`) comes from `attach()` / component props, not mint.
 - CDN script is **v2** (`/sdk/v2/client.js`).
 - npm: [`@liforma/client`](https://www.npmjs.com/package/@liforma/client)
 - Examples: https://examples.liforma.ai · https://github.com/LiformaLtd/examples.liforma.ai

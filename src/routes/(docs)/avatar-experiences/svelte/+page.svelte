@@ -164,6 +164,16 @@
 				<td>Player-owned startup button configuration.</td>
 			</tr>
 			<tr>
+				<td><code>showFeedback</code></td>
+				<td><code>boolean</code></td>
+				<td>
+					When <code>true</code> (default), the player shows end-of-session Feedback step-through.
+					Set <code>false</code> to hide Liforma Feedback UI and render scores yourself via
+					<code>onFeedback</code> / <code>feedback</code>. Presentation only — does not remint;
+					not a Studio setting.
+				</td>
+			</tr>
+			<tr>
 				<td><code>conversationProcessor</code></td>
 				<td><code>ConversationProcessorFn</code></td>
 				<td>Browser-owned conversation processor.</td>
@@ -327,8 +337,8 @@
 	</p>
 	<p>
 		<strong>Presentation</strong> props (<code>fit</code>, <code>startButton</code>,
-		<code>closeButton</code>, <code>returnUrl</code>, <code>ui</code>) update the live player
-		without reminting. Callback-only changes do not restart the session.
+		<code>showFeedback</code>, <code>closeButton</code>, <code>returnUrl</code>, <code>ui</code>)
+		update the live player without reminting. Callback-only changes do not restart the session.
 	</p>
 
 	<h2>Server-session embed</h2>

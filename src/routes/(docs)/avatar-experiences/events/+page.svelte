@@ -208,6 +208,22 @@ player.on('close', ({ reason, returnUrl }) => {
 				<td>Session listening / speaking activity for UI sync</td>
 			</tr>
 			<tr>
+				<td><code>feedback</code></td>
+				<td>
+					envelope <code>.data</code>:
+					<code>{`{ contractVersion: 'feedback.v1', types: [...] }`}</code>
+				</td>
+				<td>
+					End-of-session Feedback scores (when Feedback is attached and scoring succeeds).
+					Always emitted when available — even if the player also shows Feedback UI.
+				</td>
+			</tr>
+			<tr>
+				<td><code>feedbackFailed</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ error, model? }`}</code></td>
+				<td>End-of-session Feedback scoring failed</td>
+			</tr>
+			<tr>
 				<td><code>conversationProcessorError</code></td>
 				<td>envelope <code>.data</code>: <code>{`{ utteranceId, message }`}</code></td>
 				<td>Browser <code>conversationProcessor</code> threw or rejected</td>
