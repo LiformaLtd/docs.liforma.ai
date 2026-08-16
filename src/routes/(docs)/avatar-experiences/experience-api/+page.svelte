@@ -322,6 +322,14 @@ await experience.attach({
 		<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
 	</p>
 
+	<h3><code>focusCharacter()</code></h3>
+	<p>
+		Presentation-only camera or tile emphasis on a multi-Character node. Pass the active-cast
+		<code>characterId</code>. The call is a no-op when the active node has one Character. It does
+		not choose who speaks — conversational speakers come from the engine-validated cast turn.
+		Subscribe to <code>characterFocusChanged</code> for focus updates.
+	</p>
+
 	<h3><code>getConversation()</code> and <code>getLastTurn()</code></h3>
 	<p>
 		Read the flat in-session history as an ordered <code>ConversationMessage[]</code>. Each message

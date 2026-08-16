@@ -106,6 +106,11 @@ await experience.end();`}
 				<td><code>readonly ConversationMessage[]</code></td>
 				<td>Messages in the latest turn</td>
 			</tr>
+			<tr>
+				<td><code>focusCharacter(characterId)</code></td>
+				<td><code>Promise&lt;void&gt;</code></td>
+				<td>Presentation-only focus on a multi-Character node; no-op on single-Character nodes</td>
+			</tr>
 		</tbody>
 	</table>
 
@@ -137,6 +142,7 @@ await experience.end();`}
 		<code>ready</code>, <code>started</code>, <code>userTranscript</code>,
 		<code>userSpeechStarted</code>, <code>userSpeechEnded</code>,
 		<code>characterSpeechStarted</code>, <code>characterSpeechEnded</code>,
+		<code>characterFocusChanged</code>,
 		<code>conversationUpdate</code>, <code>conversationProcessorError</code>, and
 		<code>listeningState</code>. See the full list on
 		<a href="/avatar-experiences/events">Events</a>.

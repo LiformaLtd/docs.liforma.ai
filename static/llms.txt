@@ -31,8 +31,8 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - [Experience (React)](https://docs.liforma.ai/avatar-experiences/react) — `@liforma/client/react`
 - [Experience (Next.js)](https://docs.liforma.ai/avatar-experiences/nextjs) — `createLiformaSessionRouteHandler`
 - [ExperienceThumbnail](https://docs.liforma.ai/avatar-experiences/experience-thumbnail) — layered CDN gallery thumbs (Svelte / React / Next / vanilla)
-- [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors
-- [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only
+- [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors, `focusCharacter`
+- [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only (`characterFocusChanged` on multi-Character nodes)
 - [Session Launch](https://docs.liforma.ai/avatar-experiences/session-manifests)
 - [Browser embeds](https://docs.liforma.ai/avatar-experiences/browser-embeds) — origin allowlist mint
 - [Server sessions](https://docs.liforma.ai/avatar-experiences/server-sessions) — preferred API-key mint

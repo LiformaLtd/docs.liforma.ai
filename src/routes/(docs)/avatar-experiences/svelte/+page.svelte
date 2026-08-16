@@ -272,7 +272,8 @@
 	<p>
 		Additional typed callbacks are <code>onUserSpeechStarted</code>,
 		<code>onUserSpeechEnded</code>, <code>onCharacterSpeechStarted</code>,
-		<code>onCharacterSpeechEnded</code>, <code>onConversationUpdate</code>,
+		<code>onCharacterSpeechEnded</code>, <code>onCharacterFocusChanged</code>,
+		<code>onConversationUpdate</code>,
 		<code>onMessage</code>, <code>onListeningState</code>, and
 		<code>onConversationProcessorError</code>.
 	</p>
@@ -317,6 +318,10 @@
 			<tr>
 				<td><code>getConversation()</code></td>
 				<td>Current immutable conversation snapshot.</td>
+			</tr>
+			<tr>
+				<td><code>focusCharacter(characterId)</code></td>
+				<td>Presentation-only focus on a multi-Character node; no-op on single-Character nodes.</td>
 			</tr>
 			<tr>
 				<td><code>end()</code></td>

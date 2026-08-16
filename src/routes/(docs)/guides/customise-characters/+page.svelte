@@ -38,9 +38,11 @@
 
 	<h2>Multi-character experiences</h2>
 	<p>
-		Experiences may define multiple characters. Host apps select which character speaks via
-		<code>speak(&#123; text, characterId &#125;)</code> when needed. Dedicated focus/enter/exit
-		controller APIs are not part of the public SDK yet — author multi-character layout and presence
-		in Studio / the experience definition.
+		Experiences may define multiple characters on a node. Host apps can call
+		<code>speak(&#123; text, characterId &#125;)</code> for scripted lines. On multi-Character nodes,
+		<code>focusCharacter(characterId)</code> is presentation-only (tile or focused-avatar emphasis)
+		and a no-op when the active node has one Character. Conversational speakers come from the
+		engine-validated cast turn, not from host focus. Subscribe to
+		<code>characterFocusChanged</code> for focus updates.
 	</p>
 </DocPage>

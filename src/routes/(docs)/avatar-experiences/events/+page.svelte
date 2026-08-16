@@ -185,6 +185,15 @@ player.on('close', ({ reason, returnUrl }) => {
 				<td>Character speech finished or was interrupted</td>
 			</tr>
 			<tr>
+				<td><code>characterFocusChanged</code></td>
+				<td>envelope <code>.data</code>: <code>{`{ characterId, reason }`}</code></td>
+				<td>
+					Presentation focus changed on a multi-Character node
+					(<code>reason</code>: <code>speech</code> | <code>api</code> | <code>node_enter</code>).
+					Not emitted on single-Character nodes.
+				</td>
+			</tr>
+			<tr>
 				<td><code>conversationUpdate</code></td>
 				<td>envelope <code>.data</code>: <code>ConversationMessage[]</code></td>
 				<td>Immutable snapshot of in-session conversation history</td>
