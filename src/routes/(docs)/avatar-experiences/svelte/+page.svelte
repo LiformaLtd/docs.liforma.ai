@@ -189,13 +189,15 @@
 			</tr>
 			<tr>
 				<td><code>fit</code></td>
-				<td><code>'full' | 'face'</code></td>
+				<td><code>'full' | 'medium' | 'face'</code></td>
 				<td>
 					Scene framing in the host container. Default <code>'full'</code> height-fits the whole
-					avatar and location. <code>'face'</code> cover-zooms the composed scene onto the mesh face
-					oval (location background zooms with the face) — useful for small inset / PIP layouts.
-					Session-start only; changing it restarts the session. Orthogonal to location video-call
-					presentation (<code>hasZoomVariant</code>).
+					avatar and location. <code>'medium'</code> is a bust window (0.75× face-mesh height above
+					the oval, 2× below). <code>'face'</code> frames the mesh face oval with 0.5H above and
+					below and at least 0.25W on each side (location background zooms with the face) — useful
+					for small inset / PIP layouts.
+					Changing the prop (or calling <code>setFit()</code>) updates the live player without
+					reminting. Orthogonal to location video-call presentation (<code>hasZoomVariant</code>).
 				</td>
 			</tr>
 			<tr>
@@ -322,6 +324,13 @@
 			<tr>
 				<td><code>focusCharacter(characterId)</code></td>
 				<td>Presentation-only focus on a multi-Character node; no-op on single-Character nodes.</td>
+			</tr>
+			<tr>
+				<td><code>setFit(fit)</code></td>
+				<td>
+					Live scene framing: <code>'full'</code>, <code>'medium'</code>, or <code>'face'</code>.
+					Does not remint.
+				</td>
 			</tr>
 			<tr>
 				<td><code>end()</code></td>

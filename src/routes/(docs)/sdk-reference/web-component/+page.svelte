@@ -66,8 +66,9 @@
 			<tr>
 				<td><code>fit</code></td>
 				<td>
-					Optional <code>full</code> (default) or <code>face</code>. <code>face</code> cover-zooms
-					the scene onto the mesh face oval for inset / PIP layouts
+					Optional <code>full</code> (default), <code>medium</code> (bust window), or
+					<code>face</code>. <code>face</code> cover-zooms the scene onto the mesh face oval for
+					inset / PIP layouts. Changing the attribute updates the live player without reminting.
 				</td>
 			</tr>
 			<tr>

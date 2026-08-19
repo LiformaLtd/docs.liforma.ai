@@ -102,11 +102,13 @@
 			</tr>
 			<tr>
 				<td><code>fit</code></td>
-				<td><code>full</code> | <code>face</code></td>
+				<td><code>full</code> | <code>medium</code> | <code>face</code></td>
 				<td>
 					Scene framing in the host container. Default <code>full</code> height-fits the whole
-					avatar and location. <code>face</code> cover-zooms the composed scene onto the mesh face
-					oval (location background zooms too) — for inset / PIP layouts. Session-start only; not
+					avatar and location. <code>medium</code> is a bust window (0.75× face-mesh height above
+					the oval, 2× below). <code>face</code> frames the mesh face oval with 0.5H above and
+					below and at least 0.25W on each side (location background zooms too) — for inset / PIP
+					layouts. Set on <code>attach()</code> or update live with <code>setFit()</code>. Not
 					related to location video-call presentation.
 				</td>
 			</tr>
@@ -321,6 +323,21 @@ await experience.attach({
 		LLM. Full walkthrough:
 		<a href="/guides/custom-conversation-processor">Custom Conversation Processor</a>.
 	</p>
+
+	<h3><code>setFit()</code></h3>
+	<p>
+		Change scene framing after <code>attach()</code> without reminting:
+		<code>full</code> (default), <code>medium</code> (bust window), or <code>face</code> (inset / PIP).
+		Safe as soon as the player is attached; does not wait for <code>started</code>.
+	</p>
+	<CodeBlock
+		code={`await experience.attach({ container: document.querySelector('#avatar') });
+
+// Later — e.g. when shrinking the host into a PIP tile
+await experience.setFit('face');
+await experience.setFit('full');`}
+		lang="javascript"
+	/>
 
 	<h3><code>focusCharacter()</code></h3>
 	<p>

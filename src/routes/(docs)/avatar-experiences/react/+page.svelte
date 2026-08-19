@@ -31,9 +31,11 @@
 	<h2>Host-controlled speech and listening</h2>
 	<p>
 		Use a <code>ref</code> typed as <code>ExperienceHandle</code> to call
-		<code>speak()</code>, <code>startListening()</code>, and related methods from your own UI. Wait
-		for <code>onStarted</code> (or <code>await ref.current.started()</code>) before speech methods —
-		the player start button unlocks audio.
+		<code>speak()</code>, <code>startListening()</code>, <code>setFit()</code>, and related methods
+		from your own UI. Wait for <code>onStarted</code> (or
+		<code>await ref.current.started()</code>) before speech methods — the player start button unlocks
+		audio. <code>setFit()</code> and the <code>fit</code> prop may change framing as soon as the
+		player is attached.
 	</p>
 	<CodeBlock code={snippets.reactAdvancedControl} lang="tsx" filename="Lesson.tsx" />
 

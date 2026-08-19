@@ -94,7 +94,8 @@
 			<tr>
 				<td><code>fit</code></td>
 				<td>
-					Optional <code>full</code> (default) or <code>face</code> for inset / PIP layouts
+					Optional <code>full</code> (default), <code>medium</code> (bust), or
+					<code>face</code> for inset / PIP layouts
 				</td>
 			</tr>
 			<tr>
