@@ -62,7 +62,9 @@
 		<code>thumbnail_url</code> is
 		<code>https://cdn.liforma.ai/thumbs/experiences/landscape/&#123;expId&#125;</code>
 		— a flattened landscape Experience thumbnail (location + standing avatar),
-		not a viseme plate.
+		not a viseme plate. Compact Iframely cards also receive
+		<code>/thumbs/experiences/square/&#123;expId&#125;</code> via
+		<code>iframely:image</code> and a second <code>og:image</code>.
 		Open Graph and Twitter descriptions use experience copy only: optional
 		<code>description</code> (authored or generated at publish), otherwise the
 		introduction, otherwise the title.
