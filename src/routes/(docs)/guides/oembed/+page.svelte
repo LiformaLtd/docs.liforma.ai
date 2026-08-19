@@ -59,6 +59,13 @@
 		A successful response is <code>type: "rich"</code>. The <code>html</code> field is a single
 		iframe whose <code>src</code> is the hosted player. External URLs, unpublished Experiences,
 		and Experiences with public embeds disabled are rejected.
+		<code>thumbnail_url</code> is
+		<code>https://cdn.liforma.ai/thumbs/experiences/landscape/&#123;expId&#125;</code>
+		— a flattened landscape Experience thumbnail (location + standing avatar),
+		not a viseme plate.
+		Open Graph and Twitter descriptions use experience copy only: optional
+		<code>description</code> (authored or generated at publish), otherwise the
+		introduction, otherwise the title.
 	</p>
 	<CodeBlock
 		code={`GET https://api.liforma.ai/oembed?url=https%3A%2F%2Fwww.liforma.ai%2Fmeet%2Fnewton&format=json
