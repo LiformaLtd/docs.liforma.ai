@@ -47,6 +47,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 
 - [POST /v1/sessions](https://docs.liforma.ai/api-reference/sessions) — server mint with API key (preferred when you have a backend)
 - [POST /v1/browser-sessions](https://docs.liforma.ai/api-reference/browser-sessions) — browser mint with Origin allowlist
+- [GET /oembed](https://docs.liforma.ai/guides/oembed) — optional discovery for public Meet URLs; iframe HTML points at `player.liforma.ai/embed` (not a Session Launch change)
 - [GET /v1/sessions/{id}](https://docs.liforma.ai/api-reference/sessions) · end session via `POST /v1/sessions/{id}/end`
 - [Experience Catalog](https://docs.liforma.ai/api-reference/experience-catalog)
 - [Session Launch](https://docs.liforma.ai/api-reference/manifests)

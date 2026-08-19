@@ -11,9 +11,35 @@
 		{ title: 'Browser embed', href: '/guides/browser-embed' },
 		{ title: 'Experience (HTML)', href: '/avatar-experiences/html' },
 		{ title: 'Experience (Svelte)', href: '/avatar-experiences/svelte' },
-		{ title: 'Experience (React)', href: '/avatar-experiences/react' }
+		{ title: 'Experience (React)', href: '/avatar-experiences/react' },
+		{ title: 'oEmbed and Iframely', href: '/guides/oembed' }
 	]}
 >
+	<h2>How Liforma embedding works</h2>
+	<p>
+		All visual Liforma Experience integrations use the same hosted Liforma Player on
+		<code>player.liforma.ai</code>. SDK components and web components mount this player in an
+		iframe. Developers may also embed the player iframe directly. oEmbed and Iframely are
+		optional discovery mechanisms that resolve to that same player — they do not replace the SDK
+		or change the player API.
+	</p>
+	<CodeBlock
+		code={`Your application / platform
+        │
+        ├── @liforma/client
+        ├── Svelte / React / web component
+        ├── direct iframe
+        ├── oEmbed
+        └── Iframely / Canva
+                  │
+                  ▼
+          player.liforma.ai/embed
+                  │
+                  ▼
+        Liforma Experience runtime`}
+		lang="text"
+	/>
+
 	<h2>Choose your integration</h2>
 	<table>
 		<thead>
@@ -54,6 +80,10 @@
 			<tr>
 				<td>Hosted player</td>
 				<td>Link or iframe to <code>player.liforma.ai</code></td>
+			</tr>
+			<tr>
+				<td><a href="/guides/oembed">oEmbed / Iframely</a></td>
+				<td>CMSs, LMSs, and platforms (including Canva) that discover rich embeds</td>
 			</tr>
 		</tbody>
 	</table>

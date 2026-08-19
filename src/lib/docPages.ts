@@ -36,6 +36,8 @@ const descriptions: Record<string, string> = {
 		'Voice conversation with speechOnly on Experience in conversation mode.',
 	'/guides/embed': 'Embed patterns for any web app or framework.',
 	'/guides/browser-embed': 'Client-side embed with origin allowlist.',
+	'/guides/oembed':
+		'Optional oEmbed and Iframely discovery for public Experiences — same hosted player.',
 	'/guides/server-session': 'Server-side session minting with API keys.',
 	'/guides/dynamic-experience-gallery': 'Fetch a creator-managed project catalog and route by slug.',
 	'/guides/events': 'Listen to messages, activityChange, and player status updates.',

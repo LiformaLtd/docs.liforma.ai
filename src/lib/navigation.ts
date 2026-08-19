@@ -54,6 +54,7 @@ export const docsNavigation: readonly NavSection[] = [
 		items: [
 			{ title: 'Embed an Experience', href: '/guides/embed' },
 			{ title: 'Browser embed', href: '/guides/browser-embed' },
+			{ title: 'oEmbed and Iframely', href: '/guides/oembed' },
 			{ title: 'Server session', href: '/guides/server-session' },
 			{ title: 'Dynamic Experience Gallery', href: '/guides/dynamic-experience-gallery' },
 			{ title: 'Listen to Events', href: '/guides/events' },
