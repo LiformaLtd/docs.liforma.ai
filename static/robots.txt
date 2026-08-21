@@ -2,7 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /_alpha
 Disallow: /_alpha/
-Disallow: /unlisted/
 
 Sitemap: https://docs.liforma.ai/sitemap.xml
 # Agent-oriented docs index
