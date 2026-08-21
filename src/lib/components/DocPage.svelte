@@ -9,10 +9,11 @@
 		title: string;
 		description?: string;
 		next?: readonly NavItem[];
+		noindex?: boolean;
 		children: Snippet;
 	};
 
-	let { title, description, next = [], children }: Props = $props();
+	let { title, description, next = [], children, noindex = false }: Props = $props();
 
 	const fullTitle = $derived(pageTitle(title));
 	const canonical = $derived(canonicalUrl(page.url.pathname));
@@ -33,6 +34,9 @@
 	{/if}
 	<meta property="og:url" content={canonical} />
 	<meta property="og:image" content={ogImageUrl()} />
+	{#if noindex}
+		<meta name="robots" content="noindex" />
+	{/if}
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={fullTitle} />
 	{#if metaDescription}
