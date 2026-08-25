@@ -17,7 +17,7 @@
 	<ul>
 		<li>
 			<a href="/_alpha/programmatic-experience-creation">Programmatic experience creation</a>
-			— create characters, places, and experiences over
+			— upload a location, clothes, and hair, then create a place, character, and experience over
 			<code>/v1</code>, including path slugs and attributes.
 		</li>
 	</ul>
