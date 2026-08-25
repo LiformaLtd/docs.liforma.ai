@@ -52,10 +52,10 @@
 		<code>externalId</code> on creates so retries are idempotent.
 	</p>
 
-	<h2>Example</h2>
+	<h2>Local sample</h2>
 	<p>
-		Runnable local CLI:
-		<code>examples.liforma.ai/examples/programmatic-publish/node</code> (reserved port
-		<code>4011</code>).
+		An unlisted Node CLI lives under
+		<code>_alpha/examples/programmatic-publish/node</code> in the examples repo (reserved port
+		<code>4011</code>). It is not in the public gallery or <code>./start</code>.
 	</p>
 </DocPage>
