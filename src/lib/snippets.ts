@@ -1302,5 +1302,77 @@ await conversation.attach({ container: '#avatar' });`,
     "agentId": "agt_spanish_tutor"
   }],
   "activeCharacterId": "char_…"
-}`
+}`,
+
+	publisherInstall: `npm install @liforma/publisher`,
+
+	publisherHotelCheckIn: `import { readFileSync } from 'node:fs';
+import { createPublisher } from '@liforma/publisher';
+
+const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
+  apiKey: process.env.LIFORMA_API_KEY!
+});
+
+const avatars = await publisher.listAvatars();
+const avatar = avatars[0]!;
+
+const background = await publisher.uploadImage(readFileSync('./lobby.png'), {
+  contentType: 'image/png'
+});
+const location = await publisher.createLocation({
+  name: 'Hotel lobby',
+  image: background
+});
+const place = await publisher.createPlace({
+  name: 'Hotel lobby',
+  locationId: location.id
+});
+
+const clothesImage = await publisher.uploadImage(readFileSync('./clothes.png'), {
+  contentType: 'image/png'
+});
+const hairImage = await publisher.uploadImage(readFileSync('./hair.png'), {
+  contentType: 'image/png'
+});
+const [clothes, hair] = await Promise.all([
+  publisher.createClothes({
+    avatarId: avatar.id,
+    image: clothesImage,
+    backgroundMode: 'remove'
+  }),
+  publisher.createHair({
+    avatarId: avatar.id,
+    image: hairImage,
+    backgroundMode: 'remove'
+  })
+]);
+
+const character = await publisher.createCharacter({
+  avatarId: avatar.id,
+  name: 'Front desk',
+  voice: avatar.defaultVoiceId,
+  sttLang: avatar.defaultSttLang,
+  clothesId: clothes.id,
+  hairId: hair.id
+});
+
+const experience = await publisher.createExperience({
+  title: 'Hotel check-in',
+  characterId: character.id,
+  placeId: place.id,
+  publish: true
+});
+
+console.log(experience.id);`,
+
+	publisherJobs: `const started = await publisher.startLocation({
+  name: 'Hotel lobby',
+  image: background
+});
+
+for await (const job of publisher.jobs.watch(started.job.id)) {
+  console.log(job.status, job.progress);
+}
+
+const location = await publisher.getLocation(started.job.targetId);`
 } as const;

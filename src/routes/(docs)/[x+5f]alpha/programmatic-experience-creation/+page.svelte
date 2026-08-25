@@ -301,6 +301,12 @@ Authorization: Bearer lfm_live_…`;
 		key to a browser.
 	</p>
 	<p>
+		Prefer the typed Node SDK when you are in JavaScript or TypeScript:
+		<a href="/_alpha/publisher-sdk"><code>@liforma/publisher</code></a>
+		handles upload hashing, presigned PUT headers, and job polling. This page documents the
+		underlying REST contract.
+	</p>
+	<p>
 		Writes are enabled per organization. If you receive <code>AUTHORING_NOT_ALLOWED</code>, ask
 		Liforma to enable authoring on that org. Test keys are rejected.
 	</p>
