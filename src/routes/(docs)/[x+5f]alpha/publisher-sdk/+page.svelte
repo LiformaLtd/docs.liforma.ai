@@ -23,9 +23,8 @@
 	<h2>Install</h2>
 	<CodeBlock code={snippets.publisherInstall} lang="bash" />
 	<p>
-		Until the package is published to npm, build from the API repo workspace package
-		(<code>api.liforma.ai/packages/publisher</code>) and depend on it via
-		<code>file:</code> or a packed tarball.
+		Server-only. Pass a live project API key via <code>apiKey</code> or
+		<code>LIFORMA_API_KEY</code>. Never import this package in a browser bundle.
 	</p>
 
 	<h2>Hotel check-in</h2>
