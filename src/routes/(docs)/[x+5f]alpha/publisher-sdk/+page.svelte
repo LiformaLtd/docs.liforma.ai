@@ -51,14 +51,4 @@
 		<code>status</code>, <code>requestId</code>, and optional terminal job context. Prefer
 		<code>externalId</code> on creates so retries are idempotent.
 	</p>
-
-	<h2>Local sample</h2>
-	<p>
-		Unlisted page:
-		<a href="https://examples.liforma.ai/_alpha/examples/programmatic-publish/node">
-			examples.liforma.ai/_alpha/examples/programmatic-publish/node
-		</a>
-		— documents the Node CLI (reserved port <code>4011</code>). Not in the public gallery or
-		<code>./start</code>.
-	</p>
 </DocPage>
