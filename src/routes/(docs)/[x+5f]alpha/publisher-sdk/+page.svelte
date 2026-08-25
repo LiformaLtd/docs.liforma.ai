@@ -54,8 +54,11 @@
 
 	<h2>Local sample</h2>
 	<p>
-		An unlisted Node CLI lives under
-		<code>_alpha/examples/programmatic-publish/node</code> in the examples repo (reserved port
-		<code>4011</code>). It is not in the public gallery or <code>./start</code>.
+		Unlisted page:
+		<a href="https://examples.liforma.ai/_alpha/examples/programmatic-publish/node">
+			examples.liforma.ai/_alpha/examples/programmatic-publish/node
+		</a>
+		— documents the Node CLI (reserved port <code>4011</code>). Not in the public gallery or
+		<code>./start</code>.
 	</p>
 </DocPage>
