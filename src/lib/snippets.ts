@@ -1353,26 +1353,67 @@ const character = await publisher.createCharacter({
   voice: avatar.defaultVoiceId,
   sttLang: avatar.defaultSttLang,
   clothesId: clothes.id,
-  hairId: hair.id
+  hairId: hair.id,
+  generalInstructions: 'Keep replies short. Stay in character.'
 });
 
 const experience = await publisher.createExperience({
   title: 'Hotel check-in',
   characterId: character.id,
   placeId: place.id,
+  startingMessage: 'Welcome. How can I help you today?',
+  systemInstructions: 'You are a hotel receptionist. Help the guest check in.',
+  introduction: 'Practice checking into a hotel.',
   publish: true
 });
 
 console.log(experience.id);`,
 
-	publisherJobs: `const started = await publisher.startLocation({
+	publisherJobs: `import { LiformaPublisherError } from '@liforma/publisher';
+
+const started = await publisher.startLocation({
   name: 'Hotel lobby',
   image: background
 });
 
-for await (const job of publisher.jobs.watch(started.job.id)) {
-  console.log(job.status, job.progress);
+try {
+  for await (const job of publisher.jobs.watch(started.job.id, { timeoutMs: 60_000 })) {
+    console.log(job.status, job.progress);
+  }
+} catch (error) {
+  if (!(error instanceof LiformaPublisherError) || error.code !== 'JOB_WAIT_TIMEOUT') throw error;
+  // Persist started.job.id. The durable server job is still running.
 }
 
-const location = await publisher.getLocation(started.job.targetId);`
+// Resume later with the same id; do not repeat startLocation.
+await publisher.jobs.wait(started.job.id);
+const location = await publisher.getLocation(started.job.targetId);
+
+const depth = await publisher.uploadDepthMap(readFileSync('./lobby-depth.png'), {
+  contentType: 'image/png'
+});
+const replacement = await publisher.createLocation({
+  name: 'Hotel lobby',
+  image: background,
+  depth: { image: depth, depthMapType: 'disparity' },
+  forceNew: true
+});`,
+
+	publisherReloadAndUpdate: `const character = await publisher.getCharacter(characterId);
+const place = await publisher.getPlace(placeId);
+const experience = await publisher.getExperience(experienceId);
+
+await publisher.updateClothes(clothesId, { name: 'Reception uniform' });
+await publisher.updatePlace(place.id, { name: 'Hotel lobby', locationId: place.locationId });
+await publisher.updateCharacter(character.id, {
+  personality: 'Warm hotel receptionist.',
+  generalInstructions: 'Keep replies short. Stay in character.'
+});
+await publisher.updateExperience(experience.id, {
+  title: 'Hotel check-in (A1)',
+  startingMessage: 'Welcome. How can I help you today?',
+  systemInstructions: 'You are a hotel receptionist. Help the guest check in.',
+  introduction: 'Practice checking into a hotel.'
+});
+await publisher.publishExperience(experience.id);`
 } as const;
