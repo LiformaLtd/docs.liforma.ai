@@ -574,7 +574,8 @@ Authorization: Bearer lfm_live_…`;
 		belongs on the experience, not here. Do not send nested clothes objects.
 		<code>voice</code> must be valid for the project’s configured TTS provider.
 		<code>gender</code>, <code>age</code>, and <code>ethnicity</code> are optional character
-		overrides. Omit them to inherit from the avatar. <code>ethnicity</code> is an appearance
+		overrides. Omit them to inherit from the avatar. <code>age</code> is apparent age in years
+		from 1 to 1000, so non-human characters can be very old. <code>ethnicity</code> is an appearance
 		group for facial features, hair, and skin colour, such as <code>european</code> or
 		<code>east-asian</code>.
 	</p>

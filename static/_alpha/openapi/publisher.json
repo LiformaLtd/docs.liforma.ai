@@ -3709,10 +3709,10 @@
 						]
 					},
 					"age": {
-						"description": "Optional apparent age in years. Omit to inherit from the avatar catalogue.",
+						"description": "Optional apparent age in years (1–1000). Omit to inherit from the avatar catalogue.",
 						"type": "integer",
 						"minimum": 1,
-						"maximum": 120
+						"maximum": 1000
 					},
 					"ethnicity": {
 						"description": "Optional appearance group for facial features, hair, and skin colour. Omit to inherit from the avatar catalogue.",
@@ -3908,12 +3908,12 @@
 						]
 					},
 					"age": {
-						"description": "Set an apparent age override, or null to inherit from the avatar catalogue again.",
+						"description": "Set an apparent age override (1–1000), or null to inherit from the avatar catalogue again.",
 						"anyOf": [
 							{
 								"type": "integer",
 								"minimum": 1,
-								"maximum": 120
+								"maximum": 1000
 							},
 							{
 								"type": "null"
@@ -5606,7 +5606,7 @@
 							{
 								"type": "integer",
 								"minimum": 1,
-								"maximum": 120
+								"maximum": 1000
 							},
 							{
 								"type": "null"
@@ -5930,7 +5930,7 @@
 									{
 										"type": "integer",
 										"minimum": 1,
-										"maximum": 120
+										"maximum": 1000
 									},
 									{
 										"type": "null"
@@ -6234,7 +6234,7 @@
 										{
 											"type": "integer",
 											"minimum": 1,
-											"maximum": 120
+											"maximum": 1000
 										},
 										{
 											"type": "null"
