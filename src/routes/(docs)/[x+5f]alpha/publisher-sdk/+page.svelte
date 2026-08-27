@@ -81,6 +81,8 @@
 		<code>updateCharacter</code> edits appearance, person copy, and optional
 		<code>gender</code>, <code>age</code> (1–1000), and <code>ethnicity</code>. Pass
 		<code>null</code> to inherit those fields from the avatar again.
+		<code>style</code> on characters, places, and locations is read-only: characters inherit
+		it from the avatar, places inherit it from the location, and authors cannot override it.
 		<code>updateExperience</code> edits catalog fields, the primary character or place, and
 		scene copy. Then call <code>publishExperience</code> when you want a new revision.
 	</p>

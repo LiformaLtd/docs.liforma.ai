@@ -128,6 +128,7 @@ Authorization: Bearer lfm_live_…`;
     "status": "ready",
     "name": "Hotel lobby",
     "depthEncoding": "lf-disparity-v1",
+    "style": "Liforma 3D House Style",
     "externalId": "cms-loc-lobby"
   }
 }`;
@@ -147,6 +148,7 @@ Content-Type: application/json
     "id": "place_ABC",
     "name": "Hotel lobby",
     "locationId": "loc_ABC",
+    "style": "Liforma 3D House Style",
     "externalId": "cms-place-lobby",
     "createdAt": "2026-08-25T12:00:20.000Z",
     "updatedAt": "2026-08-25T12:00:20.000Z"
@@ -226,6 +228,7 @@ Content-Type: application/json
     "gender": "female",
     "age": 28,
     "ethnicity": "european",
+    "style": "Liforma 3D House Style",
     "externalId": "cms-char-482",
     "createdAt": "2026-08-25T12:01:00.000Z",
     "updatedAt": "2026-08-25T12:01:00.000Z"
@@ -494,8 +497,10 @@ Authorization: Bearer lfm_live_…`;
 		That GET resolves an org custom location, a published catalogue
 		<code>loc_…</code>, or a CDN catalogue id — so
 		<code>getLocation(place.locationId)</code> works after wrapping a catalogue
-		place. Omit <code>forceNew</code> to reuse a matching ready or in-progress plate
-		for the same image; set <code>forceNew: true</code> to start a new job.
+		place. Ready locations include inherited <code>style</code> (currently
+		<code>Liforma 3D House Style</code> for every catalogue and custom location). Do not send
+		<code>style</code> on create. Omit <code>forceNew</code> to reuse a matching ready or
+		in-progress plate for the same image; set <code>forceNew: true</code> to start a new job.
 	</p>
 	<CodeBlock code={createLocation} lang="http" />
 	<CodeBlock code={locationAccepted} lang="json" />
@@ -522,6 +527,9 @@ Authorization: Bearer lfm_live_…`;
 		<code>404</code> <code>UNKNOWN_LOCATION</code>. An owned draft or failed custom location
 		returns <code>409</code> <code>LOCATION_NOT_READY</code>. One location may wrap as many Places
 		in the same org. You may also wrap a published catalogue <code>loc_…</code> without uploading.
+		Places inherit <code>style</code> from the location — currently
+		<code>Liforma 3D House Style</code> for every catalogue and custom location. Do not send
+		<code>style</code> on create or update; it is fixed and cannot be overridden.
 	</p>
 	<CodeBlock code={createPlace} lang="http" />
 	<CodeBlock code={placeCreated} lang="json" />
@@ -577,7 +585,10 @@ Authorization: Bearer lfm_live_…`;
 		overrides. Omit them to inherit from the avatar. <code>age</code> is apparent age in years
 		from 1 to 1000, so non-human characters can be very old. <code>ethnicity</code> is an appearance
 		group for facial features, hair, and skin colour, such as <code>european</code> or
-		<code>east-asian</code>.
+		<code>east-asian</code>. Responses also include inherited <code>style</code> from the
+		avatar (currently <code>Liforma 3D House Style</code> for catalogue avatars). Do not send
+		<code>style</code> on create or update; unlike gender, age, and ethnicity it cannot be
+		overridden. Use matching <code>style</code> values when pairing characters with places.
 	</p>
 	<CodeBlock code={createCharacter} lang="http" />
 	<CodeBlock code={characterCreated} lang="json" />
@@ -688,15 +699,16 @@ Authorization: Bearer lfm_live_…`;
 	<ul>
 		<li>
 			Location: <code>kind</code>, <code>id</code>, <code>status</code>, <code>name</code>,
-			<code>depthEncoding</code>, <code>externalId</code>.
+			<code>depthEncoding</code>, inherited <code>style</code>, <code>externalId</code>.
 		</li>
 		<li>
 			Character: ids, name, avatar/voice/STT settings, clothes/hair ids, personality and
-			instructions, <code>externalId</code>, and timestamps.
+			instructions, optional persona fields, inherited <code>style</code>,
+			<code>externalId</code>, and timestamps.
 		</li>
 		<li>
-			Place: <code>id</code>, <code>name</code>, <code>locationId</code>,
-			<code>externalId</code>, and timestamps.
+			Place: <code>id</code>, <code>name</code>, <code>locationId</code>, inherited
+			<code>style</code>, <code>externalId</code>, and timestamps.
 		</li>
 		<li>
 			Experience: ids, catalog fields, current-draft scene fields,

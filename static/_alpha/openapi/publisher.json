@@ -5306,6 +5306,18 @@
 							}
 						]
 					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"externalId": {
 						"anyOf": [
 							{
@@ -5498,6 +5510,18 @@
 									}
 								]
 							},
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"externalId": {
 								"anyOf": [
 									{
@@ -5636,6 +5660,18 @@
 							}
 						]
 					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"externalId": {
 						"anyOf": [
 							{
@@ -5683,6 +5719,18 @@
 					},
 					"locationId": {
 						"type": "string"
+					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
 					},
 					"externalId": {
 						"anyOf": [
@@ -5960,6 +6008,18 @@
 									}
 								]
 							},
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"externalId": {
 								"anyOf": [
 									{
@@ -6016,6 +6076,18 @@
 							},
 							"locationId": {
 								"type": "string"
+							},
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
 							},
 							"externalId": {
 								"anyOf": [
