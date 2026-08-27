@@ -1354,6 +1354,9 @@ const character = await publisher.createCharacter({
   sttLang: avatar.defaultSttLang,
   clothesId: clothes.id,
   hairId: hair.id,
+  gender: 'female',
+  age: 28,
+  ethnicity: 'european',
   generalInstructions: 'Keep replies short. Stay in character.'
 });
 
@@ -1407,7 +1410,10 @@ await publisher.updateClothes(clothesId, { name: 'Reception uniform' });
 await publisher.updatePlace(place.id, { name: 'Hotel lobby', locationId: place.locationId });
 await publisher.updateCharacter(character.id, {
   personality: 'Warm hotel receptionist.',
-  generalInstructions: 'Keep replies short. Stay in character.'
+  generalInstructions: 'Keep replies short. Stay in character.',
+  gender: 'female',
+  age: 28,
+  ethnicity: 'european'
 });
 await publisher.updateExperience(experience.id, {
   title: 'Hotel check-in (A1)',

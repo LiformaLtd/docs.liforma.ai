@@ -3699,6 +3699,38 @@
 						"type": "string",
 						"maxLength": 8000
 					},
+					"gender": {
+						"description": "Optional. Omit to inherit gender from the avatar catalogue.",
+						"type": "string",
+						"enum": [
+							"female",
+							"male",
+							"non-binary"
+						]
+					},
+					"age": {
+						"description": "Optional apparent age in years. Omit to inherit from the avatar catalogue.",
+						"type": "integer",
+						"minimum": 1,
+						"maximum": 120
+					},
+					"ethnicity": {
+						"description": "Optional appearance group for facial features, hair, and skin colour. Omit to inherit from the avatar catalogue.",
+						"type": "string",
+						"enum": [
+							"african",
+							"east-asian",
+							"european",
+							"indigenous",
+							"mediterranean",
+							"middle-eastern",
+							"mixed",
+							"north-african",
+							"pacific-islander",
+							"south-asian",
+							"southeast-asian"
+						]
+					},
 					"externalId": {
 						"type": "string",
 						"minLength": 1,
@@ -3853,6 +3885,59 @@
 							{
 								"type": "string",
 								"maxLength": 8000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"gender": {
+						"description": "Set a gender override, or null to inherit from the avatar catalogue again.",
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"female",
+									"male",
+									"non-binary"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"age": {
+						"description": "Set an apparent age override, or null to inherit from the avatar catalogue again.",
+						"anyOf": [
+							{
+								"type": "integer",
+								"minimum": 1,
+								"maximum": 120
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"ethnicity": {
+						"description": "Set an appearance-group override for facial features, hair, and skin colour, or null to inherit from the avatar catalogue again.",
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"african",
+									"east-asian",
+									"european",
+									"indigenous",
+									"mediterranean",
+									"middle-eastern",
+									"mixed",
+									"north-african",
+									"pacific-islander",
+									"south-asian",
+									"southeast-asian"
+								]
 							},
 							{
 								"type": "null"
@@ -5501,6 +5586,56 @@
 							}
 						]
 					},
+					"gender": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"female",
+									"male",
+									"non-binary"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"age": {
+						"anyOf": [
+							{
+								"type": "integer",
+								"minimum": 1,
+								"maximum": 120
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"ethnicity": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"african",
+									"east-asian",
+									"european",
+									"indigenous",
+									"mediterranean",
+									"middle-eastern",
+									"mixed",
+									"north-african",
+									"pacific-islander",
+									"south-asian",
+									"southeast-asian"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"externalId": {
 						"anyOf": [
 							{
@@ -5775,6 +5910,56 @@
 									}
 								]
 							},
+							"gender": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"female",
+											"male",
+											"non-binary"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"age": {
+								"anyOf": [
+									{
+										"type": "integer",
+										"minimum": 1,
+										"maximum": 120
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"ethnicity": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"african",
+											"east-asian",
+											"european",
+											"indigenous",
+											"mediterranean",
+											"middle-eastern",
+											"mixed",
+											"north-african",
+											"pacific-islander",
+											"south-asian",
+											"southeast-asian"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"externalId": {
 								"anyOf": [
 									{
@@ -6028,6 +6213,80 @@
 								},
 								"defaultSttLang": {
 									"type": "string"
+								},
+								"gender": {
+									"anyOf": [
+										{
+											"type": "string",
+											"enum": [
+												"female",
+												"male",
+												"non-binary"
+											]
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"age": {
+									"anyOf": [
+										{
+											"type": "integer",
+											"minimum": 1,
+											"maximum": 120
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"ethnicity": {
+									"anyOf": [
+										{
+											"type": "string",
+											"enum": [
+												"african",
+												"east-asian",
+												"european",
+												"indigenous",
+												"mediterranean",
+												"middle-eastern",
+												"mixed",
+												"north-african",
+												"pacific-islander",
+												"south-asian",
+												"southeast-asian"
+											]
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"species": {
+									"anyOf": [
+										{
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 64
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"style": {
+									"anyOf": [
+										{
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 64
+										},
+										{
+											"type": "null"
+										}
+									]
 								},
 								"clothes": {
 									"type": "array",

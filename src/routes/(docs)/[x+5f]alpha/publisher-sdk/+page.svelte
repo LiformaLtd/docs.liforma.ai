@@ -78,7 +78,9 @@
 	<p>
 		<code>updateClothes</code> / <code>updateHair</code> rename a plate.
 		<code>updatePlace</code> can point at a new ready <code>locationId</code>.
-		<code>updateCharacter</code> edits appearance and person copy.
+		<code>updateCharacter</code> edits appearance, person copy, and optional
+		<code>gender</code>, <code>age</code>, and <code>ethnicity</code>. Pass
+		<code>null</code> to inherit those fields from the avatar again.
 		<code>updateExperience</code> edits catalog fields, the primary character or place, and
 		scene copy. Then call <code>publishExperience</code> when you want a new revision.
 	</p>

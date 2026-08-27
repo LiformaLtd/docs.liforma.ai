@@ -15,6 +15,11 @@ Authorization: Bearer lfm_live_…`;
       "displayName": "Sofia",
       "defaultVoiceId": "<project TTS voice id>",
       "defaultSttLang": "en-US",
+      "gender": "male",
+      "age": 55,
+      "ethnicity": "european",
+      "species": "human",
+      "style": "Liforma 3D House Style",
       "clothes": [
         { "id": "clothes_CATALOGUE", "name": "Blazer", "source": "library", "libraryScope": "project" }
       ],
@@ -200,6 +205,9 @@ Content-Type: application/json
   "hairId": "hair_ABC",
   "personality": "Warm hotel receptionist.",
   "generalInstructions": "Keep replies short. Stay in character.",
+  "gender": "female",
+  "age": 28,
+  "ethnicity": "european",
   "externalId": "cms-char-482"
 }`;
 
@@ -215,6 +223,9 @@ Content-Type: application/json
     "hairId": "hair_ABC",
     "personality": "Warm hotel receptionist.",
     "generalInstructions": "Keep replies short. Stay in character.",
+    "gender": "female",
+    "age": 28,
+    "ethnicity": "european",
     "externalId": "cms-char-482",
     "createdAt": "2026-08-25T12:01:00.000Z",
     "updatedAt": "2026-08-25T12:01:00.000Z"
@@ -313,7 +324,10 @@ Content-Type: application/json
 
 {
   "personality": "Warm hotel receptionist.",
-  "generalInstructions": "Keep replies short. Stay in character."
+  "generalInstructions": "Keep replies short. Stay in character.",
+  "gender": "female",
+  "age": 28,
+  "ethnicity": "european"
 }`;
 
 	const patchPlace = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/places/place_ABC
@@ -427,6 +441,11 @@ Authorization: Bearer lfm_live_…`;
 	<p>
 		Use a costume-capable <code>avatarId</code> and a project TTS <code>voice</code>. You can attach
 		existing catalogue clothes / hair from this list instead of uploading custom plates.
+		Listed avatars include optional <code>gender</code>, <code>age</code>,
+		<code>ethnicity</code>, <code>species</code>, and <code>style</code> from the catalogue.
+		<code>species</code> and <code>style</code> are free-text labels, not enums — for example
+		<code>human</code> and <code>Liforma 3D House Style</code>, or later <code>goblin</code> and
+		another house style. Catalogue avatars are not created or updated through this API.
 	</p>
 	<CodeBlock code={listAvatars} lang="http" />
 	<CodeBlock code={avatarResponse} lang="json" />
@@ -547,12 +566,17 @@ Authorization: Bearer lfm_live_…`;
 		<code>201</code> on create, <code>200</code> when <code>externalId</code> already exists.
 		Required: <code>avatarId</code>, <code>name</code>, <code>voice</code>,
 		<code>sttLang</code>. Optional: <code>clothesId</code>, <code>hairId</code>,
-		<code>personality</code>, <code>generalInstructions</code>, <code>externalId</code>. Character
+		<code>personality</code>, <code>generalInstructions</code>, <code>gender</code>,
+		<code>age</code>, <code>ethnicity</code>, <code>externalId</code>. Character
 		copy stays on the character: <code>sttLang</code> is speech recognition,
 		<code>generalInstructions</code> is how this person talks. Experience-level scene copy
 		(<code>systemInstructions</code>, <code>startingMessage</code>, <code>introduction</code>)
 		belongs on the experience, not here. Do not send nested clothes objects.
 		<code>voice</code> must be valid for the project’s configured TTS provider.
+		<code>gender</code>, <code>age</code>, and <code>ethnicity</code> are optional character
+		overrides. Omit them to inherit from the avatar. <code>ethnicity</code> is an appearance
+		group for facial features, hair, and skin colour, such as <code>european</code> or
+		<code>east-asian</code>.
 	</p>
 	<CodeBlock code={createCharacter} lang="http" />
 	<CodeBlock code={characterCreated} lang="json" />
