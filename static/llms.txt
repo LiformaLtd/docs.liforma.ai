@@ -62,7 +62,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 
 ## Agent notes
 
-- **Install Agent Skills first:** `npx skills add LiformaLtd/agent-skills` ([repo](https://github.com/LiformaLtd/agent-skills)) — `liforma-demo`, `liforma-integrate`, and `liforma-debug`.
+- **Install Agent Skills first:** `npx skills add LiformaLtd/agent-skills` ([repo](https://github.com/LiformaLtd/agent-skills)) — `liforma-demo`, `liforma-integrate`, `liforma-publish`, and `liforma-debug`.
 - Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/browser-sessions` + Origin allowlist) for client-only embeds.
 - Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
 - `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
