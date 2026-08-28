@@ -1319,13 +1319,13 @@ const avatar = avatars[0]!;
 const background = await publisher.uploadImage(readFileSync('./lobby.png'), {
   contentType: 'image/png'
 });
-const location = await publisher.createLocation({
+const backdrop = await publisher.createBackdrop({
   name: 'Hotel lobby',
   image: background
 });
-const place = await publisher.createPlace({
+const set = await publisher.createSet({
   name: 'Hotel lobby',
-  locationId: location.id
+  backdropId: backdrop.id
 });
 
 const clothesImage = await publisher.uploadImage(readFileSync('./clothes.png'), {
@@ -1363,7 +1363,7 @@ const character = await publisher.createCharacter({
 const experience = await publisher.createExperience({
   title: 'Hotel check-in',
   characterId: character.id,
-  placeId: place.id,
+  setId: set.id,
   startingMessage: 'Welcome. How can I help you today?',
   systemInstructions: 'You are a hotel receptionist. Help the guest check in.',
   introduction: 'Practice checking into a hotel.',
@@ -1374,7 +1374,7 @@ console.log(experience.id);`,
 
 	publisherJobs: `import { LiformaPublisherError } from '@liforma/publisher';
 
-const started = await publisher.startLocation({
+const started = await publisher.startBackdrop({
   name: 'Hotel lobby',
   image: background
 });
@@ -1388,14 +1388,14 @@ try {
   // Persist started.job.id. The durable server job is still running.
 }
 
-// Resume later with the same id; do not repeat startLocation.
+// Resume later with the same id; do not repeat startBackdrop.
 await publisher.jobs.wait(started.job.id);
-const location = await publisher.getLocation(started.job.targetId);
+const backdrop = await publisher.getBackdrop(started.job.targetId);
 
 const depth = await publisher.uploadDepthMap(readFileSync('./lobby-depth.png'), {
   contentType: 'image/png'
 });
-const replacement = await publisher.createLocation({
+const replacement = await publisher.createBackdrop({
   name: 'Hotel lobby',
   image: background,
   depth: { image: depth, depthMapType: 'disparity' },
@@ -1403,11 +1403,11 @@ const replacement = await publisher.createLocation({
 });`,
 
 	publisherReloadAndUpdate: `const character = await publisher.getCharacter(characterId);
-const place = await publisher.getPlace(placeId);
+const set = await publisher.getSet(setId);
 const experience = await publisher.getExperience(experienceId);
 
 await publisher.updateClothes(clothesId, { name: 'Reception uniform' });
-await publisher.updatePlace(place.id, { name: 'Hotel lobby', locationId: place.locationId });
+await publisher.updateSet(set.id, { name: 'Hotel lobby', backdropId: set.backdropId });
 await publisher.updateCharacter(character.id, {
   personality: 'Warm hotel receptionist.',
   generalInstructions: 'Keep replies short. Stay in character.',

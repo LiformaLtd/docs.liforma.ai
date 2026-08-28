@@ -76,44 +76,44 @@ Authorization: Bearer lfm_live_…`;
   }
 }`;
 
-	const createLocation = `POST https://api.liforma.ai/v1/projects/proj_01ABC/locations
+	const createBackdrop = `POST https://api.liforma.ai/v1/projects/proj_01ABC/backdrops
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
   "name": "Hotel lobby",
   "uploadId": "upload_LOC",
-  "externalId": "cms-loc-lobby"
+  "externalId": "cms-bdrop-lobby"
 }`;
 
-	const locationAccepted = `{
+	const backdropAccepted = `{
   "job": {
-    "id": "job_LOC",
+    "id": "job_BDROP",
     "status": "queued",
-    "kind": "location",
-    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_LOC",
-    "targetId": "loc_ABC",
+    "kind": "backdrop",
+    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_BDROP",
+    "targetId": "bdrop_ABC",
     "requiredOk": false,
     "stage": null,
     "progress": { "requiredVerified": 0, "requiredTotal": 0 },
     "error": null
   },
-  "location": { "id": "loc_ABC", "status": "processing" }
+  "backdrop": { "id": "bdrop_ABC", "status": "processing" }
 }`;
 
-	const pollJob = `GET https://api.liforma.ai/v1/projects/proj_01ABC/jobs/job_LOC
+	const pollJob = `GET https://api.liforma.ai/v1/projects/proj_01ABC/jobs/job_BDROP
 Authorization: Bearer lfm_live_…`;
 
-	const getLocation = `GET https://api.liforma.ai/v1/projects/proj_01ABC/locations/loc_ABC
+	const getBackdrop = `GET https://api.liforma.ai/v1/projects/proj_01ABC/backdrops/bdrop_ABC
 Authorization: Bearer lfm_live_…`;
 
 	const jobSucceeded = `{
   "job": {
-    "id": "job_LOC",
+    "id": "job_BDROP",
     "status": "succeeded",
-    "kind": "location",
-    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_LOC",
-    "targetId": "loc_ABC",
+    "kind": "backdrop",
+    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_BDROP",
+    "targetId": "bdrop_ABC",
     "requiredOk": true,
     "stage": "webp",
     "progress": { "requiredVerified": 11, "requiredTotal": 11 },
@@ -121,35 +121,35 @@ Authorization: Bearer lfm_live_…`;
   }
 }`;
 
-	const locationReady = `{
-  "location": {
-    "kind": "location",
-    "id": "loc_ABC",
+	const backdropReady = `{
+  "backdrop": {
+    "kind": "backdrop",
+    "id": "bdrop_ABC",
     "status": "ready",
     "name": "Hotel lobby",
     "depthEncoding": "lf-disparity-v1",
     "style": "Liforma 3D House Style",
-    "externalId": "cms-loc-lobby"
+    "externalId": "cms-bdrop-lobby"
   }
 }`;
 
-	const createPlace = `POST https://api.liforma.ai/v1/projects/proj_01ABC/places
+	const createSet = `POST https://api.liforma.ai/v1/projects/proj_01ABC/sets
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
-  "locationId": "loc_ABC",
+  "backdropId": "bdrop_ABC",
   "name": "Hotel lobby",
-  "externalId": "cms-place-lobby"
+  "externalId": "cms-set-lobby"
 }`;
 
-	const placeCreated = `{
-  "place": {
-    "id": "place_ABC",
+	const setCreated = `{
+  "set": {
+    "id": "set_ABC",
     "name": "Hotel lobby",
-    "locationId": "loc_ABC",
+    "backdropId": "bdrop_ABC",
     "style": "Liforma 3D House Style",
-    "externalId": "cms-place-lobby",
+    "externalId": "cms-set-lobby",
     "createdAt": "2026-08-25T12:00:20.000Z",
     "updatedAt": "2026-08-25T12:00:20.000Z"
   }
@@ -248,7 +248,7 @@ Content-Type: application/json
     "level": "A1"
   },
   "characterId": "char_ABC",
-  "placeId": "place_ABC",
+  "setId": "set_ABC",
   "startingMessage": "Welcome. How can I help you today?",
   "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
   "introduction": "Practice checking into a hotel.",
@@ -272,7 +272,7 @@ Content-Type: application/json
       "level": "A1"
     },
     "characterId": "char_ABC",
-    "placeId": "place_ABC",
+    "placeId": "set_ABC",
     "startingMessage": "Welcome. How can I help you today?",
     "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
     "introduction": "Practice checking into a hotel.",
@@ -318,7 +318,7 @@ Authorization: Bearer lfm_live_…`;
 	const getCharacter = `GET https://api.liforma.ai/v1/projects/proj_01ABC/characters/char_ABC
 Authorization: Bearer lfm_live_…`;
 
-	const getPlace = `GET https://api.liforma.ai/v1/projects/proj_01ABC/places/place_ABC
+	const getSet = `GET https://api.liforma.ai/v1/projects/proj_01ABC/sets/set_ABC
 Authorization: Bearer lfm_live_…`;
 
 	const patchCharacter = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/characters/char_ABC
@@ -333,13 +333,13 @@ Content-Type: application/json
   "ethnicity": "european"
 }`;
 
-	const patchPlace = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/places/place_ABC
+	const patchSet = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/sets/set_ABC
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
   "name": "Hotel lobby",
-  "locationId": "loc_ABC"
+  "backdropId": "bdrop_ABC"
 }`;
 
 	const patchClothes = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/clothes/clothes_ABC
@@ -350,7 +350,7 @@ Content-Type: application/json
   "name": "Reception uniform"
 }`;
 
-	const retryJob = `POST https://api.liforma.ai/v1/projects/proj_01ABC/jobs/job_LOC/retry
+	const retryJob = `POST https://api.liforma.ai/v1/projects/proj_01ABC/jobs/job_BDROP/retry
 Authorization: Bearer lfm_live_…`;
 
 	const catalogByPath = `GET https://api.liforma.ai/v1/projects/proj_01ABC/experiences/english/CEFR/A1/hotel_check_in
@@ -370,7 +370,7 @@ Authorization: Bearer lfm_live_…`;
 
 <DocPage
 	title="Programmatic experience creation"
-	description="Private Publisher API: upload images, create a location and place, clothes and hair, then a character and experience."
+	description="Private Publisher API: upload images, create a backdrop and set, clothes and hair, then a character and experience."
 	noindex
 	next={[
 		{ title: 'Alpha index', href: '/_alpha' },
@@ -396,15 +396,16 @@ Authorization: Bearer lfm_live_…`;
 
 	<h2>What this API is for</h2>
 	<p>
-		Create one-character scenes from your own CMS. Upload images for a custom location, clothes, and
-		hair; wrap the ready location as a Place; create a Character; then create an Experience.
+		Create one-character scenes from your own CMS. Upload images for a custom backdrop, clothes, and
+		hair; wrap the ready backdrop as a Set; create a Character; then create an Experience.
 		Session minting still uses <code>exp_…</code> — see
 		<a href={resolve('/api-reference/sessions')}>Sessions</a>.
 	</p>
 	<p>
-		A <strong>location</strong> is the published visual plate (photograph plus generated or supplied
-		depth). A <strong>place</strong> is the cheap scene wrapper that points at a ready
-		<code>locationId</code>. Experiences attach a place, not a location. Do not flatten the two.
+		A <strong>backdrop</strong> is the published visual plate (photograph plus generated or supplied
+		depth). A <strong>set</strong> is the cheap scene wrapper that points at a ready
+		<code>backdropId</code>. Experiences attach a set, not a backdrop. Do not flatten the two.
+		Legacy <code>/locations</code> and <code>/places</code> paths still work until Phase F.
 	</p>
 
 	<h2>Auth</h2>
@@ -422,22 +423,22 @@ Authorization: Bearer lfm_live_…`;
 	<p>
 		Hotel check-in from three images: a lobby photograph, a clothes plate, and a hair plate. You
 		never send image bytes on the create routes. Upload first, then pass
-		<code>uploadId</code>. Places take a ready <code>locationId</code> only. Create
-		clothes, hair, and place bodies do not accept <code>prompt</code> or inline
+		<code>uploadId</code>. Sets take a ready <code>backdropId</code> only. Create
+		clothes, hair, and set bodies do not accept <code>prompt</code> or inline
 		<code>image</code>.
 	</p>
 	<ol>
 		<li>List costume avatars</li>
-		<li>Upload the lobby photograph → create a location → poll until ready</li>
-		<li>Create a place from that <code>locationId</code></li>
+		<li>Upload the lobby photograph → create a backdrop → poll until ready</li>
+		<li>Create a set from that <code>backdropId</code></li>
 		<li>Upload clothes and hair for the same avatar → poll each job</li>
 		<li>Create a character</li>
 		<li>Create (and optionally publish) the experience</li>
 	</ol>
 	<p>
-		Location work and wardrobe work are independent. Start both after you have
+		Backdrop work and wardrobe work are independent. Start both after you have
 		<code>avatarId</code>. Character create waits until clothes and hair jobs have
-		<code>succeeded</code>. Experience create waits for the character and the place.
+		<code>succeeded</code>. Experience create waits for the character and the set.
 	</p>
 
 	<h3>0. List costume avatars</h3>
@@ -486,28 +487,28 @@ Authorization: Bearer lfm_live_…`;
 		upload session for the second resource.
 	</p>
 
-	<h3>2. Create the location, then poll</h3>
+	<h3>2. Create the backdrop, then poll</h3>
 	<p>
-		<code>POST …/locations</code> returns <code>202</code> immediately with
-		<code>{'{ job, location }'}</code>. Omit <code>depth</code> to generate a disparity map from the
+		<code>POST …/backdrops</code> returns <code>202</code> immediately with
+		<code>{'{ job, backdrop }'}</code>. Omit <code>depth</code> to generate a disparity map from the
 		colour image. Do not call an internal run URL. Poll
 		<code>GET …/jobs/{'{jobId}'}</code> until <code>status</code> is
 		<code>succeeded</code> and <code>requiredOk</code> is <code>true</code>. Then
-		<code>GET …/locations/{'{locationId}'}</code> returns <code>{'{ location }'}</code>.
-		That GET resolves an org custom location, a published catalogue
-		<code>loc_…</code>, or a CDN catalogue id — so
-		<code>getLocation(place.locationId)</code> works after wrapping a catalogue
-		place. Ready locations include inherited <code>style</code> (currently
-		<code>Liforma 3D House Style</code> for every catalogue and custom location). Do not send
+		<code>GET …/backdrops/{'{backdropId}'}</code> returns <code>{'{ backdrop }'}</code>.
+		That GET resolves an org custom backdrop, a published catalogue
+		<code>bdrop_…</code>, or a CDN catalogue id — so
+		<code>getBackdrop(set.backdropId)</code> works after wrapping a catalogue
+		set. Ready backdrops include inherited <code>style</code> (currently
+		<code>Liforma 3D House Style</code> for every catalogue and custom backdrop). Do not send
 		<code>style</code> on create. Omit <code>forceNew</code> to reuse a matching ready or
 		in-progress plate for the same image; set <code>forceNew: true</code> to start a new job.
 	</p>
-	<CodeBlock code={createLocation} lang="http" />
-	<CodeBlock code={locationAccepted} lang="json" />
+	<CodeBlock code={createBackdrop} lang="http" />
+	<CodeBlock code={backdropAccepted} lang="json" />
 	<CodeBlock code={pollJob} lang="http" />
 	<CodeBlock code={jobSucceeded} lang="json" />
-	<CodeBlock code={getLocation} lang="http" />
-	<CodeBlock code={locationReady} lang="json" />
+	<CodeBlock code={getBackdrop} lang="http" />
+	<CodeBlock code={backdropReady} lang="json" />
 	<p>
 		To supply your own aligned depth PNG instead, complete a second upload with
 		<code>purpose: "depth"</code> (PNG only, <code>lf-disparity-v1</code>: black is far, white is
@@ -520,26 +521,26 @@ Authorization: Bearer lfm_live_…`;
 		request field.
 	</p>
 
-	<h3>3. Create the place</h3>
+	<h3>3. Create the set</h3>
 	<p>
 		Synchronous <code>201</code> (or <code>200</code> when <code>externalId</code> already exists).
-		The location must already be ready. Unknown or other-org custom locations return
-		<code>404</code> <code>UNKNOWN_LOCATION</code>. An owned draft or failed custom location
-		returns <code>409</code> <code>LOCATION_NOT_READY</code>. One location may wrap as many Places
-		in the same org. You may also wrap a published catalogue <code>loc_…</code> without uploading.
-		Places inherit <code>style</code> from the location — currently
-		<code>Liforma 3D House Style</code> for every catalogue and custom location. Do not send
+		The backdrop must already be ready. Unknown or other-org custom backdrops return
+		<code>404</code> <code>UNKNOWN_LOCATION</code>. An owned draft or failed custom backdrop
+		returns <code>409</code> <code>LOCATION_NOT_READY</code>. One backdrop may wrap as many Sets
+		in the same org. You may also wrap a published catalogue <code>bdrop_…</code> without uploading.
+		Sets inherit <code>style</code> from the backdrop — currently
+		<code>Liforma 3D House Style</code> for every catalogue and custom backdrop. Do not send
 		<code>style</code> on create or update; it is fixed and cannot be overridden.
 	</p>
-	<CodeBlock code={createPlace} lang="http" />
-	<CodeBlock code={placeCreated} lang="json" />
+	<CodeBlock code={createSet} lang="http" />
+	<CodeBlock code={setCreated} lang="json" />
 	<p>
-		Reload with <code>GET …/places/{'{placeId}'}</code>. Rename or point the place at
-		another ready location with <code>PATCH</code> — that updates the primary place
+		Reload with <code>GET …/sets/{'{setId}'}</code>. Rename or point the set at
+		another ready backdrop with <code>PATCH</code> — that updates the primary set
 		link on attached experiences and does not drop extra scene links.
 	</p>
-	<CodeBlock code={getPlace} lang="http" />
-	<CodeBlock code={patchPlace} lang="http" />
+	<CodeBlock code={getSet} lang="http" />
+	<CodeBlock code={patchSet} lang="http" />
 
 	<h3>4. Upload clothes</h3>
 	<p>
@@ -588,7 +589,7 @@ Authorization: Bearer lfm_live_…`;
 		<code>east-asian</code>. Responses also include inherited <code>style</code> from the
 		avatar (currently <code>Liforma 3D House Style</code> for catalogue avatars). Do not send
 		<code>style</code> on create or update; unlike gender, age, and ethnicity it cannot be
-		overridden. Use matching <code>style</code> values when pairing characters with places.
+		overridden. Use matching <code>style</code> values when pairing characters with sets.
 	</p>
 	<CodeBlock code={createCharacter} lang="http" />
 	<CodeBlock code={characterCreated} lang="json" />
@@ -609,7 +610,7 @@ Authorization: Bearer lfm_live_…`;
 		<strong>not</strong> publish — call <code>POST …/publish</code> (or set
 		<code>publish: true</code> on create) when you want a new revision.
 		Create and GET/PATCH responses include the start-node
-		<code>characterId</code>, <code>placeId</code>, and scene copy so a CMS can
+		<code>characterId</code>, <code>placeId</code> (opaque <code>set_…</code>), and scene copy so a CMS can
 		read back what it wrote. <code>GET /v1/projects/{'{projectId}'}/experiences</code>
 		on this same path is the
 		<a href={resolve('/api-reference/experience-catalog')}>published catalog</a> — a different
@@ -645,7 +646,7 @@ Authorization: Bearer lfm_live_…`;
 	<h2>Idempotency with <code>externalId</code></h2>
 	<p>
 		Optional on create. Same <code>externalId</code> in the same project returns the existing row
-		(or the existing ingest <code>{'{ job, location }'}</code> /
+		(or the existing ingest <code>{'{ job, backdrop }'}</code> /
 		<code>{'{ job, clothes }'}</code> / <code>{'{ job, hair }'}</code>) instead of creating a
 		duplicate. A
 		<strong>new</strong> <code>externalId</code> that reuses another experience’s slug still
@@ -678,8 +679,8 @@ Authorization: Bearer lfm_live_…`;
 	<p>
 		After required retries are exhausted,
 		<code>POST …/jobs/{'{jobId}'}/retry</code> starts a new required job on the same clothes, hair,
-		or location from the frozen fingerprint. A location retry also resets an unpublished
-		location row to <code>draft</code> so GET no longer says <code>failed</code> after
+		or backdrop from the frozen fingerprint. A backdrop retry also resets an unpublished
+		backdrop row to <code>draft</code> so GET no longer says <code>failed</code> after
 		dispatch. The endpoint accepts only a terminal <code>failed</code> job; any other state returns
 		<code>409 JOB_NOT_RETRYABLE</code>. Poll UIs should not automatically retry terminal processor
 		errors; call this endpoint when an operator explicitly wants another attempt.
@@ -689,16 +690,16 @@ Authorization: Bearer lfm_live_…`;
 	<p>
 		<code>GET …/clothes/{'{clothesId}'}</code> returns <code>{'{ clothes }'}</code>,
 		<code>…/hair/{'{hairId}'}</code> returns <code>{'{ hair }'}</code>,
-		<code>…/locations/{'{locationId}'}</code> returns <code>{'{ location }'}</code>,
+		<code>…/backdrops/{'{backdropId}'}</code> returns <code>{'{ backdrop }'}</code>,
 		<code>…/characters/{'{characterId}'}</code> returns <code>{'{ character }'}</code>,
-		and <code>…/places/{'{placeId}'}</code> returns <code>{'{ place }'}</code>. Clothes and hair
+		and <code>…/sets/{'{setId}'}</code> returns <code>{'{ set }'}</code>. Clothes and hair
 		expose only <code>kind</code>, <code>id</code>, <code>avatarId</code>, <code>name</code>,
 		<code>status</code>, <code>source</code>, <code>externalId</code>, and timestamps — not CDN
 		paths, compose slugs, or renderer internals.
 	</p>
 	<ul>
 		<li>
-			Location: <code>kind</code>, <code>id</code>, <code>status</code>, <code>name</code>,
+			Backdrop: <code>kind</code>, <code>id</code>, <code>status</code>, <code>name</code>,
 			<code>depthEncoding</code>, inherited <code>style</code>, <code>externalId</code>.
 		</li>
 		<li>
@@ -707,7 +708,7 @@ Authorization: Bearer lfm_live_…`;
 			<code>externalId</code>, and timestamps.
 		</li>
 		<li>
-			Place: <code>id</code>, <code>name</code>, <code>locationId</code>, inherited
+			Set: <code>id</code>, <code>name</code>, <code>backdropId</code>, inherited
 			<code>style</code>, <code>externalId</code>, and timestamps.
 		</li>
 		<li>
@@ -716,7 +717,7 @@ Authorization: Bearer lfm_live_…`;
 			<code>published</code>, <code>externalId</code>, and timestamps.
 		</li>
 		<li>
-			Create responses for clothes, hair, and location contain only the slim job plus a target
+			Create responses for clothes, hair, and backdrop contain only the slim job plus a target
 			stub with <code>id</code> and <code>status</code>.
 		</li>
 	</ul>
@@ -724,7 +725,7 @@ Authorization: Bearer lfm_live_…`;
 	<h2>GET /v1/projects/&#123;projectId&#125;/experiences/&#123;experienceId&#125;</h2>
 	<p>
 		Returns the Publisher serializer for one experience (<code>exp_…</code>), including
-		start-node <code>characterId</code>, <code>placeId</code>, and scene copy. The
+		start-node <code>characterId</code>, <code>placeId</code> (opaque <code>set_…</code>), and scene copy. The
 		unprefixed <code>/v1/experiences/{'{experienceId}'}</code> path still works temporarily as a
 		deprecated compatibility alias. New clients must use the project-prefixed route.
 	</p>
@@ -734,11 +735,11 @@ Authorization: Bearer lfm_live_…`;
 	<p>
 		Update catalog fields and scene copy on the current draft:
 		<code>title</code>, <code>slug</code>, <code>attributes</code>,
-		<code>characterId</code>, <code>placeId</code>, <code>startingMessage</code>,
+		<code>characterId</code>, <code>setId</code> (or <code>placeId</code>), <code>startingMessage</code>,
 		<code>systemInstructions</code>, <code>introduction</code>. This does
 		<strong>not</strong> publish a new revision. Moving onto another experience’s slug in the same
 		project is <code>409</code> <code>SLUG_CONFLICT</code>. Changing
-		<code>placeId</code> replaces the primary place only.
+		<code>setId</code> replaces the primary set only.
 	</p>
 	<CodeBlock code={patchExperience} lang="http" />
 
@@ -754,7 +755,7 @@ Authorization: Bearer lfm_live_…`;
 	<h2>POST /v1/projects/&#123;projectId&#125;/jobs/&#123;jobId&#125;/retry</h2>
 	<p>
 		Starts a new required job from the frozen fingerprint of a
-		<code>failed</code> job. Returns the same <code>{'{ job, clothes|hair|location }'}</code>
+		<code>failed</code> job. Returns the same <code>{'{ job, clothes|hair|backdrop }'}</code>
 		shape as create. Concurrent calls return the same active retry rather than creating parallel
 		jobs for one target.
 	</p>

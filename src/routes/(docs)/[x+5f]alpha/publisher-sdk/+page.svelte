@@ -32,13 +32,13 @@
 
 	<h2>Hotel check-in</h2>
 	<p>
-		Upload a lobby photograph plus clothes and hair plates, wrap a place, create a character, then
-		publish. <code>createLocation</code> / <code>createClothes</code> / <code>createHair</code>
+		Upload a lobby photograph plus clothes and hair plates, wrap a set, create a character, then
+		publish. <code>createBackdrop</code> / <code>createClothes</code> / <code>createHair</code>
 		wait until the publish job is <code>succeeded</code> with <code>requiredOk</code>.
 	</p>
 	<p>
-		A location is the visual plate. A place is the scene wrapper that points at a ready
-		<code>locationId</code>. Experiences attach the place. Character fields
+		A backdrop is the visual plate. A set is the scene wrapper that points at a ready
+		<code>backdropId</code>. Experiences attach the set. Character fields
 		(<code>sttLang</code>, <code>generalInstructions</code>, <code>personality</code>) stay on the
 		character. Experience copy (<code>systemInstructions</code>, <code>startingMessage</code>,
 		<code>introduction</code>) stays on the experience.
@@ -108,11 +108,11 @@
 	<h2>Jobs</h2>
 	<p>
 		Prefer the high-level <code>create*</code> helpers. For queues and custom UIs, use
-		<code>startLocation</code> / <code>startClothes</code> / <code>startHair</code> plus
+		<code>startBackdrop</code> / <code>startClothes</code> / <code>startHair</code> plus
 		<code>publisher.jobs.get</code>, <code>wait</code>, <code>watch</code>, and
 		<code>retry</code>. Pass <code>forceNew: true</code> on create when you want a new plate
 		instead of content-addressed reuse. <code>uploadDepthMap</code> is the depth-purpose
-		upload used by <code>createLocation(&#123; depth &#125;)</code>.
+		upload used by <code>createBackdrop(&#123; depth &#125;)</code>.
 	</p>
 	<CodeBlock code={snippets.publisherJobs} lang="ts" />
 	<p>

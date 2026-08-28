@@ -15,6 +15,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - Prefer **`locale`** (and optional `secondaryLocale` / `learningLocale`) on mint; do not invent UI mint fields (`startButton`, `closeButton`, `returnUrl`, `fit`, `showFeedback`).
 - Events use a common envelope: `{ id, type, sessionId, timestamp, data }`.
 - Primary activity event: **`activityChange`** — `data` is `'idle' | 'listening' | 'thinking' | 'speaking'`.
+- Embed prefetch hint: **`backdropId`** (`locationId` is a deprecated alias). The player does not emit `locationChange` or `backdropChange`.
 - End-of-session Feedback: **`feedback`** (`feedback.v1` scores) / **`feedbackFailed`**. Player shows Feedback UI by default; set **`showFeedback={false}`** on attach / `<Experience>` to own the UX (not a Studio setting).
 - Player chrome / status: `attach()` / component props — prefer **`onPlayerStatusChange`** (not `onStateUpdate`).
 
