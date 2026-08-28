@@ -33,7 +33,8 @@
 	<h2>Hotel check-in</h2>
 	<p>
 		Upload a lobby photograph plus clothes and hair plates, wrap a set, create a character, then
-		publish. <code>createBackdrop</code> / <code>createClothes</code> / <code>createHair</code>
+		publish. <code>backdrops.create</code> / <code>clothes.create</code> /
+		<code>hair.create</code>
 		wait until the publish job is <code>succeeded</code> with <code>requiredOk</code>.
 	</p>
 	<p>
@@ -47,9 +48,9 @@
 
 	<h2>Draft vs publish</h2>
 	<p>
-		<code>updateExperience</code> writes the current draft and does not publish.
-		<code>publishExperience</code> snapshots a revision. Pass <code>publish: true</code> on
-		<code>createExperience</code> when you want the first revision in the same call.
+		<code>experiences.update</code> writes the current draft and does not publish.
+		<code>experiences.publish</code> snapshots a revision. Pass <code>publish: true</code> on
+		<code>experiences.create</code> when you want the first revision in the same call.
 	</p>
 	<p>
 		Experience fields always describe the current draft. Use <code>status</code> for the
@@ -68,30 +69,30 @@
 
 	<h2>Reload and edit</h2>
 	<p>
-		<code>getCharacter</code>, <code>getPlace</code>, <code>getExperience</code>,
-		<code>getLocation</code>, <code>getClothes</code>, and <code>getHair</code> reload the
+		<code>characters.get</code>, <code>sets.get</code>, <code>experiences.get</code>,
+		<code>backdrops.get</code>, <code>clothes.get</code>, and <code>hair.get</code> reload the
 		same envelopes create returns. Experience JSON includes the start-node
-		<code>characterId</code>, <code>placeId</code>, <code>startingMessage</code>,
+		<code>characterId</code>, <code>setId</code>, <code>startingMessage</code>,
 		<code>systemInstructions</code>, <code>introduction</code>,
 		<code>hasPublishedRevision</code>, and <code>hasUnpublishedChanges</code>.
 	</p>
 	<p>
-		<code>updateClothes</code> / <code>updateHair</code> rename a plate.
-		<code>updatePlace</code> can point at a new ready <code>locationId</code>.
-		<code>updateCharacter</code> edits appearance, person copy, and optional
+		<code>clothes.update</code> / <code>hair.update</code> rename a plate.
+		<code>sets.update</code> can point at a new ready <code>backdropId</code>.
+		<code>characters.update</code> edits appearance, person copy, and optional
 		<code>gender</code>, <code>age</code> (1–1000), and <code>ethnicity</code>. Pass
 		<code>null</code> to inherit those fields from the avatar again.
-		<code>style</code> on characters, places, and locations is read-only: characters inherit
-		it from the avatar, places inherit it from the location, and authors cannot override it.
-		<code>updateExperience</code> edits catalog fields, the primary character or place, and
-		scene copy. Then call <code>publishExperience</code> when you want a new revision.
+		<code>style</code> on characters, sets, and backdrops is read-only: characters inherit
+		it from the avatar, sets inherit it from the backdrop, and authors cannot override it.
+		<code>experiences.update</code> edits catalog fields, the primary character or set, and
+		scene copy. Then call <code>experiences.publish</code> when you want a new revision.
 	</p>
 	<CodeBlock code={snippets.publisherReloadAndUpdate} lang="ts" />
 	<p>
 		<code>GET /v1/projects/{'{projectId}'}/experiences</code> is the published
 		<a href={resolve('/api-reference/experience-catalog')}>integrator catalog</a>, not a Publisher
 		list.
-		Use <code>getExperience(expId)</code> for the draft/publish envelope — that call
+		Use <code>experiences.get(expId)</code> for the draft/publish envelope — that call
 		hits the project-prefixed Publisher path, not the catalog.
 	</p>
 	<p>
@@ -107,12 +108,15 @@
 
 	<h2>Jobs</h2>
 	<p>
-		Prefer the high-level <code>create*</code> helpers. For queues and custom UIs, use
-		<code>startBackdrop</code> / <code>startClothes</code> / <code>startHair</code> plus
+		Prefer the high-level <code>create()</code> helpers. For queues and custom UIs, use
+		<code>backdrops.startCreate</code> / <code>clothes.startCreate</code> /
+		<code>hair.startCreate</code> plus
 		<code>publisher.jobs.get</code>, <code>wait</code>, <code>watch</code>, and
-		<code>retry</code>. Pass <code>forceNew: true</code> on create when you want a new plate
-		instead of content-addressed reuse. <code>uploadDepthMap</code> is the depth-purpose
-		upload used by <code>createBackdrop(&#123; depth &#125;)</code>.
+		<code>retry</code>. <code>retry</code> is allowed only when the failed job’s
+		<code>error.retryable</code> is <code>true</code>. Pass <code>forceNew: true</code> on create
+		when you want a new plate instead of content-addressed reuse.
+		<code>uploadDepthMap</code> is the depth-purpose
+		upload used by <code>backdrops.create(input)</code> with a <code>depth</code> field.
 	</p>
 	<CodeBlock code={snippets.publisherJobs} lang="ts" />
 	<p>
@@ -128,8 +132,10 @@
 		Polling is also the recovery signal in the serverless runner: a no-store
 		<code>jobs.get</code>, <code>wait</code>, or <code>watch</code> poll may resume due work after
 		an interrupted dispatch. Call <code>jobs.retry</code> only for a terminal
-		<code>failed</code> job; retrying a queued, running, waiting, or succeeded job returns
-		<code>JOB_NOT_RETRYABLE</code>.
+		<code>failed</code> job with <code>error.retryable === true</code>; retrying a queued,
+		running, waiting, succeeded, or non-retryable job returns
+		<code>JOB_NOT_RETRYABLE</code>. Aborting <code>create()</code>, <code>wait</code>, or
+		<code>watch</code> stops this client’s wait only. It does not cancel the durable job.
 	</p>
 
 	<h2>Upload and request retries</h2>
@@ -141,7 +147,7 @@
 		declared <code>Content-Length</code>, so the request must send that exact header and byte count.
 	</p>
 	<p>
-		The 0.3 SDK performs bounded retries for the idempotent presigned image PUT and upload
+		The SDK performs bounded retries for the idempotent presigned image PUT and upload
 		completion request, including transient network failures, <code>429</code>, and
 		<code>5xx</code>, while honoring <code>Retry-After</code>. It does not automatically retry
 		upload-session creation or resource create calls. Use a stable <code>externalId</code> for
@@ -166,28 +172,55 @@
 		>.
 	</p>
 
-	<h2>Upgrading to 0.3</h2>
+	<h2>Upgrading to 0.5</h2>
+	<p>
+		<code>@liforma/publisher@0.5.0</code> is a breaking pre-1.0 cutover. Flat methods are gone.
+		Resource work lives on namespaces; execution controls are a second argument.
+	</p>
 	<ul>
 		<li>
+			Replace <code>createCharacter</code>, <code>getCharacter</code>,
+			<code>updateCharacter</code>, <code>archiveCharacter</code>,
+			<code>restoreCharacter</code>, and <code>deleteCharacter</code> with
+			<code>publisher.characters.*</code>. The same pattern applies to
+			<code>experiences</code>, <code>sets</code>, <code>backdrops</code>,
+			<code>clothes</code>, and <code>hair</code>. Avatars are
+			<code>publisher.avatars.list()</code>.
+		</li>
+		<li>
+			There are no Place or Location SDK clients. Use <code>sets</code> and
+			<code>backdrops</code>. Experience create input requires <code>setId</code>.
+		</li>
+		<li>
+			Job-backed start is <code>startCreate()</code>, not <code>startBackdrop</code> /
+			<code>startClothes</code> / <code>startHair</code>. Blocking
+			<code>create()</code> is start → <code>jobs.wait</code> → <code>get(targetId)</code>.
+			<code>jobs.wait()</code> still returns the job, not the resource.
+		</li>
+		<li>
+			Move <code>signal</code>, <code>timeoutMs</code>, and <code>onProgress</code> off
+			authored input. <code>jobs.wait</code> and blocking <code>create</code> take
+			<code>WaitOptions</code>. <code>jobs.watch</code> takes
+			<code>{'{ signal, timeoutMs }'}</code> only.
+		</li>
+		<li>
+			<code>job.error</code> is now
+			<code>{'{ code, category, retryable, message }'}</code>. Call
+			<code>jobs.retry</code> only when <code>error.retryable</code> is
+			<code>true</code>. Do not infer retryability from the code.
+		</li>
+		<li>
+			Aborting <code>create</code>, <code>wait</code>, or <code>watch</code> stops this
+			client only. It does not cancel the durable server job.
+		</li>
+		<li>
 			Read <code>status</code>, <code>hasPublishedRevision</code>, and
-			<code>hasUnpublishedChanges</code>. The deprecated <code>published</code> field keeps its
-			old status-plus-revision behavior; it is not an alias for
-			<code>hasPublishedRevision</code>.
-		</li>
-		<li>
-			Use project-prefixed Experience item and publish routes. The SDK does this automatically.
-		</li>
-		<li>
-			Handle <code>JOB_WAIT_TIMEOUT</code> by saving the job id and resuming the poll, not by
-			recreating the asset.
-		</li>
-		<li>
-			Do not depend on internal clothes, hair, location, or job fields; 0.3 validates the slim
-			public resource shapes.
+			<code>hasUnpublishedChanges</code>. The deprecated <code>published</code> field keeps
+			its older status-plus-revision meaning.
 		</li>
 		<li>
 			Update the package and lockfile together with
-			<code>npm install @liforma/publisher@^0.3.0</code>.
+			<code>npm install @liforma/publisher@^0.5.0</code>.
 		</li>
 	</ul>
 </DocPage>

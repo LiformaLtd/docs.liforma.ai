@@ -17,12 +17,12 @@
 	<ul>
 		<li>
 			<a href="/_alpha/publisher-sdk">Publisher SDK</a>
-			— server-only <code>@liforma/publisher</code> for the Publisher API: upload → location →
-			place → character → experience.
+			— server-only <code>@liforma/publisher</code> for the Publisher API: upload → backdrop →
+			set → character → experience.
 		</li>
 		<li>
 			<a href="/_alpha/programmatic-experience-creation">Programmatic experience creation</a>
-			— Publisher API REST: upload a location, clothes, and hair, then create a place, character,
+			— Publisher API REST: upload a backdrop, clothes, and hair, then create a set, character,
 			and experience over <code>/v1</code>, including path slugs and attributes.
 		</li>
 	</ul>
