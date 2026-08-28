@@ -272,6 +272,7 @@ Content-Type: application/json
       "level": "A1"
     },
     "characterId": "char_ABC",
+    "setId": "set_ABC",
     "placeId": "set_ABC",
     "startingMessage": "Welcome. How can I help you today?",
     "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
@@ -379,8 +380,8 @@ Authorization: Bearer lfm_live_…`;
 	]}
 >
 	<p>
-		This is an unlisted preview of the private Publisher API. It is not in the public docs sidebar,
-		sitemap, or <code>llms.txt</code>. Use a <strong>live project API key</strong>. Never send the
+		This is an unlisted preview of the private Publisher API. It is not in the public docs sidebar
+		or sitemap. Use a <strong>live project API key</strong>. Never send the
 		key to a browser.
 	</p>
 	<p>
@@ -610,7 +611,8 @@ Authorization: Bearer lfm_live_…`;
 		<strong>not</strong> publish — call <code>POST …/publish</code> (or set
 		<code>publish: true</code> on create) when you want a new revision.
 		Create and GET/PATCH responses include the start-node
-		<code>characterId</code>, <code>placeId</code> (opaque <code>set_…</code>), and scene copy so a CMS can
+		<code>characterId</code>, <code>setId</code> (opaque <code>set_…</code>), deprecated
+		<code>placeId</code>, and scene copy so a CMS can
 		read back what it wrote. <code>GET /v1/projects/{'{projectId}'}/experiences</code>
 		on this same path is the
 		<a href={resolve('/api-reference/experience-catalog')}>published catalog</a> — a different
@@ -670,7 +672,13 @@ Authorization: Bearer lfm_live_…`;
 		The public job is deliberately slim:
 		<code>id</code>, <code>status</code>, <code>kind</code>, <code>pollUrl</code>,
 		<code>targetId</code>, <code>requiredOk</code>, <code>stage</code>, <code>progress</code>, and
-		<code>error</code>. Status is <code>queued</code>, <code>running</code>,
+		<code>error</code>. A terminal <code>error</code> is
+		<code>{'{ code, category, retryable, message }'}</code>.
+		<code>category</code> is
+		<code>input</code>, <code>dependency</code>, <code>capacity</code>,
+		<code>infrastructure</code>, or <code>internal</code>. Clients must read
+		<code>retryable</code>; they must not infer it from the code. Status is
+		<code>queued</code>, <code>running</code>,
 		<code>waiting_processor</code>, <code>succeeded</code>, or <code>failed</code>. Treat only
 		<code>succeeded</code> with <code>requiredOk: true</code> as ready. A client-side polling
 		timeout does not cancel the job: retain <code>job.id</code> and resume polling that same URL.
@@ -681,9 +689,11 @@ Authorization: Bearer lfm_live_…`;
 		<code>POST …/jobs/{'{jobId}'}/retry</code> starts a new required job on the same clothes, hair,
 		or backdrop from the frozen fingerprint. A backdrop retry also resets an unpublished
 		backdrop row to <code>draft</code> so GET no longer says <code>failed</code> after
-		dispatch. The endpoint accepts only a terminal <code>failed</code> job; any other state returns
-		<code>409 JOB_NOT_RETRYABLE</code>. Poll UIs should not automatically retry terminal processor
-		errors; call this endpoint when an operator explicitly wants another attempt.
+		dispatch. The endpoint accepts only a terminal <code>failed</code> job whose public
+		<code>error.retryable</code> is <code>true</code>; any other state or a non-retryable
+		error returns <code>409 JOB_NOT_RETRYABLE</code>. Poll UIs should not automatically retry
+		terminal processor errors; call this endpoint when an operator explicitly wants another
+		attempt.
 	</p>
 
 	<h3>Slim public resource fields</h3>
@@ -712,7 +722,8 @@ Authorization: Bearer lfm_live_…`;
 			<code>style</code>, <code>externalId</code>, and timestamps.
 		</li>
 		<li>
-			Experience: ids, catalog fields, current-draft scene fields,
+			Experience: ids, catalog fields, current-draft scene fields including
+			<code>setId</code> and deprecated <code>placeId</code>,
 			<code>hasPublishedRevision</code>, <code>hasUnpublishedChanges</code>, deprecated
 			<code>published</code>, <code>externalId</code>, and timestamps.
 		</li>
@@ -725,7 +736,8 @@ Authorization: Bearer lfm_live_…`;
 	<h2>GET /v1/projects/&#123;projectId&#125;/experiences/&#123;experienceId&#125;</h2>
 	<p>
 		Returns the Publisher serializer for one experience (<code>exp_…</code>), including
-		start-node <code>characterId</code>, <code>placeId</code> (opaque <code>set_…</code>), and scene copy. The
+		start-node <code>characterId</code>, <code>setId</code> (opaque <code>set_…</code>), deprecated
+		<code>placeId</code>, and scene copy. The
 		unprefixed <code>/v1/experiences/{'{experienceId}'}</code> path still works temporarily as a
 		deprecated compatibility alias. New clients must use the project-prefixed route.
 	</p>
@@ -900,10 +912,17 @@ Authorization: Bearer lfm_live_…`;
 	</table>
 
 	<h3>Terminal job errors</h3>
+	<p>
+		These appear on <code>job.error</code> with <code>category</code> and
+		<code>retryable</code>. Historical jobs that lack those fields are classified from
+		<code>code</code> on read; unknown codes are <code>internal</code> and not retryable.
+	</p>
 	<table>
 		<thead>
 			<tr>
 				<th>Code</th>
+				<th>Category</th>
+				<th>Retryable</th>
 				<th>Meaning</th>
 			</tr>
 		</thead>
@@ -913,25 +932,41 @@ Authorization: Bearer lfm_live_…`;
 					<code>EXPECTED_TRANSPARENT_BACKGROUND</code> /
 					<code>BACKGROUND_REMOVAL_UNSUPPORTED</code>
 				</td>
+				<td><code>input</code></td>
+				<td>No</td>
 				<td>The wardrobe image does not satisfy its selected background mode</td>
 			</tr>
 			<tr>
-				<td>
-					<code>PROCESSOR_FAILED</code> / <code>PROCESSOR_TIMEOUT</code> /
-					<code>PROCESSOR_UNAVAILABLE</code>
-				</td>
-				<td>Required image-to-depth processing failed, timed out, or was unavailable</td>
-			</tr>
-			<tr>
 				<td><code>INVALID_DEPTH_RANGE</code></td>
+				<td><code>input</code></td>
+				<td>No</td>
 				<td>The supplied or generated depth values are not usable</td>
 			</tr>
 			<tr>
-				<td><code>REQUIRED_ARTIFACTS</code> / <code>ORIGIN_VERIFY_FAILED</code></td>
-				<td>Required published files are missing or could not be verified</td>
+				<td><code>PROCESSOR_FAILED</code></td>
+				<td><code>dependency</code></td>
+				<td>Yes</td>
+				<td>Required image-to-depth processing failed</td>
+			</tr>
+			<tr>
+				<td><code>PROCESSOR_TIMEOUT</code></td>
+				<td><code>capacity</code></td>
+				<td>Yes</td>
+				<td>Required image-to-depth processing timed out</td>
+			</tr>
+			<tr>
+				<td>
+					<code>PROCESSOR_UNAVAILABLE</code> / <code>REQUIRED_ARTIFACTS</code> /
+					<code>ORIGIN_VERIFY_FAILED</code>
+				</td>
+				<td><code>infrastructure</code></td>
+				<td>Yes</td>
+				<td>The processor was unavailable, or required published files are missing or unverified</td>
 			</tr>
 			<tr>
 				<td><code>JOB_FAILED</code></td>
+				<td><code>internal</code></td>
+				<td>No</td>
 				<td>Generic terminal failure when no safer public detail is available</td>
 			</tr>
 		</tbody>
@@ -942,8 +977,20 @@ Authorization: Bearer lfm_live_…`;
 		deadline expires. Neither code means that a new resource create should be submitted.
 	</p>
 
-	<h2>0.3 migration</h2>
+	<h2>0.5 migration</h2>
 	<ul>
+		<li>
+			Job-bearing responses now emit classified
+			<code>error: {'{ code, category, retryable, message }'}</code>. Retry
+			<code>POST …/jobs/{'{jobId}'}/retry</code> only when
+			<code>status</code> is <code>failed</code> and <code>error.retryable</code> is
+			<code>true</code>.
+		</li>
+		<li>
+			The Node SDK is namespaced in <code>@liforma/publisher@^0.5.0</code>. Flat methods and
+			Place/Location clients are gone. See the
+			<a href={resolve('/[x+5f]alpha/publisher-sdk')}>Publisher SDK</a> upgrade notes.
+		</li>
 		<li>
 			Switch Publisher item reads, updates, and publishes to
 			<code>/v1/projects/&#123;projectId&#125;/experiences/&#123;experienceId&#125;</code>. The
@@ -960,11 +1007,8 @@ Authorization: Bearer lfm_live_…`;
 			kinds. Use only the slim fields listed above.
 		</li>
 		<li>
-			On a polling timeout, persist the job id and resume <code>GET job.pollUrl</code>. Retry the
-			server job only after it reports <code>failed</code>; do not repeat the asset create.
-		</li>
-		<li>
-			For Node, install <code>@liforma/publisher@^0.3.0</code> and update the application lockfile.
+			On a polling timeout, persist the job id and resume <code>GET job.pollUrl</code>. Do not
+			repeat the asset create.
 		</li>
 	</ul>
 </DocPage>

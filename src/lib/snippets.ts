@@ -1313,17 +1313,17 @@ const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
   apiKey: process.env.LIFORMA_API_KEY!
 });
 
-const avatars = await publisher.listAvatars();
+const avatars = await publisher.avatars.list();
 const avatar = avatars[0]!;
 
 const background = await publisher.uploadImage(readFileSync('./lobby.png'), {
   contentType: 'image/png'
 });
-const backdrop = await publisher.createBackdrop({
+const backdrop = await publisher.backdrops.create({
   name: 'Hotel lobby',
   image: background
 });
-const set = await publisher.createSet({
+const set = await publisher.sets.create({
   name: 'Hotel lobby',
   backdropId: backdrop.id
 });
@@ -1335,19 +1335,19 @@ const hairImage = await publisher.uploadImage(readFileSync('./hair.png'), {
   contentType: 'image/png'
 });
 const [clothes, hair] = await Promise.all([
-  publisher.createClothes({
+  publisher.clothes.create({
     avatarId: avatar.id,
     image: clothesImage,
     backgroundMode: 'remove'
   }),
-  publisher.createHair({
+  publisher.hair.create({
     avatarId: avatar.id,
     image: hairImage,
     backgroundMode: 'remove'
   })
 ]);
 
-const character = await publisher.createCharacter({
+const character = await publisher.characters.create({
   avatarId: avatar.id,
   name: 'Front desk',
   voice: avatar.defaultVoiceId,
@@ -1360,7 +1360,7 @@ const character = await publisher.createCharacter({
   generalInstructions: 'Keep replies short. Stay in character.'
 });
 
-const experience = await publisher.createExperience({
+const experience = await publisher.experiences.create({
   title: 'Hotel check-in',
   characterId: character.id,
   setId: set.id,
@@ -1374,52 +1374,54 @@ console.log(experience.id);`,
 
 	publisherJobs: `import { LiformaPublisherError } from '@liforma/publisher';
 
-const started = await publisher.startBackdrop({
+const started = await publisher.backdrops.startCreate({
   name: 'Hotel lobby',
   image: background
 });
 
 try {
-  for await (const job of publisher.jobs.watch(started.job.id, { timeoutMs: 60_000 })) {
+  for await (const job of publisher.jobs.watch(started.id, { timeoutMs: 60_000 })) {
     console.log(job.status, job.progress);
   }
 } catch (error) {
   if (!(error instanceof LiformaPublisherError) || error.code !== 'JOB_WAIT_TIMEOUT') throw error;
-  // Persist started.job.id. The durable server job is still running.
+  // Persist started.id. Aborting wait/watch stops local polling only; the durable job keeps running.
 }
 
-// Resume later with the same id; do not repeat startBackdrop.
-await publisher.jobs.wait(started.job.id);
-const backdrop = await publisher.getBackdrop(started.job.targetId);
+// Resume later with the same id; do not repeat startCreate.
+await publisher.jobs.wait(started.id);
+const backdrop = await publisher.backdrops.get(started.targetId);
 
 const depth = await publisher.uploadDepthMap(readFileSync('./lobby-depth.png'), {
   contentType: 'image/png'
 });
-const replacement = await publisher.createBackdrop({
-  name: 'Hotel lobby',
-  image: background,
-  depth: { image: depth, depthMapType: 'disparity' },
-  forceNew: true
-});`,
+const replacement = await publisher.backdrops.create(
+  {
+    name: 'Hotel lobby',
+    image: background,
+    depth: { image: depth, depthMapType: 'disparity' },
+    forceNew: true
+  }
+);`,
 
-	publisherReloadAndUpdate: `const character = await publisher.getCharacter(characterId);
-const set = await publisher.getSet(setId);
-const experience = await publisher.getExperience(experienceId);
+	publisherReloadAndUpdate: `const character = await publisher.characters.get(characterId);
+const set = await publisher.sets.get(setId);
+const experience = await publisher.experiences.get(experienceId);
 
-await publisher.updateClothes(clothesId, { name: 'Reception uniform' });
-await publisher.updateSet(set.id, { name: 'Hotel lobby', backdropId: set.backdropId });
-await publisher.updateCharacter(character.id, {
+await publisher.clothes.update(clothesId, { name: 'Reception uniform' });
+await publisher.sets.update(set.id, { name: 'Hotel lobby', backdropId: set.backdropId });
+await publisher.characters.update(character.id, {
   personality: 'Warm hotel receptionist.',
   generalInstructions: 'Keep replies short. Stay in character.',
   gender: 'female',
   age: 28,
   ethnicity: 'european'
 });
-await publisher.updateExperience(experience.id, {
+await publisher.experiences.update(experience.id, {
   title: 'Hotel check-in (A1)',
   startingMessage: 'Welcome. How can I help you today?',
   systemInstructions: 'You are a hotel receptionist. Help the guest check in.',
   introduction: 'Practice checking into a hotel.'
 });
-await publisher.publishExperience(experience.id);`
+await publisher.experiences.publish(experience.id);`
 } as const;
