@@ -69,7 +69,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - Player chrome (`startButton`, `returnUrl`, `fit`, `showFeedback`) comes from `attach()` / component props, not mint.
 - CDN script is **v2** (`/sdk/v2/client.js`).
 - npm: [`@liforma/client`](https://www.npmjs.com/package/@liforma/client)
-- Authoring (alpha, server-only): [`@liforma/publisher@0.5`](https://docs.liforma.ai/_alpha/publisher-sdk) uses resource namespaces (`publisher.characters.create`, `publisher.experiences.publish`, `publisher.backdrops.startCreate`, `publisher.jobs.wait`). REST stays project-scoped. Not the public Session Launch contract.
+- Authoring (alpha, server-only): [`@liforma/publisher@0.6`](https://docs.liforma.ai/_alpha/publisher-sdk) uses resource namespaces (`publisher.costumes.create`, `publisher.clothes.create`, `publisher.characters.create` with `costumeId` XOR `clothesId`/`hairId`, `publisher.experiences.publish`, `publisher.jobs.wait`). REST stays project-scoped. Not the public Session Launch contract.
 - Examples: https://examples.liforma.ai · https://github.com/LiformaLtd/examples.liforma.ai
 - Developer portal (API keys, origins): https://app.liforma.ai
 
