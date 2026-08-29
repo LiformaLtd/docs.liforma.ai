@@ -20,6 +20,9 @@ Authorization: Bearer lfm_live_…`;
       "ethnicity": "european",
       "species": "human",
       "style": "Liforma 3D House Style",
+      "costumes": [
+        { "id": "clothes_WHOLE001", "name": "Examiner", "source": "catalogue", "libraryScope": "liforma" }
+      ],
       "clothes": [
         { "id": "clothes_CATALOGUE", "name": "Blazer", "source": "library", "libraryScope": "project" }
       ],
@@ -987,7 +990,7 @@ Authorization: Bearer lfm_live_…`;
 			<code>true</code>.
 		</li>
 		<li>
-			The Node SDK is namespaced in <code>@liforma/publisher@^0.5.0</code>. Flat methods and
+			The Node SDK is namespaced in <code>@liforma/publisher@^0.6.0</code>. Flat methods and
 			Place/Location clients are gone. See the
 			<a href={resolve('/[x+5f]alpha/publisher-sdk')}>Publisher SDK</a> upgrade notes.
 		</li>

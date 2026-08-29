@@ -1372,6 +1372,61 @@ const experience = await publisher.experiences.create({
 
 console.log(experience.id);`,
 
+	publisherHotelExaminer: `import { readFileSync } from 'node:fs';
+import { createPublisher } from '@liforma/publisher';
+
+const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
+  apiKey: process.env.LIFORMA_API_KEY!
+});
+
+const avatars = await publisher.avatars.list();
+const avatar = avatars[0]!;
+
+const background = await publisher.uploadImage(readFileSync('./lobby.png'), {
+  contentType: 'image/png'
+});
+const backdrop = await publisher.backdrops.create({
+  name: 'Exam room',
+  image: background
+});
+const set = await publisher.sets.create({
+  name: 'Exam room',
+  backdropId: backdrop.id
+});
+
+const wholeLook = await publisher.uploadImage(readFileSync('./examiner.png'), {
+  contentType: 'image/png'
+});
+const costume = await publisher.costumes.create({
+  avatarId: avatar.id,
+  image: wholeLook,
+  backgroundMode: 'remove'
+});
+
+const character = await publisher.characters.create({
+  avatarId: avatar.id,
+  name: 'Examiner',
+  voice: avatar.defaultVoiceId,
+  sttLang: avatar.defaultSttLang,
+  costumeId: costume.id,
+  gender: 'female',
+  age: 34,
+  ethnicity: 'european',
+  generalInstructions: 'Keep replies short. Stay in character.'
+});
+
+const experience = await publisher.experiences.create({
+  title: 'Language exam',
+  characterId: character.id,
+  setId: set.id,
+  startingMessage: 'Good morning. Shall we begin?',
+  systemInstructions: 'You are a language examiner. Conduct the speaking test.',
+  introduction: 'Practice a spoken language exam.',
+  publish: true
+});
+
+console.log(experience.id);`,
+
 	publisherJobs: `import { LiformaPublisherError } from '@liforma/publisher';
 
 const started = await publisher.backdrops.startCreate({

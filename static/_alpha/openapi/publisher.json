@@ -2,7 +2,7 @@
 	"openapi": "3.1.0",
 	"info": {
 		"title": "Liforma Publisher API",
-		"version": "0.5.0",
+		"version": "0.6.0",
 		"description": "Unlisted org-allowlisted Publisher API used by @liforma/publisher. Live API keys only. Not part of the public integrator Session Launch contract."
 	},
 	"servers": [
@@ -2033,6 +2033,922 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/GetHairResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/costumes": {
+			"post": {
+				"summary": "Create a whole costume from a completed upload",
+				"operationId": "createCostume",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateCostumeBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Idempotent replay of an existing job for the same externalId or image fingerprint",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateCostumePublishResponse"
+								}
+							}
+						}
+					},
+					"202": {
+						"description": "Accepted publish job",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CreateCostumePublishResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/costumes/{costumeId}": {
+			"get": {
+				"summary": "Get costume resource",
+				"operationId": "getCostume",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "costumeId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Costume resource",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetCostumeResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"summary": "Update costume metadata",
+				"operationId": "patchCostume",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "costumeId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PatchCostumeBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Updated costume",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetCostumeResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"summary": "Permanently delete an archived costume",
+				"operationId": "deleteCostume",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "costumeId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Permanently deleted",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DeletedResourceResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/costumes/{costumeId}/archive": {
+			"post": {
+				"summary": "Archive costume",
+				"operationId": "archiveCostume",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "costumeId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Archived costume",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetCostumeResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/costumes/{costumeId}/restore": {
+			"post": {
+				"summary": "Restore archived costume",
+				"operationId": "restoreCostume",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "costumeId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Restored costume",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetCostumeResponse"
 								}
 							}
 						}
@@ -7910,7 +8826,7 @@
 						]
 					},
 					"forceNew": {
-						"description": "When true, start a new publish job even if this project already has clothes or hair for the same image. Omit to reuse a matching ready or in-progress plate.",
+						"description": "When true, start a new publish job even if this project already has a costume, clothes, or hair plate for the same image. Omit to reuse a matching ready or in-progress plate.",
 						"type": "boolean"
 					}
 				},
@@ -7952,7 +8868,49 @@
 						]
 					},
 					"forceNew": {
-						"description": "When true, start a new publish job even if this project already has clothes or hair for the same image. Omit to reuse a matching ready or in-progress plate.",
+						"description": "When true, start a new publish job even if this project already has a costume, clothes, or hair plate for the same image. Omit to reuse a matching ready or in-progress plate.",
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"avatarId",
+					"uploadId"
+				],
+				"additionalProperties": false
+			},
+			"CreateCostumeBody": {
+				"type": "object",
+				"properties": {
+					"avatarId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 64
+					},
+					"name": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 128
+					},
+					"externalId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 128,
+						"pattern": "^[A-Za-z0-9._:-]+$"
+					},
+					"uploadId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 64
+					},
+					"backgroundMode": {
+						"type": "string",
+						"enum": [
+							"remove",
+							"transparent"
+						]
+					},
+					"forceNew": {
+						"description": "When true, start a new publish job even if this project already has a costume, clothes, or hair plate for the same image. Omit to reuse a matching ready or in-progress plate.",
 						"type": "boolean"
 					}
 				},
@@ -8039,6 +8997,11 @@
 						"type": "string",
 						"minLength": 2,
 						"maxLength": 16
+					},
+					"costumeId": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 64
 					},
 					"clothesId": {
 						"type": "string",
@@ -8229,6 +9192,18 @@
 						"minLength": 2,
 						"maxLength": 16
 					},
+					"costumeId": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"clothesId": {
 						"anyOf": [
 							{
@@ -8378,6 +9353,20 @@
 				"additionalProperties": false
 			},
 			"PatchClothesBody": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 128
+					}
+				},
+				"required": [
+					"name"
+				],
+				"additionalProperties": false
+			},
+			"PatchCostumeBody": {
 				"type": "object",
 				"properties": {
 					"name": {
@@ -8557,6 +9546,7 @@
 						"enum": [
 							"clothes",
 							"hair",
+							"costume",
 							"location",
 							"backdrop"
 						]
@@ -8697,6 +9687,7 @@
 								"enum": [
 									"clothes",
 									"hair",
+									"costume",
 									"location",
 									"backdrop"
 								]
@@ -8844,6 +9835,7 @@
 								"enum": [
 									"clothes",
 									"hair",
+									"costume",
 									"location",
 									"backdrop"
 								]
@@ -8967,6 +9959,154 @@
 				],
 				"additionalProperties": false
 			},
+			"CreateCostumePublishResponse": {
+				"type": "object",
+				"properties": {
+					"job": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"queued",
+									"running",
+									"waiting_processor",
+									"succeeded",
+									"failed"
+								]
+							},
+							"kind": {
+								"type": "string",
+								"enum": [
+									"clothes",
+									"hair",
+									"costume",
+									"location",
+									"backdrop"
+								]
+							},
+							"pollUrl": {
+								"type": "string"
+							},
+							"targetId": {
+								"type": "string"
+							},
+							"requiredOk": {
+								"type": "boolean"
+							},
+							"stage": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"progress": {
+								"type": "object",
+								"properties": {
+									"requiredVerified": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									},
+									"requiredTotal": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									}
+								},
+								"required": [
+									"requiredVerified",
+									"requiredTotal"
+								],
+								"additionalProperties": false
+							},
+							"error": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"code": {
+												"type": "string"
+											},
+											"category": {
+												"type": "string",
+												"enum": [
+													"input",
+													"dependency",
+													"capacity",
+													"infrastructure",
+													"internal"
+												]
+											},
+											"retryable": {
+												"type": "boolean"
+											},
+											"message": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"code",
+											"category",
+											"retryable",
+											"message"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"required": [
+							"id",
+							"status",
+							"kind",
+							"pollUrl",
+							"targetId",
+							"requiredOk",
+							"stage",
+							"progress",
+							"error"
+						],
+						"additionalProperties": false
+					},
+					"costume": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"processing",
+									"ready",
+									"failed"
+								]
+							}
+						},
+						"required": [
+							"id",
+							"status"
+						],
+						"additionalProperties": false
+					}
+				},
+				"required": [
+					"job",
+					"costume"
+				],
+				"additionalProperties": false
+			},
 			"CreateLocationPublishResponse": {
 				"type": "object",
 				"properties": {
@@ -8991,6 +10131,7 @@
 								"enum": [
 									"clothes",
 									"hair",
+									"costume",
 									"location",
 									"backdrop"
 								]
@@ -9138,6 +10279,7 @@
 								"enum": [
 									"clothes",
 									"hair",
+									"costume",
 									"location",
 									"backdrop"
 								]
@@ -9287,6 +10429,7 @@
 										"enum": [
 											"clothes",
 											"hair",
+											"costume",
 											"location",
 											"backdrop"
 										]
@@ -9434,6 +10577,7 @@
 										"enum": [
 											"clothes",
 											"hair",
+											"costume",
 											"location",
 											"backdrop"
 										]
@@ -9581,6 +10725,155 @@
 										"enum": [
 											"clothes",
 											"hair",
+											"costume",
+											"location",
+											"backdrop"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"targetId": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"kind",
+									"pollUrl",
+									"targetId",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error"
+								],
+								"additionalProperties": false
+							},
+							"costume": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"processing",
+											"ready",
+											"failed"
+										]
+									}
+								},
+								"required": [
+									"id",
+									"status"
+								],
+								"additionalProperties": false
+							}
+						},
+						"required": [
+							"job",
+							"costume"
+						],
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"job": {
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"kind": {
+										"type": "string",
+										"enum": [
+											"clothes",
+											"hair",
+											"costume",
 											"location",
 											"backdrop"
 										]
@@ -9728,6 +11021,7 @@
 										"enum": [
 											"clothes",
 											"hair",
+											"costume",
 											"location",
 											"backdrop"
 										]
@@ -9877,6 +11171,7 @@
 								"enum": [
 									"clothes",
 									"hair",
+									"costume",
 									"location",
 									"backdrop"
 								]
@@ -10044,6 +11339,66 @@
 					"kind": {
 						"type": "string",
 						"const": "hair"
+					},
+					"id": {
+						"type": "string"
+					},
+					"avatarId": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": [
+							"processing",
+							"ready",
+							"failed",
+							"archived"
+						]
+					},
+					"source": {
+						"type": "string"
+					},
+					"externalId": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"createdAt": {
+						"type": "string",
+						"minLength": 1
+					},
+					"updatedAt": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": [
+					"kind",
+					"id",
+					"avatarId",
+					"name",
+					"status",
+					"source",
+					"externalId",
+					"createdAt",
+					"updatedAt"
+				],
+				"additionalProperties": false
+			},
+			"CostumeResource": {
+				"type": "object",
+				"properties": {
+					"kind": {
+						"type": "string",
+						"const": "costume"
 					},
 					"id": {
 						"type": "string"
@@ -10366,6 +11721,75 @@
 				],
 				"additionalProperties": false
 			},
+			"GetCostumeResponse": {
+				"type": "object",
+				"properties": {
+					"costume": {
+						"type": "object",
+						"properties": {
+							"kind": {
+								"type": "string",
+								"const": "costume"
+							},
+							"id": {
+								"type": "string"
+							},
+							"avatarId": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"processing",
+									"ready",
+									"failed",
+									"archived"
+								]
+							},
+							"source": {
+								"type": "string"
+							},
+							"externalId": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"createdAt": {
+								"type": "string",
+								"minLength": 1
+							},
+							"updatedAt": {
+								"type": "string",
+								"minLength": 1
+							}
+						},
+						"required": [
+							"kind",
+							"id",
+							"avatarId",
+							"name",
+							"status",
+							"source",
+							"externalId",
+							"createdAt",
+							"updatedAt"
+						],
+						"additionalProperties": false
+					}
+				},
+				"required": [
+					"costume"
+				],
+				"additionalProperties": false
+			},
 			"GetLocationResponse": {
 				"type": "object",
 				"properties": {
@@ -10535,6 +11959,16 @@
 					"sttLang": {
 						"type": "string"
 					},
+					"costumeId": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"clothesId": {
 						"anyOf": [
 							{
@@ -10670,6 +12104,7 @@
 					"avatarId",
 					"voice",
 					"sttLang",
+					"costumeId",
 					"clothesId",
 					"hairId",
 					"personality",
@@ -10970,6 +12405,16 @@
 							"sttLang": {
 								"type": "string"
 							},
+							"costumeId": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"clothesId": {
 								"anyOf": [
 									{
@@ -11105,6 +12550,7 @@
 							"avatarId",
 							"voice",
 							"sttLang",
+							"costumeId",
 							"clothesId",
 							"hairId",
 							"personality",
@@ -11599,6 +13045,33 @@
 										}
 									]
 								},
+								"costumes": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"name": {
+												"type": "string"
+											},
+											"source": {
+												"type": "string"
+											},
+											"libraryScope": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"id",
+											"name",
+											"source",
+											"libraryScope"
+										],
+										"additionalProperties": false
+									}
+								},
 								"clothes": {
 									"type": "array",
 									"items": {
@@ -11659,6 +13132,7 @@
 								"displayName",
 								"defaultVoiceId",
 								"defaultSttLang",
+								"costumes",
 								"clothes",
 								"hair"
 							],

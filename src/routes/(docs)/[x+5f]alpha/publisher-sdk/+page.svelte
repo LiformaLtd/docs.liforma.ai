@@ -46,6 +46,15 @@
 	</p>
 	<CodeBlock code={snippets.publisherHotelCheckIn} lang="ts" />
 
+	<h2>Whole look</h2>
+	<p>
+		A whole look is one complete plate under <code>costumes/whole/</code>, not a clothes layer.
+		Use <code>publisher.costumes.create</code> and pass <code>costumeId</code> on the character.
+		<code>costumeId</code> is mutually exclusive with <code>clothesId</code> and
+		<code>hairId</code>.
+	</p>
+	<CodeBlock code={snippets.publisherHotelExaminer} lang="ts" />
+
 	<h2>Draft vs publish</h2>
 	<p>
 		<code>experiences.update</code> writes the current draft and does not publish.
@@ -70,14 +79,16 @@
 	<h2>Reload and edit</h2>
 	<p>
 		<code>characters.get</code>, <code>sets.get</code>, <code>experiences.get</code>,
-		<code>backdrops.get</code>, <code>clothes.get</code>, and <code>hair.get</code> reload the
+		<code>backdrops.get</code>, <code>costumes.get</code>, <code>clothes.get</code>, and
+		<code>hair.get</code> reload the
 		same envelopes create returns. Experience JSON includes the start-node
 		<code>characterId</code>, <code>setId</code>, <code>startingMessage</code>,
 		<code>systemInstructions</code>, <code>introduction</code>,
 		<code>hasPublishedRevision</code>, and <code>hasUnpublishedChanges</code>.
 	</p>
 	<p>
-		<code>clothes.update</code> / <code>hair.update</code> rename a plate.
+		<code>costumes.update</code> / <code>clothes.update</code> / <code>hair.update</code> rename a
+		plate.
 		<code>sets.update</code> can point at a new ready <code>backdropId</code>.
 		<code>characters.update</code> edits appearance, person copy, and optional
 		<code>gender</code>, <code>age</code> (1–1000), and <code>ethnicity</code>. Pass
@@ -109,7 +120,8 @@
 	<h2>Jobs</h2>
 	<p>
 		Prefer the high-level <code>create()</code> helpers. For queues and custom UIs, use
-		<code>backdrops.startCreate</code> / <code>clothes.startCreate</code> /
+		<code>backdrops.startCreate</code> / <code>costumes.startCreate</code> /
+		<code>clothes.startCreate</code> /
 		<code>hair.startCreate</code> plus
 		<code>publisher.jobs.get</code>, <code>wait</code>, <code>watch</code>, and
 		<code>retry</code>. <code>retry</code> is allowed only when the failed job’s
@@ -223,4 +235,13 @@
 			<code>npm install @liforma/publisher@^0.5.0</code>.
 		</li>
 	</ul>
+
+	<h2>Upgrading to 0.6</h2>
+	<p>
+		<code>@liforma/publisher@0.6.0</code> adds <code>publisher.costumes</code> and a required
+		<code>costumes</code> array on <code>avatars.list()</code>. Whole looks live there;
+		<code>clothes</code> is composite plates only. Stay on 0.5.0 only against an API that does
+		not emit <code>costumes</code> — 0.5.0 rejects the extra field. Install with
+		<code>npm install @liforma/publisher@^0.6.0</code>.
+	</p>
 </DocPage>
