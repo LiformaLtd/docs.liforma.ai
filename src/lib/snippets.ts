@@ -1306,6 +1306,51 @@ await conversation.attach({ container: '#avatar' });`,
 
 	publisherInstall: `npm install @liforma/publisher`,
 
+	publisherCreateFrom: `import { readFileSync } from 'node:fs';
+import { createPublisher } from '@liforma/publisher';
+
+const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
+  apiKey: process.env.LIFORMA_API_KEY!
+});
+
+const avatars = await publisher.avatars.list();
+const avatar = avatars[0]!;
+
+const result = await publisher.experiences.createFrom({
+  title: 'Hotel check-in',
+  backdrop: {
+    image: {
+      bytes: readFileSync('./lobby.png'),
+      contentType: 'image/png'
+    }
+  },
+  character: {
+    avatarId: avatar.id,
+    name: 'Front desk',
+    voice: avatar.defaultVoiceId,
+    sttLang: avatar.defaultSttLang,
+    clothes: {
+      image: {
+        bytes: readFileSync('./clothes.png'),
+        contentType: 'image/png'
+      }
+    },
+    hair: {
+      image: {
+        bytes: readFileSync('./hair.png'),
+        contentType: 'image/png'
+      }
+    },
+    personality: 'Friendly hotel receptionist'
+  },
+  startingMessage: 'Welcome. How can I help you today?',
+  systemInstructions: 'You are a hotel receptionist. Help the guest check in.',
+  introduction: 'Practice checking into a hotel.',
+  publish: true
+});
+
+console.log(result.experience.id, result.created);`,
+
 	publisherHotelCheckIn: `import { readFileSync } from 'node:fs';
 import { createPublisher } from '@liforma/publisher';
 

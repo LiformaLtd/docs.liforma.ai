@@ -30,7 +30,18 @@
 		<code>LIFORMA_API_KEY</code>. Never import this package in a browser bundle.
 	</p>
 
-	<h2>Hotel check-in</h2>
+	<h2>One-shot composition</h2>
+	<p>
+		<code>experiences.createFrom</code> is the happy path: pass images and copy, and the SDK
+		uploads, waits for plate jobs, creates set + character, and optionally publishes. Use
+		<code>ImageSource</code> as <code>Blob</code>, typed bytes with <code>contentType</code>,
+		<code>&#123; url &#125;</code> (imported into Liforma storage — not a permanent dependency), or
+		an existing <code>uploadId</code>. Reuse library items with an <code>id</code> field. The
+		result includes a <code>created</code> map for what was newly persisted versus reused.
+	</p>
+	<CodeBlock code={snippets.publisherCreateFrom} lang="ts" />
+
+	<h2>Hotel check-in (step by step)</h2>
 	<p>
 		Upload a lobby photograph plus clothes and hair plates, wrap a set, create a character, then
 		publish. <code>backdrops.create</code> / <code>clothes.create</code> /
@@ -243,5 +254,14 @@
 		<code>clothes</code> is composite plates only. Stay on 0.5.0 only against an API that does
 		not emit <code>costumes</code> — 0.5.0 rejects the extra field. Install with
 		<code>npm install @liforma/publisher@^0.6.0</code>.
+	</p>
+
+	<h2>Upgrading to 0.7</h2>
+	<p>
+		<code>@liforma/publisher@0.7.0</code> adds <code>experiences.createFrom</code> for one-shot
+		composition, the shared <code>ImageSource</code> type (bytes with MIME, Blob, URL import, or
+		upload id), composition-aware progress (<code>&#123; stage, job &#125;</code>), additive error
+		<code>context.step</code>, and a <code>created</code> map on the result. Low-level namespaces
+		are unchanged. Install with <code>npm install @liforma/publisher@^0.7.0</code>.
 	</p>
 </DocPage>
