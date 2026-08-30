@@ -885,6 +885,306 @@
 				}
 			}
 		},
+		"/v1/sessions/{sessionId}/conversions": {
+			"post": {
+				"summary": "Record a conversion milestone for a session",
+				"operationId": "createSessionConversion",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "sessionId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Session id (`lfm_sess_…`)."
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SessionConversionRequest"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Conversion recorded (created or already present for this session+key)",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"ok",
+										"created"
+									],
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										},
+										"created": {
+											"type": "boolean"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"error"
+									],
+									"properties": {
+										"error": {
+											"type": "object",
+											"required": [
+												"code",
+												"message",
+												"requestId"
+											],
+											"properties": {
+												"code": {
+													"type": "string",
+													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
+													"example": "ORIGIN_NOT_ALLOWED"
+												},
+												"message": {
+													"type": "string"
+												},
+												"requestId": {
+													"type": "string",
+													"example": "req_…"
+												}
+											},
+											"additionalProperties": true
+										}
+									}
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"error"
+									],
+									"properties": {
+										"error": {
+											"type": "object",
+											"required": [
+												"code",
+												"message",
+												"requestId"
+											],
+											"properties": {
+												"code": {
+													"type": "string",
+													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
+													"example": "ORIGIN_NOT_ALLOWED"
+												},
+												"message": {
+													"type": "string"
+												},
+												"requestId": {
+													"type": "string",
+													"example": "req_…"
+												}
+											},
+											"additionalProperties": true
+										}
+									}
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"error"
+									],
+									"properties": {
+										"error": {
+											"type": "object",
+											"required": [
+												"code",
+												"message",
+												"requestId"
+											],
+											"properties": {
+												"code": {
+													"type": "string",
+													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
+													"example": "ORIGIN_NOT_ALLOWED"
+												},
+												"message": {
+													"type": "string"
+												},
+												"requestId": {
+													"type": "string",
+													"example": "req_…"
+												}
+											},
+											"additionalProperties": true
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"error"
+									],
+									"properties": {
+										"error": {
+											"type": "object",
+											"required": [
+												"code",
+												"message",
+												"requestId"
+											],
+											"properties": {
+												"code": {
+													"type": "string",
+													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
+													"example": "ORIGIN_NOT_ALLOWED"
+												},
+												"message": {
+													"type": "string"
+												},
+												"requestId": {
+													"type": "string",
+													"example": "req_…"
+												}
+											},
+											"additionalProperties": true
+										}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"error"
+									],
+									"properties": {
+										"error": {
+											"type": "object",
+											"required": [
+												"code",
+												"message",
+												"requestId"
+											],
+											"properties": {
+												"code": {
+													"type": "string",
+													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
+													"example": "ORIGIN_NOT_ALLOWED"
+												},
+												"message": {
+													"type": "string"
+												},
+												"requestId": {
+													"type": "string",
+													"example": "req_…"
+												}
+											},
+											"additionalProperties": true
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/v1/sessions/{sessionId}/end": {
 			"post": {
 				"summary": "End a runtime session",
@@ -1686,6 +1986,36 @@
 					},
 					"speechOnly": {
 						"type": "boolean"
+					},
+					"attribution": {
+						"type": "object",
+						"properties": {
+							"utmSource": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmMedium": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmCampaign": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmContent": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmTerm": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"referrer": {
+								"type": "string",
+								"maxLength": 2048
+							}
+						},
+						"additionalProperties": false
 					}
 				},
 				"required": [
@@ -1742,6 +2072,36 @@
 					"speechOnly": {
 						"type": "boolean"
 					},
+					"attribution": {
+						"type": "object",
+						"properties": {
+							"utmSource": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmMedium": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmCampaign": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmContent": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"utmTerm": {
+								"type": "string",
+								"maxLength": 2048
+							},
+							"referrer": {
+								"type": "string",
+								"maxLength": 2048
+							}
+						},
+						"additionalProperties": false
+					},
 					"processorId": {
 						"type": "string",
 						"minLength": 1,
@@ -1790,6 +2150,15 @@
 							"maxLength": 128
 						},
 						"additionalProperties": {}
+					},
+					"costTags": {
+						"maxItems": 8,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1,
+							"maxLength": 64
+						}
 					}
 				},
 				"required": [
@@ -1797,6 +2166,20 @@
 				],
 				"additionalProperties": false,
 				"description": "Server mint body — browser fields plus optional processorId and host context (user, metadata, variables, initialState)."
+			},
+			"SessionConversionRequest": {
+				"type": "object",
+				"properties": {
+					"key": {
+						"type": "string",
+						"pattern": "^[a-z][a-z0-9_]{0,63}$"
+					}
+				},
+				"required": [
+					"key"
+				],
+				"additionalProperties": false,
+				"description": "API-key trusted conversion. Unique per session+key. Does not create an org-wide definition. Allowed after the session has ended."
 			}
 		}
 	}

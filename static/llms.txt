@@ -13,6 +13,8 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - Mint returns **`SessionLaunchResponse`**: `{ session, launch }` with `201` and `Cache-Control: no-store, private`.
 - **`launch` is opaque.** Pass it to the SDK / player only — do not parse, decode, or inspect it.
 - Prefer **`locale`** (and optional `secondaryLocale` / `learningLocale`) on mint; do not invent UI mint fields (`startButton`, `closeButton`, `returnUrl`, `fit`, `showFeedback`).
+- SDK mint captures **marketing attribution automatically** from the embedding page (UTM query + referrer). Optional `attribution` object is a whole-snapshot override; `attribution: false` omits it (SDK only — REST has no `false`).
+- Record a conversion with `experience.conversion('registration')` or `POST /v1/sessions/{id}/conversions` (API key). Unique per session+key.
 - Events use a common envelope: `{ id, type, sessionId, timestamp, data }`.
 - Primary activity event: **`activityChange`** — `data` is `'idle' | 'listening' | 'thinking' | 'speaking'`.
 - Embed prefetch hint: **`backdropId`** (`locationId` is a deprecated alias). The player does not emit `locationChange` or `backdropChange`.

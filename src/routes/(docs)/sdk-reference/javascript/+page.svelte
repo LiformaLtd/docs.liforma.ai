@@ -21,6 +21,11 @@
 
 	<h2>Primary API</h2>
 	<CodeBlock code={snippets.jsStartSession} lang="javascript" />
+	<p>
+		Marketing attribution is captured automatically from the embedding page’s UTM query parameters
+		and referrer. Pass an <code>attribution</code> object to override the whole snapshot, or
+		<code>attribution: false</code> to send none. REST mint is explicit-only.
+	</p>
 
 	<h2>Exports</h2>
 	<table>
