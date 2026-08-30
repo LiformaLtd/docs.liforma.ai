@@ -25,6 +25,10 @@
 		from your server-side catalog fetch. Keys and allowlists apply only when a session starts
 		(hosted launch click, or a page that mounts <code>&lt;Experience&gt;</code>).
 	</p>
+	<p>
+		Import the <strong>thumbnail entry</strong> (not the full <code>/svelte</code> /
+		<code>/react</code> barrel) so gallery and landing pages do not load session / widget code.
+	</p>
 
 	<h2>Install</h2>
 	<CodeBlock code="npm install @liforma/client" lang="bash" />
@@ -39,19 +43,22 @@
 		<tbody>
 			<tr>
 				<td>Svelte</td>
-				<td><code>@liforma/client/svelte</code></td>
+				<td><code>@liforma/client/svelte/thumbnail</code></td>
 			</tr>
 			<tr>
 				<td>React</td>
-				<td><code>@liforma/client/react</code></td>
+				<td><code>@liforma/client/react/thumbnail</code></td>
 			</tr>
 			<tr>
 				<td>Next.js</td>
-				<td><code>@liforma/client/next</code> (client component)</td>
+				<td><code>@liforma/client/next/thumbnail</code> (client component)</td>
 			</tr>
 			<tr>
 				<td>Vanilla</td>
-				<td><code>&lt;liforma-experience-thumbnail&gt;</code> via the CDN v2 script</td>
+				<td>
+					<code>&lt;liforma-experience-thumbnail&gt;</code> via
+					<code>https://cdn.liforma.ai/sdk/v2/thumbnail.js</code>
+				</td>
 			</tr>
 		</tbody>
 	</table>

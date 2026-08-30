@@ -83,7 +83,8 @@
 	<h2>ExperienceThumbnail</h2>
 	<p>
 		<code>&lt;ExperienceThumbnail&gt;</code> renders layered CDN gallery previews (no session mint).
-		Full props and recipes:
+		Import from <code>@liforma/client/svelte/thumbnail</code> on gallery / landing pages so the
+		session SDK stays out of the bundle. Full props and recipes:
 		<a href="/avatar-experiences/experience-thumbnail">ExperienceThumbnail</a>.
 	</p>
 	<CodeBlock code={snippets.svelteThumbnailHosted} lang="svelte" filename="Card.svelte" />

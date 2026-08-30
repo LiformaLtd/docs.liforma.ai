@@ -33,7 +33,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - [Experience (Svelte)](https://docs.liforma.ai/avatar-experiences/svelte) — `@liforma/client/svelte`
 - [Experience (React)](https://docs.liforma.ai/avatar-experiences/react) — `@liforma/client/react`
 - [Experience (Next.js)](https://docs.liforma.ai/avatar-experiences/nextjs) — `createLiformaSessionRouteHandler`
-- [ExperienceThumbnail](https://docs.liforma.ai/avatar-experiences/experience-thumbnail) — layered CDN gallery thumbs (Svelte / React / Next / vanilla)
+- [ExperienceThumbnail](https://docs.liforma.ai/avatar-experiences/experience-thumbnail) — gallery thumbs; prefer `@liforma/client/{svelte,react,next}/thumbnail` or CDN `sdk/v2/thumbnail.js` (no session SDK)
 - [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors, `focusCharacter`, `setFit`
 - [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only (`characterFocusChanged` on multi-Character nodes)
 - [Session Launch](https://docs.liforma.ai/avatar-experiences/session-manifests)

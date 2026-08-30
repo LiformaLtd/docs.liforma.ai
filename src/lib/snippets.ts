@@ -1106,7 +1106,7 @@ export async function fetchProjectExperienceBySlug(fetchFn: typeof fetch, slug: 
 
 	projectCatalogPage: `<!-- src/routes/experiences/+page.svelte -->
 <script>
-  import { ExperienceThumbnail } from '@liforma/client/svelte';
+  import { ExperienceThumbnail } from '@liforma/client/svelte/thumbnail';
 
   let { data } = $props();
 <\\/script>
@@ -1137,7 +1137,7 @@ export async function fetchProjectExperienceBySlug(fetchFn: typeof fetch, slug: 
 </style>`,
 
 	svelteThumbnailHosted: `<script>
-  import { ExperienceThumbnail } from '@liforma/client/svelte';
+  import { ExperienceThumbnail } from '@liforma/client/svelte/thumbnail';
 <\\/script>
 
 <ExperienceThumbnail
@@ -1147,7 +1147,7 @@ export async function fetchProjectExperienceBySlug(fetchFn: typeof fetch, slug: 
 />`,
 
 	svelteThumbnailHref: `<script>
-  import { ExperienceThumbnail } from '@liforma/client/svelte';
+  import { ExperienceThumbnail } from '@liforma/client/svelte/thumbnail';
 <\\/script>
 
 <ExperienceThumbnail
@@ -1156,13 +1156,17 @@ export async function fetchProjectExperienceBySlug(fetchFn: typeof fetch, slug: 
   href={\`/experiences/\${experience.slug}\`}
 />`,
 
-	svelteThumbnailPresentational: `<a href="/experiences/{experience.slug}" aria-label={experience.title}>
+	svelteThumbnailPresentational: `<script>
+  import { ExperienceThumbnail } from '@liforma/client/svelte/thumbnail';
+<\\/script>
+
+<a href="/experiences/{experience.slug}" aria-label={experience.title}>
   <ExperienceThumbnail galleryThumb={experience.galleryThumb} alt="" />
 </a>`,
 
-	reactThumbnailHosted: `import { ExperienceThumbnail } from '@liforma/client/react';
+	reactThumbnailHosted: `import { ExperienceThumbnail } from '@liforma/client/react/thumbnail';
 // Next.js App Router client files can also use:
-// import { ExperienceThumbnail } from '@liforma/client/next';
+// import { ExperienceThumbnail } from '@liforma/client/next/thumbnail';
 
 export function GalleryCard({ experience }) {
   return (
@@ -1174,7 +1178,7 @@ export function GalleryCard({ experience }) {
   );
 }`,
 
-	webComponentThumbnail: `<script type="module" src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
+	webComponentThumbnail: `<script type="module" src="https://cdn.liforma.ai/sdk/v2/thumbnail.js"><\\/script>
 
 <liforma-experience-thumbnail
   experience-id="${DEMO_EXPERIENCE_ID}"
