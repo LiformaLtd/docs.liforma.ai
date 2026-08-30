@@ -164,6 +164,14 @@
 				<td>Player-owned startup button configuration.</td>
 			</tr>
 			<tr>
+				<td><code>theme</code></td>
+				<td><code>PlayerTheme</code></td>
+				<td>
+					Global player chrome (introduction, feedback, panels, shared buttons). Presentation only —
+					does not remint. Use <code>startButton</code> for CTA-only overrides.
+				</td>
+			</tr>
+			<tr>
 				<td><code>showFeedback</code></td>
 				<td><code>boolean</code></td>
 				<td>
@@ -351,8 +359,9 @@
 	</p>
 	<p>
 		<strong>Presentation</strong> props (<code>fit</code>, <code>startButton</code>,
-		<code>showFeedback</code>, <code>closeButton</code>, <code>returnUrl</code>, <code>ui</code>)
-		update the live player without reminting. Callback-only changes do not restart the session.
+		<code>theme</code>, <code>showFeedback</code>, <code>closeButton</code>, <code>returnUrl</code>,
+		<code>ui</code>) update the live player without reminting. Callback-only changes do not restart
+		the session.
 	</p>
 
 	<h2>Server-session embed</h2>

@@ -117,6 +117,18 @@
 				<td>Button label, accessibility, placement, variant, and appearance tokens</td>
 				<td>Customizes the player-owned startup control.</td>
 			</tr>
+			<tr>
+				<td><code>theme</code></td>
+				<td>
+					<code>colors</code>, <code>typography</code>, <code>radiusPx</code>,
+					<code>button</code>
+				</td>
+				<td>
+					Global player chrome (introduction, feedback, shared buttons, panels). Presentation
+					only — does not remint. <code>startButton.appearance</code> still overrides the start
+					CTA specifically.
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	<p>
@@ -136,15 +148,32 @@
 		host page cannot replace this interaction.
 	</p>
 	<p>
-		Use the <code>startButton</code> property on <code>StartSessionOptions</code> to adapt the
-		built-in control to your interface. Supported placement values are <code>center</code>,
-		<code>bottom-center</code>, <code>bottom-left</code>, and <code>bottom-right</code>. Supported
-		variants are <code>primary</code>, <code>secondary</code>, and <code>minimal</code>.
+		Use the <code>startButton</code> property on <code>attach()</code> (or the matching
+		<code>&lt;Experience&gt;</code> prop) to adapt the built-in control to your interface. Supported
+		placement values are <code>center</code>, <code>bottom-center</code>, <code>bottom-left</code>,
+		and <code>bottom-right</code>. Supported variants are <code>primary</code>,
+		<code>secondary</code>, and <code>minimal</code>. Use <code>theme</code> for shared chrome
+		(introduction, feedback, panels); <code>startButton.appearance</code> still wins on the start
+		CTA.
 	</p>
 	<CodeBlock
 		code={`const experience = await Experience.startSession({
   experienceId: '${snippets.experienceId}',
-  mode: 'presenter',
+  mode: 'presenter'
+});
+
+experience.on('started', async (evt) => {
+  if (evt.data.mode === 'presenter') {
+    await experience.speech.speak({ text: 'Welcome to the lesson.' });
+  }
+});
+
+await experience.attach({
+  container: document.querySelector('#avatar'),
+  theme: {
+    colors: { primary: '#635bff', primaryText: '#ffffff' },
+    radiusPx: 16
+  },
   startButton: {
     label: 'Begin lesson',
     ariaLabel: 'Begin the guided lesson',
@@ -166,16 +195,6 @@
     icon: 'player-play', // Tabler id, or https://… / data:image/…
     iconPosition: 'left' // left | above
   }
-});
-
-experience.on('started', async (evt) => {
-  if (evt.data.mode === 'presenter') {
-    await experience.speech.speak({ text: 'Welcome to the lesson.' });
-  }
-});
-
-await experience.attach({
-  container: document.querySelector('#avatar')
 });`}
 		lang="javascript"
 	/>
