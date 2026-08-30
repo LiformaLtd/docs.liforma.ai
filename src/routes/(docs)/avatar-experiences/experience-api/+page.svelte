@@ -373,6 +373,29 @@ await experience.setFit('full');`}
 		lang="javascript"
 	/>
 
+	<h3><code>setInteraction()</code> / <code>getInteraction()</code></h3>
+	<p>
+		Patch live interaction settings after <code>attach()</code>: captions
+		(<code>showUserSpeech</code>, <code>showCharacterSpeech</code>, <code>visibleTurns</code>),
+		text input (<code>allowTextInput</code>, <code>textInputEnabled</code>), mic
+		(<code>allowMicInput</code>, <code>micInputEnabled</code>), mute character speech
+		(<code>playCharacterSpeech: false</code>), and Edit/rewind (<code>allowRewind</code>).
+		Returns the player-resolved <code>ExperienceInteraction</code>. Subscribe to
+		<code>interactionChange</code> for player-driven updates.
+	</p>
+	<CodeBlock
+		code={`await experience.attach({ container: document.querySelector('#avatar') });
+
+await experience.setInteraction({
+  showCharacterSpeech: true,
+  textInputEnabled: true,
+  playCharacterSpeech: false
+});
+
+const interaction = await experience.getInteraction();`}
+		lang="javascript"
+	/>
+
 	<h3><code>focusCharacter()</code></h3>
 	<p>
 		Presentation-only camera or tile emphasis on a multi-Character node. Pass the active-cast

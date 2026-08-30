@@ -217,6 +217,15 @@ player.on('close', ({ reason, returnUrl }) => {
 				<td>Session listening / speaking activity for UI sync</td>
 			</tr>
 			<tr>
+				<td><code>interactionChange</code></td>
+				<td>envelope <code>.data</code>: <code>ExperienceInteraction</code></td>
+				<td>
+					Captions, text/mic allow + enabled state, mute character speech, or Edit
+					(<code>allowRewind</code>) changed — from the player or after
+					<code>setInteraction()</code>
+				</td>
+			</tr>
+			<tr>
 				<td><code>feedback</code></td>
 				<td>
 					envelope <code>.data</code>:
