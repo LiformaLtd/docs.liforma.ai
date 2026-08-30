@@ -154,10 +154,17 @@
       backgroundColor: '#635bff',
       textColor: '#ffffff',
       borderColor: '#8179ff',
-      borderRadiusPx: 12,
+      borderRadiusPx: 999,
+      borderWidthPx: 2,
       size: 'large',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      fontWeight: 700,
+      // Or set an exact label size (10–48); overrides size font scaling:
+      // fontSizePx: 22,
       shadow: 'soft'
-    }
+    },
+    icon: 'player-play', // Tabler id, or https://… / data:image/…
+    iconPosition: 'left' // left | above
   }
 });
 
@@ -177,7 +184,15 @@ await experience.attach({
 		mode, it is the safe point for host code to call <code>speak()</code>. Calling
 		<code>speak()</code>, <code>startListening()</code>, <code>stopListening()</code>, or
 		<code>listenOnce()</code> before <code>started</code> throws a clear error. Button appearance is
-		limited to the documented tokens; arbitrary CSS is not supported across the player frame.
+		limited to the documented tokens; arbitrary CSS is not supported across the player frame. For a
+		large pill button use <code>size: 'large'</code> with <code>borderRadiusPx: 999</code>, or set
+		<code>fontSizePx</code> (10–48) for an exact label size. <code>fontFamily</code> accepts system
+		/ stack names available in the player iframe (host webfonts are not loaded there);
+		<code>fontWeight</code> is 100–900. Optional <code>icon</code> accepts a Tabler Iconify id
+		(e.g. <code>player-play</code>) or an absolute <code>https://…</code> /
+		<code>data:image/…</code> URL; <code>iconPosition</code> is <code>left</code> (default) or
+		<code>above</code>. Tabler icons inherit the button text colour. Site-relative paths are not
+		supported (they would resolve against the player iframe origin).
 	</p>
 
 	<h2>Speech API</h2>
