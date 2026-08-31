@@ -101,6 +101,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td><code>alreadyConverted</code></td>
+				<td><code>string[]</code> (e.g. <code>['registration']</code>)</td>
+				<td>
+					Conversion keys this play is already ineligible for. Snapshot at mint. Registration rate
+					excludes these plays from the denominator. Do not fire
+					<code>conversion('registration')</code> for an already-registered visitor. Prefer setting
+					this on server mint (<code>sessionEndpoint</code> / <code>POST /v1/sessions</code>).
+				</td>
+			</tr>
+			<tr>
 				<td><code>fit</code></td>
 				<td><code>full</code> | <code>medium</code> | <code>face</code></td>
 				<td>

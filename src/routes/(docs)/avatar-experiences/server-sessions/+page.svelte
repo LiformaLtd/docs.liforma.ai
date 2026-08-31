@@ -60,6 +60,8 @@ Your frontend  ←  sessionEndpoint (preferred)  ←  SDK</pre>
 	<p>
 		Contract: <code>POST</code> with <code>experienceId</code> (and optional launch fields) →
 		<strong>SessionLaunchResponse</strong> with <code>Cache-Control: no-store, private</code>.
+		If you know the visitor is already registered, include
+		<code>alreadyConverted: ['registration']</code> so conversion rate excludes them.
 	</p>
 
 	<h2>SSR warning</h2>

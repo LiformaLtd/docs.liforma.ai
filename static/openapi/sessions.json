@@ -2016,6 +2016,15 @@
 							}
 						},
 						"additionalProperties": false
+					},
+					"alreadyConverted": {
+						"description": "Conversion keys this play is already ineligible for (for example registration). Excluded from that key's conversion-rate denominator. Snapshot at mint; do not fire conversion() for these keys.",
+						"maxItems": 20,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^[a-z][a-z0-9_]{0,63}$"
+						}
 					}
 				},
 				"required": [
@@ -2101,6 +2110,15 @@
 							}
 						},
 						"additionalProperties": false
+					},
+					"alreadyConverted": {
+						"description": "Conversion keys this play is already ineligible for (for example registration). Excluded from that key's conversion-rate denominator. Snapshot at mint; do not fire conversion() for these keys.",
+						"maxItems": 20,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^[a-z][a-z0-9_]{0,63}$"
+						}
 					},
 					"processorId": {
 						"type": "string",

@@ -22,6 +22,12 @@
 		attachment, and cleanup.
 	</p>
 	<CodeBlock code={snippets.svelteHelloWorld} lang="svelte" filename="App.svelte" />
+	<p>
+		If you know the visitor is already registered, pass
+		<code>alreadyConverted</code> with the <code>registration</code> key so conversion rate
+		excludes them. Prefer setting this on <code>sessionEndpoint</code> mint when you have a
+		backend.
+	</p>
 
 	<h2>Host-controlled speech and listening</h2>
 	<p>

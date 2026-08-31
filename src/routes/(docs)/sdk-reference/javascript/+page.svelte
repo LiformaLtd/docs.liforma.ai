@@ -26,6 +26,12 @@
 		and referrer. Pass an <code>attribution</code> object to override the whole snapshot, or
 		<code>attribution: false</code> to send none. REST mint is explicit-only.
 	</p>
+	<p>
+		If the visitor is already registered (or already converted for another milestone), pass
+		<code>alreadyConverted: ['registration']</code> at mint so conversion rate uses an eligible
+		denominator. Then record new registrations with <code>experience.conversion('registration')</code>
+		or <code>POST /v1/sessions/{'{id}'}/conversions</code>. Unique per session+key.
+	</p>
 
 	<h2>Exports</h2>
 	<table>
