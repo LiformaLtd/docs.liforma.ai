@@ -68,7 +68,7 @@ Experience (exp_…) → mint → { session, launch } → @liforma/client → pl
 - Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/browser-sessions` + Origin allowlist) for client-only embeds.
 - Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
 - `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
-- Player chrome (`startButton`, `returnUrl`, `fit`, `showFeedback`) comes from `attach()` / component props, not mint.
+- Player chrome (`startButton`, `returnUrl`, `fit`, `showFeedback`, `interaction`) comes from `attach()` / component props, not mint. `interaction.controls` hides composer buttons without changing state. `showUserSpeech: false` hides user bubbles and the listening graphic.
 - CDN script is **v2** (`/sdk/v2/client.js`).
 - npm: [`@liforma/client`](https://www.npmjs.com/package/@liforma/client)
 - Authoring (alpha, server-only): [`@liforma/publisher@0.7`](https://docs.liforma.ai/_alpha/publisher-sdk) uses resource namespaces plus `experiences.createFrom` for one-shot composition (`ImageSource` bytes/Blob/URL-import/uploadId; `{ id }` reuse; `created` map). Low-level: `publisher.costumes.create`, `publisher.clothes.create`, `publisher.characters.create` with `costumeId` XOR `clothesId`/`hairId`, `publisher.experiences.publish`, `publisher.jobs.wait`. REST stays project-scoped. Not the public Session Launch contract.

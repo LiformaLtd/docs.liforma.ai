@@ -255,6 +255,16 @@ Content-Type: application/json
   "startingMessage": "Welcome. How can I help you today?",
   "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
   "introduction": "Practice checking into a hotel.",
+  "interaction": {
+    "showUserSpeech": true,
+    "playCharacterSpeech": true,
+    "controls": {
+      "voice": false,
+      "captions": false,
+      "microphone": false,
+      "textInput": false
+    }
+  },
   "publish": true,
   "externalId": "cms-scenario-482"
 }`;
@@ -280,6 +290,16 @@ Content-Type: application/json
     "startingMessage": "Welcome. How can I help you today?",
     "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
     "introduction": "Practice checking into a hotel.",
+    "interaction": {
+      "showUserSpeech": true,
+      "playCharacterSpeech": true,
+      "controls": {
+        "voice": false,
+        "captions": false,
+        "microphone": false,
+        "textInput": false
+      }
+    },
     "externalId": "cms-scenario-482",
     "createdAt": "2026-08-25T12:01:10.000Z",
     "updatedAt": "2026-08-25T12:01:10.000Z"
@@ -310,7 +330,12 @@ Content-Type: application/json
   },
   "startingMessage": "Welcome. How can I help you today?",
   "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
-  "introduction": "Practice checking into a hotel."
+  "introduction": "Practice checking into a hotel.",
+  "interaction": {
+    "controls": {
+      "voice": false
+    }
+  }
 }`;
 
 	const publishExperience = `POST https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01K3Q9M5WJQ2P9X7B4R8S1N6D/publish
@@ -610,7 +635,8 @@ Authorization: Bearer lfm_live_…`;
 		Creates a one-character draft, or publishes immediately when <code>publish</code> is
 		<code>true</code>. Scene copy lives here: <code>systemInstructions</code> is the situation,
 		<code>startingMessage</code> is the first spoken line, and <code>introduction</code> is the
-		learner-facing blurb. <code>PATCH</code> updates the draft and does
+		learner-facing blurb. Optional <code>interaction</code> sets player defaults and
+		<code>controls</code> (composer button visibility). <code>PATCH</code> updates the draft and does
 		<strong>not</strong> publish — call <code>POST …/publish</code> (or set
 		<code>publish: true</code> on create) when you want a new revision.
 		Create and GET/PATCH responses include the start-node
@@ -751,7 +777,9 @@ Authorization: Bearer lfm_live_…`;
 		Update catalog fields and scene copy on the current draft:
 		<code>title</code>, <code>slug</code>, <code>attributes</code>,
 		<code>characterId</code>, <code>setId</code> (or <code>placeId</code>), <code>startingMessage</code>,
-		<code>systemInstructions</code>, <code>introduction</code>. This does
+		<code>systemInstructions</code>, <code>introduction</code>, <code>interaction</code>. Nested
+		<code>interaction.controls</code> are deep-merged so a one-key patch does not reset other
+		interaction fields. This does
 		<strong>not</strong> publish a new revision. Moving onto another experience’s slug in the same
 		project is <code>409</code> <code>SLUG_CONFLICT</code>. Changing
 		<code>setId</code> replaces the primary set only.

@@ -166,6 +166,11 @@
 		(introduction, feedback, panels); <code>startButton.appearance</code> still wins on the start
 		CTA.
 	</p>
+	<p>
+		Pass <code>interaction</code> on <code>attach()</code> (or the matching
+		<code>&lt;Experience&gt;</code> / widget option) to merge defaults and control visibility before
+		first paint. Nested <code>controls</code> patches are deep-merged. This does not remint.
+	</p>
 	<CodeBlock
 		code={`const experience = await Experience.startSession({
   experienceId: '${snippets.experienceId}',
@@ -385,12 +390,14 @@ await experience.setFit('full');`}
 
 	<h3><code>setInteraction()</code> / <code>getInteraction()</code></h3>
 	<p>
-		Patch live interaction settings after <code>attach()</code>: captions
-		(<code>showUserSpeech</code>, <code>showCharacterSpeech</code>, <code>visibleTurns</code>),
-		text input (<code>allowTextInput</code>, <code>textInputEnabled</code>), mic
-		(<code>allowMicInput</code>, <code>micInputEnabled</code>), mute character speech
-		(<code>playCharacterSpeech: false</code>), and Edit/rewind (<code>allowRewind</code>).
-		Returns the player-resolved <code>ExperienceInteraction</code>. Subscribe to
+		Patch live interaction settings after <code>attach()</code>. Three independent layers:
+		<strong>state</strong> (<code>playCharacterSpeech</code>, <code>showCharacterSpeech</code>,
+		<code>micInputEnabled</code>, <code>textInputEnabled</code>, <code>showUserSpeech</code>,
+		<code>visibleTurns</code>), <strong>controls</strong> (whether the Voice, Captions, Microphone,
+		and Text input buttons are shown), and <strong>capability</strong> (<code>allowMicInput</code>,
+		<code>allowTextInput</code>, <code>allowRewind</code>). Hiding a control never changes state.
+		<code>showUserSpeech: false</code> hides user bubbles and the listening graphic; there is no
+		user toggle. Returns the player-resolved <code>ExperienceInteraction</code>. Subscribe to
 		<code>interactionChange</code> for player-driven updates.
 	</p>
 	<CodeBlock
@@ -399,7 +406,8 @@ await experience.setFit('full');`}
 await experience.setInteraction({
   showCharacterSpeech: true,
   textInputEnabled: true,
-  playCharacterSpeech: false
+  playCharacterSpeech: false,
+  controls: { captions: false }
 });
 
 const interaction = await experience.getInteraction();`}
