@@ -9015,11 +9015,11 @@
 					},
 					"personality": {
 						"type": "string",
-						"maxLength": 2000
+						"maxLength": 2500
 					},
 					"generalInstructions": {
 						"type": "string",
-						"maxLength": 8000
+						"maxLength": 5000
 					},
 					"gender": {
 						"description": "Optional. Omit to inherit gender from the avatar catalogue.",
@@ -9076,6 +9076,10 @@
 						"minLength": 1,
 						"maxLength": 128
 					},
+					"description": {
+						"type": "string",
+						"maxLength": 2500
+					},
 					"locationId": {
 						"type": "string",
 						"minLength": 1,
@@ -9100,6 +9104,10 @@
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"description": {
+						"type": "string",
+						"maxLength": 2500
 					},
 					"backdropId": {
 						"type": "string",
@@ -9142,11 +9150,11 @@
 					},
 					"startingMessage": {
 						"type": "string",
-						"maxLength": 2000
+						"maxLength": 500
 					},
 					"systemInstructions": {
 						"type": "string",
-						"maxLength": 8000
+						"maxLength": 5000
 					},
 					"introduction": {
 						"type": "string",
@@ -9232,7 +9240,7 @@
 						"anyOf": [
 							{
 								"type": "string",
-								"maxLength": 2000
+								"maxLength": 2500
 							},
 							{
 								"type": "null"
@@ -9243,7 +9251,7 @@
 						"anyOf": [
 							{
 								"type": "string",
-								"maxLength": 8000
+								"maxLength": 5000
 							},
 							{
 								"type": "null"
@@ -9314,6 +9322,10 @@
 						"minLength": 1,
 						"maxLength": 128
 					},
+					"description": {
+						"type": "string",
+						"maxLength": 2500
+					},
 					"locationId": {
 						"type": "string",
 						"minLength": 1,
@@ -9329,6 +9341,10 @@
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"description": {
+						"type": "string",
+						"maxLength": 2500
 					},
 					"backdropId": {
 						"type": "string",
@@ -9404,11 +9420,11 @@
 					},
 					"startingMessage": {
 						"type": "string",
-						"maxLength": 2000
+						"maxLength": 500
 					},
 					"systemInstructions": {
 						"type": "string",
-						"maxLength": 8000
+						"maxLength": 5000
 					},
 					"introduction": {
 						"type": "string",
@@ -12125,6 +12141,9 @@
 					"name": {
 						"type": "string"
 					},
+					"description": {
+						"type": "string"
+					},
 					"locationId": {
 						"type": "string"
 					},
@@ -12184,6 +12203,9 @@
 						"type": "string"
 					},
 					"name": {
+						"type": "string"
+					},
+					"description": {
 						"type": "string"
 					},
 					"backdropId": {
@@ -12580,6 +12602,9 @@
 							"name": {
 								"type": "string"
 							},
+							"description": {
+								"type": "string"
+							},
 							"locationId": {
 								"type": "string"
 							},
@@ -12648,6 +12673,9 @@
 								"type": "string"
 							},
 							"name": {
+								"type": "string"
+							},
+							"description": {
 								"type": "string"
 							},
 							"backdropId": {
