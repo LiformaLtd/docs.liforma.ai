@@ -3055,6 +3055,7 @@
 			"post": {
 				"summary": "Create a custom location from a completed upload",
 				"operationId": "createLocation",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -3240,6 +3241,7 @@
 			"get": {
 				"summary": "Get location resource",
 				"operationId": "getLocation",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -3364,6 +3366,7 @@
 			"delete": {
 				"summary": "Permanently delete an archived custom location",
 				"operationId": "deleteLocation",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -3509,6 +3512,7 @@
 			"post": {
 				"summary": "Archive a custom location",
 				"operationId": "archiveLocation",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -3654,6 +3658,7 @@
 			"post": {
 				"summary": "Restore an archived custom location",
 				"operationId": "restoreLocation",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -5829,6 +5834,7 @@
 			"get": {
 				"summary": "Get a place",
 				"operationId": "getPlace",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -5953,6 +5959,7 @@
 			"patch": {
 				"summary": "Update a place name or location",
 				"operationId": "patchPlace",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -6125,6 +6132,7 @@
 			"delete": {
 				"summary": "Permanently delete an archived place",
 				"operationId": "deletePlace",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -6270,6 +6278,7 @@
 			"post": {
 				"summary": "Archive a place",
 				"operationId": "archivePlace",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -6415,6 +6424,7 @@
 			"post": {
 				"summary": "Restore an archived place",
 				"operationId": "restorePlace",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -6560,6 +6570,7 @@
 			"post": {
 				"summary": "Create a place from a ready locationId",
 				"operationId": "createPlace",
+				"deprecated": true,
 				"security": [
 					{
 						"bearerAuth": []
@@ -9143,7 +9154,7 @@
 						"minLength": 1,
 						"maxLength": 64
 					},
-					"placeId": {
+					"setId": {
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 64
@@ -9168,12 +9179,82 @@
 						"minLength": 1,
 						"maxLength": 128,
 						"pattern": "^[A-Za-z0-9._:-]+$"
+					},
+					"interaction": {
+						"type": "object",
+						"properties": {
+							"allowTextInput": {
+								"type": "boolean"
+							},
+							"allowMicInput": {
+								"type": "boolean"
+							},
+							"allowRewind": {
+								"type": "boolean"
+							},
+							"showUserSpeech": {
+								"type": "boolean"
+							},
+							"showCharacterSpeech": {
+								"type": "boolean"
+							},
+							"playCharacterSpeech": {
+								"type": "boolean"
+							},
+							"textInputEnabled": {
+								"type": "boolean"
+							},
+							"micInputEnabled": {
+								"type": "boolean"
+							},
+							"visibleTurns": {
+								"anyOf": [
+									{
+										"type": "string",
+										"const": "all"
+									},
+									{
+										"type": "integer",
+										"minimum": 1,
+										"maximum": 50
+									}
+								]
+							},
+							"controls": {
+								"type": "object",
+								"properties": {
+									"voice": {
+										"type": "boolean"
+									},
+									"captions": {
+										"type": "boolean"
+									},
+									"microphone": {
+										"type": "boolean"
+									},
+									"textInput": {
+										"type": "boolean"
+									}
+								}
+							}
+						}
+					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"required": [
 					"title",
 					"characterId",
-					"placeId"
+					"setId"
 				],
 				"additionalProperties": false
 			},
@@ -9413,7 +9494,7 @@
 						"minLength": 1,
 						"maxLength": 64
 					},
-					"placeId": {
+					"setId": {
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 64
@@ -9429,6 +9510,76 @@
 					"introduction": {
 						"type": "string",
 						"maxLength": 2000
+					},
+					"interaction": {
+						"type": "object",
+						"properties": {
+							"allowTextInput": {
+								"type": "boolean"
+							},
+							"allowMicInput": {
+								"type": "boolean"
+							},
+							"allowRewind": {
+								"type": "boolean"
+							},
+							"showUserSpeech": {
+								"type": "boolean"
+							},
+							"showCharacterSpeech": {
+								"type": "boolean"
+							},
+							"playCharacterSpeech": {
+								"type": "boolean"
+							},
+							"textInputEnabled": {
+								"type": "boolean"
+							},
+							"micInputEnabled": {
+								"type": "boolean"
+							},
+							"visibleTurns": {
+								"anyOf": [
+									{
+										"type": "string",
+										"const": "all"
+									},
+									{
+										"type": "integer",
+										"minimum": 1,
+										"maximum": 50
+									}
+								]
+							},
+							"controls": {
+								"type": "object",
+								"properties": {
+									"voice": {
+										"type": "boolean"
+									},
+									"captions": {
+										"type": "boolean"
+									},
+									"microphone": {
+										"type": "boolean"
+									},
+									"textInput": {
+										"type": "boolean"
+									}
+								}
+							}
+						}
+					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"additionalProperties": false
@@ -12313,7 +12464,7 @@
 							}
 						]
 					},
-					"placeId": {
+					"setId": {
 						"anyOf": [
 							{
 								"type": "string"
@@ -12323,7 +12474,8 @@
 							}
 						]
 					},
-					"setId": {
+					"placeId": {
+						"deprecated": true,
 						"anyOf": [
 							{
 								"type": "string"
@@ -12363,6 +12515,83 @@
 							}
 						]
 					},
+					"interaction": {
+						"anyOf": [
+							{
+								"type": "object",
+								"properties": {
+									"allowTextInput": {
+										"type": "boolean"
+									},
+									"allowMicInput": {
+										"type": "boolean"
+									},
+									"allowRewind": {
+										"type": "boolean"
+									},
+									"showUserSpeech": {
+										"type": "boolean"
+									},
+									"showCharacterSpeech": {
+										"type": "boolean"
+									},
+									"playCharacterSpeech": {
+										"type": "boolean"
+									},
+									"textInputEnabled": {
+										"type": "boolean"
+									},
+									"micInputEnabled": {
+										"type": "boolean"
+									},
+									"visibleTurns": {
+										"anyOf": [
+											{
+												"type": "string",
+												"const": "all"
+											},
+											{
+												"type": "integer",
+												"minimum": 1,
+												"maximum": 50
+											}
+										]
+									},
+									"controls": {
+										"type": "object",
+										"properties": {
+											"voice": {
+												"type": "boolean"
+											},
+											"captions": {
+												"type": "boolean"
+											},
+											"microphone": {
+												"type": "boolean"
+											},
+											"textInput": {
+												"type": "boolean"
+											}
+										}
+									}
+								},
+								"additionalProperties": false
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"externalId": {
 						"anyOf": [
 							{
@@ -12393,10 +12622,10 @@
 					"published",
 					"attributes",
 					"characterId",
-					"placeId",
 					"startingMessage",
 					"systemInstructions",
 					"introduction",
+					"interaction",
 					"externalId",
 					"createdAt",
 					"updatedAt"
@@ -12792,7 +13021,7 @@
 									}
 								]
 							},
-							"placeId": {
+							"setId": {
 								"anyOf": [
 									{
 										"type": "string"
@@ -12802,7 +13031,8 @@
 									}
 								]
 							},
-							"setId": {
+							"placeId": {
+								"deprecated": true,
 								"anyOf": [
 									{
 										"type": "string"
@@ -12842,6 +13072,83 @@
 									}
 								]
 							},
+							"interaction": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"allowTextInput": {
+												"type": "boolean"
+											},
+											"allowMicInput": {
+												"type": "boolean"
+											},
+											"allowRewind": {
+												"type": "boolean"
+											},
+											"showUserSpeech": {
+												"type": "boolean"
+											},
+											"showCharacterSpeech": {
+												"type": "boolean"
+											},
+											"playCharacterSpeech": {
+												"type": "boolean"
+											},
+											"textInputEnabled": {
+												"type": "boolean"
+											},
+											"micInputEnabled": {
+												"type": "boolean"
+											},
+											"visibleTurns": {
+												"anyOf": [
+													{
+														"type": "string",
+														"const": "all"
+													},
+													{
+														"type": "integer",
+														"minimum": 1,
+														"maximum": 50
+													}
+												]
+											},
+											"controls": {
+												"type": "object",
+												"properties": {
+													"voice": {
+														"type": "boolean"
+													},
+													"captions": {
+														"type": "boolean"
+													},
+													"microphone": {
+														"type": "boolean"
+													},
+													"textInput": {
+														"type": "boolean"
+													}
+												}
+											}
+										},
+										"additionalProperties": false
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"style": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"externalId": {
 								"anyOf": [
 									{
@@ -12872,10 +13179,10 @@
 							"published",
 							"attributes",
 							"characterId",
-							"placeId",
 							"startingMessage",
 							"systemInstructions",
 							"introduction",
+							"interaction",
 							"externalId",
 							"createdAt",
 							"updatedAt"

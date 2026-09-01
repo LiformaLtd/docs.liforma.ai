@@ -286,7 +286,6 @@ Content-Type: application/json
     },
     "characterId": "char_ABC",
     "setId": "set_ABC",
-    "placeId": "set_ABC",
     "startingMessage": "Welcome. How can I help you today?",
     "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
     "introduction": "Practice checking into a hotel.",
