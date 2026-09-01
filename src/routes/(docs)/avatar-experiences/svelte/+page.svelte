@@ -209,9 +209,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td><code>avatarId</code>, <code>locationId</code></td>
+				<td><code>avatarId</code>, <code>backdropId</code></td>
 				<td><code>string</code></td>
-				<td>Public-session avatar or location overrides.</td>
+				<td>
+					Public-session avatar or backdrop overrides. <code>locationId</code> remains a deprecated
+					alias for <code>backdropId</code>.
+				</td>
 			</tr>
 			<tr>
 				<td><code>embedBaseUrl</code></td>
@@ -354,7 +357,8 @@
 		<code>locale</code>, <code>secondaryLocale</code> / <code>learningLocale</code>,
 		<code>mode</code>, <code>speechInputMode</code>,
 		<code>conversationProcessor</code>, <code>speechOnly</code>, <code>avatarId</code>,
-		<code>locationId</code>, <code>embedBaseUrl</code>, or <code>debug</code>. You do not need a
+		<code>backdropId</code> (deprecated alias <code>locationId</code>), <code>embedBaseUrl</code>, or
+		<code>debug</code>. You do not need a
 		<code>{`{#key ...}`}</code> block.
 	</p>
 	<p>
