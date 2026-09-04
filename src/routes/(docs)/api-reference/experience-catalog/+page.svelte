@@ -41,9 +41,10 @@ Authorization: Bearer YOUR_API_KEY`}
       "updatedAt": "2026-07-26T12:00:00.000Z",
       "catalogReady": true,
       "avatarId": "05a87620",
-      "thumbnailPath": "https://cdn.liforma.ai/avatars/05a87620/256/05a87620_CH.webp",
+      "thumbnailPath": "/avatars/05a87620/256/05a87620_neutral.webp",
       "galleryThumb": {
-        "avatarImage": "https://cdn.liforma.ai/avatars/05a87620/256/05a87620_neutral.webp"
+        "avatarImage": "/avatars/05a87620/256/05a87620_neutral.webp",
+        "backgroundImage": "/locations/modern/city/office/interior-desk-daytime"
       },
       "discoveryTags": []
     }
@@ -70,9 +71,10 @@ Authorization: Bearer YOUR_API_KEY`}
 		<li><code>slug</code> is unique within a project, not globally.</li>
 		<li>Session mint endpoints still require <code>experienceId</code>.</li>
 		<li>
-			Prefer <code>galleryThumb</code> for UI cards (avatar tier <code>/256/</code>, location plates
-			<code>256x256</code>). <code>&lt;ExperienceThumbnail&gt;</code> rewrites larger known CDN
-			URLs down to those tiers.
+			Prefer <code>galleryThumb</code> for UI cards. Pass it to
+			<code>&lt;ExperienceThumbnail&gt;</code> as-is — image values are Liforma paths
+			(<code>/avatars/…</code>, <code>/locations/…/scene</code>), not full CDN URLs. The
+			component expands them to the correct plate size for the card box.
 		</li>
 		<li>Never expose your API key to the browser.</li>
 	</ul>

@@ -21,9 +21,10 @@
 		and pointer/scroll parallax. It is a <strong>catalog preview</strong>, not a live player.
 	</p>
 	<p>
-		Painting the thumb needs <strong>no API key and no origin allowlist</strong> — pass CDN URLs
-		from your server-side catalog fetch. Keys and allowlists apply only when a session starts
-		(hosted launch click, or a page that mounts <code>&lt;Experience&gt;</code>).
+		Painting the thumb needs <strong>no API key and no origin allowlist</strong> — pass
+		<code>galleryThumb</code> from your server-side catalog fetch (paths, not CDN hosts). Keys
+		and allowlists apply only when a session starts (hosted launch click, or a page that mounts
+		<code>&lt;Experience&gt;</code>).
 	</p>
 	<p>
 		Import the <strong>thumbnail entry</strong> (not the full <code>/svelte</code> /
@@ -138,7 +139,7 @@
 				<td><code>GalleryThumb</code></td>
 				<td>
 					Catalog shape: <code>avatarImage</code>, optional
-					<code>backgroundImage</code> / <code>foregroundImage</code>
+					<code>backgroundImage</code> / <code>foregroundImage</code> — paths or URLs
 				</td>
 			</tr>
 			<tr>
@@ -182,6 +183,19 @@
 				<td>Default <code>true</code>; IntersectionObserver load</td>
 			</tr>
 			<tr>
+				<td><code>backgroundImage</code> / <code>foregroundImage</code></td>
+				<td><code>string</code></td>
+				<td>
+					Full URL, or a Liforma path such as
+					<code>/locations/…/scene</code> (the component picks the plate size)
+				</td>
+			</tr>
+			<tr>
+				<td><code>cdnBaseUrl</code></td>
+				<td><code>string</code></td>
+				<td>Optional; default <code>https://cdn.liforma.ai</code> for catalog paths</td>
+			</tr>
+			<tr>
 				<td><code>fallbackImage</code></td>
 				<td><code>string</code></td>
 				<td>Flat image if the layered avatar fails</td>
@@ -192,15 +206,22 @@
 	<h2>Layout and image size</h2>
 	<p>
 		The component <strong>fills its container</strong>. Set width / aspect-ratio on the parent —
-		there is no size prop. CDN assets are thumb-tier only:
+		there is no size prop. Pass catalog <strong>paths</strong> (no host, no plate size) and the
+		component expands them:
 	</p>
 	<ul>
-		<li>Avatars: <code>/256/</code> (larger tiers are rewritten automatically)</li>
-		<li>Locations: <code>256x256</code></li>
+		<li>
+			Avatars: <code>/avatars/{'{id}'}</code> or <code>/avatars/{'{id}'}/256/…webp</code> → CDN
+			<code>/256/</code> plates
+		</li>
+		<li>
+			Locations: <code>/locations/…/scene</code> → square hosts use <code>256x256</code>;
+			landscape hosts use <code>800x450</code> (or <code>1672x941</code> when the box is larger)
+		</li>
 	</ul>
 	<p>
-		Prefer catalog <code>galleryThumb</code> over flat <code>thumbnailPath</code> (which may still
-		point at larger plates).
+		Absolute URLs still work if you already have them. Prefer catalog
+		<code>galleryThumb</code> over flat <code>thumbnailPath</code>.
 	</p>
 
 	<h2>Gallery walkthrough</h2>
