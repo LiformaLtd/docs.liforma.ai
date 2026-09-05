@@ -19,7 +19,7 @@ Authorization: Bearer lfm_live_…`;
       "age": 55,
       "ethnicity": "european",
       "species": "human",
-      "style": "Liforma 3D House Style",
+      "style": "Liforma 3D",
       "costumes": [
         { "id": "clothes_WHOLE001", "name": "Examiner", "source": "catalogue", "libraryScope": "liforma" }
       ],
@@ -131,7 +131,7 @@ Authorization: Bearer lfm_live_…`;
     "status": "ready",
     "name": "Hotel lobby",
     "depthEncoding": "lf-disparity-v1",
-    "style": "Liforma 3D House Style",
+    "style": "Liforma 3D",
     "externalId": "cms-bdrop-lobby"
   }
 }`;
@@ -151,7 +151,7 @@ Content-Type: application/json
     "id": "set_ABC",
     "name": "Hotel lobby",
     "backdropId": "bdrop_ABC",
-    "style": "Liforma 3D House Style",
+    "style": "Liforma 3D",
     "externalId": "cms-set-lobby",
     "createdAt": "2026-08-25T12:00:20.000Z",
     "updatedAt": "2026-08-25T12:00:20.000Z"
@@ -231,7 +231,7 @@ Content-Type: application/json
     "gender": "female",
     "age": 28,
     "ethnicity": "european",
-    "style": "Liforma 3D House Style",
+    "style": "Liforma 3D",
     "externalId": "cms-char-482",
     "createdAt": "2026-08-25T12:01:00.000Z",
     "updatedAt": "2026-08-25T12:01:00.000Z"
@@ -476,7 +476,7 @@ Authorization: Bearer lfm_live_…`;
 		Listed avatars include optional <code>gender</code>, <code>age</code>,
 		<code>ethnicity</code>, <code>species</code>, and <code>style</code> from the catalogue.
 		<code>species</code> and <code>style</code> are free-text labels, not enums — for example
-		<code>human</code> and <code>Liforma 3D House Style</code>, or later <code>goblin</code> and
+		<code>human</code> and <code>Liforma 3D</code>, or later <code>goblin</code> and
 		another house style. Catalogue avatars are not created or updated through this API.
 	</p>
 	<CodeBlock code={listAvatars} lang="http" />
@@ -527,7 +527,7 @@ Authorization: Bearer lfm_live_…`;
 		<code>bdrop_…</code>, or a CDN catalogue id — so
 		<code>getBackdrop(set.backdropId)</code> works after wrapping a catalogue
 		set. Ready backdrops include inherited <code>style</code> (currently
-		<code>Liforma 3D House Style</code> for every catalogue and custom backdrop). Do not send
+		<code>Liforma 3D</code> for every catalogue and custom backdrop). Do not send
 		<code>style</code> on create. Omit <code>forceNew</code> to reuse a matching ready or
 		in-progress plate for the same image; set <code>forceNew: true</code> to start a new job.
 	</p>
@@ -557,7 +557,7 @@ Authorization: Bearer lfm_live_…`;
 		returns <code>409</code> <code>LOCATION_NOT_READY</code>. One backdrop may wrap as many Sets
 		in the same org. You may also wrap a published catalogue <code>bdrop_…</code> without uploading.
 		Sets inherit <code>style</code> from the backdrop — currently
-		<code>Liforma 3D House Style</code> for every catalogue and custom backdrop. Do not send
+		<code>Liforma 3D</code> for every catalogue and custom backdrop. Do not send
 		<code>style</code> on create or update; it is fixed and cannot be overridden.
 	</p>
 	<CodeBlock code={createSet} lang="http" />
@@ -615,7 +615,7 @@ Authorization: Bearer lfm_live_…`;
 		from 1 to 1000, so non-human characters can be very old. <code>ethnicity</code> is an appearance
 		group for facial features, hair, and skin colour, such as <code>european</code> or
 		<code>east-asian</code>. Responses also include inherited <code>style</code> from the
-		avatar (currently <code>Liforma 3D House Style</code> for catalogue avatars). Do not send
+		avatar (currently <code>Liforma 3D</code> for catalogue avatars). Do not send
 		<code>style</code> on create or update; unlike gender, age, and ethnicity it cannot be
 		overridden. Use matching <code>style</code> values when pairing characters with sets.
 	</p>
