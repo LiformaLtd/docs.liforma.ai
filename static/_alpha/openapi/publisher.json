@@ -304,6 +304,186 @@
 			}
 		},
 		"/v1/projects/{projectId}/clothes": {
+			"get": {
+				"summary": "List clothes with optional effective taxonomy filters",
+				"operationId": "listClothes",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sides",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Comma-separated interaction-side slugs"
+					},
+					{
+						"name": "seasons",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "uses",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "uniform",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "composition",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "colours",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "universe",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "era",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "country",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Clothes list",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListClothesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"summary": "Create clothes from a completed upload",
 				"operationId": "createClothes",
@@ -1220,6 +1400,138 @@
 			}
 		},
 		"/v1/projects/{projectId}/hair": {
+			"get": {
+				"summary": "List hair with optional taxonomy filters",
+				"operationId": "listHair",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "length",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Hair-length slug"
+					},
+					{
+						"name": "colours",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Comma-separated hair-colour slugs"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Hair list",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListHairResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"summary": "Create hair from a completed upload",
 				"operationId": "createHair",
@@ -2136,6 +2448,186 @@
 			}
 		},
 		"/v1/projects/{projectId}/costumes": {
+			"get": {
+				"summary": "List costumes with optional effective taxonomy filters",
+				"operationId": "listCostumes",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sides",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Comma-separated interaction-side slugs"
+					},
+					{
+						"name": "seasons",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "uses",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "uniform",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "composition",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "colours",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "universe",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "era",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "country",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Costume list",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListCostumesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"summary": "Create a whole costume from a completed upload",
 				"operationId": "createCostume",
@@ -4110,6 +4602,159 @@
 					}
 				}
 			},
+			"patch": {
+				"summary": "Update backdrop taxonomy, sides, and place names",
+				"operationId": "patchBackdrop",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "backdropId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PatchBackdropBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Updated backdrop",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetBackdropResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"delete": {
 				"summary": "Permanently delete an archived custom backdrop",
 				"operationId": "deleteBackdrop",
@@ -4817,7 +5462,7 @@
 		},
 		"/v1/projects/{projectId}/avatars": {
 			"get": {
-				"summary": "List costume-capable avatars",
+				"summary": "List avatars (heroes and costume-capable)",
 				"operationId": "listAvatars",
 				"security": [
 					{
@@ -4850,6 +5495,285 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/ListAvatarsResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/avatars/{avatarId}": {
+			"get": {
+				"summary": "Get an avatar (persona + outfit/hair taxonomy)",
+				"operationId": "getAvatar",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "avatarId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Avatar",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetAvatarResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"summary": "Update avatar persona and outfit/hair taxonomy overrides",
+				"operationId": "patchAvatar",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "avatarId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PatchAvatarBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Updated avatar",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetAvatarResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
 								}
 							}
 						}
@@ -5665,6 +6589,256 @@
 			}
 		},
 		"/v1/projects/{projectId}/characters": {
+			"get": {
+				"summary": "List characters with optional effective taxonomy filters",
+				"operationId": "listCharacters",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "universe",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "era",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "domains",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "useCases",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "purposes",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "interactionModes",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "functions",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "identityType",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "country",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitSides",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Effective outfit interaction-side (comma-separated)"
+					},
+					{
+						"name": "outfitSeasons",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitUses",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitUniform",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitComposition",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitColours",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitUniverse",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "outfitEra",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "hairLength",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "hairColours",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Character list",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListCharactersResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"summary": "Create a character",
 				"operationId": "createCharacter",
@@ -7484,6 +8658,172 @@
 			}
 		},
 		"/v1/projects/{projectId}/sets": {
+			"get": {
+				"summary": "List sets with optional effective taxonomy filters",
+				"operationId": "listSets",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "universe",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "era",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "domains",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "useCases",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "country",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "city",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "sides",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						},
+						"description": "Effective viewpoint sides (inherits from backdrop)"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Set list",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListSetsResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"summary": "Create a set from a ready backdropId",
 				"operationId": "createSet",
@@ -7669,7 +9009,198 @@
 			}
 		},
 		"/v1/projects/{projectId}/experiences": {
-			"description": "POST creates a Publisher experience. GET on this same path is the integrator catalog (different envelope, cache, and auth errors) — not a Publisher list.",
+			"description": "POST creates a Publisher experience. GET without taxonomy filters is the integrator catalog; GET with authoring=1 or taxonomy query params returns the Publisher authoring list.",
+			"get": {
+				"summary": "List experiences (authoring filters) or published catalog",
+				"operationId": "listExperiences",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "authoring",
+						"in": "query",
+						"schema": {
+							"type": "string",
+							"enum": [
+								"1",
+								"true"
+							]
+						},
+						"description": "When set, return authoring experience resources with taxonomy"
+					},
+					{
+						"name": "universe",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "era",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "domains",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "useCases",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "purpose",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "interactionMode",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "playerSide",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "country",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "city",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Experience list (authoring) or catalog cards",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListExperiencesResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
 			"post": {
 				"summary": "Create an experience",
 				"operationId": "createExperience",
@@ -8839,6 +10370,120 @@
 					"forceNew": {
 						"description": "When true, start a new publish job even if this project already has a costume, clothes, or hair plate for the same image. Omit to reuse a matching ready or in-progress plate.",
 						"type": "boolean"
+					},
+					"description": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 2000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uses": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"sides": {
+								"maxItems": 8,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": false
 					}
 				},
 				"required": [
@@ -8881,6 +10526,48 @@
 					"forceNew": {
 						"description": "When true, start a new publish job even if this project already has a costume, clothes, or hair plate for the same image. Omit to reuse a matching ready or in-progress plate.",
 						"type": "boolean"
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"maxLength": 128
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"length": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"short",
+											"medium",
+											"long"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
 					}
 				},
 				"required": [
@@ -8923,6 +10610,120 @@
 					"forceNew": {
 						"description": "When true, start a new publish job even if this project already has a costume, clothes, or hair plate for the same image. Omit to reuse a matching ready or in-progress plate.",
 						"type": "boolean"
+					},
+					"description": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 2000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uses": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"sides": {
+								"maxItems": 8,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": false
 					}
 				},
 				"required": [
@@ -9064,6 +10865,125 @@
 							"southeast-asian"
 						]
 					},
+					"species": {
+						"description": "Optional species override. Omit to inherit from the avatar catalogue.",
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 64
+					},
+					"style": {
+						"description": "Optional style override. Omit to inherit from the avatar catalogue.",
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 64
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"identityType": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"functions": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"purposes": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"interactionModes": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"tags": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"externalId": {
 						"type": "string",
 						"minLength": 1,
@@ -9130,6 +11050,95 @@
 						"minLength": 1,
 						"maxLength": 128,
 						"pattern": "^[A-Za-z0-9._:-]+$"
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"sides": {
+						"anyOf": [
+							{
+								"maxItems": 2,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"enum": [
+										"service-provider",
+										"customer"
+									]
+								}
+							},
+							{
+								"type": "null"
+							}
+						],
+						"description": "Viewpoint sides (0..2). Sibling of taxonomy — not nested inside it."
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"required": [
@@ -9239,7 +11248,280 @@
 							}
 						}
 					},
+					"look": {
+						"oneOf": [
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"const": "standard"
+									}
+								},
+								"required": [
+									"type"
+								]
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"const": "video_call"
+									},
+									"meetingTitle": {
+										"type": "string",
+										"maxLength": 80
+									}
+								},
+								"required": [
+									"type"
+								]
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"const": "crt"
+									},
+									"color": {
+										"type": "string",
+										"enum": [
+											"none",
+											"black_white",
+											"green",
+											"light_blue",
+											"red"
+										]
+									},
+									"breakup": {
+										"type": "string",
+										"enum": [
+											"none",
+											"rare",
+											"occasional",
+											"frequent",
+											"severe"
+										]
+									},
+									"scanline": {
+										"type": "object",
+										"properties": {
+											"enabled": {
+												"type": "boolean"
+											},
+											"periodMs": {
+												"type": "integer",
+												"minimum": 800,
+												"maximum": 12000
+											}
+										}
+									}
+								},
+								"required": [
+									"type"
+								]
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"const": "hologram"
+									},
+									"color": {
+										"type": "string",
+										"enum": [
+											"none",
+											"black_white",
+											"green",
+											"light_blue",
+											"red"
+										]
+									},
+									"style": {
+										"type": "string",
+										"enum": [
+											"scan_lines",
+											"hexagons"
+										]
+									},
+									"shimmer": {
+										"type": "object",
+										"properties": {
+											"enabled": {
+												"type": "boolean"
+											}
+										}
+									}
+								},
+								"required": [
+									"type"
+								]
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"const": "ghost"
+									},
+									"color": {
+										"type": "string",
+										"enum": [
+											"white",
+											"green",
+											"light_blue",
+											"red"
+										]
+									}
+								},
+								"required": [
+									"type"
+								]
+							},
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"const": "color_grade"
+									},
+									"style": {
+										"type": "string",
+										"enum": [
+											"noir",
+											"sepia",
+											"thermal",
+											"cinema",
+											"underwater",
+											"darkening",
+											"neon",
+											"cel",
+											"dream",
+											"golden_hour",
+											"vhs",
+											"bleach",
+											"toon",
+											"ink",
+											"halftone",
+											"dither",
+											"pixel",
+											"depth_of_field"
+										]
+									}
+								},
+								"required": [
+									"type"
+								]
+							}
+						]
+					},
 					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"purposes": {
+								"maxItems": 1,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"interactionModes": {
+								"maxItems": 1,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"playerSide": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"service-provider",
+									"customer"
+								]
+							},
+							{
+								"type": "null"
+							}
+						],
+						"description": "Who the user plays (0..1). Sibling of taxonomy — not nested inside it."
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
 						"anyOf": [
 							{
 								"type": "string",
@@ -9391,6 +11673,139 @@
 								"type": "null"
 							}
 						]
+					},
+					"species": {
+						"description": "Set a species override, or null to inherit from the avatar catalogue again.",
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"style": {
+						"description": "Set a style override, or null to inherit from the avatar catalogue again.",
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"identityType": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"functions": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"purposes": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"interactionModes": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"tags": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"additionalProperties": false
@@ -9431,6 +11846,95 @@
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"sides": {
+						"anyOf": [
+							{
+								"maxItems": 2,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"enum": [
+										"service-provider",
+										"customer"
+									]
+								}
+							},
+							{
+								"type": "null"
+							}
+						],
+						"description": "Viewpoint sides (0..2). Sibling of taxonomy — not nested inside it."
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"additionalProperties": false
@@ -9442,11 +11946,50 @@
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"maxLength": 128
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"length": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"short",
+											"medium",
+											"long"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
 					}
 				},
-				"required": [
-					"name"
-				],
 				"additionalProperties": false
 			},
 			"PatchClothesBody": {
@@ -9456,11 +11999,122 @@
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"description": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 2000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uses": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"sides": {
+								"maxItems": 8,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": false
 					}
 				},
-				"required": [
-					"name"
-				],
 				"additionalProperties": false
 			},
 			"PatchCostumeBody": {
@@ -9470,11 +12124,122 @@
 						"type": "string",
 						"minLength": 1,
 						"maxLength": 128
+					},
+					"description": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 2000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uses": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"sides": {
+								"maxItems": 8,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": false
 					}
 				},
-				"required": [
-					"name"
-				],
 				"additionalProperties": false
 			},
 			"PatchExperienceBody": {
@@ -9570,6 +12335,183 @@
 							}
 						}
 					},
+					"look": {
+						"anyOf": [
+							{
+								"oneOf": [
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string",
+												"const": "standard"
+											}
+										},
+										"required": [
+											"type"
+										]
+									},
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string",
+												"const": "video_call"
+											},
+											"meetingTitle": {
+												"type": "string",
+												"maxLength": 80
+											}
+										},
+										"required": [
+											"type"
+										]
+									},
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string",
+												"const": "crt"
+											},
+											"color": {
+												"type": "string",
+												"enum": [
+													"none",
+													"black_white",
+													"green",
+													"light_blue",
+													"red"
+												]
+											},
+											"breakup": {
+												"type": "string",
+												"enum": [
+													"none",
+													"rare",
+													"occasional",
+													"frequent",
+													"severe"
+												]
+											},
+											"scanline": {
+												"type": "object",
+												"properties": {
+													"enabled": {
+														"type": "boolean"
+													},
+													"periodMs": {
+														"type": "integer",
+														"minimum": 800,
+														"maximum": 12000
+													}
+												}
+											}
+										},
+										"required": [
+											"type"
+										]
+									},
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string",
+												"const": "hologram"
+											},
+											"color": {
+												"type": "string",
+												"enum": [
+													"none",
+													"black_white",
+													"green",
+													"light_blue",
+													"red"
+												]
+											},
+											"style": {
+												"type": "string",
+												"enum": [
+													"scan_lines",
+													"hexagons"
+												]
+											},
+											"shimmer": {
+												"type": "object",
+												"properties": {
+													"enabled": {
+														"type": "boolean"
+													}
+												}
+											}
+										},
+										"required": [
+											"type"
+										]
+									},
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string",
+												"const": "ghost"
+											},
+											"color": {
+												"type": "string",
+												"enum": [
+													"white",
+													"green",
+													"light_blue",
+													"red"
+												]
+											}
+										},
+										"required": [
+											"type"
+										]
+									},
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string",
+												"const": "color_grade"
+											},
+											"style": {
+												"type": "string",
+												"enum": [
+													"noir",
+													"sepia",
+													"thermal",
+													"cinema",
+													"underwater",
+													"darkening",
+													"neon",
+													"cel",
+													"dream",
+													"golden_hour",
+													"vhs",
+													"bleach",
+													"toon",
+													"ink",
+													"halftone",
+													"dither",
+													"pixel",
+													"depth_of_field"
+												]
+											}
+										},
+										"required": [
+											"type"
+										]
+									}
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"style": {
 						"anyOf": [
 							{
@@ -9580,6 +12522,429 @@
 								"type": "null"
 							}
 						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"purposes": {
+								"maxItems": 1,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"interactionModes": {
+								"maxItems": 1,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"playerSide": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"service-provider",
+									"customer"
+								]
+							},
+							{
+								"type": "null"
+							}
+						],
+						"description": "Who the user plays (0..1). Sibling of taxonomy — not nested inside it."
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
+					}
+				},
+				"additionalProperties": false
+			},
+			"PatchBackdropBody": {
+				"type": "object",
+				"properties": {
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"useCases": {
+								"maxItems": 32,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
+					},
+					"sides": {
+						"anyOf": [
+							{
+								"maxItems": 2,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"enum": [
+										"service-provider",
+										"customer"
+									]
+								}
+							},
+							{
+								"type": "null"
+							}
+						],
+						"description": "Viewpoint sides (0..2). Sibling of taxonomy — not nested inside it."
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 128
+							},
+							{
+								"type": "null"
+							}
+						]
+					}
+				},
+				"additionalProperties": false
+			},
+			"PatchAvatarBody": {
+				"type": "object",
+				"properties": {
+					"gender": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"female",
+									"male",
+									"non-binary"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"age": {
+						"anyOf": [
+							{
+								"type": "integer",
+								"minimum": 1,
+								"maximum": 1000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"ethnicity": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"african",
+									"east-asian",
+									"european",
+									"indigenous",
+									"mediterranean",
+									"middle-eastern",
+									"mixed",
+									"north-african",
+									"pacific-islander",
+									"south-asian",
+									"southeast-asian"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"species": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string",
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"outfitTaxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uses": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"sides": {
+								"maxItems": 8,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": false
+					},
+					"hairTaxonomy": {
+						"type": "object",
+						"properties": {
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"maxLength": 128
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"length": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"short",
+											"medium",
+											"long"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"maxItems": 16,
+								"type": "array",
+								"items": {
+									"type": "string",
+									"minLength": 1,
+									"maxLength": 64
+								}
+							}
+						},
+						"additionalProperties": false
 					}
 				},
 				"additionalProperties": false
@@ -11456,6 +14821,100 @@
 					"name": {
 						"type": "string"
 					},
+					"description": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uses": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"sides": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": {}
+					},
 					"status": {
 						"type": "string",
 						"enum": [
@@ -11498,7 +14957,7 @@
 					"createdAt",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": {}
 			},
 			"HairResource": {
 				"type": "object",
@@ -11516,6 +14975,44 @@
 					"name": {
 						"type": "string"
 					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"style": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"length": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"short",
+											"medium",
+											"long"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"additionalProperties": {}
+					},
 					"status": {
 						"type": "string",
 						"enum": [
@@ -11558,7 +15055,7 @@
 					"createdAt",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": {}
 			},
 			"CostumeResource": {
 				"type": "object",
@@ -11576,6 +15073,100 @@
 					"name": {
 						"type": "string"
 					},
+					"description": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uses": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"sides": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": {}
+					},
 					"status": {
 						"type": "string",
 						"enum": [
@@ -11618,7 +15209,7 @@
 					"createdAt",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": {}
 			},
 			"LocationResource": {
 				"type": "object",
@@ -11769,6 +15360,100 @@
 							"name": {
 								"type": "string"
 							},
+							"description": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"country": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"taxonomy": {
+								"type": "object",
+								"properties": {
+									"seasons": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uses": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uniform": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"uniform",
+													"non-uniform"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"composition": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"sides": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"universe": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"era": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									}
+								},
+								"additionalProperties": {}
+							},
 							"status": {
 								"type": "string",
 								"enum": [
@@ -11811,7 +15496,7 @@
 							"createdAt",
 							"updatedAt"
 						],
-						"additionalProperties": false
+						"additionalProperties": {}
 					}
 				},
 				"required": [
@@ -11838,6 +15523,44 @@
 							"name": {
 								"type": "string"
 							},
+							"taxonomy": {
+								"type": "object",
+								"properties": {
+									"style": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"length": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"none",
+													"short",
+													"medium",
+													"long"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								},
+								"additionalProperties": {}
+							},
 							"status": {
 								"type": "string",
 								"enum": [
@@ -11880,7 +15603,7 @@
 							"createdAt",
 							"updatedAt"
 						],
-						"additionalProperties": false
+						"additionalProperties": {}
 					}
 				},
 				"required": [
@@ -11907,6 +15630,100 @@
 							"name": {
 								"type": "string"
 							},
+							"description": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"country": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"taxonomy": {
+								"type": "object",
+								"properties": {
+									"seasons": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uses": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uniform": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"uniform",
+													"non-uniform"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"composition": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"sides": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"universe": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"era": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									}
+								},
+								"additionalProperties": {}
+							},
 							"status": {
 								"type": "string",
 								"enum": [
@@ -11949,7 +15766,7 @@
 							"createdAt",
 							"updatedAt"
 						],
-						"additionalProperties": false
+						"additionalProperties": {}
 					}
 				},
 				"required": [
@@ -12226,6 +16043,18 @@
 							}
 						]
 					},
+					"species": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"style": {
 						"anyOf": [
 							{
@@ -12237,6 +16066,383 @@
 								"type": "null"
 							}
 						]
+					},
+					"taxonomy": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"identityType": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"domains": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"functions": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"useCases": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"purposes": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"interactionModes": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"tags": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"required": [
+							"domains",
+							"functions",
+							"useCases"
+						],
+						"additionalProperties": {}
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"effectiveCountry": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"countrySource": {
+						"type": "string"
+					},
+					"outfitTaxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uses": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"sides": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": {}
+					},
+					"outfitTaxonomySources": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {
+							"type": "string"
+						}
+					},
+					"hairTaxonomy": {
+						"type": "object",
+						"properties": {
+							"style": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"length": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"short",
+											"medium",
+											"long"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"additionalProperties": {}
+					},
+					"hairTaxonomySources": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {
+							"type": "string"
+						}
+					},
+					"taxonomyChipExtras": {
+						"type": "object",
+						"properties": {
+							"universe": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							},
+							"identity-type": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							},
+							"era": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							},
+							"domain": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							},
+							"function": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							},
+							"use-case": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							},
+							"tag": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"label": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"label"
+									],
+									"additionalProperties": false
+								}
+							}
+						},
+						"required": [
+							"universe",
+							"identity-type",
+							"era",
+							"domain",
+							"function",
+							"use-case"
+						],
+						"additionalProperties": false
 					},
 					"status": {
 						"type": "string",
@@ -12281,7 +16487,7 @@
 					"createdAt",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": {}
 			},
 			"Place": {
 				"type": "object",
@@ -12398,6 +16604,72 @@
 					"updatedAt": {
 						"type": "string",
 						"minLength": 1
+					},
+					"taxonomy": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {}
+					},
+					"effectiveTaxonomy": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {}
+					},
+					"sides": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"effectiveSides": {
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"effectiveCountry": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"effectiveCity": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"required": [
@@ -12409,7 +16681,7 @@
 					"createdAt",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": {}
 			},
 			"Experience": {
 				"type": "object",
@@ -12582,6 +16854,25 @@
 							}
 						]
 					},
+					"look": {
+						"anyOf": [
+							{
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"type"
+								],
+								"additionalProperties": {}
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
 					"style": {
 						"anyOf": [
 							{
@@ -12609,6 +16900,80 @@
 					"updatedAt": {
 						"type": "string",
 						"minLength": 1
+					},
+					"taxonomy": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {}
+					},
+					"effectiveTaxonomy": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {}
+					},
+					"playerSide": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"effectivePlayerSide": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"city": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"effectiveCountry": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"effectiveCity": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
 					}
 				},
 				"required": [
@@ -12630,7 +16995,7 @@
 					"createdAt",
 					"updatedAt"
 				],
-				"additionalProperties": false
+				"additionalProperties": {}
 			},
 			"CreateCharacterResponse": {
 				"type": "object",
@@ -12756,6 +17121,18 @@
 									}
 								]
 							},
+							"species": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"style": {
 								"anyOf": [
 									{
@@ -12767,6 +17144,383 @@
 										"type": "null"
 									}
 								]
+							},
+							"taxonomy": {
+								"type": "object",
+								"properties": {
+									"universe": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"identityType": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"era": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"domains": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"functions": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"useCases": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"purposes": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"interactionModes": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"tags": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								},
+								"required": [
+									"domains",
+									"functions",
+									"useCases"
+								],
+								"additionalProperties": {}
+							},
+							"country": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"effectiveCountry": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"countrySource": {
+								"type": "string"
+							},
+							"outfitTaxonomy": {
+								"type": "object",
+								"properties": {
+									"seasons": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uses": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uniform": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"uniform",
+													"non-uniform"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"composition": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"sides": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"universe": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"era": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									}
+								},
+								"additionalProperties": {}
+							},
+							"outfitTaxonomySources": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {
+									"type": "string"
+								}
+							},
+							"hairTaxonomy": {
+								"type": "object",
+								"properties": {
+									"style": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"length": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"none",
+													"short",
+													"medium",
+													"long"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								},
+								"additionalProperties": {}
+							},
+							"hairTaxonomySources": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {
+									"type": "string"
+								}
+							},
+							"taxonomyChipExtras": {
+								"type": "object",
+								"properties": {
+									"universe": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									},
+									"identity-type": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									},
+									"era": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									},
+									"domain": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									},
+									"function": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									},
+									"use-case": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									},
+									"tag": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "string"
+												},
+												"label": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"id",
+												"label"
+											],
+											"additionalProperties": false
+										}
+									}
+								},
+								"required": [
+									"universe",
+									"identity-type",
+									"era",
+									"domain",
+									"function",
+									"use-case"
+								],
+								"additionalProperties": false
 							},
 							"status": {
 								"type": "string",
@@ -12811,7 +17565,7 @@
 							"createdAt",
 							"updatedAt"
 						],
-						"additionalProperties": false
+						"additionalProperties": {}
 					}
 				},
 				"required": [
@@ -12946,6 +17700,72 @@
 							"updatedAt": {
 								"type": "string",
 								"minLength": 1
+							},
+							"taxonomy": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {}
+							},
+							"effectiveTaxonomy": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {}
+							},
+							"sides": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"effectiveSides": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"country": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"city": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"effectiveCountry": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"effectiveCity": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
 							}
 						},
 						"required": [
@@ -12957,7 +17777,7 @@
 							"createdAt",
 							"updatedAt"
 						],
-						"additionalProperties": false
+						"additionalProperties": {}
 					}
 				},
 				"required": [
@@ -13139,6 +17959,25 @@
 									}
 								]
 							},
+							"look": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"type": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"type"
+										],
+										"additionalProperties": {}
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
 							"style": {
 								"anyOf": [
 									{
@@ -13166,6 +18005,80 @@
 							"updatedAt": {
 								"type": "string",
 								"minLength": 1
+							},
+							"taxonomy": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {}
+							},
+							"effectiveTaxonomy": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {}
+							},
+							"playerSide": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"effectivePlayerSide": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"country": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"city": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"effectiveCountry": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"effectiveCity": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
 							}
 						},
 						"required": [
@@ -13187,7 +18100,7 @@
 							"createdAt",
 							"updatedAt"
 						],
-						"additionalProperties": false
+						"additionalProperties": {}
 					}
 				},
 				"required": [
@@ -13306,6 +18219,9 @@
 								"defaultSttLang": {
 									"type": "string"
 								},
+								"supportsCostumes": {
+									"type": "boolean"
+								},
 								"gender": {
 									"anyOf": [
 										{
@@ -13379,6 +18295,131 @@
 											"type": "null"
 										}
 									]
+								},
+								"country": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"outfitTaxonomy": {
+									"type": "object",
+									"properties": {
+										"seasons": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uses": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uniform": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"uniform",
+														"non-uniform"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"composition": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"sides": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"universe": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"era": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										}
+									},
+									"additionalProperties": {}
+								},
+								"hairTaxonomy": {
+									"type": "object",
+									"properties": {
+										"style": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"length": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"none",
+														"short",
+														"medium",
+														"long"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+									},
+									"additionalProperties": {}
+								},
+								"canEdit": {
+									"type": "boolean"
 								},
 								"costumes": {
 									"type": "array",
@@ -13471,12 +18512,2130 @@
 								"clothes",
 								"hair"
 							],
-							"additionalProperties": false
+							"additionalProperties": {}
 						}
 					}
 				},
 				"required": [
 					"avatars"
+				],
+				"additionalProperties": false
+			},
+			"GetAvatarResponse": {
+				"type": "object",
+				"properties": {
+					"avatar": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"displayName": {
+								"type": "string"
+							},
+							"defaultVoiceId": {
+								"type": "string"
+							},
+							"defaultSttLang": {
+								"type": "string"
+							},
+							"supportsCostumes": {
+								"type": "boolean"
+							},
+							"gender": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"female",
+											"male",
+											"non-binary"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"age": {
+								"anyOf": [
+									{
+										"type": "integer",
+										"minimum": 1,
+										"maximum": 1000
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"ethnicity": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"african",
+											"east-asian",
+											"european",
+											"indigenous",
+											"mediterranean",
+											"middle-eastern",
+											"mixed",
+											"north-african",
+											"pacific-islander",
+											"south-asian",
+											"southeast-asian"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"species": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"style": {
+								"anyOf": [
+									{
+										"type": "string",
+										"minLength": 1,
+										"maxLength": 64
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"country": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"outfitTaxonomy": {
+								"type": "object",
+								"properties": {
+									"seasons": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uses": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"uniform": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"uniform",
+													"non-uniform"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"composition": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"sides": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									},
+									"universe": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"era": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									}
+								},
+								"additionalProperties": {}
+							},
+							"hairTaxonomy": {
+								"type": "object",
+								"properties": {
+									"style": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"length": {
+										"anyOf": [
+											{
+												"type": "string",
+												"enum": [
+													"none",
+													"short",
+													"medium",
+													"long"
+												]
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"colours": {
+										"type": "array",
+										"items": {
+											"type": "string"
+										}
+									}
+								},
+								"additionalProperties": {}
+							},
+							"canEdit": {
+								"type": "boolean"
+							},
+							"costumes": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"source": {
+											"type": "string"
+										},
+										"libraryScope": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"name",
+										"source",
+										"libraryScope"
+									],
+									"additionalProperties": false
+								}
+							},
+							"clothes": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"source": {
+											"type": "string"
+										},
+										"libraryScope": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"name",
+										"source",
+										"libraryScope"
+									],
+									"additionalProperties": false
+								}
+							},
+							"hair": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										},
+										"source": {
+											"type": "string"
+										},
+										"libraryScope": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"id",
+										"name",
+										"source",
+										"libraryScope"
+									],
+									"additionalProperties": false
+								}
+							}
+						},
+						"required": [
+							"id",
+							"displayName",
+							"defaultVoiceId",
+							"defaultSttLang",
+							"costumes",
+							"clothes",
+							"hair"
+						],
+						"additionalProperties": {}
+					}
+				},
+				"required": [
+					"avatar"
+				],
+				"additionalProperties": {}
+			},
+			"Avatar": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"displayName": {
+						"type": "string"
+					},
+					"defaultVoiceId": {
+						"type": "string"
+					},
+					"defaultSttLang": {
+						"type": "string"
+					},
+					"supportsCostumes": {
+						"type": "boolean"
+					},
+					"gender": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"female",
+									"male",
+									"non-binary"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"age": {
+						"anyOf": [
+							{
+								"type": "integer",
+								"minimum": 1,
+								"maximum": 1000
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"ethnicity": {
+						"anyOf": [
+							{
+								"type": "string",
+								"enum": [
+									"african",
+									"east-asian",
+									"european",
+									"indigenous",
+									"mediterranean",
+									"middle-eastern",
+									"mixed",
+									"north-african",
+									"pacific-islander",
+									"south-asian",
+									"southeast-asian"
+								]
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"species": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"style": {
+						"anyOf": [
+							{
+								"type": "string",
+								"minLength": 1,
+								"maxLength": 64
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"country": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"outfitTaxonomy": {
+						"type": "object",
+						"properties": {
+							"seasons": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uses": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"uniform": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"uniform",
+											"non-uniform"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"composition": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"sides": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"universe": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"era": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							}
+						},
+						"additionalProperties": {}
+					},
+					"hairTaxonomy": {
+						"type": "object",
+						"properties": {
+							"style": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"length": {
+								"anyOf": [
+									{
+										"type": "string",
+										"enum": [
+											"none",
+											"short",
+											"medium",
+											"long"
+										]
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"colours": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"additionalProperties": {}
+					},
+					"canEdit": {
+						"type": "boolean"
+					},
+					"costumes": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"source": {
+									"type": "string"
+								},
+								"libraryScope": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"id",
+								"name",
+								"source",
+								"libraryScope"
+							],
+							"additionalProperties": false
+						}
+					},
+					"clothes": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"source": {
+									"type": "string"
+								},
+								"libraryScope": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"id",
+								"name",
+								"source",
+								"libraryScope"
+							],
+							"additionalProperties": false
+						}
+					},
+					"hair": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"source": {
+									"type": "string"
+								},
+								"libraryScope": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"id",
+								"name",
+								"source",
+								"libraryScope"
+							],
+							"additionalProperties": false
+						}
+					}
+				},
+				"required": [
+					"id",
+					"displayName",
+					"defaultVoiceId",
+					"defaultSttLang",
+					"costumes",
+					"clothes",
+					"hair"
+				],
+				"additionalProperties": {}
+			},
+			"ListCharactersResponse": {
+				"type": "object",
+				"properties": {
+					"characters": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"projectId": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"avatarId": {
+									"type": "string"
+								},
+								"voice": {
+									"type": "string"
+								},
+								"sttLang": {
+									"type": "string"
+								},
+								"costumeId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"clothesId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"hairId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"personality": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"generalInstructions": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"gender": {
+									"anyOf": [
+										{
+											"type": "string",
+											"enum": [
+												"female",
+												"male",
+												"non-binary"
+											]
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"age": {
+									"anyOf": [
+										{
+											"type": "integer",
+											"minimum": 1,
+											"maximum": 1000
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"ethnicity": {
+									"anyOf": [
+										{
+											"type": "string",
+											"enum": [
+												"african",
+												"east-asian",
+												"european",
+												"indigenous",
+												"mediterranean",
+												"middle-eastern",
+												"mixed",
+												"north-african",
+												"pacific-islander",
+												"south-asian",
+												"southeast-asian"
+											]
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"species": {
+									"anyOf": [
+										{
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 64
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"style": {
+									"anyOf": [
+										{
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 64
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"taxonomy": {
+									"type": "object",
+									"properties": {
+										"universe": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"identityType": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"era": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"domains": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"functions": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"useCases": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"purposes": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"interactionModes": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"tags": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+									},
+									"required": [
+										"domains",
+										"functions",
+										"useCases"
+									],
+									"additionalProperties": {}
+								},
+								"country": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"effectiveCountry": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"countrySource": {
+									"type": "string"
+								},
+								"outfitTaxonomy": {
+									"type": "object",
+									"properties": {
+										"seasons": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uses": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uniform": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"uniform",
+														"non-uniform"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"composition": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"sides": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"universe": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"era": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										}
+									},
+									"additionalProperties": {}
+								},
+								"outfitTaxonomySources": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {
+										"type": "string"
+									}
+								},
+								"hairTaxonomy": {
+									"type": "object",
+									"properties": {
+										"style": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"length": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"none",
+														"short",
+														"medium",
+														"long"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+									},
+									"additionalProperties": {}
+								},
+								"hairTaxonomySources": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {
+										"type": "string"
+									}
+								},
+								"taxonomyChipExtras": {
+									"type": "object",
+									"properties": {
+										"universe": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										},
+										"identity-type": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										},
+										"era": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										},
+										"domain": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										},
+										"function": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										},
+										"use-case": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										},
+										"tag": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string"
+													},
+													"label": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"label"
+												],
+												"additionalProperties": false
+											}
+										}
+									},
+									"required": [
+										"universe",
+										"identity-type",
+										"era",
+										"domain",
+										"function",
+										"use-case"
+									],
+									"additionalProperties": false
+								},
+								"status": {
+									"type": "string",
+									"enum": [
+										"active",
+										"archived"
+									]
+								},
+								"externalId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"createdAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"updatedAt": {
+									"type": "string",
+									"minLength": 1
+								}
+							},
+							"required": [
+								"id",
+								"projectId",
+								"name",
+								"avatarId",
+								"voice",
+								"sttLang",
+								"costumeId",
+								"clothesId",
+								"hairId",
+								"personality",
+								"generalInstructions",
+								"status",
+								"externalId",
+								"createdAt",
+								"updatedAt"
+							],
+							"additionalProperties": {}
+						}
+					}
+				},
+				"required": [
+					"characters"
+				],
+				"additionalProperties": false
+			},
+			"ListSetsResponse": {
+				"type": "object",
+				"properties": {
+					"sets": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"description": {
+									"type": "string"
+								},
+								"backdropId": {
+									"type": "string"
+								},
+								"style": {
+									"anyOf": [
+										{
+											"type": "string",
+											"minLength": 1,
+											"maxLength": 64
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"status": {
+									"type": "string",
+									"enum": [
+										"active",
+										"archived"
+									]
+								},
+								"externalId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"createdAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"updatedAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"taxonomy": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {}
+								},
+								"effectiveTaxonomy": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {}
+								},
+								"sides": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"effectiveSides": {
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"country": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"city": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"effectiveCountry": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"effectiveCity": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								}
+							},
+							"required": [
+								"id",
+								"name",
+								"backdropId",
+								"status",
+								"externalId",
+								"createdAt",
+								"updatedAt"
+							],
+							"additionalProperties": {}
+						}
+					}
+				},
+				"required": [
+					"sets"
+				],
+				"additionalProperties": false
+			},
+			"ListExperiencesResponse": {
+				"type": "object",
+				"properties": {
+					"experiences": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"projectId": {
+									"type": "string"
+								},
+								"title": {
+									"type": "string"
+								},
+								"slug": {
+									"type": "string"
+								},
+								"status": {
+									"type": "string",
+									"enum": [
+										"draft",
+										"published",
+										"archived"
+									]
+								},
+								"hasPublishedRevision": {
+									"type": "boolean"
+								},
+								"hasUnpublishedChanges": {
+									"type": "boolean"
+								},
+								"published": {
+									"type": "boolean",
+									"description": "Deprecated compatibility alias. Use hasPublishedRevision together with status instead.",
+									"deprecated": true
+								},
+								"attributes": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {
+										"type": "string"
+									}
+								},
+								"characterId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"setId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"placeId": {
+									"deprecated": true,
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"startingMessage": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"systemInstructions": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"introduction": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"interaction": {
+									"anyOf": [
+										{
+											"type": "object",
+											"properties": {
+												"allowTextInput": {
+													"type": "boolean"
+												},
+												"allowMicInput": {
+													"type": "boolean"
+												},
+												"allowRewind": {
+													"type": "boolean"
+												},
+												"showUserSpeech": {
+													"type": "boolean"
+												},
+												"showCharacterSpeech": {
+													"type": "boolean"
+												},
+												"playCharacterSpeech": {
+													"type": "boolean"
+												},
+												"textInputEnabled": {
+													"type": "boolean"
+												},
+												"micInputEnabled": {
+													"type": "boolean"
+												},
+												"visibleTurns": {
+													"anyOf": [
+														{
+															"type": "string",
+															"const": "all"
+														},
+														{
+															"type": "integer",
+															"minimum": 1,
+															"maximum": 50
+														}
+													]
+												},
+												"controls": {
+													"type": "object",
+													"properties": {
+														"voice": {
+															"type": "boolean"
+														},
+														"captions": {
+															"type": "boolean"
+														},
+														"microphone": {
+															"type": "boolean"
+														},
+														"textInput": {
+															"type": "boolean"
+														}
+													}
+												}
+											},
+											"additionalProperties": false
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"look": {
+									"anyOf": [
+										{
+											"type": "object",
+											"properties": {
+												"type": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"type"
+											],
+											"additionalProperties": {}
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"style": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"externalId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"createdAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"updatedAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"taxonomy": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {}
+								},
+								"effectiveTaxonomy": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {}
+								},
+								"playerSide": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"effectivePlayerSide": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"country": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"city": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"effectiveCountry": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"effectiveCity": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								}
+							},
+							"required": [
+								"id",
+								"projectId",
+								"title",
+								"slug",
+								"status",
+								"hasPublishedRevision",
+								"hasUnpublishedChanges",
+								"published",
+								"attributes",
+								"characterId",
+								"startingMessage",
+								"systemInstructions",
+								"introduction",
+								"interaction",
+								"externalId",
+								"createdAt",
+								"updatedAt"
+							],
+							"additionalProperties": {}
+						}
+					}
+				},
+				"required": [
+					"experiences"
+				],
+				"additionalProperties": false
+			},
+			"ListClothesResponse": {
+				"type": "object",
+				"properties": {
+					"clothes": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"kind": {
+									"type": "string",
+									"const": "clothes"
+								},
+								"id": {
+									"type": "string"
+								},
+								"avatarId": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"description": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"country": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"taxonomy": {
+									"type": "object",
+									"properties": {
+										"seasons": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uses": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uniform": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"uniform",
+														"non-uniform"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"composition": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"sides": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"universe": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"era": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										}
+									},
+									"additionalProperties": {}
+								},
+								"status": {
+									"type": "string",
+									"enum": [
+										"processing",
+										"ready",
+										"failed",
+										"archived"
+									]
+								},
+								"source": {
+									"type": "string"
+								},
+								"externalId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"createdAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"updatedAt": {
+									"type": "string",
+									"minLength": 1
+								}
+							},
+							"required": [
+								"kind",
+								"id",
+								"avatarId",
+								"name",
+								"status",
+								"source",
+								"externalId",
+								"createdAt",
+								"updatedAt"
+							],
+							"additionalProperties": {}
+						}
+					}
+				},
+				"required": [
+					"clothes"
+				],
+				"additionalProperties": false
+			},
+			"ListCostumesResponse": {
+				"type": "object",
+				"properties": {
+					"costumes": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"kind": {
+									"type": "string",
+									"const": "costume"
+								},
+								"id": {
+									"type": "string"
+								},
+								"avatarId": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"description": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"country": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"taxonomy": {
+									"type": "object",
+									"properties": {
+										"seasons": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uses": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"uniform": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"uniform",
+														"non-uniform"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"composition": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"sides": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"universe": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"era": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										}
+									},
+									"additionalProperties": {}
+								},
+								"status": {
+									"type": "string",
+									"enum": [
+										"processing",
+										"ready",
+										"failed",
+										"archived"
+									]
+								},
+								"source": {
+									"type": "string"
+								},
+								"externalId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"createdAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"updatedAt": {
+									"type": "string",
+									"minLength": 1
+								}
+							},
+							"required": [
+								"kind",
+								"id",
+								"avatarId",
+								"name",
+								"status",
+								"source",
+								"externalId",
+								"createdAt",
+								"updatedAt"
+							],
+							"additionalProperties": {}
+						}
+					}
+				},
+				"required": [
+					"costumes"
+				],
+				"additionalProperties": false
+			},
+			"ListHairResponse": {
+				"type": "object",
+				"properties": {
+					"hair": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"kind": {
+									"type": "string",
+									"const": "hair"
+								},
+								"id": {
+									"type": "string"
+								},
+								"avatarId": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"taxonomy": {
+									"type": "object",
+									"properties": {
+										"style": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"length": {
+											"anyOf": [
+												{
+													"type": "string",
+													"enum": [
+														"none",
+														"short",
+														"medium",
+														"long"
+													]
+												},
+												{
+													"type": "null"
+												}
+											]
+										},
+										"colours": {
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+									},
+									"additionalProperties": {}
+								},
+								"status": {
+									"type": "string",
+									"enum": [
+										"processing",
+										"ready",
+										"failed",
+										"archived"
+									]
+								},
+								"source": {
+									"type": "string"
+								},
+								"externalId": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "null"
+										}
+									]
+								},
+								"createdAt": {
+									"type": "string",
+									"minLength": 1
+								},
+								"updatedAt": {
+									"type": "string",
+									"minLength": 1
+								}
+							},
+							"required": [
+								"kind",
+								"id",
+								"avatarId",
+								"name",
+								"status",
+								"source",
+								"externalId",
+								"createdAt",
+								"updatedAt"
+							],
+							"additionalProperties": {}
+						}
+					}
+				},
+				"required": [
+					"hair"
 				],
 				"additionalProperties": false
 			},
