@@ -114,4 +114,4 @@ export const externalLinks = {
 } as const;
 
 /** Canonical demo experience ID for docs examples. */
-export const DEMO_EXPERIENCE_ID = 'exp_01EXAMPLES_COFFEE_BARISTA';
+export const DEMO_EXPERIENCE_ID = 'exp_T0I7ACMQLBMPG6K';
