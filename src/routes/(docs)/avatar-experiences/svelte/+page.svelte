@@ -363,7 +363,9 @@
 	</p>
 	<p>
 		<strong>Presentation</strong> props (<code>fit</code>, <code>startButton</code>,
-		<code>theme</code>, <code>showFeedback</code>, <code>closeButton</code>, <code>returnUrl</code>,
+		<code>theme</code>, <code>showFeedback</code>, <code>closeButton</code>,
+		<code>settingsButton</code>, <code>theatreButton</code>, <code>fullscreenButton</code>,
+		<code>returnUrl</code>,
 		<code>ui</code>) update the live player without reminting. Callback-only changes do not restart
 		the session.
 	</p>

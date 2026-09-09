@@ -171,6 +171,12 @@
 		<code>&lt;Experience&gt;</code> / widget option) to merge defaults and control visibility before
 		first paint. Nested <code>controls</code> patches are deep-merged. This does not remint.
 	</p>
+	<p>
+		Top-left player chrome uses the same visibility props as <code>closeButton</code>:
+		<code>settingsButton</code> (default on), <code>theatreButton</code> (default off), and
+		<code>fullscreenButton</code> (unset = size heuristic). Composer buttons stay on
+		<code>interaction.controls</code>.
+	</p>
 	<CodeBlock
 		code={`const experience = await Experience.startSession({
   experienceId: '${snippets.experienceId}',
