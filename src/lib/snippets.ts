@@ -1508,6 +1508,44 @@ const replacement = await publisher.backdrops.create(
   }
 );`,
 
+	publisherLibraryMove: `import { createPublisher } from '@liforma/publisher';
+
+// Client is constructed for the DESTINATION project.
+const dest = createPublisher(process.env.LIFORMA_DEST_PROJECT_ID!, {
+  apiKey: process.env.LIFORMA_DEST_PROJECT_KEY!
+});
+
+const preview = await dest.library.move(
+  {
+    sourceProjectId: process.env.LIFORMA_SOURCE_PROJECT_ID!,
+    experienceIds: ['exp_…'],
+    characterIds: ['char_…'],
+    dryRun: true
+  },
+  { sourceApiKey: process.env.LIFORMA_SOURCE_PROJECT_KEY! }
+);
+
+if (preview.blockers?.length) {
+  throw new Error(preview.blockers.map((b) => b.message).join('; '));
+}
+
+await dest.library.move(
+  {
+    sourceProjectId: process.env.LIFORMA_SOURCE_PROJECT_ID!,
+    experienceIds: ['exp_…']
+  },
+  { sourceApiKey: process.env.LIFORMA_SOURCE_PROJECT_KEY! }
+);
+
+// Experience-only sugar:
+await dest.experiences.move(
+  {
+    sourceProjectId: process.env.LIFORMA_SOURCE_PROJECT_ID!,
+    experienceIds: ['exp_…']
+  },
+  { sourceApiKey: process.env.LIFORMA_SOURCE_PROJECT_KEY! }
+);`,
+
 	publisherReloadAndUpdate: `const character = await publisher.characters.get(characterId);
 const set = await publisher.sets.get(setId);
 const experience = await publisher.experiences.get(experienceId);

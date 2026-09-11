@@ -161,6 +161,20 @@
 		<code>watch</code> stops this client’s wait only. It does not cancel the durable job.
 	</p>
 
+	<h2>Move between projects (same org)</h2>
+	<p>
+		<code>@liforma/publisher@0.9</code> can move experiences and library items into another
+		project in the <strong>same organization</strong>. Construct the client for the
+		<strong>destination</strong> project. Every call (including <code>dryRun: true</code>) must
+		also pass <code>sourceApiKey</code> — sent as <code>X-Liforma-Source-Api-Key</code>.
+	</p>
+	<p>
+		This is enable / detach / reparent, not a deep clone. Org-owned library rows stay shared;
+		wardrobe that is still referenced on the source fails closed. Cross-org copy remains remix /
+		import. Preview first, then commit when <code>blockers</code> is empty.
+	</p>
+	<CodeBlock code={snippets.publisherLibraryMove} lang="ts" />
+
 	<h2>Upload and request retries</h2>
 	<p>
 		Publisher image and depth inputs have a hard maximum of <strong>20 MiB</strong>, which is more

@@ -2,7 +2,7 @@
 	"openapi": "3.1.0",
 	"info": {
 		"title": "Liforma Publisher API",
-		"version": "0.6.0",
+		"version": "0.9.0",
 		"description": "Unlisted org-allowlisted Publisher API used by @liforma/publisher. Live API keys only. Not part of the public integrator Session Launch contract."
 	},
 	"servers": [
@@ -10171,6 +10171,358 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/ExperienceResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/library/move": {
+			"post": {
+				"summary": "Move library items and experiences into this project",
+				"description": "Same-org move into `{projectId}` (destination). Bearer must be a dest project key. Always send `X-Liforma-Source-Api-Key` for the source project (preview and commit). Class A resources enable/detach; class B wardrobe reparents when unused on source; experiences reparent. Pass `dryRun: true` to preview. Not cross-org remix.",
+				"operationId": "moveLibrary",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "X-Liforma-Source-Api-Key",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Live API key for the source project. Required on every library/experience move call (including dryRun). Destination project uses Authorization Bearer."
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LibraryMoveBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Move plan (dryRun) or commit result",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LibraryMoveResult"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/experiences/move": {
+			"post": {
+				"summary": "Move experiences into this project",
+				"description": "Sugar for library move when roots are experiences only. Same dual-key rules as `/library/move`. Body still requires `sourceProjectId` and `experienceIds`.",
+				"operationId": "moveExperiences",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "X-Liforma-Source-Api-Key",
+						"in": "header",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"description": "Live API key for the source project. Required on every library/experience move call (including dryRun). Destination project uses Authorization Bearer."
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LibraryMoveBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Move plan (dryRun) or commit result",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LibraryMoveResult"
 								}
 							}
 						}
@@ -20638,6 +20990,243 @@
 					"hair"
 				],
 				"additionalProperties": false
+			},
+			"LibraryMoveBody": {
+				"type": "object",
+				"properties": {
+					"sourceProjectId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"experienceIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"characterIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"setIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"knowledgePackIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"audioIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"feedbackTypeIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"playerRoleIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"statsTypeIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"clothesIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"hairIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"costumeIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"avatarIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"backdropIds": {
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"dryRun": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"sourceProjectId"
+				]
+			},
+			"LibraryMoveResult": {
+				"type": "object",
+				"properties": {
+					"dryRun": {
+						"type": "boolean"
+					},
+					"sourceProjectId": {
+						"type": "string"
+					},
+					"destProjectId": {
+						"type": "string"
+					},
+					"moveId": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "null"
+							}
+						]
+					},
+					"experiences": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"expId": {
+									"type": "string"
+								},
+								"action": {
+									"type": "string",
+									"enum": [
+										"moved",
+										"already_on_destination",
+										"would_move"
+									]
+								},
+								"slugConflictWith": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"expId",
+								"action"
+							]
+						}
+					},
+					"library": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"resourceType": {
+									"type": "string"
+								},
+								"resourceId": {
+									"type": "string"
+								},
+								"resourceClass": {
+									"type": "string",
+									"enum": [
+										"join",
+										"project_owned",
+										"nested"
+									]
+								},
+								"action": {
+									"type": "string"
+								},
+								"reason": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"resourceType",
+								"resourceId",
+								"resourceClass",
+								"action"
+							]
+						}
+					},
+					"warnings": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string"
+								},
+								"message": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"code",
+								"message"
+							]
+						}
+					},
+					"blockers": {
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
+								"code": {
+									"type": "string"
+								},
+								"message": {
+									"type": "string"
+								},
+								"resourceId": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"code",
+								"message"
+							]
+						}
+					}
+				},
+				"required": [
+					"dryRun",
+					"sourceProjectId",
+					"destProjectId",
+					"experiences",
+					"library",
+					"warnings"
+				]
 			},
 			"StructuredPublisherError": {
 				"type": "object",
