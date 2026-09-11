@@ -1532,7 +1532,9 @@ if (preview.blockers?.length) {
 await dest.library.move(
   {
     sourceProjectId: process.env.LIFORMA_SOURCE_PROJECT_ID!,
-    experienceIds: ['exp_…']
+    experienceIds: ['exp_…'],
+    // Optional: union source project AllowedOrigin rows onto dest.
+    copyMissingOrigins: true
   },
   { sourceApiKey: process.env.LIFORMA_SOURCE_PROJECT_KEY! }
 );
