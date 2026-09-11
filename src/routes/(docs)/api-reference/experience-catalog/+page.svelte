@@ -53,6 +53,12 @@ Authorization: Bearer YOUR_API_KEY`}
 		lang="json"
 	/>
 
+	<p>
+		<code>discoveryTags</code> is an empty compatibility field (Release A). Public categorization uses
+		catalogue taxonomy on gallery payloads (<code>useCases</code>, purpose, interaction mode, domain,
+		universe, era) — not discovery tags.
+	</p>
+
 	<h2>GET /v1/projects/&#123;projectId&#125;/experiences/&#123;slug&#125;</h2>
 	<p>Lookup one published experience by project-scoped slug.</p>
 	<CodeBlock
