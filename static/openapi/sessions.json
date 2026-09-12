@@ -1952,6 +1952,19 @@
 						"minLength": 2,
 						"maxLength": 32
 					},
+					"primaryLocaleSource": {
+						"type": "string",
+						"enum": [
+							"developer",
+							"preference",
+							"browser"
+						]
+					},
+					"browserLocale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
 					"secondaryLocale": {
 						"type": "string",
 						"minLength": 2,
@@ -2042,6 +2055,19 @@
 						"maxLength": 128
 					},
 					"locale": {
+						"type": "string",
+						"minLength": 2,
+						"maxLength": 32
+					},
+					"primaryLocaleSource": {
+						"type": "string",
+						"enum": [
+							"developer",
+							"preference",
+							"browser"
+						]
+					},
+					"browserLocale": {
 						"type": "string",
 						"minLength": 2,
 						"maxLength": 32
