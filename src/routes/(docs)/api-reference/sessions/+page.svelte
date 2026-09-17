@@ -50,8 +50,9 @@ Content-Type: application/json
 		<code>sessions:create</code>). Never expose API keys to the browser.
 	</p>
 	<p>
-		Optional <code>Idempotency-Key</code>: same key + same body replays the prior launch; same key +
-		different body → <code>409 IDEMPOTENCY_CONFLICT</code>; same key still pending →
+		Optional <code>Idempotency-Key</code> (max 256 characters; longer values →
+		<code>400 IDEMPOTENCY_KEY_INVALID</code>): same key + same body replays the prior launch; same
+		key + different body → <code>409 IDEMPOTENCY_CONFLICT</code>; same key still pending →
 		<code>409 IDEMPOTENCY_IN_PROGRESS</code> with <code>Retry-After: 1</code>. Branch on
 		<code>error.code</code>, not HTTP 409 alone.
 	</p>

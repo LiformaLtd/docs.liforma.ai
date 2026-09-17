@@ -29,7 +29,7 @@
 							"type": "string",
 							"maxLength": 256
 						},
-						"description": "Optional idempotency key. Same key + same body replays the prior Session Launch. Same key + different body → 409 IDEMPOTENCY_CONFLICT. Same key + live pending reservation → 409 IDEMPOTENCY_IN_PROGRESS with Retry-After: 1. Clients must branch on error.code, not HTTP 409 alone."
+						"description": "Optional idempotency key (max 256 characters; longer values return 400 IDEMPOTENCY_KEY_INVALID). Same key + same body replays the prior Session Launch. Same key + different body → 409 IDEMPOTENCY_CONFLICT. Same key + live pending reservation → 409 IDEMPOTENCY_IN_PROGRESS with Retry-After: 1. Clients must branch on error.code, not HTTP 409 alone."
 					}
 				],
 				"requestBody": {
@@ -383,7 +383,7 @@
 							"type": "string",
 							"maxLength": 256
 						},
-						"description": "Optional idempotency key. Same key + same body replays the prior Session Launch. Same key + different body → 409 IDEMPOTENCY_CONFLICT. Same key + live pending reservation → 409 IDEMPOTENCY_IN_PROGRESS with Retry-After: 1. Clients must branch on error.code, not HTTP 409 alone."
+						"description": "Optional idempotency key (max 256 characters; longer values return 400 IDEMPOTENCY_KEY_INVALID). Same key + same body replays the prior Session Launch. Same key + different body → 409 IDEMPOTENCY_CONFLICT. Same key + live pending reservation → 409 IDEMPOTENCY_IN_PROGRESS with Retry-After: 1. Clients must branch on error.code, not HTTP 409 alone."
 					}
 				],
 				"requestBody": {

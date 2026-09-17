@@ -31,7 +31,10 @@
 		<tbody>
 			<tr>
 				<td><code>400</code></td>
-				<td>Invalid request body</td>
+				<td>
+					Invalid request body, or <code>IDEMPOTENCY_KEY_INVALID</code> when
+					<code>Idempotency-Key</code> is longer than 256 characters.
+				</td>
 			</tr>
 			<tr>
 				<td><code>401</code></td>
