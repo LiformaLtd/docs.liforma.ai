@@ -2,7 +2,7 @@
 	"openapi": "3.1.0",
 	"info": {
 		"title": "Liforma Session Launch API",
-		"version": "2.1.0",
+		"version": "2.2.0",
 		"description": "Server (API key) and browser (Origin allowlist) Session Launch endpoints used by @liforma/client. Public Zod schemas in api.liforma.ai (`sessionLaunchSchemas.ts`). Runtime bootstrap is an opaque signed `launch` string — not described here. API keys use `lfm_test_` / `lfm_live_` prefixes with scopes `sessions:create`, `sessions:read`, `experiences:read` by default."
 	},
 	"servers": [
@@ -29,7 +29,7 @@
 							"type": "string",
 							"maxLength": 256
 						},
-						"description": "Optional idempotency key. Same key + same body replays the prior Session Launch; same key + different body → 409 IDEMPOTENCY_CONFLICT."
+						"description": "Optional idempotency key. Same key + same body replays the prior Session Launch. Same key + different body → 409 IDEMPOTENCY_CONFLICT. Same key + live pending reservation → 409 IDEMPOTENCY_IN_PROGRESS with Retry-After: 1. Clients must branch on error.code, not HTTP 409 alone."
 					}
 				],
 				"requestBody": {
@@ -258,7 +258,7 @@
 						}
 					},
 					"409": {
-						"description": "Structured error",
+						"description": "Idempotency conflict or in-progress. Distinguish by error.code: IDEMPOTENCY_CONFLICT (same key, different body) vs IDEMPOTENCY_IN_PROGRESS (same key, live pending reservation). IDEMPOTENCY_IN_PROGRESS includes Retry-After: 1.",
 						"headers": {
 							"Liforma-Request-Id": {
 								"schema": {
@@ -266,6 +266,13 @@
 									"example": "req_…"
 								},
 								"description": "Opaque request id for support / log correlation. Present on success and error."
+							},
+							"Retry-After": {
+								"schema": {
+									"type": "string",
+									"example": "1"
+								},
+								"description": "Present for IDEMPOTENCY_IN_PROGRESS. Retry the same request after this many seconds."
 							}
 						},
 						"content": {
@@ -287,7 +294,7 @@
 												"code": {
 													"type": "string",
 													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
-													"example": "ORIGIN_NOT_ALLOWED"
+													"example": "IDEMPOTENCY_IN_PROGRESS"
 												},
 												"message": {
 													"type": "string"
@@ -376,7 +383,7 @@
 							"type": "string",
 							"maxLength": 256
 						},
-						"description": "Optional idempotency key. Same key + same body replays the prior Session Launch; same key + different body → 409 IDEMPOTENCY_CONFLICT."
+						"description": "Optional idempotency key. Same key + same body replays the prior Session Launch. Same key + different body → 409 IDEMPOTENCY_CONFLICT. Same key + live pending reservation → 409 IDEMPOTENCY_IN_PROGRESS with Retry-After: 1. Clients must branch on error.code, not HTTP 409 alone."
 					}
 				],
 				"requestBody": {
@@ -558,7 +565,7 @@
 						}
 					},
 					"409": {
-						"description": "Structured error",
+						"description": "Idempotency conflict or in-progress. Distinguish by error.code: IDEMPOTENCY_CONFLICT (same key, different body) vs IDEMPOTENCY_IN_PROGRESS (same key, live pending reservation). IDEMPOTENCY_IN_PROGRESS includes Retry-After: 1.",
 						"headers": {
 							"Liforma-Request-Id": {
 								"schema": {
@@ -566,6 +573,13 @@
 									"example": "req_…"
 								},
 								"description": "Opaque request id for support / log correlation. Present on success and error."
+							},
+							"Retry-After": {
+								"schema": {
+									"type": "string",
+									"example": "1"
+								},
+								"description": "Present for IDEMPOTENCY_IN_PROGRESS. Retry the same request after this many seconds."
 							}
 						},
 						"content": {
@@ -587,7 +601,7 @@
 												"code": {
 													"type": "string",
 													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
-													"example": "ORIGIN_NOT_ALLOWED"
+													"example": "IDEMPOTENCY_IN_PROGRESS"
 												},
 												"message": {
 													"type": "string"

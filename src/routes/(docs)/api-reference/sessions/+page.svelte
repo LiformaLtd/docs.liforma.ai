@@ -51,7 +51,9 @@ Content-Type: application/json
 	</p>
 	<p>
 		Optional <code>Idempotency-Key</code>: same key + same body replays the prior launch; same key +
-		different body → <code>409 IDEMPOTENCY_CONFLICT</code>.
+		different body → <code>409 IDEMPOTENCY_CONFLICT</code>; same key still pending →
+		<code>409 IDEMPOTENCY_IN_PROGRESS</code> with <code>Retry-After: 1</code>. Branch on
+		<code>error.code</code>, not HTTP 409 alone.
 	</p>
 
 	<h3>Parameters</h3>

@@ -49,7 +49,8 @@
 				<td><code>409</code></td>
 				<td>
 					<code>IDEMPOTENCY_CONFLICT</code> — <code>Idempotency-Key</code> reused with a different
-					body
+					body. <code>IDEMPOTENCY_IN_PROGRESS</code> — same key is still pending (includes
+					<code>Retry-After: 1</code>). Branch on <code>error.code</code>, not status alone.
 				</td>
 			</tr>
 			<tr>

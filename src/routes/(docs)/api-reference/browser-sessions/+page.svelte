@@ -23,6 +23,7 @@
 	<CodeBlock
 		code={`POST https://api.liforma.ai/v1/browser-sessions
 Origin: https://your-app.com
+Idempotency-Key: optional-unique-key
 Content-Type: application/json
 
 {
@@ -126,8 +127,15 @@ Content-Type: application/json
 
 	<h3>CORS</h3>
 	<p>
-		<code>api.liforma.ai</code> returns CORS headers for allowlisted origins. The SDK calls this
-		endpoint directly from the browser.
+		<code>api.liforma.ai</code> returns CORS headers for the requesting Origin, including
+		<code>Idempotency-Key</code> on preflight. CORS is not authorization — Origin allowlisting
+		happens on the POST. The SDK calls this endpoint directly from the browser.
+	</p>
+	<p>
+		Optional <code>Idempotency-Key</code>: same key + same body replays the prior launch; same key +
+		different body → <code>409 IDEMPOTENCY_CONFLICT</code>; same key still pending →
+		<code>409 IDEMPOTENCY_IN_PROGRESS</code> with <code>Retry-After: 1</code>. Branch on
+		<code>error.code</code>, not HTTP 409 alone.
 	</p>
 
 	<p>
