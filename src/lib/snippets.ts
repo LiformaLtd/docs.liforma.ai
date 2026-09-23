@@ -1199,6 +1199,32 @@ export function GalleryCard({ experience }) {
 
 <!-- Or position="static" (default) and wrap with your own fixed host CSS -->`,
 
+
+	htmlWebsiteAssistantWidget: `<script src="https://cdn.liforma.ai/sdk/v2/client.js"><\\/script>
+
+<liforma-experience-widget
+  experience-id="${DEMO_EXPERIENCE_ID}"
+  alt="Ask about this page"
+  position="bottom-right"
+  website-assistant="true"
+></liforma-experience-widget>
+
+<!-- Optional: exclude sensitive or irrelevant visible page content -->
+<section data-liforma-ignore>
+  This section is not included in website-assistant context.
+</section>`,
+
+	svelteWebsiteAssistantWidget: `<script lang="ts">
+  import { ExperienceWidget } from '@liforma/client/svelte';
+<\\/script>
+
+<ExperienceWidget
+  experienceId="${DEMO_EXPERIENCE_ID}"
+  alt="Ask about this page"
+  position="bottom-right"
+  websiteAssistant={true}
+/>`,
+
 	svelteExperienceWidget: `<script>
   import { ExperienceWidget } from '@liforma/client/svelte';
 </script>
