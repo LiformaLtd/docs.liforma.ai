@@ -73,6 +73,26 @@
 	<CodeBlock code={snippets.svelteExperienceWidget} lang="svelte" filename="Widget.svelte" />
 	<CodeBlock code={snippets.reactExperienceWidget} lang="tsx" filename="SiteWidget.tsx" />
 
+	<h2>Website assistant</h2>
+	<p>
+		Set <code>websiteAssistant=&#123;true&#125;</code> (or
+		<code>website-assistant="true"</code> in HTML) to let the widget answer questions about the
+		page it is embedded on. Liforma extracts a bounded, cleaned representation of the current
+		page and supplies the latest version to each managed conversational turn. SPA/content changes
+		are detected automatically.
+	</p>
+	<CodeBlock code={snippets.htmlWebsiteAssistantWidget} lang="html" filename="index.html" />
+	<CodeBlock code={snippets.svelteWebsiteAssistantWidget} lang="svelte" filename="Widget.svelte" />
+	<p>
+		This mode is opt-in. Form controls, editable content, browser storage, cookies, and
+		cross-origin iframe contents are not read. Add <code>data-liforma-ignore</code> to any page
+		subtree that should never be included in assistant context.
+	</p>
+	<p>
+		The website-assistant extractor is lazy-loaded only when this option is enabled. A normal
+		<code>ExperienceWidget</code> does not download the DOM extraction/observation module.
+	</p>
+
 	<h2>Loading model</h2>
 	<table>
 		<thead>
