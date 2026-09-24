@@ -229,11 +229,16 @@ player.on('close', ({ reason, returnUrl }) => {
 				<td><code>feedback</code></td>
 				<td>
 					envelope <code>.data</code>:
-					<code>{`{ contractVersion: 'feedback.v1', types: [...] }`}</code>
+					<code>{`{ contractVersion: 'feedback.v3', types: [...] }`}</code>
 				</td>
 				<td>
-					End-of-session Feedback scores (when Feedback is attached and scoring succeeds).
-					Always emitted when available — even if the player also shows Feedback UI.
+					End-of-session Feedback (when Feedback is attached and scoring succeeds). Always
+					emitted when available — even if the player also shows Feedback UI. Each
+					<code>types[]</code> entry is discriminated by <code>kind</code>:
+					<code>score</code>, <code>outcome</code>, or <code>rubric</code>. Prefer
+					<code>result.presentation.visibleOverall</code> (score/rubric) or
+					<code>result.label</code> (outcome) for display; do not invent totals from
+					outcome results.
 				</td>
 			</tr>
 			<tr>
@@ -248,6 +253,33 @@ player.on('close', ({ reason, returnUrl }) => {
 			</tr>
 		</tbody>
 	</table>
+
+	<h3>Feedback result shapes (<code>feedback.v3</code>)</h3>
+	<p>
+		Studio authors choose one Feedback kind per library item. The player event carries that
+		kind on each entry — handle with a switch on <code>kind</code>.
+	</p>
+	<CodeBlock
+		code={`experience.on('feedback', (evt) => {
+  for (const item of evt.data.types) {
+    switch (item.kind) {
+      case 'score':
+        // One overall score + optional grade / written message
+        console.log(item.result.presentation.visibleOverall, item.message);
+        break;
+      case 'outcome':
+        // Succeeded / Failed (or custom labels) — not a numeric score
+        console.log(item.result.label, item.result.value, item.message);
+        break;
+      case 'rubric':
+        // Per-criterion scores + overall presentation
+        console.log(item.result.presentation.visibleOverall, item.result.criteria);
+        break;
+    }
+  }
+});`}
+		lang="javascript"
+	/>
 
 	<h3>Not on <code>experience.on()</code></h3>
 	<table>
