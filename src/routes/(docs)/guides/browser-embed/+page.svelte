@@ -33,6 +33,12 @@
 		<li>
 			<strong>Test</strong> — open your page, grant microphone permission, speak
 		</li>
+		<li>
+			<strong>Optional personalization</strong> — pass
+			<code>runtimeContext=&#123;&#123; first_name: customer.firstName &#125;&#125;</code> on
+			<code>&lt;Experience&gt;</code>. Prop changes update the next turn and do not mint a new
+			session.
+		</li>
 	</ol>
 
 	<h2>Checklist</h2>

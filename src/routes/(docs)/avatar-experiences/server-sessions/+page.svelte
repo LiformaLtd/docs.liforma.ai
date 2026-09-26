@@ -63,6 +63,13 @@ Your frontend  ←  sessionEndpoint (preferred)  ←  SDK</pre>
 		If you know the visitor is already registered, include
 		<code>alreadyConverted: ['registration']</code> so conversion rate excludes them.
 	</p>
+	<p>
+		Resolve the signed-in customer on this route and send <code>runtimeContext</code> on
+		<code>POST /v1/sessions</code>. The browser then receives only the opaque launch. Example body
+		fields: <code>experienceId</code>, <code>runtimeContext: &#123; first_name, account: &#123; plan &#125; &#125;</code>.
+		<code>user</code> and <code>metadata</code> stay identity and analytics data.
+		<code>variables</code> remains accepted and is not used in prompts.
+	</p>
 
 	<h2>SSR warning</h2>
 	<p>

@@ -37,6 +37,12 @@
 		<a href="/avatar-experiences/server-sessions">server sessions with an API key</a> — stronger
 		control, per-user context, and the key never leaves your server.
 	</p>
+	<p>
+		Browser mint accepts optional <code>runtimeContext</code> JSON
+		(<code>&lt;Experience runtimeContext=&#123;&#123; first_name &#125;&#125; /&gt;</code>). It
+		personalizes the opening and later turns. It does not authorize the embed; the origin allowlist
+		still does.
+	</p>
 
 	<h2>Integration</h2>
 	<h3>Svelte</h3>

@@ -49,6 +49,42 @@
 		</tbody>
 	</table>
 
+	<h2>Runtime context</h2>
+	<p>
+		<code>runtimeContext</code> is JSON you supply for this session: a name, account plan, current
+		order, or other app facts. The opening line and system instructions can reference it with
+		<code>{`{{first_name}}`}</code> or <code>{`{{account.plan | default:"there"}}`}</code>. Later turns
+		receive the same JSON as untrusted reference data.
+	</p>
+	<CodeBlock
+		code={`const session = await Experience.startSession({
+  experienceId: 'exp_…',
+  runtimeContext: {
+    first_name: customer.firstName,
+    account: { plan: customer.plan }
+  }
+});
+
+session.setRuntimeContext({ first_name: 'Charles', account: { plan: 'Pro' } });
+session.updateRuntimeContext({ account: { plan: 'Team' } });`}
+		lang="javascript"
+		filename="runtime-context.js"
+	/>
+	<ul>
+		<li>Experience instructions are the authored behaviour.</li>
+		<li>Knowledge is durable broader knowledge.</li>
+		<li>Runtime context is developer-supplied session data.</li>
+		<li>Website context is the current page when website assistant is on.</li>
+		<li>Conversation history is what the user and character have said.</li>
+		<li>Experience state is mutable game or workflow state.</li>
+	</ul>
+	<p>
+		Updating context affects the next managed turn. It does not remint the session, rewrite the
+		spoken opening, or enter conversation history. It does not change tools, permissions, or
+		capabilities. Authenticated <code>variables</code> remain a separate mint field and stay out of
+		prompts.
+	</p>
+
 	<h2>Browser mint configuration</h2>
 	<p>
 		Pass these options to <code>Experience.startSession()</code>. They are forwarded when the SDK

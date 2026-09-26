@@ -96,6 +96,15 @@ Content-Type: application/json
 				<td><code>auto</code>, <code>manual</code>, or <code>off</code></td>
 			</tr>
 			<tr>
+				<td><code>runtimeContext</code></td>
+				<td>No</td>
+				<td>
+					Session JSON for <code>{`{{templates}}`}</code> and later managed turns. Data only: it
+					does not change tools, permissions, or capabilities. Rejected when it exceeds the size
+					limits (32 KiB serialized).
+				</td>
+			</tr>
+			<tr>
 				<td><code>speechOnly</code></td>
 				<td>No</td>
 				<td>When <code>true</code>, voice-only session without avatar/location assets</td>

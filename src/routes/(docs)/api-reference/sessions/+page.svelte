@@ -101,6 +101,14 @@ Content-Type: application/json
 				<td><code>auto</code>, <code>manual</code>, or <code>off</code></td>
 			</tr>
 			<tr>
+				<td><code>runtimeContext</code></td>
+				<td>No</td>
+				<td>
+					Session JSON for prompts and the opening template. Prefer this for personalization.
+					Legacy <code>variables</code> is still accepted and is not injected into prompts.
+				</td>
+			</tr>
+			<tr>
 				<td><code>speechOnly</code></td>
 				<td>No</td>
 				<td>

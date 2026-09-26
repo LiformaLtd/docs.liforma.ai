@@ -127,7 +127,23 @@
 			Page text increases input tokens per turn (hard cap ~20k characters). Prefer Knowledge/RAG
 			for durable site facts; use website assistant for “what is on this page right now.”
 		</li>
+		<li>
+			Pass <code>runtimeContext</code> alongside website assistant when the page text and signed-in
+			app data should appear on the same turn.
+		</li>
 	</ul>
+	<CodeBlock
+		code={`<ExperienceWidget
+  experienceId="exp_…"
+  websiteAssistant={true}
+  runtimeContext={{
+    first_name: user.firstName,
+    account_plan: user.plan
+  }}
+/>`}
+		lang="svelte"
+		filename="ExperienceWidget.svelte"
+	/>
 	<CodeBlock
 		code={`<liforma-experience-widget
   experience-id="exp_…"

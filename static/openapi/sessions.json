@@ -2052,12 +2052,55 @@
 							"type": "string",
 							"pattern": "^[a-z][a-z0-9_]{0,63}$"
 						}
+					},
+					"runtimeContext": {
+						"description": "Session JSON reference data for templates and later managed turns. Data only; it does not grant access, tools, or capabilities.",
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {
+							"$ref": "#/$defs/__schema0"
+						}
 					}
 				},
 				"required": [
 					"experienceId"
 				],
 				"additionalProperties": false,
+				"$defs": {
+					"__schema0": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number"
+							},
+							{
+								"type": "boolean"
+							},
+							{
+								"type": "null"
+							},
+							{
+								"type": "array",
+								"items": {
+									"$ref": "#/$defs/__schema0"
+								}
+							},
+							{
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {
+									"$ref": "#/$defs/__schema0"
+								}
+							}
+						]
+					}
+				},
 				"description": "Browser mint body. experienceId is typically exp_…; validated as a non-empty string (max 128)."
 			},
 			"AuthenticatedSessionRequest": {
@@ -2160,6 +2203,16 @@
 							"pattern": "^[a-z][a-z0-9_]{0,63}$"
 						}
 					},
+					"runtimeContext": {
+						"description": "Session JSON reference data for templates and later managed turns. Data only; it does not grant access, tools, or capabilities.",
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {
+							"$ref": "#/$defs/__schema0"
+						}
+					},
 					"processorId": {
 						"type": "string",
 						"minLength": 1,
@@ -2223,6 +2276,39 @@
 					"experienceId"
 				],
 				"additionalProperties": false,
+				"$defs": {
+					"__schema0": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number"
+							},
+							{
+								"type": "boolean"
+							},
+							{
+								"type": "null"
+							},
+							{
+								"type": "array",
+								"items": {
+									"$ref": "#/$defs/__schema0"
+								}
+							},
+							{
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {
+									"$ref": "#/$defs/__schema0"
+								}
+							}
+						]
+					}
+				},
 				"description": "Server mint body — browser fields plus optional processorId and host context (user, metadata, variables, initialState)."
 			},
 			"SessionConversionRequest": {

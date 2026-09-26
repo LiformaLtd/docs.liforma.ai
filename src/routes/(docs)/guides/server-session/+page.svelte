@@ -16,7 +16,10 @@
 	<h2>Overview</h2>
 	<p>
 		Your server mints a Session Launch with an API key. Your client embeds via
-		<code>sessionEndpoint</code>. Prefer this whenever you have a backend.
+		<code>sessionEndpoint</code>. Prefer this whenever you have a backend. After the route resolves
+		the signed-in customer, include <code>runtimeContext</code> on <code>POST /v1/sessions</code>
+		(for example <code>first_name</code> and <code>account.plan</code>) so the opening and later
+		turns can use that JSON.
 	</p>
 
 	<h2>Steps</h2>
