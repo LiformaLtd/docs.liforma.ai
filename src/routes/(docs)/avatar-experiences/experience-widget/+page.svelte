@@ -109,6 +109,40 @@
 		<code>speech-input-mode</code>, <code>speech-only</code>, <code>fit</code>, and start-button label.
 	</p>
 
+	<h2>Website assistant</h2>
+	<p>
+		Set <code>website-assistant="true"</code> (or <code>websiteAssistant=&#123;true&#125;</code>) so the
+		widget reads bounded visible text from the host page and includes it on each managed
+		conversation turn as <strong>untrusted reference data</strong>. Default is off.
+	</p>
+	<ul>
+		<li>Does not change the scripted opening / starting phrase.</li>
+		<li>Does not read form values, cookies, storage, or cross-origin iframes.</li>
+		<li>Mark private sections with <code>data-liforma-ignore</code>.</li>
+		<li>
+			Enabling this sends extracted page text to the Liforma conversation pipeline (and the
+			configured LLM provider). Keep private pages/sections out, or leave the flag off.
+		</li>
+		<li>
+			Page text increases input tokens per turn (hard cap ~20k characters). Prefer Knowledge/RAG
+			for durable site facts; use website assistant for “what is on this page right now.”
+		</li>
+	</ul>
+	<CodeBlock
+		code={`<liforma-experience-widget
+  experience-id="exp_…"
+  alt="Ask about this page"
+  position="bottom-right"
+  website-assistant="true"
+></liforma-experience-widget>
+
+<section data-liforma-ignore>
+  <!-- never included in website-assistant context -->
+</section>`}
+		lang="html"
+		filename="website-assistant.html"
+	/>
+
 	<h2>vs ExperienceThumbnail</h2>
 	<table>
 		<thead>
