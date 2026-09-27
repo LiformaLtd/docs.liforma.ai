@@ -3,7 +3,7 @@ Allow: /
 Disallow: /_alpha
 Disallow: /_alpha/
 
-Sitemap: https://docs.liforma.ai/sitemap.xml
+Sitemap: https://docs.liforma.ai/sitemap-index.xml
 # Agent-oriented docs index
 # https://docs.liforma.ai/llms.txt
 # https://docs.liforma.ai/llms-full.txt
