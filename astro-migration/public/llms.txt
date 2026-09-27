@@ -1,0 +1,80 @@
+# Liforma Docs
+
+> Liforma is an Avatar Experience platform: embed real-time AI characters that listen, think, speak, and animate in web apps via Session Launch and `@liforma/client`.
+
+This file helps coding agents find canonical documentation. Prefer these URLs over inventing APIs.
+
+## Contract (read first)
+
+```text
+Experience (exp_…) → mint → { session, launch } → @liforma/client → player
+```
+
+- Mint returns **`SessionLaunchResponse`**: `{ session, launch }` with `201` and `Cache-Control: no-store, private`.
+- **`launch` is opaque.** Pass it to the SDK / player only — do not parse, decode, or inspect it.
+- Prefer **`locale`** (and optional `secondaryLocale` / `learningLocale`) on mint; do not invent UI mint fields (`startButton`, `closeButton`, `returnUrl`, `fit`, `showFeedback`).
+- SDK mint captures **marketing attribution automatically** from the embedding page (UTM query + referrer). Optional `attribution` object is a whole-snapshot override; `attribution: false` omits it (SDK only — REST has no `false`).
+- If the visitor is already registered, pass `alreadyConverted: ['registration']` at mint. Conversion rate for a key is acquired conversions ÷ eligible plays (not already converted for that key). Record a new conversion with `experience.conversion('registration')` or `POST /v1/sessions/{id}/conversions` (API key). Unique per session+key.
+- Events use a common envelope: `{ id, type, sessionId, timestamp, data }`.
+- Primary activity event: **`activityChange`** — `data` is `'idle' | 'listening' | 'thinking' | 'speaking'`.
+- Embed prefetch hint: **`backdropId`** (`locationId` is a deprecated alias). The player does not emit `locationChange` or `backdropChange`.
+- End-of-session Feedback: **`feedback`** (`feedback.v3` — `kind`: `score` | `outcome` | `rubric`) / **`feedbackFailed`**. Prefer `presentation.visibleOverall` or outcome `label`. Player shows Feedback UI by default; set **`showFeedback={false}`** on attach / `<Experience>` to own the UX (not a Studio setting).
+- Player chrome / status: `attach()` / component props — prefer **`onPlayerStatusChange`** (not `onStateUpdate`).
+
+## Start here
+
+- [Quick Start](https://docs.liforma.ai/getting-started/quick-start): install `@liforma/client`, embed with Svelte / React / web component
+- [Concepts](https://docs.liforma.ai/getting-started/concepts): Experience, Session Launch, SDK
+- [Introduction](https://docs.liforma.ai/getting-started/introduction)
+
+## Avatar Experiences (primary product)
+
+- [Overview](https://docs.liforma.ai/avatar-experiences/overview)
+- [Experience (Svelte)](https://docs.liforma.ai/avatar-experiences/svelte) — `@liforma/client/svelte`
+- [Experience (React)](https://docs.liforma.ai/avatar-experiences/react) — `@liforma/client/react`
+- [Experience (Next.js)](https://docs.liforma.ai/avatar-experiences/nextjs) — `createLiformaSessionRouteHandler`
+- [ExperienceThumbnail](https://docs.liforma.ai/avatar-experiences/experience-thumbnail) — gallery thumbs; prefer `@liforma/client/{svelte,react,next}/thumbnail` or CDN `sdk/v2/thumbnail.js` (no session SDK)
+- [Experience API](https://docs.liforma.ai/avatar-experiences/experience-api) — `startSession`, `speak`, listen, processors, `focusCharacter`, `setFit`
+- [Events](https://docs.liforma.ai/avatar-experiences/events) — shipped `experience.on()` events only (`characterFocusChanged` on multi-Character nodes)
+- [Session Launch](https://docs.liforma.ai/avatar-experiences/session-manifests)
+- [Browser embeds](https://docs.liforma.ai/avatar-experiences/browser-embeds) — origin allowlist mint
+- [Server sessions](https://docs.liforma.ai/avatar-experiences/server-sessions) — preferred API-key mint
+
+## Capability recipes (Experience modes, not separate APIs)
+
+- [Text-to-Avatar](https://docs.liforma.ai/capabilities/text-to-avatar) — presenter + `speak()`
+- [Text-to-Speech](https://docs.liforma.ai/capabilities/text-to-speech) — `speechOnly` + presenter
+- [Speech-to-Speech](https://docs.liforma.ai/capabilities/speech-to-speech) — `speechOnly` + conversation
+
+## HTTP API
+
+- [POST /v1/sessions](https://docs.liforma.ai/api-reference/sessions) — server mint with API key (preferred when you have a backend)
+- [POST /v1/browser-sessions](https://docs.liforma.ai/api-reference/browser-sessions) — browser mint with Origin allowlist
+- [GET /oembed](https://docs.liforma.ai/guides/oembed) — optional discovery for public Meet URLs; iframe HTML points at `player.liforma.ai/embed` (not a Session Launch change)
+- [GET /v1/sessions/{id}](https://docs.liforma.ai/api-reference/sessions) · end session via `POST /v1/sessions/{id}/end`
+- [Experience Catalog](https://docs.liforma.ai/api-reference/experience-catalog)
+- [Session Launch](https://docs.liforma.ai/api-reference/manifests)
+- [Errors](https://docs.liforma.ai/api-reference/errors) — `{ error: { code, message, requestId } }` + `Liforma-Request-Id`
+- [OpenAPI (sessions)](https://docs.liforma.ai/openapi/sessions.json) — generated from Zod; do not invent paths
+
+## SDK
+
+- [JavaScript SDK](https://docs.liforma.ai/sdk-reference/javascript) — CDN `https://cdn.liforma.ai/sdk/v2/client.js`
+- [Web Component](https://docs.liforma.ai/sdk-reference/web-component) — `<liforma-experience>`
+
+## Agent notes
+
+- **Install Agent Skills first:** `npx skills add LiformaLtd/agent-skills` ([repo](https://github.com/LiformaLtd/agent-skills)) — `liforma-demo`, `liforma-integrate`, `liforma-publish`, and `liforma-debug`.
+- Prefer server mint (`POST /v1/sessions` + API key) when you have a backend; use browser mint (`POST /v1/browser-sessions` + Origin allowlist) for client-only embeds.
+- Do not invent `Liforma.textToSpeech()` or similar; use `Experience` + `speechOnly` / modes.
+- `ConversationMessage` uses `status: 'final'`, not `final: boolean`.
+- Player chrome (`startButton`, `returnUrl`, `fit`, `showFeedback`, `interaction`, `settingsButton`, `theatreButton`, `fullscreenButton`, `closeButton`) comes from `attach()` / component props, not mint. `interaction.controls` hides composer buttons without changing state. Top-left chrome uses `boolean | { visible?: boolean }` (settings default on, theatre default off, fullscreen unset = size heuristic). `showUserSpeech: false` hides user bubbles and the listening graphic.
+- CDN script is **v2** (`/sdk/v2/client.js`).
+- npm: [`@liforma/client`](https://www.npmjs.com/package/@liforma/client)
+- Authoring (alpha, server-only): [`@liforma/publisher@0.9`](https://docs.liforma.ai/_alpha/publisher-sdk) uses resource namespaces plus `experiences.createFrom` for one-shot composition (`ImageSource` bytes/Blob/URL-import/uploadId; `{ id }` reuse; `created` map). Low-level: `publisher.costumes.create`, `publisher.clothes.create`, `publisher.characters.create` with `costumeId` XOR `clothesId`/`hairId`, `publisher.experiences.publish`, `publisher.jobs.wait`. Same-org move: `publisher.library.move` / `publisher.experiences.move` (dest client + required `sourceApiKey` on preview and commit). REST stays project-scoped. Not the public Session Launch contract.
+- Examples: https://examples.liforma.ai · https://github.com/LiformaLtd/examples.liforma.ai
+- Developer portal (API keys, origins): https://app.liforma.ai
+
+## Optional full index
+
+- [llms-full.txt](https://docs.liforma.ai/llms-full.txt) — nav + short descriptions for every docs page

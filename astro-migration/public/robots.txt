@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /_alpha
+Disallow: /_alpha/
+
+Sitemap: https://docs.liforma.ai/sitemap.xml
+# Agent-oriented docs index
+# https://docs.liforma.ai/llms.txt
+# https://docs.liforma.ai/llms-full.txt
+# https://docs.liforma.ai/openapi/sessions.json

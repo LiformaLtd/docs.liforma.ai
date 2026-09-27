@@ -1,0 +1,48 @@
+---
+title: Liforma Docs
+description: Developer documentation for Liforma Avatar Experiences.
+template: splash
+hero:
+  title: Avatar Experiences for your app
+  tagline: Add intelligent animated avatars with one component. Real-time AI characters that listen, think, speak, animate, and interact inside your product.
+  actions:
+    - text: Quick Start
+      link: /getting-started/quick-start
+      icon: right-arrow
+      variant: primary
+    - text: API Reference
+      link: /api-reference/sessions
+      icon: open-book
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+<CardGrid>
+  <Card title="Quick Start" icon="rocket">
+    Embed your first avatar in under five minutes.
+  </Card>
+  <Card title="Avatar Experiences" icon="star">
+    Characters, worlds, state, tools, and interactive runtime.
+  </Card>
+  <Card title="Capabilities" icon="puzzle">
+    Text-to-avatar, text-to-speech, speech-to-speech, and more.
+  </Card>
+  <Card title="API & SDK" icon="seti:code">
+    Session minting, browser embeds, events, and framework SDKs.
+  </Card>
+</CardGrid>
+
+## Hello world
+
+<CodeBlock
+  code={`import { Experience } from '@liforma/client/react';
+
+export function Demo() {
+  return <Experience experienceId="exp_T0I7ACMQLBMPG6K" />;
+}`}
+  lang="tsx"
+  filename="Demo.tsx"
+/>
+
+Liforma handles Session Launch, audio, turns, avatar rendering, events, and lifecycle. Coding agents should start with [llms.txt](/llms.txt).

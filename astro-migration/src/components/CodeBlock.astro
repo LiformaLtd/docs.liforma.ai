@@ -1,0 +1,16 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  lang?: string;
+  filename?: string;
+}
+
+const { code, lang = 'text', filename } = Astro.props;
+---
+
+<div class="liforma-code-block">
+  {filename && <div class="liforma-code-filename">{filename}</div>}
+  <Code code={code} lang={lang} />
+</div>
