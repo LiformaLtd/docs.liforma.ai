@@ -1,0 +1,63 @@
+# Liforma developer documentation
+
+Canonical docs: https://docs.liforma.ai/
+
+## Getting Started
+- https://docs.liforma.ai/getting-started/introduction
+- https://docs.liforma.ai/getting-started/quick-start
+- https://docs.liforma.ai/getting-started/concepts
+
+## Avatar Experiences
+- https://docs.liforma.ai/avatar-experiences/overview
+- https://docs.liforma.ai/avatar-experiences/html
+- https://docs.liforma.ai/avatar-experiences/svelte
+- https://docs.liforma.ai/avatar-experiences/react
+- https://docs.liforma.ai/avatar-experiences/nextjs
+- https://docs.liforma.ai/avatar-experiences/experience-thumbnail
+- https://docs.liforma.ai/avatar-experiences/experience-widget
+- https://docs.liforma.ai/avatar-experiences/experience-api
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice/elevenlabs
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice/openai
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice/google
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice/deepgram
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice/livekit
+- https://docs.liforma.ai/avatar-experiences/bring-your-own-voice/other-providers
+- https://docs.liforma.ai/avatar-experiences/session-manifests
+- https://docs.liforma.ai/avatar-experiences/events
+- https://docs.liforma.ai/avatar-experiences/browser-embeds
+- https://docs.liforma.ai/avatar-experiences/server-sessions
+
+## Capabilities
+- https://docs.liforma.ai/capabilities/text-to-avatar
+- https://docs.liforma.ai/capabilities/text-to-speech
+- https://docs.liforma.ai/capabilities/speech-to-speech
+
+## Guides
+- https://docs.liforma.ai/guides/embed
+- https://docs.liforma.ai/guides/browser-embed
+- https://docs.liforma.ai/guides/oembed
+- https://docs.liforma.ai/guides/server-session
+- https://docs.liforma.ai/guides/dynamic-experience-gallery
+- https://docs.liforma.ai/guides/events
+- https://docs.liforma.ai/guides/guided-scripted-practice
+- https://docs.liforma.ai/guides/custom-conversation-processor
+- https://docs.liforma.ai/guides/listen-once-capture
+- https://docs.liforma.ai/guides/customise-characters
+- https://docs.liforma.ai/guides/tools
+- https://docs.liforma.ai/guides/migrate-elevenlabs
+
+## API reference
+- https://docs.liforma.ai/api-reference/sessions
+- https://docs.liforma.ai/api-reference/experience-catalog
+- https://docs.liforma.ai/api-reference/browser-sessions
+- https://docs.liforma.ai/api-reference/manifests
+- https://docs.liforma.ai/api-reference/errors
+
+## SDK reference
+- https://docs.liforma.ai/sdk-reference/javascript
+- https://docs.liforma.ai/sdk-reference/svelte
+- https://docs.liforma.ai/sdk-reference/web-component
+
+## Machine-readable API
+- https://docs.liforma.ai/openapi/sessions.json

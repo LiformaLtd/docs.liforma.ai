@@ -1,0 +1,51 @@
+---
+title: Avatar Experiences for developers
+description: Add intelligent animated avatars with one component. Real-time AI characters that listen, think, speak, animate, and interact inside your product.
+template: splash
+hero:
+  tagline: Add intelligent animated avatars with one component. Real-time AI characters that listen, think, speak, animate, and interact inside your product.
+  actions:
+    - text: Quick Start
+      link: /getting-started/quick-start/
+      icon: right-arrow
+    - text: API Reference
+      link: /api-reference/sessions/
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Start building
+
+<CardGrid>
+  <Card title="Quick Start" icon="rocket">
+    Embed your first avatar in under five minutes.
+    [Get started →](/getting-started/quick-start/)
+  </Card>
+  <Card title="Avatar Experiences" icon="puzzle">
+    Characters, worlds, state, tools, speech, and rendering.
+    [Learn more →](/avatar-experiences/overview/)
+  </Card>
+  <Card title="Capabilities" icon="setting">
+    Text-to-avatar, TTS, speech-to-speech, and more.
+    [Explore →](/capabilities/text-to-avatar/)
+  </Card>
+  <Card title="ElevenLabs migration" icon="transfer">
+    Move from voice agents to animated avatar experiences.
+    [Migrate →](/guides/migrate-elevenlabs/)
+  </Card>
+</CardGrid>
+
+## Hello world
+
+```tsx
+import { Experience } from '@liforma/client/react';
+
+export function Demo() {
+  return <Experience experienceId="exp_T0I7ACMQLBMPG6K" />;
+}
+```
+
+Same component surface in Svelte, React, Next.js, and plain HTML. Liforma mints a Session Launch, starts the player runtime, and renders your avatar — audio, speech, animation, and lifecycle included.
+
+**Coding agents:** start at [llms.txt](/llms.txt) and [llms-full.txt](/llms-full.txt).
