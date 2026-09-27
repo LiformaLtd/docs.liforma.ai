@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
 
-const projectRoot = new URL('./', import.meta.url);
+const projectRoot = fileURLToPath(new URL('./', import.meta.url));
 const libDir = fileURLToPath(new URL('./src/lib', import.meta.url));
 const componentsDir = fileURLToPath(new URL('./src/components', import.meta.url));
 
