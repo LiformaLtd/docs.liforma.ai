@@ -24,7 +24,7 @@ const aliases: Record<string, string> = {
 
 <div class="code-block">
   {filename && <div class="filename">{filename}</div>}
-  <Code code={code} lang={aliases[lang] ?? lang} />
+  <Code code={code} lang={(aliases[lang] ?? lang) as any} />
 </div>
 
 <style>
