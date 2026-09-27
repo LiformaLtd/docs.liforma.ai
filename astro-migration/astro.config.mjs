@@ -6,6 +6,9 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
+        '@lib/publisherExamples': fileURLToPath(new URL('./src/lib/publisherExamples.ts', import.meta.url)),
+        '@lib/snippets': fileURLToPath(new URL('./src/lib/snippets.ts', import.meta.url)),
+        '@lib/navigation': fileURLToPath(new URL('./src/lib/navigation.ts', import.meta.url)),
         '@lib': fileURLToPath(new URL('./src/lib', import.meta.url)),
         '@components': fileURLToPath(new URL('./src/components', import.meta.url))
       }
