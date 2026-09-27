@@ -6,8 +6,6 @@ description: "Embed Liforma in any framework with a single HTML tag."
 import CodeBlock from '@components/CodeBlock.astro';
 import { snippets } from '@lib/snippets';
 
-	export const compatElementExample = '<liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>';
-
 <h2>Overview</h2>
 	<p>
 		The <code>&lt;liforma-experience&gt;</code> web component is the HTML custom-element surface for
@@ -92,5 +90,5 @@ import { snippets } from '@lib/snippets';
 
 	<h2>ElevenLabs compat element</h2>
 	<p>For migrations, a compat element is also available:</p>
-	<CodeBlock code={compatElementExample} lang="html" />
+	<CodeBlock code={'<liforma-convai agent-id="YOUR_AGENT_ID"></liforma-convai>'} lang="html" />
 	<p>See <a href="/guides/migrate-elevenlabs">Migrate from ElevenLabs</a>.</p>
