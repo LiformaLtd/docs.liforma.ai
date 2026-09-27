@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
-    "build": "astro check && astro build",
+    "check": "astro check --root . --tsconfig ./tsconfig.json",
+    "build": "astro build --root .",
     "preview": "astro preview"
   },
   "dependencies": {
