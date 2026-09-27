@@ -1,0 +1,42 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  lang?: string;
+  filename?: string;
+}
+
+const { code, lang = 'text', filename } = Astro.props;
+const aliases: Record<string, string> = {
+  svelte: 'svelte',
+  javascript: 'js',
+  typescript: 'ts',
+  bash: 'bash',
+  shell: 'bash',
+  html: 'html',
+  json: 'json',
+  http: 'http',
+  tsx: 'tsx',
+  jsx: 'jsx'
+};
+---
+
+<div class="code-block">
+  {filename && <div class="filename">{filename}</div>}
+  <Code code={code} lang={aliases[lang] ?? lang} />
+</div>
+
+<style>
+  .code-block { margin: 1rem 0 1.5rem; }
+  .filename {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-bottom: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: var(--sl-color-gray-2);
+    font-family: var(--sl-font-mono);
+    font-size: 0.78rem;
+  }
+  .filename + :global(pre) { margin-top: 0; border-radius: 0 0 0.5rem 0.5rem; }
+</style>

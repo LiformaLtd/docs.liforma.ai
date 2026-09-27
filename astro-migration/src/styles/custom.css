@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Comfortaa-Bold.woff2') format('woff2');
+}
+
+:root {
+  --sl-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --sl-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --sl-content-width: 48rem;
+  --sl-color-accent-low: #dceee8;
+  --sl-color-accent: #1f6b5c;
+  --sl-color-accent-high: #16483f;
+}
+
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #12382f;
+  --sl-color-accent: #76c7b5;
+  --sl-color-accent-high: #d7f4ed;
+}
+
+.site-title {
+  font-family: 'Comfortaa', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.sl-markdown-content table {
+  font-size: 0.94rem;
+}
+
+.sl-markdown-content pre {
+  border-radius: 0.65rem;
+}
