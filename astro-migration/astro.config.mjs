@@ -116,6 +116,7 @@ export default defineConfig({
     })
   ],
   redirects: {
+    '/sitemap.xml': '/sitemap-index.xml',
     '/api-reference/public-sessions': '/api-reference/browser-sessions',
     '/avatar-experiences/authenticated': '/avatar-experiences/server-sessions',
     '/avatar-experiences/liforma-experience': '/avatar-experiences/svelte',
