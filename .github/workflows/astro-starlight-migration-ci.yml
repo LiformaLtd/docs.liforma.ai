@@ -23,6 +23,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Stub parent generated tsconfig for nested Vite scan
+        working-directory: ${{ github.workspace }}
+        run: |
+          mkdir -p .svelte-kit
+          printf '{"compilerOptions":{}}\n' > .svelte-kit/tsconfig.json
       - run: npm install
       - run: npm run check
       - run: npm run build
