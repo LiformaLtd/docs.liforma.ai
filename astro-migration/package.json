@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
-    "build": "astro check && astro build",
+    "check": "node scripts/ensure-parent-tsconfig.mjs && astro check",
+    "build": "node scripts/ensure-parent-tsconfig.mjs && astro check && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
