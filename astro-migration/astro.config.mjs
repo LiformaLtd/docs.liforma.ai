@@ -1,11 +1,9 @@
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
   site: 'https://docs.liforma.ai',
   integrations: [
-    mdx(),
     starlight({
       title: 'Liforma Docs',
       description: 'Developer documentation for Liforma Avatar Experiences.',
