@@ -27,9 +27,9 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/LiformaLtd/docs.liforma.ai/edit/main/astro-migration/'
       },
-      social: {
-        github: 'https://github.com/LiformaLtd'
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/LiformaLtd' }
+      ],
       sidebar: [
         {
           label: 'Getting Started',
