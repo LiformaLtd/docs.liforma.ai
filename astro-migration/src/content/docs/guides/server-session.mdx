@@ -1,0 +1,43 @@
+---
+title: "Use a server session"
+description: "Preferred mint path — API key on your server, sessionEndpoint in the client."
+---
+
+import CodeBlock from '@components/CodeBlock.astro';
+import { snippets } from '@lib/snippets';
+
+<h2>Overview</h2>
+	<p>
+		Your server mints a Session Launch with an API key. Your client embeds via
+		<code>sessionEndpoint</code>. Prefer this whenever you have a backend. After the route resolves
+		the signed-in customer, include <code>runtimeContext</code> on <code>POST /v1/sessions</code>
+		(for example <code>first_name</code> and <code>account.plan</code>) so the opening and later
+		turns can use that JSON.
+	</p>
+
+	<h2>Steps</h2>
+	<ol>
+		<li>Store <code>LIFORMA_API_KEY</code> (and optionally <code>LIFORMA_API_URL</code>) in server env</li>
+		<li>Create a same-origin API route that calls <code>POST /v1/sessions</code></li>
+		<li>Pass <code>sessionEndpoint</code> to <code>&lt;Experience&gt;</code></li>
+		<li>SDK POSTs to your route, receives Session Launch (<code>{`{ session, launch }`}</code>), starts session</li>
+	</ol>
+
+	<h2>Client</h2>
+	<h3>Svelte</h3>
+	<CodeBlock code={snippets.authenticatedSvelte} lang="svelte" />
+	<h3>React</h3>
+	<CodeBlock code={snippets.authenticatedReact} lang="tsx" filename="PrivateLesson.tsx" />
+
+	<h2>Server</h2>
+	<h3>SvelteKit</h3>
+	<CodeBlock code={snippets.sessionEndpointServer} lang="typescript" />
+	<h3>Next.js</h3>
+	<CodeBlock code={snippets.sessionEndpointNext} lang="typescript" />
+
+	<h2>Security</h2>
+	<ul>
+		<li>Never expose your API key to the browser</li>
+		<li>Never pass Session Launch payloads (or any credential-bearing bootstrap) through SSR load data</li>
+		<li>Derive signed-in identity on the server; never trust a browser-supplied user id alone</li>
+	</ul>

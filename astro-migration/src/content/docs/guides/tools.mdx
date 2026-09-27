@@ -1,0 +1,30 @@
+---
+title: "Add Tools"
+description: "Give your avatar characters controlled external capabilities."
+---
+
+import CodeBlock from '@components/CodeBlock.astro';
+import { snippets } from '@lib/snippets';
+
+<h2>What are tools?</h2>
+	<p>
+		Tools are controlled external capabilities an agent can invoke during a session — query a
+		database, check inventory, book an appointment, advance a quest.
+	</p>
+
+	<h2>How they work</h2>
+	<ol>
+		<li>Tools are defined on the experience configuration in Studio</li>
+		<li>They are wired inside opaque <code>launch</code> (private runtime bootstrap)</li>
+		<li>The agent decides when to call a tool during conversation</li>
+		<li>Results may update structured experience state in the runtime</li>
+	</ol>
+
+	<h2>Example</h2>
+	<CodeBlock code={snippets.toolsManifestSnippet} lang="json" />
+
+	<p>
+		Tool schemas follow a structured format editable by creators and understandable by LLMs. Host
+		apps do not register tools through the browser SDK today — configure them on the experience, then
+		observe conversation via <code>message</code> / <code>conversationUpdate</code> events.
+	</p>
