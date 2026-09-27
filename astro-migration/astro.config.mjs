@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
 
 const libDir = fileURLToPath(new URL('./src/lib', import.meta.url));
+const componentsDir = fileURLToPath(new URL('./src/components', import.meta.url));
 
 export default defineConfig({
   site: 'https://docs.liforma.ai',
@@ -122,7 +123,8 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '$lib': libDir
+        '$lib': libDir,
+        '$components': componentsDir
       }
     }
   }
