@@ -1,7 +1,16 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+  vite: {
+    resolve: {
+      alias: {
+        '@lib': fileURLToPath(new URL('./src/lib', import.meta.url)),
+        '@components': fileURLToPath(new URL('./src/components', import.meta.url))
+      }
+    }
+  },
   site: 'https://docs.liforma.ai',
   integrations: [
     starlight({
