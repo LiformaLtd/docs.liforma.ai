@@ -1,4 +1,4 @@
-import { DEMO_EXPERIENCE_ID } from '$lib/navigation';
+const DEMO_EXPERIENCE_ID = 'exp_T0I7ACMQLBMPG6K';
 
 export const snippets = {
 	experienceId: DEMO_EXPERIENCE_ID,

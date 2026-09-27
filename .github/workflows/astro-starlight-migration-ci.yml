@@ -1,11 +1,8 @@
-name: Astro Starlight Migration CI
+name: Docs CI
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'astro-migration/**'
-      - '.github/workflows/astro-starlight-migration-ci.yml'
   workflow_dispatch:
 
 permissions:
@@ -15,19 +12,11 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    defaults:
-      run:
-        working-directory: astro-migration
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Stub parent generated tsconfig for nested Vite scan
-        working-directory: ${{ github.workspace }}
-        run: |
-          mkdir -p .svelte-kit
-          printf '{"compilerOptions":{}}\n' > .svelte-kit/tsconfig.json
       - run: npm install
       - run: npm run check
       - run: npm run build

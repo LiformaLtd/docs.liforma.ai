@@ -1,6 +1,8 @@
 node_modules
 
 # Output
+.astro
+dist
 .output
 .vercel
 .netlify

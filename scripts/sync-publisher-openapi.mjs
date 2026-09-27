@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 const docsRoot = resolve(import.meta.dirname, '..');
 const source = resolve(docsRoot, '../api.liforma.ai/openapi/authoring.json');
-const destination = resolve(docsRoot, 'static/_alpha/openapi/publisher.json');
+const destination = resolve(docsRoot, 'public/_alpha/openapi/publisher.json');
 const expected = readFileSync(source, 'utf8');
 
 if (process.argv.includes('--check')) {
@@ -14,7 +14,7 @@ if (process.argv.includes('--check')) {
 		// Report the same actionable drift message for a missing artifact.
 	}
 	if (actual !== expected) {
-		console.error('Alpha Publisher OpenAPI is stale. Run npm run openapi:publisher:sync.');
+		console.error('Alpha Publisher OpenAPI is stale. Run: node scripts/sync-publisher-openapi.mjs');
 		process.exit(1);
 	}
 	console.log('Alpha Publisher OpenAPI is current.');
