@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
+  root: new URL('.', import.meta.url),
   site: 'https://docs.liforma.ai',
   integrations: [
     starlight({
