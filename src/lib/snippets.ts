@@ -44,7 +44,7 @@ export function Lesson() {
         ref={experienceRef}
         experienceId="${DEMO_EXPERIENCE_ID}"
         mode="presenter"
-        speechInputMode="manual"
+        microphoneActivation="tap_to_talk"
         onStarted={handleStarted}
       />
       <button
@@ -96,7 +96,7 @@ export function Lesson() {
   bind:this={experience}
   experienceId="${DEMO_EXPERIENCE_ID}"
   mode="presenter"
-  speechInputMode="manual"
+  microphoneActivation="tap_to_talk"
   onStarted={handleStarted}
 />
 
@@ -266,15 +266,17 @@ await experience.attach({ container: '#avatar' });`,
 
 	jsPresenterSession: `const experience = await Experience.startSession({
   experienceId: '${DEMO_EXPERIENCE_ID}',
-  mode: 'presenter',
-  speechInputMode: 'manual'
+  mode: 'presenter'
 });
 
 experience.on('started', async () => {
   await experience.speech.speak({ text: 'Welcome to the lesson.' });
 });
 
-await experience.attach({ container: '#avatar' });`,
+await experience.attach({
+  container: '#avatar',
+  microphoneActivation: 'tap_to_talk'
+});`,
 
 	jsSpeak: `const result = await experience.speech.speak({
   text: 'Repeat after me: Buenos días.',
@@ -908,7 +910,7 @@ async function finishPracticeTurn(line) {
   bind:this={experience}
   experienceId="${DEMO_EXPERIENCE_ID}"
   mode="presenter"
-  speechInputMode="manual"
+  microphoneActivation="tap_to_talk"
   onStarted={playTutorLine}
 />
 
