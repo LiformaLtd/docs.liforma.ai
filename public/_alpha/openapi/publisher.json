@@ -10126,6 +10126,976 @@
 				}
 			}
 		},
+		"/v1/projects/{projectId}/experiences/by-external-id/{externalId}": {
+			"get": {
+				"summary": "Get an experience by integrator externalId",
+				"operationId": "getExperienceByExternalId",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "externalId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"pattern": "^[A-Za-z0-9._:-]+$",
+							"maxLength": 128
+						},
+						"description": "Integrator-owned project-scoped key. This is not the Liforma experience id and not the database row id."
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Experience",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExperienceResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"summary": "Update an experience by integrator externalId",
+				"operationId": "patchExperienceByExternalId",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "externalId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"pattern": "^[A-Za-z0-9._:-]+$",
+							"maxLength": 128
+						},
+						"description": "Integrator-owned project-scoped key. This is not the Liforma experience id and not the database row id."
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PatchExperienceBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Updated experience",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExperienceResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"summary": "Permanently delete an archived experience by integrator externalId",
+				"operationId": "deleteExperienceByExternalId",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "externalId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"pattern": "^[A-Za-z0-9._:-]+$",
+							"maxLength": 128
+						},
+						"description": "Integrator-owned project-scoped key. This is not the Liforma experience id and not the database row id."
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Permanently deleted",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DeletedResourceResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/experiences/by-external-id/{externalId}/archive": {
+			"post": {
+				"summary": "Archive an experience by integrator externalId",
+				"operationId": "archiveExperienceByExternalId",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "externalId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"pattern": "^[A-Za-z0-9._:-]+$",
+							"maxLength": 128
+						},
+						"description": "Integrator-owned project-scoped key. This is not the Liforma experience id and not the database row id."
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Archived experience",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExperienceResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/experiences/by-external-id/{externalId}/restore": {
+			"post": {
+				"summary": "Restore an archived experience by integrator externalId",
+				"operationId": "restoreExperienceByExternalId",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "externalId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"pattern": "^[A-Za-z0-9._:-]+$",
+							"maxLength": 128
+						},
+						"description": "Integrator-owned project-scoped key. This is not the Liforma experience id and not the database row id."
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Restored experience",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExperienceResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v1/projects/{projectId}/experiences/by-external-id/{externalId}/publish": {
+			"post": {
+				"summary": "Publish an experience by integrator externalId",
+				"operationId": "publishExperienceByExternalId",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "projectId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "externalId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"pattern": "^[A-Za-z0-9._:-]+$",
+							"maxLength": 128
+						},
+						"description": "Integrator-owned project-scoped key. This is not the Liforma experience id and not the database row id."
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Published experience",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ExperienceResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Structured publisher error",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StructuredPublisherError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/v1/projects/{projectId}/experiences/{experienceId}/publish": {
 			"post": {
 				"summary": "Publish an experience",
@@ -11581,6 +12551,14 @@
 									}
 								]
 							},
+							"microphoneActivation": {
+								"type": "string",
+								"enum": [
+									"automatic",
+									"push_to_talk",
+									"tap_to_talk"
+								]
+							},
 							"controls": {
 								"type": "object",
 								"properties": {
@@ -12666,6 +13644,14 @@
 										"minimum": 1,
 										"maximum": 50
 									}
+								]
+							},
+							"microphoneActivation": {
+								"type": "string",
+								"enum": [
+									"automatic",
+									"push_to_talk",
+									"tap_to_talk"
 								]
 							},
 							"controls": {
@@ -18568,6 +19554,15 @@
 								"defaultVoiceId": {
 									"type": "string"
 								},
+								"defaultVoiceByProvider": {
+									"type": "object",
+									"propertyNames": {
+										"type": "string"
+									},
+									"additionalProperties": {
+										"type": "string"
+									}
+								},
 								"defaultSttLang": {
 									"type": "string"
 								},
@@ -18888,6 +19883,15 @@
 							"defaultVoiceId": {
 								"type": "string"
 							},
+							"defaultVoiceByProvider": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {
+									"type": "string"
+								}
+							},
 							"defaultSttLang": {
 								"type": "string"
 							},
@@ -19203,6 +20207,15 @@
 					},
 					"defaultVoiceId": {
 						"type": "string"
+					},
+					"defaultVoiceByProvider": {
+						"type": "object",
+						"propertyNames": {
+							"type": "string"
+						},
+						"additionalProperties": {
+							"type": "string"
+						}
 					},
 					"defaultSttLang": {
 						"type": "string"
@@ -21090,6 +22103,9 @@
 						}
 					},
 					"dryRun": {
+						"type": "boolean"
+					},
+					"copyMissingOrigins": {
 						"type": "boolean"
 					}
 				},

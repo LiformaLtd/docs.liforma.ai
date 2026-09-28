@@ -87,6 +87,19 @@ import { snippets } from '@lib/snippets';
 		<code>hasUnpublishedChanges</code>.
 	</p>
 
+	<h2>Identity</h2>
+	<p>
+		<code>id</code> is the immutable Liforma experience id (<code>exp_</code> plus 8 lowercase
+		characters). <code>externalId</code> is the optional integrator key, unique inside the
+		project. Responses include both. Database row ids are not part of this contract. Keep using
+		<code>get</code>, <code>update</code>, <code>publish</code>, <code>archive</code>,
+		<code>restore</code>, and <code>delete</code> with the Liforma id. When the integration only
+		knows its own key, use <code>getByExternalId</code>, <code>updateByExternalId</code>,
+		<code>publishByExternalId</code>, <code>archiveByExternalId</code>,
+		<code>restoreByExternalId</code>, and <code>deleteByExternalId</code>. Those calls stay inside
+		the authenticated project.
+	</p>
+
 	<h2>Reload and edit</h2>
 	<p>
 		<code>characters.get</code>, <code>sets.get</code>, <code>experiences.get</code>,
