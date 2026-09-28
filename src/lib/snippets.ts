@@ -1,4 +1,4 @@
-const DEMO_EXPERIENCE_ID = 'exp_T0I7ACMQLBMPG6K';
+const DEMO_EXPERIENCE_ID = 'exp_t0i7acmq';
 
 export const snippets = {
 	experienceId: DEMO_EXPERIENCE_ID,

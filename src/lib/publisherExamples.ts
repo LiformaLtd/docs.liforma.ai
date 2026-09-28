@@ -266,7 +266,7 @@ Content-Type: application/json
 
 	export const experienceResponse = `{
   "experience": {
-    "id": "exp_01K3Q9M5WJQ2P9X7B4R8S1N6D",
+    "id": "exp_01k3q9m57B4R8S1N6D",
     "projectId": "proj_01ABC",
     "title": "Hotel check-in",
     "slug": "english/CEFR/A1/hotel_check_in",
@@ -310,7 +310,7 @@ Content-Type: application/json
   }
 }`;
 
-	export const patchExperience = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01K3Q9M5WJQ2P9X7B4R8S1N6D
+	export const patchExperience = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01k3q9m57B4R8S1N6D
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -332,10 +332,10 @@ Content-Type: application/json
   }
 }`;
 
-	export const publishExperience = `POST https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01K3Q9M5WJQ2P9X7B4R8S1N6D/publish
+	export const publishExperience = `POST https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01k3q9m57B4R8S1N6D/publish
 Authorization: Bearer lfm_live_…`;
 
-	export const getExperience = `GET https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01K3Q9M5WJQ2P9X7B4R8S1N6D
+	export const getExperience = `GET https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01k3q9m57B4R8S1N6D
 Authorization: Bearer lfm_live_…`;
 
 	export const getCharacter = `GET https://api.liforma.ai/v1/projects/proj_01ABC/characters/char_ABC

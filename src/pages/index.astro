@@ -140,7 +140,7 @@ export function Demo() {
       const button = event.currentTarget;
       if (!(button instanceof HTMLButtonElement)) return;
       try {
-        await navigator.clipboard.writeText("import { Experience } from '@liforma/client/react';\n\nexport function Demo() {\n  return <Experience experienceId=\"exp_T0I7ACMQLBMPG6K\" />;\n}");
+        await navigator.clipboard.writeText("import { Experience } from '@liforma/client/react';\n\nexport function Demo() {\n  return <Experience experienceId=\"exp_t0i7acmq\" />;\n}");
         button.textContent = 'Copied';
         setTimeout(() => button.textContent = 'Copy', 2000);
       } catch {}
