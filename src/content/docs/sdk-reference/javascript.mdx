@@ -101,6 +101,16 @@ await experience.end();`}
 				<td>One automatic end-of-speech capture (<code>speechInputMode: 'auto'</code>)</td>
 			</tr>
 			<tr>
+				<td><code>submitUserMessage(&#123; text &#125;)</code></td>
+				<td><code>Promise&lt;void&gt;</code></td>
+				<td>Submit a host-typed user turn. Resolves when the player queues it. Requires <code>allowTextInput</code>.</td>
+			</tr>
+			<tr>
+				<td><code>toggleSettings()</code></td>
+				<td><code>void</code></td>
+				<td>Toggle the player settings panel (microphone, speakers, listening mode, language).</td>
+			</tr>
+			<tr>
 				<td><code>getConversation()</code></td>
 				<td><code>readonly ConversationMessage[]</code></td>
 				<td>Flat ordered session history snapshot</td>

@@ -23,7 +23,8 @@ import { snippets } from '@lib/snippets';
 	<h2>Host-controlled speech and listening</h2>
 	<p>
 		Use a <code>ref</code> typed as <code>ExperienceHandle</code> to call
-		<code>speak()</code>, <code>startListening()</code>, <code>setFit()</code>, and related methods
+		<code>speak()</code>, <code>startListening()</code>, <code>submitUserMessage()</code>,
+		<code>toggleSettings()</code>, <code>setFit()</code>, and related methods
 		from your own UI. Wait for <code>onStarted</code> (or
 		<code>await ref.current.started()</code>) before speech methods — the player start button unlocks
 		audio. <code>setFit()</code> and the <code>fit</code> prop may change framing as soon as the

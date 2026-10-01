@@ -379,6 +379,26 @@ await experience.attach({
 		with the text.
 	</p>
 
+	<h3><code>submitUserMessage(&#123; text &#125;)</code></h3>
+	<p>
+		Send the words from a host-owned text field as a user turn. This is available when
+		<code>chrome</code> is <code>false</code>, when Liforma's own text field is closed
+		(<code>textInputEnabled: false</code>), and when the text control is hidden. It is rejected when
+		the experience sets <code>allowTextInput: false</code>. The promise resolves when the player has
+		queued the turn. Character speech and the reply still arrive through
+		<code>conversationUpdate</code>. <code>speech.speak()</code> is a different action: it makes the
+		character talk.
+	</p>
+
+	<h3><code>toggleSettings()</code></h3>
+	<p>
+		Open the player settings panel: microphone, speakers, listening mode, and language.
+		<code>toggleAudioSettings()</code> remains on <code>Experience</code> as a deprecated alias.
+		The panel-open event on the wire stays <code>widgetAudioSettings</code>. Prefer
+		<code>onWidgetSettings</code>. If both <code>onWidgetSettings</code> and
+		<code>onWidgetAudioSettings</code> are set, only <code>onWidgetSettings</code> runs.
+	</p>
+
 	<h3><code>listenOnce()</code></h3>
 	<p>
 		Convenience for automatic end-of-speech capture. Requires <code>speechInputMode: 'auto'</code>.
