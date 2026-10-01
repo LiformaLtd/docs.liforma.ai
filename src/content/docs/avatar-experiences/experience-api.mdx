@@ -166,6 +166,15 @@ session.updateRuntimeContext({ account: { plan: 'Team' } });`}
 					CTA specifically.
 				</td>
 			</tr>
+			<tr>
+				<td><code>chrome</code></td>
+				<td><code>boolean</code></td>
+				<td>
+					Master switch for Liforma player controls. Omitted or <code>true</code> keeps the
+					default chrome. <code>false</code> hides every control, including one an individual
+					flag would show. Presentation only — does not remint.
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	<p>
@@ -199,10 +208,28 @@ session.updateRuntimeContext({ account: { plan: 'Team' } });`}
 		first paint. Nested <code>controls</code> patches are deep-merged. This does not remint.
 	</p>
 	<p>
-		Top-left player chrome uses the same visibility props as <code>closeButton</code>:
-		<code>settingsButton</code> (default on), <code>theatreButton</code> (default off), and
-		<code>fullscreenButton</code> (unset = size heuristic). Composer buttons stay on
-		<code>interaction.controls</code>.
+		<code>chrome: false</code> on <code>attach()</code> (or the matching
+		<code>&lt;Experience&gt;</code> / widget option) hides every Liforma control around the
+		experience: settings, theatre, full screen, close, voice, captions, microphone, text input, and
+		history. An individual flag such as <code>fullscreenButton: true</code> does not bring that
+		control back. Omitted or <code>true</code> leaves the per-button rules in place. Speech,
+		listening, and the other SDK calls still work. The Start card stays on <code>startButton</code>,
+		and end-of-session feedback stays on <code>showFeedback</code>. This does not remint.
+	</p>
+	<CodeBlock
+		code={`await experience.attach({
+  container: document.querySelector('#avatar'),
+  chrome: false
+});`}
+		lang="javascript"
+	/>
+	<p>
+		To keep the Liforma chrome and hide one piece, leave <code>chrome</code> unset. Settings,
+		theatre, full screen, and close use the same visibility shape as <code>closeButton</code>:
+		<code>true</code>, <code>false</code>, or <code>&#123; visible: false &#125;</code>.
+		<code>settingsButton</code> defaults on, <code>theatreButton</code> defaults off, and
+		<code>fullscreenButton</code> uses the size heuristic when unset. Voice, captions, microphone,
+		text input, and history stay on <code>interaction.controls</code>.
 	</p>
 	<CodeBlock
 		code={`const experience = await Experience.startSession({

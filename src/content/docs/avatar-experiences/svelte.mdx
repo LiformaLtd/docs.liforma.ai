@@ -174,6 +174,16 @@ import { snippets } from '@lib/snippets';
 				</td>
 			</tr>
 			<tr>
+				<td><code>chrome</code></td>
+				<td><code>boolean</code></td>
+				<td>
+					<code>false</code> hides every Liforma player control (settings, theatre, full screen,
+					close, voice, captions, microphone, text input, and history), even when an individual
+					flag is <code>true</code>. Omitted keeps the default chrome. Presentation only — does
+					not remint. Speech and listening APIs still work.
+				</td>
+			</tr>
+			<tr>
 				<td><code>conversationProcessor</code></td>
 				<td><code>ConversationProcessorFn</code></td>
 				<td>Browser-owned conversation processor.</td>
@@ -355,7 +365,7 @@ import { snippets } from '@lib/snippets';
 	</p>
 	<p>
 		<strong>Presentation</strong> props (<code>fit</code>, <code>startButton</code>,
-		<code>theme</code>, <code>showFeedback</code>, <code>closeButton</code>,
+		<code>theme</code>, <code>showFeedback</code>, <code>chrome</code>, <code>closeButton</code>,
 		<code>settingsButton</code>, <code>theatreButton</code>, <code>fullscreenButton</code>,
 		<code>returnUrl</code>,
 		<code>ui</code>) update the live player without reminting. Callback-only changes do not restart
