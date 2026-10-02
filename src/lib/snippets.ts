@@ -1315,7 +1315,8 @@ await conversation.attach({ container: '#avatar' });`,
 	publisherCreateFrom: `import { readFileSync } from 'node:fs';
 import { createPublisher } from '@liforma/publisher';
 
-const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
+const publisher = createPublisher({
+  projectId: process.env.LIFORMA_PROJECT_ID!,
   apiKey: process.env.LIFORMA_API_KEY!
 });
 
@@ -1360,7 +1361,8 @@ console.log(result.experience.id, result.created);`,
 	publisherHotelCheckIn: `import { readFileSync } from 'node:fs';
 import { createPublisher } from '@liforma/publisher';
 
-const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
+const publisher = createPublisher({
+  projectId: process.env.LIFORMA_PROJECT_ID!,
   apiKey: process.env.LIFORMA_API_KEY!
 });
 
@@ -1426,7 +1428,8 @@ console.log(experience.id);`,
 	publisherHotelExaminer: `import { readFileSync } from 'node:fs';
 import { createPublisher } from '@liforma/publisher';
 
-const publisher = createPublisher(process.env.LIFORMA_PROJECT_ID!, {
+const publisher = createPublisher({
+  projectId: process.env.LIFORMA_PROJECT_ID!,
   apiKey: process.env.LIFORMA_API_KEY!
 });
 
@@ -1513,7 +1516,8 @@ const replacement = await publisher.backdrops.create(
 	publisherLibraryMove: `import { createPublisher } from '@liforma/publisher';
 
 // Client is constructed for the DESTINATION project.
-const dest = createPublisher(process.env.LIFORMA_DEST_PROJECT_ID!, {
+const dest = createPublisher({
+  projectId: process.env.LIFORMA_DEST_PROJECT_ID!,
   apiKey: process.env.LIFORMA_DEST_PROJECT_KEY!
 });
 

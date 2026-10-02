@@ -25,8 +25,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -172,8 +174,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -317,8 +321,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -497,8 +503,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -682,16 +690,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "clothesId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `clothes_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^clothes_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -806,16 +818,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "clothesId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `clothes_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^clothes_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -978,16 +994,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "clothesId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `clothes_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^clothes_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -1123,16 +1143,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "clothesId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `clothes_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^clothes_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -1268,16 +1292,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "clothesId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `clothes_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^clothes_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -1413,8 +1441,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -1545,8 +1575,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -1730,16 +1762,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "hairId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `hair_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^hair_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -1854,16 +1890,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "hairId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `hair_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^hair_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -2026,16 +2066,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "hairId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `hair_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^hair_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -2171,16 +2215,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "hairId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `hair_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^hair_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -2316,16 +2364,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "hairId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `hair_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^hair_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -2461,8 +2513,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -2641,8 +2695,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -2826,16 +2882,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "costumeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `costume_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^costume_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -2950,16 +3010,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "costumeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `costume_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^costume_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -3122,16 +3186,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "costumeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `costume_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^costume_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -3267,16 +3335,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "costumeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `costume_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^costume_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -3412,16 +3484,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "costumeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `costume_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^costume_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -3558,8 +3634,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -3744,16 +3822,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "locationId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -3869,16 +3951,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "locationId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4015,16 +4101,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "locationId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4161,16 +4251,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "locationId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4306,8 +4400,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4491,16 +4587,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "backdropId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4615,16 +4715,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "backdropId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4768,16 +4872,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "backdropId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -4913,16 +5021,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "backdropId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -5058,16 +5170,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "backdropId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `bdrop_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^bdrop_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -5203,8 +5319,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -5329,8 +5447,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -5474,8 +5594,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -5592,16 +5714,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "avatarId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `avatar_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^avatar_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -5716,16 +5842,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "avatarId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `avatar_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^avatar_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -5871,16 +6001,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "characterId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `char_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -5995,16 +6129,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "characterId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `char_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -6167,16 +6305,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "characterId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `char_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -6312,16 +6454,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "characterId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `char_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -6457,16 +6603,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "characterId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `char_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -6602,8 +6752,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -6852,8 +7004,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7019,16 +7173,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "placeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7144,16 +7302,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "placeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7317,16 +7479,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "placeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7463,16 +7629,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "placeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7609,16 +7779,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "placeId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7755,8 +7929,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -7940,16 +8116,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "setId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -8064,16 +8244,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "setId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -8236,16 +8420,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "setId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -8381,16 +8569,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "setId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -8526,16 +8718,20 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
 						"name": "setId",
 						"in": "path",
 						"required": true,
+						"description": "Public id `set_` + 8 lowercase base36 characters.",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -8671,8 +8867,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -8837,8 +9035,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -9023,8 +9223,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -9214,8 +9416,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					}
 				],
@@ -9399,8 +9603,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -9409,9 +9615,9 @@
 						"required": true,
 						"schema": {
 							"type": "string",
-							"pattern": "^exp_[A-Za-z0-9_]{8,}$"
+							"pattern": "^exp_[0-9a-z]{8}$"
 						},
-						"description": "Opaque experience id (`exp_…`). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
+						"description": "Public experience id (`exp_` + 8 lowercase base36). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
 					}
 				],
 				"responses": {
@@ -9525,8 +9731,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -9535,9 +9743,9 @@
 						"required": true,
 						"schema": {
 							"type": "string",
-							"pattern": "^exp_[A-Za-z0-9_]{8,}$"
+							"pattern": "^exp_[0-9a-z]{8}$"
 						},
-						"description": "Opaque experience id (`exp_…`). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
+						"description": "Public experience id (`exp_` + 8 lowercase base36). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
 					}
 				],
 				"requestBody": {
@@ -9699,8 +9907,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -9709,9 +9919,9 @@
 						"required": true,
 						"schema": {
 							"type": "string",
-							"pattern": "^exp_[A-Za-z0-9_]{8,}$"
+							"pattern": "^exp_[0-9a-z]{8}$"
 						},
-						"description": "Opaque experience id (`exp_…`). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
+						"description": "Public experience id (`exp_` + 8 lowercase base36). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
 					}
 				],
 				"responses": {
@@ -9846,8 +10056,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -9856,9 +10068,9 @@
 						"required": true,
 						"schema": {
 							"type": "string",
-							"pattern": "^exp_[A-Za-z0-9_]{8,}$"
+							"pattern": "^exp_[0-9a-z]{8}$"
 						},
-						"description": "Opaque experience id (`exp_…`). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
+						"description": "Public experience id (`exp_` + 8 lowercase base36). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
 					}
 				],
 				"responses": {
@@ -9993,8 +10205,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -10003,9 +10217,9 @@
 						"required": true,
 						"schema": {
 							"type": "string",
-							"pattern": "^exp_[A-Za-z0-9_]{8,}$"
+							"pattern": "^exp_[0-9a-z]{8}$"
 						},
-						"description": "Opaque experience id (`exp_…`). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
+						"description": "Public experience id (`exp_` + 8 lowercase base36). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
 					}
 				],
 				"responses": {
@@ -10140,8 +10354,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -10286,8 +10502,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -10461,8 +10679,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -10609,8 +10829,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -10776,8 +10998,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -10943,8 +11167,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -11110,8 +11336,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -11120,9 +11348,9 @@
 						"required": true,
 						"schema": {
 							"type": "string",
-							"pattern": "^exp_[A-Za-z0-9_]{8,}$"
+							"pattern": "^exp_[0-9a-z]{8}$"
 						},
-						"description": "Opaque experience id (`exp_…`). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
+						"description": "Public experience id (`exp_` + 8 lowercase base36). Catalog slug lookup stays on GET /v1/projects/{projectId}/experiences/{slug}."
 					}
 				],
 				"responses": {
@@ -11277,8 +11505,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -11453,8 +11683,10 @@
 						"name": "projectId",
 						"in": "path",
 						"required": true,
+						"description": "Public Project id (`proj_` + 8 lowercase base36 characters).",
 						"schema": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^proj_[0-9a-z]{8}$"
 						}
 					},
 					{
@@ -12573,6 +12805,9 @@
 									},
 									"textInput": {
 										"type": "boolean"
+									},
+									"history": {
+										"type": "boolean"
 									}
 								}
 							}
@@ -13667,6 +13902,9 @@
 										"type": "boolean"
 									},
 									"textInput": {
+										"type": "boolean"
+									},
+									"history": {
 										"type": "boolean"
 									}
 								}
@@ -16151,10 +16389,12 @@
 						"const": "clothes"
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^clothes_[0-9a-z]{8}$"
 					},
 					"avatarId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^avatar_[0-9a-z]{8}$"
 					},
 					"name": {
 						"type": "string"
@@ -16305,10 +16545,12 @@
 						"const": "hair"
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^hair_[0-9a-z]{8}$"
 					},
 					"avatarId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^avatar_[0-9a-z]{8}$"
 					},
 					"name": {
 						"type": "string"
@@ -16403,10 +16645,12 @@
 						"const": "costume"
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^costume_[0-9a-z]{8}$"
 					},
 					"avatarId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^avatar_[0-9a-z]{8}$"
 					},
 					"name": {
 						"type": "string"
@@ -16557,7 +16801,8 @@
 						"const": "location"
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^bdrop_[0-9a-z]{8}$"
 					},
 					"status": {
 						"type": "string",
@@ -16622,7 +16867,8 @@
 						"const": "backdrop"
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^bdrop_[0-9a-z]{8}$"
 					},
 					"status": {
 						"type": "string",
@@ -16690,10 +16936,12 @@
 								"const": "clothes"
 							},
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^clothes_[0-9a-z]{8}$"
 							},
 							"avatarId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^avatar_[0-9a-z]{8}$"
 							},
 							"name": {
 								"type": "string"
@@ -16853,10 +17101,12 @@
 								"const": "hair"
 							},
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^hair_[0-9a-z]{8}$"
 							},
 							"avatarId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^avatar_[0-9a-z]{8}$"
 							},
 							"name": {
 								"type": "string"
@@ -16960,10 +17210,12 @@
 								"const": "costume"
 							},
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^costume_[0-9a-z]{8}$"
 							},
 							"avatarId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^avatar_[0-9a-z]{8}$"
 							},
 							"name": {
 								"type": "string"
@@ -17123,7 +17375,8 @@
 								"const": "location"
 							},
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -17197,7 +17450,8 @@
 								"const": "backdrop"
 							},
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -17264,16 +17518,19 @@
 				"type": "object",
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^char_[0-9a-z]{8}$"
 					},
 					"projectId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^proj_[0-9a-z]{8}$"
 					},
 					"name": {
 						"type": "string"
 					},
 					"avatarId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^avatar_[0-9a-z]{8}$"
 					},
 					"voice": {
 						"type": "string"
@@ -17284,7 +17541,8 @@
 					"costumeId": {
 						"anyOf": [
 							{
-								"type": "string"
+								"type": "string",
+								"pattern": "^costume_[0-9a-z]{8}$"
 							},
 							{
 								"type": "null"
@@ -17294,7 +17552,8 @@
 					"clothesId": {
 						"anyOf": [
 							{
-								"type": "string"
+								"type": "string",
+								"pattern": "^clothes_[0-9a-z]{8}$"
 							},
 							{
 								"type": "null"
@@ -17304,7 +17563,16 @@
 					"hairId": {
 						"anyOf": [
 							{
-								"type": "string"
+								"anyOf": [
+									{
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
+									},
+									{
+										"type": "string",
+										"const": "bald"
+									}
+								]
 							},
 							{
 								"type": "null"
@@ -17831,7 +18099,8 @@
 				"type": "object",
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^set_[0-9a-z]{8}$"
 					},
 					"name": {
 						"type": "string"
@@ -17840,7 +18109,8 @@
 						"type": "string"
 					},
 					"locationId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^bdrop_[0-9a-z]{8}$"
 					},
 					"style": {
 						"anyOf": [
@@ -17895,7 +18165,8 @@
 				"type": "object",
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^set_[0-9a-z]{8}$"
 					},
 					"name": {
 						"type": "string"
@@ -17904,7 +18175,8 @@
 						"type": "string"
 					},
 					"backdropId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^bdrop_[0-9a-z]{8}$"
 					},
 					"style": {
 						"anyOf": [
@@ -18025,10 +18297,12 @@
 				"type": "object",
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^exp_[0-9a-z]{8}$"
 					},
 					"projectId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^proj_[0-9a-z]{8}$"
 					},
 					"title": {
 						"type": "string"
@@ -18067,7 +18341,8 @@
 					"characterId": {
 						"anyOf": [
 							{
-								"type": "string"
+								"type": "string",
+								"pattern": "^char_[0-9a-z]{8}$"
 							},
 							{
 								"type": "null"
@@ -18077,7 +18352,8 @@
 					"setId": {
 						"anyOf": [
 							{
-								"type": "string"
+								"type": "string",
+								"pattern": "^set_[0-9a-z]{8}$"
 							},
 							{
 								"type": "null"
@@ -18088,7 +18364,8 @@
 						"deprecated": true,
 						"anyOf": [
 							{
-								"type": "string"
+								"type": "string",
+								"pattern": "^set_[0-9a-z]{8}$"
 							},
 							{
 								"type": "null"
@@ -18180,6 +18457,9 @@
 												"type": "boolean"
 											},
 											"textInput": {
+												"type": "boolean"
+											},
+											"history": {
 												"type": "boolean"
 											}
 										}
@@ -18342,16 +18622,19 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^char_[0-9a-z]{8}$"
 							},
 							"projectId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^proj_[0-9a-z]{8}$"
 							},
 							"name": {
 								"type": "string"
 							},
 							"avatarId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^avatar_[0-9a-z]{8}$"
 							},
 							"voice": {
 								"type": "string"
@@ -18362,7 +18645,8 @@
 							"costumeId": {
 								"anyOf": [
 									{
-										"type": "string"
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
 									},
 									{
 										"type": "null"
@@ -18372,7 +18656,8 @@
 							"clothesId": {
 								"anyOf": [
 									{
-										"type": "string"
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
 									},
 									{
 										"type": "null"
@@ -18382,7 +18667,16 @@
 							"hairId": {
 								"anyOf": [
 									{
-										"type": "string"
+										"anyOf": [
+											{
+												"type": "string",
+												"pattern": "^hair_[0-9a-z]{8}$"
+											},
+											{
+												"type": "string",
+												"const": "bald"
+											}
+										]
 									},
 									{
 										"type": "null"
@@ -18918,7 +19212,8 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^set_[0-9a-z]{8}$"
 							},
 							"name": {
 								"type": "string"
@@ -18927,7 +19222,8 @@
 								"type": "string"
 							},
 							"locationId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
 							},
 							"style": {
 								"anyOf": [
@@ -18991,7 +19287,8 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^set_[0-9a-z]{8}$"
 							},
 							"name": {
 								"type": "string"
@@ -19000,7 +19297,8 @@
 								"type": "string"
 							},
 							"backdropId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
 							},
 							"style": {
 								"anyOf": [
@@ -19130,10 +19428,12 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^exp_[0-9a-z]{8}$"
 							},
 							"projectId": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^proj_[0-9a-z]{8}$"
 							},
 							"title": {
 								"type": "string"
@@ -19172,7 +19472,8 @@
 							"characterId": {
 								"anyOf": [
 									{
-										"type": "string"
+										"type": "string",
+										"pattern": "^char_[0-9a-z]{8}$"
 									},
 									{
 										"type": "null"
@@ -19182,7 +19483,8 @@
 							"setId": {
 								"anyOf": [
 									{
-										"type": "string"
+										"type": "string",
+										"pattern": "^set_[0-9a-z]{8}$"
 									},
 									{
 										"type": "null"
@@ -19193,7 +19495,8 @@
 								"deprecated": true,
 								"anyOf": [
 									{
-										"type": "string"
+										"type": "string",
+										"pattern": "^set_[0-9a-z]{8}$"
 									},
 									{
 										"type": "null"
@@ -19285,6 +19588,9 @@
 														"type": "boolean"
 													},
 													"textInput": {
+														"type": "boolean"
+													},
+													"history": {
 														"type": "boolean"
 													}
 												}
@@ -19546,7 +19852,8 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^avatar_[0-9a-z]{8}$"
 								},
 								"displayName": {
 									"type": "string"
@@ -19774,7 +20081,8 @@
 										"type": "object",
 										"properties": {
 											"id": {
-												"type": "string"
+												"type": "string",
+												"pattern": "^costume_[0-9a-z]{8}$"
 											},
 											"name": {
 												"type": "string"
@@ -19801,7 +20109,8 @@
 										"type": "object",
 										"properties": {
 											"id": {
-												"type": "string"
+												"type": "string",
+												"pattern": "^clothes_[0-9a-z]{8}$"
 											},
 											"name": {
 												"type": "string"
@@ -19828,7 +20137,16 @@
 										"type": "object",
 										"properties": {
 											"id": {
-												"type": "string"
+												"anyOf": [
+													{
+														"type": "string",
+														"pattern": "^hair_[0-9a-z]{8}$"
+													},
+													{
+														"type": "string",
+														"const": "bald"
+													}
+												]
 											},
 											"name": {
 												"type": "string"
@@ -19875,7 +20193,8 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^avatar_[0-9a-z]{8}$"
 							},
 							"displayName": {
 								"type": "string"
@@ -20103,7 +20422,8 @@
 									"type": "object",
 									"properties": {
 										"id": {
-											"type": "string"
+											"type": "string",
+											"pattern": "^costume_[0-9a-z]{8}$"
 										},
 										"name": {
 											"type": "string"
@@ -20130,7 +20450,8 @@
 									"type": "object",
 									"properties": {
 										"id": {
-											"type": "string"
+											"type": "string",
+											"pattern": "^clothes_[0-9a-z]{8}$"
 										},
 										"name": {
 											"type": "string"
@@ -20157,7 +20478,16 @@
 									"type": "object",
 									"properties": {
 										"id": {
-											"type": "string"
+											"anyOf": [
+												{
+													"type": "string",
+													"pattern": "^hair_[0-9a-z]{8}$"
+												},
+												{
+													"type": "string",
+													"const": "bald"
+												}
+											]
 										},
 										"name": {
 											"type": "string"
@@ -20200,7 +20530,8 @@
 				"type": "object",
 				"properties": {
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^avatar_[0-9a-z]{8}$"
 					},
 					"displayName": {
 						"type": "string"
@@ -20428,7 +20759,8 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^costume_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
@@ -20455,7 +20787,8 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^clothes_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
@@ -20482,7 +20815,16 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"anyOf": [
+										{
+											"type": "string",
+											"pattern": "^hair_[0-9a-z]{8}$"
+										},
+										{
+											"type": "string",
+											"const": "bald"
+										}
+									]
 								},
 								"name": {
 									"type": "string"
@@ -20524,16 +20866,19 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^char_[0-9a-z]{8}$"
 								},
 								"projectId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^proj_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
 								},
 								"avatarId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^avatar_[0-9a-z]{8}$"
 								},
 								"voice": {
 									"type": "string"
@@ -20544,7 +20889,8 @@
 								"costumeId": {
 									"anyOf": [
 										{
-											"type": "string"
+											"type": "string",
+											"pattern": "^costume_[0-9a-z]{8}$"
 										},
 										{
 											"type": "null"
@@ -20554,7 +20900,8 @@
 								"clothesId": {
 									"anyOf": [
 										{
-											"type": "string"
+											"type": "string",
+											"pattern": "^clothes_[0-9a-z]{8}$"
 										},
 										{
 											"type": "null"
@@ -20564,7 +20911,16 @@
 								"hairId": {
 									"anyOf": [
 										{
-											"type": "string"
+											"anyOf": [
+												{
+													"type": "string",
+													"pattern": "^hair_[0-9a-z]{8}$"
+												},
+												{
+													"type": "string",
+													"const": "bald"
+												}
+											]
 										},
 										{
 											"type": "null"
@@ -21103,7 +21459,8 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^set_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
@@ -21112,7 +21469,8 @@
 									"type": "string"
 								},
 								"backdropId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^bdrop_[0-9a-z]{8}$"
 								},
 								"style": {
 									"anyOf": [
@@ -21245,10 +21603,12 @@
 							"type": "object",
 							"properties": {
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^exp_[0-9a-z]{8}$"
 								},
 								"projectId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^proj_[0-9a-z]{8}$"
 								},
 								"title": {
 									"type": "string"
@@ -21287,7 +21647,8 @@
 								"characterId": {
 									"anyOf": [
 										{
-											"type": "string"
+											"type": "string",
+											"pattern": "^char_[0-9a-z]{8}$"
 										},
 										{
 											"type": "null"
@@ -21297,7 +21658,8 @@
 								"setId": {
 									"anyOf": [
 										{
-											"type": "string"
+											"type": "string",
+											"pattern": "^set_[0-9a-z]{8}$"
 										},
 										{
 											"type": "null"
@@ -21308,7 +21670,8 @@
 									"deprecated": true,
 									"anyOf": [
 										{
-											"type": "string"
+											"type": "string",
+											"pattern": "^set_[0-9a-z]{8}$"
 										},
 										{
 											"type": "null"
@@ -21400,6 +21763,9 @@
 															"type": "boolean"
 														},
 														"textInput": {
+															"type": "boolean"
+														},
+														"history": {
 															"type": "boolean"
 														}
 													}
@@ -21575,10 +21941,12 @@
 									"const": "clothes"
 								},
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^clothes_[0-9a-z]{8}$"
 								},
 								"avatarId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^avatar_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
@@ -21741,10 +22109,12 @@
 									"const": "costume"
 								},
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^costume_[0-9a-z]{8}$"
 								},
 								"avatarId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^avatar_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
@@ -21907,10 +22277,12 @@
 									"const": "hair"
 								},
 								"id": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^hair_[0-9a-z]{8}$"
 								},
 								"avatarId": {
-									"type": "string"
+									"type": "string",
+									"pattern": "^avatar_[0-9a-z]{8}$"
 								},
 								"name": {
 									"type": "string"
@@ -22222,6 +22594,9 @@
 									"type": "string"
 								},
 								"message": {
+									"type": "string"
+								},
+								"resourceType": {
 									"type": "string"
 								},
 								"resourceId": {
