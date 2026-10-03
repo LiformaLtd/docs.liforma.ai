@@ -14634,147 +14634,8 @@
 				"additionalProperties": false
 			},
 			"PublishJob": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"queued",
-							"running",
-							"waiting_processor",
-							"succeeded",
-							"failed"
-						]
-					},
-					"kind": {
-						"type": "string",
-						"enum": [
-							"clothes",
-							"hair",
-							"costume",
-							"location",
-							"backdrop"
-						]
-					},
-					"pollUrl": {
-						"type": "string"
-					},
-					"targetId": {
-						"type": "string"
-					},
-					"requiredOk": {
-						"type": "boolean"
-					},
-					"stage": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
-						]
-					},
-					"progress": {
-						"type": "object",
-						"properties": {
-							"requiredVerified": {
-								"type": "integer",
-								"minimum": -9007199254740991,
-								"maximum": 9007199254740991
-							},
-							"requiredTotal": {
-								"type": "integer",
-								"minimum": -9007199254740991,
-								"maximum": 9007199254740991
-							}
-						},
-						"required": [
-							"requiredVerified",
-							"requiredTotal"
-						],
-						"additionalProperties": false
-					},
-					"error": {
-						"anyOf": [
-							{
-								"type": "object",
-								"properties": {
-									"code": {
-										"type": "string"
-									},
-									"category": {
-										"type": "string",
-										"enum": [
-											"input",
-											"dependency",
-											"capacity",
-											"infrastructure",
-											"internal"
-										]
-									},
-									"retryable": {
-										"type": "boolean"
-									},
-									"message": {
-										"type": "string"
-									}
-								},
-								"required": [
-									"code",
-									"category",
-									"retryable",
-									"message"
-								],
-								"additionalProperties": false
-							},
-							{
-								"type": "null"
-							}
-						]
-					}
-				},
-				"required": [
-					"id",
-					"status",
-					"kind",
-					"pollUrl",
-					"targetId",
-					"requiredOk",
-					"stage",
-					"progress",
-					"error"
-				],
-				"additionalProperties": false
-			},
-			"PublishStub": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"status": {
-						"type": "string",
-						"enum": [
-							"processing",
-							"ready",
-							"failed"
-						]
-					}
-				},
-				"required": [
-					"id",
-					"status"
-				],
-				"additionalProperties": false
-			},
-			"CreateClothesPublishResponse": {
-				"type": "object",
-				"properties": {
-					"job": {
+				"oneOf": [
+					{
 						"type": "object",
 						"properties": {
 							"id": {
@@ -14790,20 +14651,7 @@
 									"failed"
 								]
 							},
-							"kind": {
-								"type": "string",
-								"enum": [
-									"clothes",
-									"hair",
-									"costume",
-									"location",
-									"backdrop"
-								]
-							},
 							"pollUrl": {
-								"type": "string"
-							},
-							"targetId": {
 								"type": "string"
 							},
 							"requiredOk": {
@@ -14876,26 +14724,920 @@
 										"type": "null"
 									}
 								]
+							},
+							"kind": {
+								"type": "string",
+								"const": "clothes"
+							},
+							"targetId": {
+								"type": "string",
+								"pattern": "^clothes_[0-9a-z]{8}$"
 							}
 						},
 						"required": [
 							"id",
 							"status",
-							"kind",
 							"pollUrl",
-							"targetId",
 							"requiredOk",
 							"stage",
 							"progress",
-							"error"
+							"error",
+							"kind",
+							"targetId"
 						],
 						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"queued",
+									"running",
+									"waiting_processor",
+									"succeeded",
+									"failed"
+								]
+							},
+							"pollUrl": {
+								"type": "string"
+							},
+							"requiredOk": {
+								"type": "boolean"
+							},
+							"stage": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"progress": {
+								"type": "object",
+								"properties": {
+									"requiredVerified": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									},
+									"requiredTotal": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									}
+								},
+								"required": [
+									"requiredVerified",
+									"requiredTotal"
+								],
+								"additionalProperties": false
+							},
+							"error": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"code": {
+												"type": "string"
+											},
+											"category": {
+												"type": "string",
+												"enum": [
+													"input",
+													"dependency",
+													"capacity",
+													"infrastructure",
+													"internal"
+												]
+											},
+											"retryable": {
+												"type": "boolean"
+											},
+											"message": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"code",
+											"category",
+											"retryable",
+											"message"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"kind": {
+								"type": "string",
+								"const": "hair"
+							},
+							"targetId": {
+								"type": "string",
+								"pattern": "^hair_[0-9a-z]{8}$"
+							}
+						},
+						"required": [
+							"id",
+							"status",
+							"pollUrl",
+							"requiredOk",
+							"stage",
+							"progress",
+							"error",
+							"kind",
+							"targetId"
+						],
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"queued",
+									"running",
+									"waiting_processor",
+									"succeeded",
+									"failed"
+								]
+							},
+							"pollUrl": {
+								"type": "string"
+							},
+							"requiredOk": {
+								"type": "boolean"
+							},
+							"stage": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"progress": {
+								"type": "object",
+								"properties": {
+									"requiredVerified": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									},
+									"requiredTotal": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									}
+								},
+								"required": [
+									"requiredVerified",
+									"requiredTotal"
+								],
+								"additionalProperties": false
+							},
+							"error": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"code": {
+												"type": "string"
+											},
+											"category": {
+												"type": "string",
+												"enum": [
+													"input",
+													"dependency",
+													"capacity",
+													"infrastructure",
+													"internal"
+												]
+											},
+											"retryable": {
+												"type": "boolean"
+											},
+											"message": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"code",
+											"category",
+											"retryable",
+											"message"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"kind": {
+								"type": "string",
+								"const": "costume"
+							},
+							"targetId": {
+								"type": "string",
+								"pattern": "^costume_[0-9a-z]{8}$"
+							}
+						},
+						"required": [
+							"id",
+							"status",
+							"pollUrl",
+							"requiredOk",
+							"stage",
+							"progress",
+							"error",
+							"kind",
+							"targetId"
+						],
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"queued",
+									"running",
+									"waiting_processor",
+									"succeeded",
+									"failed"
+								]
+							},
+							"pollUrl": {
+								"type": "string"
+							},
+							"requiredOk": {
+								"type": "boolean"
+							},
+							"stage": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"progress": {
+								"type": "object",
+								"properties": {
+									"requiredVerified": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									},
+									"requiredTotal": {
+										"type": "integer",
+										"minimum": -9007199254740991,
+										"maximum": 9007199254740991
+									}
+								},
+								"required": [
+									"requiredVerified",
+									"requiredTotal"
+								],
+								"additionalProperties": false
+							},
+							"error": {
+								"anyOf": [
+									{
+										"type": "object",
+										"properties": {
+											"code": {
+												"type": "string"
+											},
+											"category": {
+												"type": "string",
+												"enum": [
+													"input",
+													"dependency",
+													"capacity",
+													"infrastructure",
+													"internal"
+												]
+											},
+											"retryable": {
+												"type": "boolean"
+											},
+											"message": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"code",
+											"category",
+											"retryable",
+											"message"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "null"
+									}
+								]
+							},
+							"kind": {
+								"type": "string",
+								"const": "backdrop"
+							},
+							"targetId": {
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
+							}
+						},
+						"required": [
+							"id",
+							"status",
+							"pollUrl",
+							"requiredOk",
+							"stage",
+							"progress",
+							"error",
+							"kind",
+							"targetId"
+						],
+						"additionalProperties": false
+					}
+				]
+			},
+			"PublishStub": {
+				"anyOf": [
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"pattern": "^clothes_[0-9a-z]{8}$"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"processing",
+									"ready",
+									"failed"
+								]
+							}
+						},
+						"required": [
+							"id",
+							"status"
+						],
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"pattern": "^hair_[0-9a-z]{8}$"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"processing",
+									"ready",
+									"failed"
+								]
+							}
+						},
+						"required": [
+							"id",
+							"status"
+						],
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"pattern": "^costume_[0-9a-z]{8}$"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"processing",
+									"ready",
+									"failed"
+								]
+							}
+						},
+						"required": [
+							"id",
+							"status"
+						],
+						"additionalProperties": false
+					},
+					{
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
+							},
+							"status": {
+								"type": "string",
+								"enum": [
+									"processing",
+									"ready",
+									"failed"
+								]
+							}
+						},
+						"required": [
+							"id",
+							"status"
+						],
+						"additionalProperties": false
+					}
+				]
+			},
+			"CreateClothesPublishResponse": {
+				"type": "object",
+				"properties": {
+					"job": {
+						"oneOf": [
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "clothes"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "hair"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "costume"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "backdrop"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							}
+						]
 					},
 					"clothes": {
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^clothes_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -14923,127 +15665,463 @@
 				"type": "object",
 				"properties": {
 					"job": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "string"
-							},
-							"status": {
-								"type": "string",
-								"enum": [
-									"queued",
-									"running",
-									"waiting_processor",
-									"succeeded",
-									"failed"
-								]
-							},
-							"kind": {
-								"type": "string",
-								"enum": [
-									"clothes",
-									"hair",
-									"costume",
-									"location",
-									"backdrop"
-								]
-							},
-							"pollUrl": {
-								"type": "string"
-							},
-							"targetId": {
-								"type": "string"
-							},
-							"requiredOk": {
-								"type": "boolean"
-							},
-							"stage": {
-								"anyOf": [
-									{
-										"type": "string"
-									},
-									{
-										"type": "null"
-									}
-								]
-							},
-							"progress": {
+						"oneOf": [
+							{
 								"type": "object",
 								"properties": {
-									"requiredVerified": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
+									"id": {
+										"type": "string"
 									},
-									"requiredTotal": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
-									}
-								},
-								"required": [
-									"requiredVerified",
-									"requiredTotal"
-								],
-								"additionalProperties": false
-							},
-							"error": {
-								"anyOf": [
-									{
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
 										"type": "object",
 										"properties": {
-											"code": {
-												"type": "string"
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											},
-											"category": {
-												"type": "string",
-												"enum": [
-													"input",
-													"dependency",
-													"capacity",
-													"infrastructure",
-													"internal"
-												]
-											},
-											"retryable": {
-												"type": "boolean"
-											},
-											"message": {
-												"type": "string"
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											}
 										},
 										"required": [
-											"code",
-											"category",
-											"retryable",
-											"message"
+											"requiredVerified",
+											"requiredTotal"
 										],
 										"additionalProperties": false
 									},
-									{
-										"type": "null"
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "clothes"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
 									}
-								]
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "hair"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "costume"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "backdrop"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
 							}
-						},
-						"required": [
-							"id",
-							"status",
-							"kind",
-							"pollUrl",
-							"targetId",
-							"requiredOk",
-							"stage",
-							"progress",
-							"error"
-						],
-						"additionalProperties": false
+						]
 					},
 					"hair": {
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^hair_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -15071,127 +16149,463 @@
 				"type": "object",
 				"properties": {
 					"job": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "string"
-							},
-							"status": {
-								"type": "string",
-								"enum": [
-									"queued",
-									"running",
-									"waiting_processor",
-									"succeeded",
-									"failed"
-								]
-							},
-							"kind": {
-								"type": "string",
-								"enum": [
-									"clothes",
-									"hair",
-									"costume",
-									"location",
-									"backdrop"
-								]
-							},
-							"pollUrl": {
-								"type": "string"
-							},
-							"targetId": {
-								"type": "string"
-							},
-							"requiredOk": {
-								"type": "boolean"
-							},
-							"stage": {
-								"anyOf": [
-									{
-										"type": "string"
-									},
-									{
-										"type": "null"
-									}
-								]
-							},
-							"progress": {
+						"oneOf": [
+							{
 								"type": "object",
 								"properties": {
-									"requiredVerified": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
+									"id": {
+										"type": "string"
 									},
-									"requiredTotal": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
-									}
-								},
-								"required": [
-									"requiredVerified",
-									"requiredTotal"
-								],
-								"additionalProperties": false
-							},
-							"error": {
-								"anyOf": [
-									{
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
 										"type": "object",
 										"properties": {
-											"code": {
-												"type": "string"
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											},
-											"category": {
-												"type": "string",
-												"enum": [
-													"input",
-													"dependency",
-													"capacity",
-													"infrastructure",
-													"internal"
-												]
-											},
-											"retryable": {
-												"type": "boolean"
-											},
-											"message": {
-												"type": "string"
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											}
 										},
 										"required": [
-											"code",
-											"category",
-											"retryable",
-											"message"
+											"requiredVerified",
+											"requiredTotal"
 										],
 										"additionalProperties": false
 									},
-									{
-										"type": "null"
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "clothes"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
 									}
-								]
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "hair"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "costume"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "backdrop"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
 							}
-						},
-						"required": [
-							"id",
-							"status",
-							"kind",
-							"pollUrl",
-							"targetId",
-							"requiredOk",
-							"stage",
-							"progress",
-							"error"
-						],
-						"additionalProperties": false
+						]
 					},
 					"costume": {
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^costume_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -15219,127 +16633,463 @@
 				"type": "object",
 				"properties": {
 					"job": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "string"
-							},
-							"status": {
-								"type": "string",
-								"enum": [
-									"queued",
-									"running",
-									"waiting_processor",
-									"succeeded",
-									"failed"
-								]
-							},
-							"kind": {
-								"type": "string",
-								"enum": [
-									"clothes",
-									"hair",
-									"costume",
-									"location",
-									"backdrop"
-								]
-							},
-							"pollUrl": {
-								"type": "string"
-							},
-							"targetId": {
-								"type": "string"
-							},
-							"requiredOk": {
-								"type": "boolean"
-							},
-							"stage": {
-								"anyOf": [
-									{
-										"type": "string"
-									},
-									{
-										"type": "null"
-									}
-								]
-							},
-							"progress": {
+						"oneOf": [
+							{
 								"type": "object",
 								"properties": {
-									"requiredVerified": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
+									"id": {
+										"type": "string"
 									},
-									"requiredTotal": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
-									}
-								},
-								"required": [
-									"requiredVerified",
-									"requiredTotal"
-								],
-								"additionalProperties": false
-							},
-							"error": {
-								"anyOf": [
-									{
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
 										"type": "object",
 										"properties": {
-											"code": {
-												"type": "string"
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											},
-											"category": {
-												"type": "string",
-												"enum": [
-													"input",
-													"dependency",
-													"capacity",
-													"infrastructure",
-													"internal"
-												]
-											},
-											"retryable": {
-												"type": "boolean"
-											},
-											"message": {
-												"type": "string"
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											}
 										},
 										"required": [
-											"code",
-											"category",
-											"retryable",
-											"message"
+											"requiredVerified",
+											"requiredTotal"
 										],
 										"additionalProperties": false
 									},
-									{
-										"type": "null"
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "clothes"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
 									}
-								]
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "hair"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "costume"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "backdrop"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
 							}
-						},
-						"required": [
-							"id",
-							"status",
-							"kind",
-							"pollUrl",
-							"targetId",
-							"requiredOk",
-							"stage",
-							"progress",
-							"error"
-						],
-						"additionalProperties": false
+						]
 					},
 					"location": {
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -15367,127 +17117,463 @@
 				"type": "object",
 				"properties": {
 					"job": {
-						"type": "object",
-						"properties": {
-							"id": {
-								"type": "string"
-							},
-							"status": {
-								"type": "string",
-								"enum": [
-									"queued",
-									"running",
-									"waiting_processor",
-									"succeeded",
-									"failed"
-								]
-							},
-							"kind": {
-								"type": "string",
-								"enum": [
-									"clothes",
-									"hair",
-									"costume",
-									"location",
-									"backdrop"
-								]
-							},
-							"pollUrl": {
-								"type": "string"
-							},
-							"targetId": {
-								"type": "string"
-							},
-							"requiredOk": {
-								"type": "boolean"
-							},
-							"stage": {
-								"anyOf": [
-									{
-										"type": "string"
-									},
-									{
-										"type": "null"
-									}
-								]
-							},
-							"progress": {
+						"oneOf": [
+							{
 								"type": "object",
 								"properties": {
-									"requiredVerified": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
+									"id": {
+										"type": "string"
 									},
-									"requiredTotal": {
-										"type": "integer",
-										"minimum": -9007199254740991,
-										"maximum": 9007199254740991
-									}
-								},
-								"required": [
-									"requiredVerified",
-									"requiredTotal"
-								],
-								"additionalProperties": false
-							},
-							"error": {
-								"anyOf": [
-									{
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
 										"type": "object",
 										"properties": {
-											"code": {
-												"type": "string"
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											},
-											"category": {
-												"type": "string",
-												"enum": [
-													"input",
-													"dependency",
-													"capacity",
-													"infrastructure",
-													"internal"
-												]
-											},
-											"retryable": {
-												"type": "boolean"
-											},
-											"message": {
-												"type": "string"
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
 											}
 										},
 										"required": [
-											"code",
-											"category",
-											"retryable",
-											"message"
+											"requiredVerified",
+											"requiredTotal"
 										],
 										"additionalProperties": false
 									},
-									{
-										"type": "null"
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "clothes"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
 									}
-								]
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "hair"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "costume"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
+							},
+							{
+								"type": "object",
+								"properties": {
+									"id": {
+										"type": "string"
+									},
+									"status": {
+										"type": "string",
+										"enum": [
+											"queued",
+											"running",
+											"waiting_processor",
+											"succeeded",
+											"failed"
+										]
+									},
+									"pollUrl": {
+										"type": "string"
+									},
+									"requiredOk": {
+										"type": "boolean"
+									},
+									"stage": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"progress": {
+										"type": "object",
+										"properties": {
+											"requiredVerified": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											},
+											"requiredTotal": {
+												"type": "integer",
+												"minimum": -9007199254740991,
+												"maximum": 9007199254740991
+											}
+										},
+										"required": [
+											"requiredVerified",
+											"requiredTotal"
+										],
+										"additionalProperties": false
+									},
+									"error": {
+										"anyOf": [
+											{
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"category": {
+														"type": "string",
+														"enum": [
+															"input",
+															"dependency",
+															"capacity",
+															"infrastructure",
+															"internal"
+														]
+													},
+													"retryable": {
+														"type": "boolean"
+													},
+													"message": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"code",
+													"category",
+													"retryable",
+													"message"
+												],
+												"additionalProperties": false
+											},
+											{
+												"type": "null"
+											}
+										]
+									},
+									"kind": {
+										"type": "string",
+										"const": "backdrop"
+									},
+									"targetId": {
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
+									}
+								},
+								"required": [
+									"id",
+									"status",
+									"pollUrl",
+									"requiredOk",
+									"stage",
+									"progress",
+									"error",
+									"kind",
+									"targetId"
+								],
+								"additionalProperties": false
 							}
-						},
-						"required": [
-							"id",
-							"status",
-							"kind",
-							"pollUrl",
-							"targetId",
-							"requiredOk",
-							"stage",
-							"progress",
-							"error"
-						],
-						"additionalProperties": false
+						]
 					},
 					"backdrop": {
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "string",
+								"pattern": "^bdrop_[0-9a-z]{8}$"
 							},
 							"status": {
 								"type": "string",
@@ -15517,127 +17603,463 @@
 						"type": "object",
 						"properties": {
 							"job": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "string"
-									},
-									"status": {
-										"type": "string",
-										"enum": [
-											"queued",
-											"running",
-											"waiting_processor",
-											"succeeded",
-											"failed"
-										]
-									},
-									"kind": {
-										"type": "string",
-										"enum": [
-											"clothes",
-											"hair",
-											"costume",
-											"location",
-											"backdrop"
-										]
-									},
-									"pollUrl": {
-										"type": "string"
-									},
-									"targetId": {
-										"type": "string"
-									},
-									"requiredOk": {
-										"type": "boolean"
-									},
-									"stage": {
-										"anyOf": [
-											{
-												"type": "string"
-											},
-											{
-												"type": "null"
-											}
-										]
-									},
-									"progress": {
+								"oneOf": [
+									{
 										"type": "object",
 										"properties": {
-											"requiredVerified": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
+											"id": {
+												"type": "string"
 											},
-											"requiredTotal": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
-											}
-										},
-										"required": [
-											"requiredVerified",
-											"requiredTotal"
-										],
-										"additionalProperties": false
-									},
-									"error": {
-										"anyOf": [
-											{
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
 												"type": "object",
 												"properties": {
-													"code": {
-														"type": "string"
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													},
-													"category": {
-														"type": "string",
-														"enum": [
-															"input",
-															"dependency",
-															"capacity",
-															"infrastructure",
-															"internal"
-														]
-													},
-													"retryable": {
-														"type": "boolean"
-													},
-													"message": {
-														"type": "string"
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													}
 												},
 												"required": [
-													"code",
-													"category",
-													"retryable",
-													"message"
+													"requiredVerified",
+													"requiredTotal"
 												],
 												"additionalProperties": false
 											},
-											{
-												"type": "null"
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "clothes"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^clothes_[0-9a-z]{8}$"
 											}
-										]
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "hair"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^hair_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "costume"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^costume_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "backdrop"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^bdrop_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
 									}
-								},
-								"required": [
-									"id",
-									"status",
-									"kind",
-									"pollUrl",
-									"targetId",
-									"requiredOk",
-									"stage",
-									"progress",
-									"error"
-								],
-								"additionalProperties": false
+								]
 							},
 							"clothes": {
 								"type": "object",
 								"properties": {
 									"id": {
-										"type": "string"
+										"type": "string",
+										"pattern": "^clothes_[0-9a-z]{8}$"
 									},
 									"status": {
 										"type": "string",
@@ -15665,127 +18087,463 @@
 						"type": "object",
 						"properties": {
 							"job": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "string"
-									},
-									"status": {
-										"type": "string",
-										"enum": [
-											"queued",
-											"running",
-											"waiting_processor",
-											"succeeded",
-											"failed"
-										]
-									},
-									"kind": {
-										"type": "string",
-										"enum": [
-											"clothes",
-											"hair",
-											"costume",
-											"location",
-											"backdrop"
-										]
-									},
-									"pollUrl": {
-										"type": "string"
-									},
-									"targetId": {
-										"type": "string"
-									},
-									"requiredOk": {
-										"type": "boolean"
-									},
-									"stage": {
-										"anyOf": [
-											{
-												"type": "string"
-											},
-											{
-												"type": "null"
-											}
-										]
-									},
-									"progress": {
+								"oneOf": [
+									{
 										"type": "object",
 										"properties": {
-											"requiredVerified": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
+											"id": {
+												"type": "string"
 											},
-											"requiredTotal": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
-											}
-										},
-										"required": [
-											"requiredVerified",
-											"requiredTotal"
-										],
-										"additionalProperties": false
-									},
-									"error": {
-										"anyOf": [
-											{
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
 												"type": "object",
 												"properties": {
-													"code": {
-														"type": "string"
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													},
-													"category": {
-														"type": "string",
-														"enum": [
-															"input",
-															"dependency",
-															"capacity",
-															"infrastructure",
-															"internal"
-														]
-													},
-													"retryable": {
-														"type": "boolean"
-													},
-													"message": {
-														"type": "string"
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													}
 												},
 												"required": [
-													"code",
-													"category",
-													"retryable",
-													"message"
+													"requiredVerified",
+													"requiredTotal"
 												],
 												"additionalProperties": false
 											},
-											{
-												"type": "null"
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "clothes"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^clothes_[0-9a-z]{8}$"
 											}
-										]
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "hair"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^hair_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "costume"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^costume_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "backdrop"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^bdrop_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
 									}
-								},
-								"required": [
-									"id",
-									"status",
-									"kind",
-									"pollUrl",
-									"targetId",
-									"requiredOk",
-									"stage",
-									"progress",
-									"error"
-								],
-								"additionalProperties": false
+								]
 							},
 							"hair": {
 								"type": "object",
 								"properties": {
 									"id": {
-										"type": "string"
+										"type": "string",
+										"pattern": "^hair_[0-9a-z]{8}$"
 									},
 									"status": {
 										"type": "string",
@@ -15813,127 +18571,463 @@
 						"type": "object",
 						"properties": {
 							"job": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "string"
-									},
-									"status": {
-										"type": "string",
-										"enum": [
-											"queued",
-											"running",
-											"waiting_processor",
-											"succeeded",
-											"failed"
-										]
-									},
-									"kind": {
-										"type": "string",
-										"enum": [
-											"clothes",
-											"hair",
-											"costume",
-											"location",
-											"backdrop"
-										]
-									},
-									"pollUrl": {
-										"type": "string"
-									},
-									"targetId": {
-										"type": "string"
-									},
-									"requiredOk": {
-										"type": "boolean"
-									},
-									"stage": {
-										"anyOf": [
-											{
-												"type": "string"
-											},
-											{
-												"type": "null"
-											}
-										]
-									},
-									"progress": {
+								"oneOf": [
+									{
 										"type": "object",
 										"properties": {
-											"requiredVerified": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
+											"id": {
+												"type": "string"
 											},
-											"requiredTotal": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
-											}
-										},
-										"required": [
-											"requiredVerified",
-											"requiredTotal"
-										],
-										"additionalProperties": false
-									},
-									"error": {
-										"anyOf": [
-											{
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
 												"type": "object",
 												"properties": {
-													"code": {
-														"type": "string"
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													},
-													"category": {
-														"type": "string",
-														"enum": [
-															"input",
-															"dependency",
-															"capacity",
-															"infrastructure",
-															"internal"
-														]
-													},
-													"retryable": {
-														"type": "boolean"
-													},
-													"message": {
-														"type": "string"
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													}
 												},
 												"required": [
-													"code",
-													"category",
-													"retryable",
-													"message"
+													"requiredVerified",
+													"requiredTotal"
 												],
 												"additionalProperties": false
 											},
-											{
-												"type": "null"
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "clothes"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^clothes_[0-9a-z]{8}$"
 											}
-										]
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "hair"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^hair_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "costume"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^costume_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "backdrop"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^bdrop_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
 									}
-								},
-								"required": [
-									"id",
-									"status",
-									"kind",
-									"pollUrl",
-									"targetId",
-									"requiredOk",
-									"stage",
-									"progress",
-									"error"
-								],
-								"additionalProperties": false
+								]
 							},
 							"costume": {
 								"type": "object",
 								"properties": {
 									"id": {
-										"type": "string"
+										"type": "string",
+										"pattern": "^costume_[0-9a-z]{8}$"
 									},
 									"status": {
 										"type": "string",
@@ -15961,127 +19055,463 @@
 						"type": "object",
 						"properties": {
 							"job": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "string"
-									},
-									"status": {
-										"type": "string",
-										"enum": [
-											"queued",
-											"running",
-											"waiting_processor",
-											"succeeded",
-											"failed"
-										]
-									},
-									"kind": {
-										"type": "string",
-										"enum": [
-											"clothes",
-											"hair",
-											"costume",
-											"location",
-											"backdrop"
-										]
-									},
-									"pollUrl": {
-										"type": "string"
-									},
-									"targetId": {
-										"type": "string"
-									},
-									"requiredOk": {
-										"type": "boolean"
-									},
-									"stage": {
-										"anyOf": [
-											{
-												"type": "string"
-											},
-											{
-												"type": "null"
-											}
-										]
-									},
-									"progress": {
+								"oneOf": [
+									{
 										"type": "object",
 										"properties": {
-											"requiredVerified": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
+											"id": {
+												"type": "string"
 											},
-											"requiredTotal": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
-											}
-										},
-										"required": [
-											"requiredVerified",
-											"requiredTotal"
-										],
-										"additionalProperties": false
-									},
-									"error": {
-										"anyOf": [
-											{
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
 												"type": "object",
 												"properties": {
-													"code": {
-														"type": "string"
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													},
-													"category": {
-														"type": "string",
-														"enum": [
-															"input",
-															"dependency",
-															"capacity",
-															"infrastructure",
-															"internal"
-														]
-													},
-													"retryable": {
-														"type": "boolean"
-													},
-													"message": {
-														"type": "string"
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													}
 												},
 												"required": [
-													"code",
-													"category",
-													"retryable",
-													"message"
+													"requiredVerified",
+													"requiredTotal"
 												],
 												"additionalProperties": false
 											},
-											{
-												"type": "null"
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "clothes"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^clothes_[0-9a-z]{8}$"
 											}
-										]
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "hair"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^hair_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "costume"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^costume_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "backdrop"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^bdrop_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
 									}
-								},
-								"required": [
-									"id",
-									"status",
-									"kind",
-									"pollUrl",
-									"targetId",
-									"requiredOk",
-									"stage",
-									"progress",
-									"error"
-								],
-								"additionalProperties": false
+								]
 							},
 							"location": {
 								"type": "object",
 								"properties": {
 									"id": {
-										"type": "string"
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
 									},
 									"status": {
 										"type": "string",
@@ -16109,127 +19539,463 @@
 						"type": "object",
 						"properties": {
 							"job": {
-								"type": "object",
-								"properties": {
-									"id": {
-										"type": "string"
-									},
-									"status": {
-										"type": "string",
-										"enum": [
-											"queued",
-											"running",
-											"waiting_processor",
-											"succeeded",
-											"failed"
-										]
-									},
-									"kind": {
-										"type": "string",
-										"enum": [
-											"clothes",
-											"hair",
-											"costume",
-											"location",
-											"backdrop"
-										]
-									},
-									"pollUrl": {
-										"type": "string"
-									},
-									"targetId": {
-										"type": "string"
-									},
-									"requiredOk": {
-										"type": "boolean"
-									},
-									"stage": {
-										"anyOf": [
-											{
-												"type": "string"
-											},
-											{
-												"type": "null"
-											}
-										]
-									},
-									"progress": {
+								"oneOf": [
+									{
 										"type": "object",
 										"properties": {
-											"requiredVerified": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
+											"id": {
+												"type": "string"
 											},
-											"requiredTotal": {
-												"type": "integer",
-												"minimum": -9007199254740991,
-												"maximum": 9007199254740991
-											}
-										},
-										"required": [
-											"requiredVerified",
-											"requiredTotal"
-										],
-										"additionalProperties": false
-									},
-									"error": {
-										"anyOf": [
-											{
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
 												"type": "object",
 												"properties": {
-													"code": {
-														"type": "string"
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													},
-													"category": {
-														"type": "string",
-														"enum": [
-															"input",
-															"dependency",
-															"capacity",
-															"infrastructure",
-															"internal"
-														]
-													},
-													"retryable": {
-														"type": "boolean"
-													},
-													"message": {
-														"type": "string"
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
 													}
 												},
 												"required": [
-													"code",
-													"category",
-													"retryable",
-													"message"
+													"requiredVerified",
+													"requiredTotal"
 												],
 												"additionalProperties": false
 											},
-											{
-												"type": "null"
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "clothes"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^clothes_[0-9a-z]{8}$"
 											}
-										]
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "hair"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^hair_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "costume"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^costume_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
+									},
+									{
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"status": {
+												"type": "string",
+												"enum": [
+													"queued",
+													"running",
+													"waiting_processor",
+													"succeeded",
+													"failed"
+												]
+											},
+											"pollUrl": {
+												"type": "string"
+											},
+											"requiredOk": {
+												"type": "boolean"
+											},
+											"stage": {
+												"anyOf": [
+													{
+														"type": "string"
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"progress": {
+												"type": "object",
+												"properties": {
+													"requiredVerified": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													},
+													"requiredTotal": {
+														"type": "integer",
+														"minimum": -9007199254740991,
+														"maximum": 9007199254740991
+													}
+												},
+												"required": [
+													"requiredVerified",
+													"requiredTotal"
+												],
+												"additionalProperties": false
+											},
+											"error": {
+												"anyOf": [
+													{
+														"type": "object",
+														"properties": {
+															"code": {
+																"type": "string"
+															},
+															"category": {
+																"type": "string",
+																"enum": [
+																	"input",
+																	"dependency",
+																	"capacity",
+																	"infrastructure",
+																	"internal"
+																]
+															},
+															"retryable": {
+																"type": "boolean"
+															},
+															"message": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"code",
+															"category",
+															"retryable",
+															"message"
+														],
+														"additionalProperties": false
+													},
+													{
+														"type": "null"
+													}
+												]
+											},
+											"kind": {
+												"type": "string",
+												"const": "backdrop"
+											},
+											"targetId": {
+												"type": "string",
+												"pattern": "^bdrop_[0-9a-z]{8}$"
+											}
+										},
+										"required": [
+											"id",
+											"status",
+											"pollUrl",
+											"requiredOk",
+											"stage",
+											"progress",
+											"error",
+											"kind",
+											"targetId"
+										],
+										"additionalProperties": false
 									}
-								},
-								"required": [
-									"id",
-									"status",
-									"kind",
-									"pollUrl",
-									"targetId",
-									"requiredOk",
-									"stage",
-									"progress",
-									"error"
-								],
-								"additionalProperties": false
+								]
 							},
 							"backdrop": {
 								"type": "object",
 								"properties": {
 									"id": {
-										"type": "string"
+										"type": "string",
+										"pattern": "^bdrop_[0-9a-z]{8}$"
 									},
 									"status": {
 										"type": "string",
@@ -16274,20 +20040,7 @@
 									"failed"
 								]
 							},
-							"kind": {
-								"type": "string",
-								"enum": [
-									"clothes",
-									"hair",
-									"costume",
-									"location",
-									"backdrop"
-								]
-							},
 							"pollUrl": {
-								"type": "string"
-							},
-							"targetId": {
 								"type": "string"
 							},
 							"requiredOk": {
@@ -16360,18 +20113,31 @@
 										"type": "null"
 									}
 								]
+							},
+							"kind": {
+								"type": "string",
+								"enum": [
+									"clothes",
+									"hair",
+									"costume",
+									"location",
+									"backdrop"
+								]
+							},
+							"targetId": {
+								"type": "string"
 							}
 						},
 						"required": [
 							"id",
 							"status",
-							"kind",
 							"pollUrl",
-							"targetId",
 							"requiredOk",
 							"stage",
 							"progress",
-							"error"
+							"error",
+							"kind",
+							"targetId"
 						],
 						"additionalProperties": false
 					}
@@ -19760,7 +23526,8 @@
 						"const": true
 					},
 					"id": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^(proj|exp|char|set|bdrop|avatar|clothes|hair|costume)_[0-9a-z]{8}$"
 					}
 				},
 				"required": [
@@ -19775,13 +23542,15 @@
 					"draftExperienceIds": {
 						"type": "array",
 						"items": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^exp_[0-9a-z]{8}$"
 						}
 					},
 					"publishedExperienceIds": {
 						"type": "array",
 						"items": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^exp_[0-9a-z]{8}$"
 						}
 					},
 					"historicalRevisionCount": {
@@ -19792,25 +23561,29 @@
 					"activeCharacterIds": {
 						"type": "array",
 						"items": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					},
 					"activePlaceIds": {
 						"type": "array",
 						"items": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					},
 					"archivedCharacterIds": {
 						"type": "array",
 						"items": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^char_[0-9a-z]{8}$"
 						}
 					},
 					"archivedPlaceIds": {
 						"type": "array",
 						"items": {
-							"type": "string"
+							"type": "string",
+							"pattern": "^set_[0-9a-z]{8}$"
 						}
 					},
 					"archivedDependencies": {
@@ -19824,7 +23597,8 @@
 								"resourceIds": {
 									"type": "array",
 									"items": {
-										"type": "string"
+										"type": "string",
+										"minLength": 1
 									}
 								}
 							},
@@ -22492,10 +26266,12 @@
 						"type": "boolean"
 					},
 					"sourceProjectId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^proj_[0-9a-z]{8}$"
 					},
 					"destProjectId": {
-						"type": "string"
+						"type": "string",
+						"pattern": "^proj_[0-9a-z]{8}$"
 					},
 					"moveId": {
 						"anyOf": [

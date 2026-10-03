@@ -1,12 +1,12 @@
 export const authExample = `Authorization: Bearer lfm_live_…`;
 
-	export const listAvatars = `GET https://api.liforma.ai/v1/projects/proj_01ABC/avatars
+	export const listAvatars = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/avatars
 Authorization: Bearer lfm_live_…`;
 
 	export const avatarResponse = `{
   "avatars": [
     {
-      "id": "05a87620",
+      "id": "avatar_a7n3kx2q",
       "displayName": "Sofia",
       "defaultVoiceId": "<project TTS voice id>",
       "defaultSttLang": "en-US",
@@ -16,19 +16,19 @@ Authorization: Bearer lfm_live_…`;
       "species": "human",
       "style": "Liforma 3D",
       "costumes": [
-        { "id": "clothes_WHOLE001", "name": "Examiner", "source": "catalogue", "libraryScope": "liforma" }
+        { "id": "costume_u3q8x5nd", "name": "Examiner", "source": "catalogue", "libraryScope": "liforma" }
       ],
       "clothes": [
-        { "id": "clothes_CATALOGUE", "name": "Blazer", "source": "library", "libraryScope": "project" }
+        { "id": "clothes_c8m4pq7z", "name": "Blazer", "source": "library", "libraryScope": "project" }
       ],
       "hair": [
-        { "id": "hair_CATALOGUE", "name": "Short", "source": "library", "libraryScope": "project" }
+        { "id": "hair_h2d8kw6r", "name": "Short", "source": "library", "libraryScope": "project" }
       ]
     }
   ]
 }`;
 
-	export const createUpload = `POST https://api.liforma.ai/v1/projects/proj_01ABC/uploads
+	export const createUpload = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/uploads
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -62,7 +62,7 @@ x-amz-meta-sha256: <hex SHA-256>
 
 <raw image bytes>`;
 
-	export const completeUpload = `POST https://api.liforma.ai/v1/projects/proj_01ABC/uploads/upload_LOC/complete
+	export const completeUpload = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/uploads/upload_LOC/complete
 Authorization: Bearer lfm_live_…`;
 
 	export const uploadCompleted = `{
@@ -74,7 +74,7 @@ Authorization: Bearer lfm_live_…`;
   }
 }`;
 
-	export const createBackdrop = `POST https://api.liforma.ai/v1/projects/proj_01ABC/backdrops
+	export const createBackdrop = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/backdrops
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -89,20 +89,20 @@ Content-Type: application/json
     "id": "job_BDROP",
     "status": "queued",
     "kind": "backdrop",
-    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_BDROP",
-    "targetId": "bdrop_ABC",
+    "pollUrl": "/v1/projects/proj_a7k3m9qp/jobs/job_BDROP",
+    "targetId": "bdrop_b9x3mn5q",
     "requiredOk": false,
     "stage": null,
     "progress": { "requiredVerified": 0, "requiredTotal": 0 },
     "error": null
   },
-  "backdrop": { "id": "bdrop_ABC", "status": "processing" }
+  "backdrop": { "id": "bdrop_b9x3mn5q", "status": "processing" }
 }`;
 
-	export const pollJob = `GET https://api.liforma.ai/v1/projects/proj_01ABC/jobs/job_BDROP
+	export const pollJob = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/jobs/job_BDROP
 Authorization: Bearer lfm_live_…`;
 
-	export const getBackdrop = `GET https://api.liforma.ai/v1/projects/proj_01ABC/backdrops/bdrop_ABC
+	export const getBackdrop = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/backdrops/bdrop_b9x3mn5q
 Authorization: Bearer lfm_live_…`;
 
 	export const jobSucceeded = `{
@@ -110,8 +110,8 @@ Authorization: Bearer lfm_live_…`;
     "id": "job_BDROP",
     "status": "succeeded",
     "kind": "backdrop",
-    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_BDROP",
-    "targetId": "bdrop_ABC",
+    "pollUrl": "/v1/projects/proj_a7k3m9qp/jobs/job_BDROP",
+    "targetId": "bdrop_b9x3mn5q",
     "requiredOk": true,
     "stage": "webp",
     "progress": { "requiredVerified": 11, "requiredTotal": 11 },
@@ -122,7 +122,7 @@ Authorization: Bearer lfm_live_…`;
 	export const backdropReady = `{
   "backdrop": {
     "kind": "backdrop",
-    "id": "bdrop_ABC",
+    "id": "bdrop_b9x3mn5q",
     "status": "ready",
     "name": "Hotel lobby",
     "depthEncoding": "lf-disparity-v1",
@@ -131,21 +131,21 @@ Authorization: Bearer lfm_live_…`;
   }
 }`;
 
-	export const createSet = `POST https://api.liforma.ai/v1/projects/proj_01ABC/sets
+	export const createSet = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/sets
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
-  "backdropId": "bdrop_ABC",
+  "backdropId": "bdrop_b9x3mn5q",
   "name": "Hotel lobby",
   "externalId": "cms-set-lobby"
 }`;
 
 	export const setCreated = `{
   "set": {
-    "id": "set_ABC",
+    "id": "set_s93jm2q4",
     "name": "Hotel lobby",
-    "backdropId": "bdrop_ABC",
+    "backdropId": "bdrop_b9x3mn5q",
     "style": "Liforma 3D",
     "externalId": "cms-set-lobby",
     "createdAt": "2026-08-25T12:00:20.000Z",
@@ -153,12 +153,12 @@ Content-Type: application/json
   }
 }`;
 
-	export const createClothes = `POST https://api.liforma.ai/v1/projects/proj_01ABC/clothes
+	export const createClothes = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/clothes
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
-  "avatarId": "05a87620",
+  "avatarId": "avatar_a7n3kx2q",
   "name": "Reception uniform",
   "uploadId": "upload_CLOTHES",
   "backgroundMode": "remove",
@@ -170,39 +170,39 @@ Content-Type: application/json
     "id": "job_CLOTHES",
     "status": "queued",
     "kind": "clothes",
-    "pollUrl": "/v1/projects/proj_01ABC/jobs/job_CLOTHES",
-    "targetId": "clothes_ABC",
+    "pollUrl": "/v1/projects/proj_a7k3m9qp/jobs/job_CLOTHES",
+    "targetId": "clothes_c8m4pq7z",
     "requiredOk": false,
     "stage": null,
     "progress": { "requiredVerified": 0, "requiredTotal": 0 },
     "error": null
   },
-  "clothes": { "id": "clothes_ABC", "status": "processing" }
+  "clothes": { "id": "clothes_c8m4pq7z", "status": "processing" }
 }`;
 
-	export const createHair = `POST https://api.liforma.ai/v1/projects/proj_01ABC/hair
+	export const createHair = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/hair
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
-  "avatarId": "05a87620",
+  "avatarId": "avatar_a7n3kx2q",
   "name": "Tied back",
   "uploadId": "upload_HAIR",
   "backgroundMode": "remove",
   "externalId": "cms-hair-tied"
 }`;
 
-	export const createCharacter = `POST https://api.liforma.ai/v1/projects/proj_01ABC/characters
+	export const createCharacter = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/characters
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
-  "avatarId": "05a87620",
+  "avatarId": "avatar_a7n3kx2q",
   "name": "Alex",
   "voice": "<project TTS voice id>",
   "sttLang": "en-US",
-  "clothesId": "clothes_ABC",
-  "hairId": "hair_ABC",
+  "clothesId": "clothes_c8m4pq7z",
+  "hairId": "hair_h2d8kw6r",
   "personality": "Warm hotel receptionist.",
   "generalInstructions": "Keep replies short. Stay in character.",
   "gender": "female",
@@ -213,14 +213,14 @@ Content-Type: application/json
 
 	export const characterCreated = `{
   "character": {
-    "id": "char_ABC",
-    "projectId": "proj_01ABC",
+    "id": "char_c4k29x7p",
+    "projectId": "proj_a7k3m9qp",
     "name": "Alex",
-    "avatarId": "05a87620",
+    "avatarId": "avatar_a7n3kx2q",
     "voice": "<project TTS voice id>",
     "sttLang": "en-US",
-    "clothesId": "clothes_ABC",
-    "hairId": "hair_ABC",
+    "clothesId": "clothes_c8m4pq7z",
+    "hairId": "hair_h2d8kw6r",
     "personality": "Warm hotel receptionist.",
     "generalInstructions": "Keep replies short. Stay in character.",
     "gender": "female",
@@ -233,7 +233,7 @@ Content-Type: application/json
   }
 }`;
 
-	export const createExperience = `POST https://api.liforma.ai/v1/projects/proj_01ABC/experiences
+	export const createExperience = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/experiences
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -245,8 +245,8 @@ Content-Type: application/json
     "curriculum": "CEFR",
     "level": "A1"
   },
-  "characterId": "char_ABC",
-  "setId": "set_ABC",
+  "characterId": "char_c4k29x7p",
+  "setId": "set_s93jm2q4",
   "startingMessage": "Welcome. How can I help you today?",
   "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
   "introduction": "Practice checking into a hotel.",
@@ -266,8 +266,8 @@ Content-Type: application/json
 
 	export const experienceResponse = `{
   "experience": {
-    "id": "exp_01k3q9m5",
-    "projectId": "proj_01ABC",
+    "id": "exp_e14wqb5m",
+    "projectId": "proj_a7k3m9qp",
     "title": "Hotel check-in",
     "slug": "english/CEFR/A1/hotel_check_in",
     "status": "published",
@@ -279,8 +279,8 @@ Content-Type: application/json
       "curriculum": "CEFR",
       "level": "A1"
     },
-    "characterId": "char_ABC",
-    "setId": "set_ABC",
+    "characterId": "char_c4k29x7p",
+    "setId": "set_s93jm2q4",
     "startingMessage": "Welcome. How can I help you today?",
     "systemInstructions": "You are a hotel receptionist. Help the guest check in.",
     "introduction": "Practice checking into a hotel.",
@@ -310,7 +310,7 @@ Content-Type: application/json
   }
 }`;
 
-	export const patchExperience = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01k3q9m5
+	export const patchExperience = `PATCH https://api.liforma.ai/v1/projects/proj_a7k3m9qp/experiences/exp_e14wqb5m
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -332,19 +332,19 @@ Content-Type: application/json
   }
 }`;
 
-	export const publishExperience = `POST https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01k3q9m5/publish
+	export const publishExperience = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/experiences/exp_e14wqb5m/publish
 Authorization: Bearer lfm_live_…`;
 
-	export const getExperience = `GET https://api.liforma.ai/v1/projects/proj_01ABC/experiences/exp_01k3q9m5
+	export const getExperience = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/experiences/exp_e14wqb5m
 Authorization: Bearer lfm_live_…`;
 
-	export const getCharacter = `GET https://api.liforma.ai/v1/projects/proj_01ABC/characters/char_ABC
+	export const getCharacter = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/characters/char_c4k29x7p
 Authorization: Bearer lfm_live_…`;
 
-	export const getSet = `GET https://api.liforma.ai/v1/projects/proj_01ABC/sets/set_ABC
+	export const getSet = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/sets/set_s93jm2q4
 Authorization: Bearer lfm_live_…`;
 
-	export const patchCharacter = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/characters/char_ABC
+	export const patchCharacter = `PATCH https://api.liforma.ai/v1/projects/proj_a7k3m9qp/characters/char_c4k29x7p
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -356,16 +356,16 @@ Content-Type: application/json
   "ethnicity": "european"
 }`;
 
-	export const patchSet = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/sets/set_ABC
+	export const patchSet = `PATCH https://api.liforma.ai/v1/projects/proj_a7k3m9qp/sets/set_s93jm2q4
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
 {
   "name": "Hotel lobby",
-  "backdropId": "bdrop_ABC"
+  "backdropId": "bdrop_b9x3mn5q"
 }`;
 
-	export const patchClothes = `PATCH https://api.liforma.ai/v1/projects/proj_01ABC/clothes/clothes_ABC
+	export const patchClothes = `PATCH https://api.liforma.ai/v1/projects/proj_a7k3m9qp/clothes/clothes_c8m4pq7z
 Authorization: Bearer lfm_live_…
 Content-Type: application/json
 
@@ -373,13 +373,13 @@ Content-Type: application/json
   "name": "Reception uniform"
 }`;
 
-	export const retryJob = `POST https://api.liforma.ai/v1/projects/proj_01ABC/jobs/job_BDROP/retry
+	export const retryJob = `POST https://api.liforma.ai/v1/projects/proj_a7k3m9qp/jobs/job_BDROP/retry
 Authorization: Bearer lfm_live_…`;
 
-	export const catalogByPath = `GET https://api.liforma.ai/v1/projects/proj_01ABC/experiences/english/CEFR/A1/hotel_check_in
+	export const catalogByPath = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/experiences/english/CEFR/A1/hotel_check_in
 Authorization: Bearer lfm_live_…`;
 
-	export const catalogList = `GET https://api.liforma.ai/v1/projects/proj_01ABC/experiences
+	export const catalogList = `GET https://api.liforma.ai/v1/projects/proj_a7k3m9qp/experiences
 Authorization: Bearer lfm_live_…`;
 
 	export const errorExample = `{
