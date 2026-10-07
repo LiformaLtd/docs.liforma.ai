@@ -20,6 +20,32 @@ export default defineConfig({
       title: 'Liforma Docs',
       description: 'Developer documentation for Liforma Avatar Experiences.',
       favicon: '/favicon.svg',
+      head: [
+        {
+          tag: 'script',
+          content: `(function () {
+            var host = location.hostname;
+            var name = '';
+            if (host === 'localhost' || host === '127.0.0.1' || host === '[::1]') name = 'favicon-local.svg';
+            else if (host.indexOf('staging-') === 0) name = 'favicon-staging.svg';
+            if (!name) return;
+            var links = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
+            var href = '/' + name;
+            if (!links.length) {
+              var created = document.createElement('link');
+              created.rel = 'icon';
+              created.type = 'image/svg+xml';
+              created.href = href;
+              document.head.appendChild(created);
+              return;
+            }
+            links[0].setAttribute('href', href);
+            links[0].setAttribute('type', 'image/svg+xml');
+            links[0].removeAttribute('sizes');
+            for (var i = 1; i < links.length; i++) links[i].remove();
+          })();`
+        }
+      ],
       titleDelimiter: '·',
       social: [
         { icon: 'github', label: 'Liforma on GitHub', href: 'https://github.com/LiformaLtd' }

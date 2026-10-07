@@ -19,6 +19,32 @@ export function Demo() {
   <link rel="canonical" href="https://docs.liforma.ai/" />
   <link rel="icon" href="/favicon.svg" />
   <script is:inline>
+    (function () {
+      var host = location.hostname;
+      var name = '';
+      if (host === 'localhost' || host === '127.0.0.1' || host === '[::1]') name = 'favicon-local.svg';
+      else if (host.indexOf('staging-') === 0) name = 'favicon-staging.svg';
+      if (!name) return;
+      var links = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
+      var href = '/' + name;
+      if (links.length && (links[0].getAttribute('href') || '').indexOf('/content-assets/') !== -1) {
+        href = '/content-assets/' + name;
+      }
+      if (!links.length) {
+        var created = document.createElement('link');
+        created.rel = 'icon';
+        created.type = 'image/svg+xml';
+        created.href = href;
+        document.head.appendChild(created);
+        return;
+      }
+      links[0].setAttribute('href', href);
+      links[0].setAttribute('type', 'image/svg+xml');
+      links[0].removeAttribute('sizes');
+      for (var i = 1; i < links.length; i++) links[i].remove();
+    })();
+  </script>
+  <script is:inline>
     (() => {
       const stored = localStorage.getItem('starlight-theme');
       const theme = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
