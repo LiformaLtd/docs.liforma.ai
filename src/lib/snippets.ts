@@ -1372,9 +1372,14 @@ const avatar = avatars[0]!;
 const background = await publisher.uploadImage(readFileSync('./lobby.png'), {
   contentType: 'image/png'
 });
+// Optional: RGBA desk/counter plate (same 16∶9 size as the background).
+const desk = await publisher.uploadImage(readFileSync('./desk.png'), {
+  contentType: 'image/png'
+});
 const backdrop = await publisher.backdrops.create({
   name: 'Hotel lobby',
-  image: background
+  image: background,
+  foreground: { image: desk }
 });
 const set = await publisher.sets.create({
   name: 'Hotel lobby',

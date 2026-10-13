@@ -49,7 +49,10 @@ import { snippets } from '@lib/snippets';
 		wait until the publish job is <code>succeeded</code> with <code>requiredOk</code>.
 	</p>
 	<p>
-		A backdrop is the visual plate. A set is the scene wrapper that points at a ready
+		A backdrop is the visual plate. Pass optional <code>foreground: &#123; image &#125;</code> (RGBA,
+		same 16∶9 pixel size as the background) so the avatar can stand between a desk or counter and
+		the room. <code>backdrop.layers</code> is <code>['background']</code> or
+		<code>['background', 'foreground']</code>. A set is the scene wrapper that points at a ready
 		<code>backdropId</code>. Experiences attach the set. Character fields
 		(<code>sttLang</code>, <code>generalInstructions</code>, <code>personality</code>) stay on the
 		character. Experience copy (<code>systemInstructions</code>, <code>startingMessage</code>,
