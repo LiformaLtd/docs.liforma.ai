@@ -140,3 +140,6 @@ Content-Type: application/json
 		Mark a session ended (API key, scope <code>sessions:create</code>). Sets
 		<code>status: ended</code> and <code>endedAt</code>.
 	</p>
+
+<h3>Audience-funded sessions</h3>
+<p>When credit enforcement is enabled, an API key authorizes the integration but does not identify a Liforma credit payer. Audience funding additionally requires a fresh <code>audienceAuth</code> assertion from the same popup flow as <a href="/api-reference/browser-sessions">browser sessions</a>, with the matching embedding <code>Origin</code> header. A host <code>user.id</code> remains external attribution and cannot select a Liforma account or wallet. Missing or revoked audience authority returns <code>401 AUTH_REQUIRED</code>. Use the browser-session endpoint for continuations.</p>

@@ -149,3 +149,12 @@ Content-Type: application/json
 
 	<h3>Example</h3>
 	<CodeBlock code={snippets.browserSessionsCurl} lang="bash" />
+
+<h2>Audience credits and sign-in</h2>
+<p>Credit enforcement is staged and disabled by default during rollout acceptance. When enabled, audience-funded play requires a signed-in Liforma account. An allowed website does not authorize spending a user's credits.</p>
+<p>The SDK displays <strong>Continue with Liforma</strong> and opens sign-in from the user's click. It validates the popup window, sender origin, cryptographic nonce, client and experience before sending <code>audienceAuth</code> to mint. The assertion expires after two minutes and is redeemed once, atomically with session creation. No reusable account token is returned to the embed. Declining sign-in leaves play gated; it never charges the publisher instead.</p>
+<p>For custom integrations, call <code>requestAudienceAuthorization(experienceId)</code> from a click handler, then pass its result as <code>audienceAuth</code> to <code>mintBrowserSession</code>. Use a stable <code>idempotencyKey</code> when retrying the same mint. On staging or another API environment, explicitly configure <code>window.__LIFORMA_AUTH_BASE_URL</code> to the matching Liforma sign-in origin alongside the API URL.</p>
+<h3>Continuing a session</h3>
+<p>Pass <code>continuationLaunch</code> containing the previous opaque launch and a fresh <code>audienceAuth</code> assertion. The server validates the old launch, embedding origin, experience/revision and account, gates the old session, then mints a new session. Only the canonical live conversation, current node/counters and declared product stats persist. Client checkpoints, arbitrary state, payer/balance data, provider/control payloads and auth credentials are not carried across.</p>
+<p>Explicit Liforma-sponsored experiences return <code>session.signInRequiredAt</code> for anonymous play. The server gates new provider work at that five-minute wall-clock deadline. The SDK offers sign-in and creates a continuation; after sign-in the experience remains sponsored.</p>
+<p><code>401 AUTH_REQUIRED</code> means sign-in or fresh consent is needed. <code>409 BILLING_CONFLICT</code> can mean a stale or incompatible continuation or unfinished provider work; finish/cancel work and retry with a fresh assertion if it expires. Existing idempotency conflict codes remain distinct.</p>

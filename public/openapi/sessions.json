@@ -258,7 +258,7 @@
 						}
 					},
 					"409": {
-						"description": "Idempotency conflict or in-progress. Distinguish by error.code: IDEMPOTENCY_CONFLICT (same key, different body) vs IDEMPOTENCY_IN_PROGRESS (same key, live pending reservation). IDEMPOTENCY_IN_PROGRESS includes Retry-After: 1.",
+						"description": "Continuation or billing conflicts use BILLING_CONFLICT. Idempotency conflict or in-progress: distinguish by error.code: IDEMPOTENCY_CONFLICT (same key, different body) vs IDEMPOTENCY_IN_PROGRESS (same key, live pending reservation). IDEMPOTENCY_IN_PROGRESS includes Retry-After: 1.",
 						"headers": {
 							"Liforma-Request-Id": {
 								"schema": {
@@ -470,6 +470,53 @@
 							}
 						}
 					},
+					"401": {
+						"description": "AUTH_REQUIRED: continue with Liforma to authorize credits; no publisher fallback.",
+						"headers": {
+							"Liforma-Request-Id": {
+								"schema": {
+									"type": "string",
+									"example": "req_…"
+								},
+								"description": "Opaque request id for support / log correlation. Present on success and error."
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"required": [
+										"error"
+									],
+									"properties": {
+										"error": {
+											"type": "object",
+											"required": [
+												"code",
+												"message",
+												"requestId"
+											],
+											"properties": {
+												"code": {
+													"type": "string",
+													"description": "Stable machine-readable code (SCREAMING_SNAKE).",
+													"example": "ORIGIN_NOT_ALLOWED"
+												},
+												"message": {
+													"type": "string"
+												},
+												"requestId": {
+													"type": "string",
+													"example": "req_…"
+												}
+											},
+											"additionalProperties": true
+										}
+									}
+								}
+							}
+						}
+					},
 					"403": {
 						"description": "Structured error",
 						"headers": {
@@ -565,7 +612,7 @@
 						}
 					},
 					"409": {
-						"description": "Idempotency conflict or in-progress. Distinguish by error.code: IDEMPOTENCY_CONFLICT (same key, different body) vs IDEMPOTENCY_IN_PROGRESS (same key, live pending reservation). IDEMPOTENCY_IN_PROGRESS includes Retry-After: 1.",
+						"description": "Continuation or billing conflicts use BILLING_CONFLICT. Idempotency conflict or in-progress: distinguish by error.code: IDEMPOTENCY_CONFLICT (same key, different body) vs IDEMPOTENCY_IN_PROGRESS (same key, live pending reservation). IDEMPOTENCY_IN_PROGRESS includes Retry-After: 1.",
 						"headers": {
 							"Liforma-Request-Id": {
 								"schema": {
@@ -1512,6 +1559,11 @@
 			"Session": {
 				"type": "object",
 				"properties": {
+					"signInRequiredAt": {
+						"type": "string",
+						"format": "date-time",
+						"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+					},
 					"id": {
 						"type": "string",
 						"minLength": 1
@@ -1680,6 +1732,11 @@
 					"session": {
 						"type": "object",
 						"properties": {
+							"signInRequiredAt": {
+								"type": "string",
+								"format": "date-time",
+								"pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+							},
 							"id": {
 								"type": "string",
 								"minLength": 1
@@ -1884,43 +1941,27 @@
 						"minLength": 1
 					},
 					"startedAt": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
+						"type": [
+							"string",
+							"null"
 						]
 					},
 					"endedAt": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
+						"type": [
+							"string",
+							"null"
 						]
 					},
 					"locale": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
+						"type": [
+							"string",
+							"null"
 						]
 					},
 					"mode": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
+						"type": [
+							"string",
+							"null"
 						]
 					},
 					"usage": {
@@ -1956,6 +1997,34 @@
 			"BrowserSessionRequest": {
 				"type": "object",
 				"properties": {
+					"audienceAuth": {
+						"type": "object",
+						"properties": {
+							"nonce": {
+								"type": "string",
+								"pattern": "^[A-Za-z0-9_-]{43}$"
+							},
+							"clientId": {
+								"type": "string",
+								"const": "liforma-browser-v1"
+							},
+							"assertion": {
+								"type": "string",
+								"pattern": "^lfaa_[A-Za-z0-9_-]{43}$"
+							}
+						},
+						"required": [
+							"nonce",
+							"clientId",
+							"assertion"
+						],
+						"additionalProperties": false
+					},
+					"continuationLaunch": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 524288
+					},
 					"experienceId": {
 						"type": "string",
 						"minLength": 1,
@@ -2106,6 +2175,34 @@
 			"AuthenticatedSessionRequest": {
 				"type": "object",
 				"properties": {
+					"audienceAuth": {
+						"type": "object",
+						"properties": {
+							"nonce": {
+								"type": "string",
+								"pattern": "^[A-Za-z0-9_-]{43}$"
+							},
+							"clientId": {
+								"type": "string",
+								"const": "liforma-browser-v1"
+							},
+							"assertion": {
+								"type": "string",
+								"pattern": "^lfaa_[A-Za-z0-9_-]{43}$"
+							}
+						},
+						"required": [
+							"nonce",
+							"clientId",
+							"assertion"
+						],
+						"additionalProperties": false
+					},
+					"continuationLaunch": {
+						"type": "string",
+						"minLength": 1,
+						"maxLength": 524288
+					},
 					"experienceId": {
 						"type": "string",
 						"minLength": 1,

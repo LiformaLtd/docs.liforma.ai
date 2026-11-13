@@ -15,8 +15,7 @@ import { externalLinks } from '@lib/navigation';
 	</p>
 	<p>
 		Allowed origins authorize which websites may start a session from the browser. They exist so
-		third parties cannot embed <em>your</em> experience (which you pay to run) on a site you did not
-		approve.
+		third parties cannot embed <em>your</em> experience on a site you did not approve. The funding mode independently chooses whether the publisher or signed-in audience pays.
 	</p>
 
 	<h2>When to use</h2>
@@ -82,6 +81,5 @@ import { externalLinks } from '@lib/navigation';
 
 	<h2>Billing</h2>
 	<p>
-		Browser-minted sessions are still metered per minute. See
-		<a href={externalLinks.pricing}>pricing</a>.
+Funding mode is independent of distribution. When credit enforcement is enabled, publisher-funded play uses the owning organization's credits; audience-funded play uses the signed-in user's personal credits. The SDK offers a nonce/origin-bound sign-in popup for audience play without relying on third-party iframe cookies. See <a href="/api-reference/browser-sessions">audience credit authorization and continuations</a>.
 	</p>
