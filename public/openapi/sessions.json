@@ -1997,6 +1997,10 @@
 			"BrowserSessionRequest": {
 				"type": "object",
 				"properties": {
+					"anonymousBrowserToken": {
+						"type": "string",
+						"pattern": "^[A-Za-z0-9_-]{43}$"
+					},
 					"audienceAuth": {
 						"type": "object",
 						"properties": {
@@ -2175,6 +2179,10 @@
 			"AuthenticatedSessionRequest": {
 				"type": "object",
 				"properties": {
+					"anonymousBrowserToken": {
+						"type": "string",
+						"pattern": "^[A-Za-z0-9_-]{43}$"
+					},
 					"audienceAuth": {
 						"type": "object",
 						"properties": {
