@@ -518,7 +518,7 @@
 						}
 					},
 					"403": {
-						"description": "Structured error",
+						"description": "Origin or publication denied. Consumer play may return HOSTED_PLAYER_REQUIRED, COMMUNITY_SIGN_IN_REQUIRED, COMMUNITY_AGE_REQUIRED, COMMUNITY_AGE_UNAVAILABLE, PLAY_PARENTAL_CONSENT_REQUIRED, PLAY_AGE_ASSURANCE_REQUIRED, or PLAY_POLICY_UNAVAILABLE.",
 						"headers": {
 							"Liforma-Request-Id": {
 								"schema": {
@@ -1997,6 +1997,14 @@
 			"BrowserSessionRequest": {
 				"type": "object",
 				"properties": {
+					"consumerStart": {
+						"type": "boolean",
+						"const": true
+					},
+					"officialEmbed": {
+						"type": "boolean",
+						"const": true
+					},
 					"anonymousBrowserToken": {
 						"type": "string",
 						"pattern": "^[A-Za-z0-9_-]{43}$"
@@ -2174,11 +2182,19 @@
 						]
 					}
 				},
-				"description": "Browser mint body. experienceId is typically exp_…; validated as a non-empty string (max 128)."
+				"description": "Browser mint body. experienceId is typically exp_…; validated as a non-empty string (max 128). officialEmbed is reserved for Liforma’s copied HTML component."
 			},
 			"AuthenticatedSessionRequest": {
 				"type": "object",
 				"properties": {
+					"consumerStart": {
+						"type": "boolean",
+						"const": true
+					},
+					"officialEmbed": {
+						"type": "boolean",
+						"const": true
+					},
 					"anonymousBrowserToken": {
 						"type": "string",
 						"pattern": "^[A-Za-z0-9_-]{43}$"
